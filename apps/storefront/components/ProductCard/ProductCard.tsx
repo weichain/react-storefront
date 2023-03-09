@@ -1,11 +1,12 @@
-import { PhotographIcon } from "@heroicons/react/outline";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import React from "react";
 
 import { usePaths } from "@/lib/paths";
 import { translate } from "@/lib/translations";
+import { PhotographIcon } from "@heroicons/react/outline";
 import { ProductCardFragment } from "@/saleor/api";
+import styles from "./ProductCard.module.css";
 
 export interface ProductCardProps {
   product: ProductCardFragment;
@@ -42,7 +43,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="bg-main active:bg-brand w-full aspect-1">
             <div className="bg-white w-full h-full relative object-contain ">
               {thumbnailUrl ? (
-                <Image src={thumbnailUrl} width={512} height={512} />
+                <Image src={thumbnailUrl} alt="image" width={512} height={512} />
               ) : (
                 <div className="grid justify-items-center content-center h-full w-full">
                   <PhotographIcon className="h-10 w-10 content-center" />
@@ -50,14 +51,11 @@ export function ProductCard({ product }: ProductCardProps) {
               )}
             </div>
           </div>
-          <p
-            className="block mt-2 text-md font-extrabold text-main truncate"
-            data-testid={`productName${product.name}`}
-          >
+          <p className={styles.description} data-testid={`productName${product.name}`}>
             {translate(product, "name")}
           </p>
           {secondaryDescription && (
-            <p className="block text-md font-normal text-main underline">{secondaryDescription}</p>
+            <p className={styles.secondaryDescription}>{secondaryDescription}</p>
           )}
         </a>
       </Link>

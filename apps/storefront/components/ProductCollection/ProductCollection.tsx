@@ -1,4 +1,3 @@
-import { Text } from "@saleor/ui-kit";
 import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 
@@ -10,6 +9,7 @@ import {
   ProductOrderField,
   useProductCollectionQuery,
 } from "@/saleor/api";
+import { Text } from "@saleor/ui-kit";
 
 import { Pagination } from "../Pagination";
 import { ProductCard } from "../ProductCard";
@@ -80,13 +80,15 @@ export function ProductCollection({
       </Text>
     );
   }
+  const filteredProducts = products.filter((product) => product !== products[products.length - 1]);
+
   return (
-    <div>
+    <div className="w-11/12 m-auto">
       <ul
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9"
         data-testid="productsList"
       >
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </ul>

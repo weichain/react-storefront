@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import React from "react";
+import Image from "next/image";
 
 import { LOCALES } from "@/lib/regions";
+import { HorizontalAlignment } from "@saleor/ui-kit";
 
 import { useRegions } from "../RegionsProvider";
-import { BaseRegionsDropdown, HorizontalAlignment } from "./BaseRegionsDropdown";
-import { BaseRegionsDropdownItem } from "./BaseRegionsDropdownItem";
+import divider from "../../public/Divider.jpg";
 
 interface DropdownOption {
   label: string;
@@ -17,7 +18,7 @@ export interface LocaleDropdownProps {
   horizontalAlignment?: HorizontalAlignment;
 }
 
-export function LocaleDropdown({ horizontalAlignment }: LocaleDropdownProps) {
+export function LocaleDropdown() {
   const router = useRouter();
   const { currentLocale, currentChannel } = useRegions();
 
@@ -25,7 +26,7 @@ export function LocaleDropdown({ horizontalAlignment }: LocaleDropdownProps) {
     label: loc.name,
     chosen: loc.slug === currentLocale,
     localeSlug: loc.slug,
-  }));
+  })).reverse();
 
   const onLocaleChange = (localeSlug: string) => {
     if (localeSlug === currentLocale) {
@@ -44,16 +45,18 @@ export function LocaleDropdown({ horizontalAlignment }: LocaleDropdownProps) {
   };
 
   return (
-    <BaseRegionsDropdown label={currentLocale} horizontalAlignment={horizontalAlignment}>
+    <div className="flex justify-between w-14 relative lg:mr-40 sm: mr-4">
       {localeOptions.map((option) => (
-        <BaseRegionsDropdownItem
+        <p
+          className="cursor-pointer"
           key={option.label}
-          chosen={option.chosen}
-          label={option.label}
           onClick={() => onLocaleChange(option.localeSlug)}
-        />
+        >
+          {option.localeSlug}
+        </p>
       ))}
-    </BaseRegionsDropdown>
+      <Image src={divider} alt="divider" className="absolute right-7" />
+    </div>
   );
 }
 

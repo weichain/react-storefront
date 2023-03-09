@@ -1,13 +1,11 @@
 .navbar {
   @apply bg-white text-main sticky top-0 z-50;
+  background-color: #072137;
 }
 
 .inner {
   @apply container h-18 flex flex-nowrap items-center;
-}
-
-.logo {
-  @apply hover:text-brand;
+  color: #ffffff;
 }
 
 .nav {
@@ -28,6 +26,8 @@
 
 .dropdown-trigger {
   @apply flex items-center text-center text-md font-bold hover:text-brand h-full px-4;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .dropdown-menu {
@@ -41,6 +41,9 @@
 
 .dropdown-main {
   @apply inline-block text-[1.8rem] leading-[2.16rem] font-bold cursor-pointer hover:underline;
+  color: black;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .dropdown-ul {
@@ -56,7 +59,7 @@
 }
 
 .nav-icon-button {
-  @apply relative hover:text-brand w-8 h-8 flex justify-center items-center;
+  @apply relative w-8 h-8 flex justify-center items-center;
 }
 
 .nav-icon-counter {

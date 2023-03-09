@@ -1,0 +1,12 @@
+.description {
+  color: #e0bc75;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 10px auto;
+}
+
+.secondaryDescription {
+  color: #1f1f1f;
+  font-weight: 600;
+  font-size: 20px;
+}

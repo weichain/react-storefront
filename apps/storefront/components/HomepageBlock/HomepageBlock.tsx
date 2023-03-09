@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
-import { useIntl } from "react-intl";
 import { UrlObject } from "url";
 
 import { usePaths } from "@/lib/paths";
@@ -9,7 +9,8 @@ import { HomepageBlockFragment, ProductFilterInput } from "@/saleor/api";
 
 import { ProductCollection } from "../ProductCollection";
 import { RichText } from "../RichText";
-import { messages } from "../translations";
+import viewAllBtn from "../../public/ViewAll.png";
+import styles from "./HomepageBlock.module.css";
 
 export interface HomepageBlockProps {
   menuItem: HomepageBlockFragment;
@@ -17,7 +18,6 @@ export interface HomepageBlockProps {
 
 export function HomepageBlock({ menuItem }: HomepageBlockProps) {
   const paths = usePaths();
-  const t = useIntl();
   const filter: ProductFilterInput = {};
   if (menuItem.page?.id) {
     const content = translate(menuItem.page, "content");
@@ -32,22 +32,23 @@ export function HomepageBlock({ menuItem }: HomepageBlockProps) {
     filter.collections = [menuItem.collection?.id];
     link = paths.collection._slug(menuItem.collection.slug).$url();
   }
+
   return (
     <div className="pb-8" data-testid="category">
-      <h1
-        className="text-3xl font-extrabold tracking-tight text-gray-900 pb-4"
-        data-testid={`categoryName${menuItem.name}`}
-      >
-        {translate(menuItem, "name")}
-      </h1>
-      <ProductCollection filter={filter} allowMore={false} />
-      <div className="flex flex-row-reverse p-4">
+      <div className={styles.viewAll}>
         <Link href={link} passHref legacyBehavior>
           <a href="pass">
-            <p className="text-base">{t.formatMessage(messages.more)}</p>
+            <Image src={viewAllBtn} alt="viewAll" />
           </a>
         </Link>
+        <h1
+          className="text-3xl font-extrabold tracking-tight text-gray-900"
+          data-testid={`categoryName${menuItem.name}`}
+        >
+          {translate(menuItem, "name")}
+        </h1>
       </div>
+      <ProductCollection filter={filter} allowMore={false} />
     </div>
   );
 }

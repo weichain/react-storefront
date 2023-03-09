@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
@@ -7,10 +6,11 @@ import { getLinkPath } from "@/lib/menus";
 import { usePaths } from "@/lib/paths";
 import { useFooterMenuQuery } from "@/saleor/api";
 
-import { Box } from "../Box";
-import { ChannelDropdown } from "../regionDropdowns/ChannelDropdown";
 import { LocaleDropdown } from "../regionDropdowns/LocaleDropdown";
 import { useRegions } from "../RegionsProvider";
+import email from "../../public/Envelope.png";
+import phone from "../../public/phone.png";
+import veranda from "../../public/Veranda.png";
 import styles from "./Footer.module.css";
 
 export type FooterProps = HTMLAttributes<HTMLElement>;
@@ -20,7 +20,7 @@ export type FooterProps = HTMLAttributes<HTMLElement>;
 // @todo remove this when the issue is fixed.
 const fixMenuItemLocalhostUrl = (url: string) => url.replace(/^https?:\/\/localhost:8000\//, "/");
 
-export function Footer({ className, ...rest }: FooterProps) {
+export function Footer() {
   const paths = usePaths();
   const { query, currentChannel, currentLocale } = useRegions();
 
@@ -30,21 +30,50 @@ export function Footer({ className, ...rest }: FooterProps) {
     console.error("Footer component error", error.message);
   }
 
-  const menu = data?.menu?.items || [];
+  let menu;
+  if (data?.menu?.items) {
+    menu =
+      data?.menu.items.filter(
+        (item, index) =>
+          data.menu?.items?.findIndex((currItem) => currItem.name === item.name) === index
+      ) || [];
+  }
 
   return (
-    <footer className={clsx(styles.footer, className)} {...rest}>
-      <Box className={styles["footer-inner"]}>
-        <div className="flex mb-14 sm:mb-10">
-          <Link href={paths.$url()} passHref legacyBehavior>
-            <a href="pass" className="hidden sm:inline-block">
-              <div className="mt-px group block h-16 w-28 relative grayscale">
-                <Image src="/saleor.svg" alt="Saleor logo" layout="fill" />
-              </div>
-            </a>
-          </Link>
-          <div className="grid grid-cols-2 gap-[2rem] w-full sm:w-auto sm:flex sm:flex-wrap sm:justify-end sm:ml-auto">
-            {menu.map((item) => (
+    <footer className={styles.footer}>
+      <div className={styles["footer-inner"]}>
+        <div className="flex mb-0 sm:mb-14 sm:items-start items-baseline">
+          <div>
+            <Link href={paths.$url()} passHref legacyBehavior>
+              <a href="pass" className="hidden sm:inline-block">
+                <div className="mt-px group block h-16 w-28 relative">
+                  <Image src={veranda} alt="Saleor logo" width={150} height={150} />
+                </div>
+              </a>
+            </Link>
+            <div className="flex items-center w-64 m-15px auto my-4 sm: w-80">
+              <Image
+                src={email}
+                alt="email"
+                width={15}
+                height={15}
+                className={styles.contactsImg}
+              />
+              <p className="ml-2.5">EMAIL@VERANDARESORT.COM</p>
+            </div>
+            <div className="flex items-center w-64 m-15px auto my-4 sm: w-80">
+              <Image
+                src={phone}
+                alt="phone"
+                width={15}
+                height={15}
+                className={styles.contactsImg}
+              />
+              <p className="ml-2.5">+66-1234-1234</p>
+            </div>
+          </div>
+          <div className="grid sm:gap-[5rem] gap-[0] w-full sm:w-auto sm:flex sm:flex-wrap sm:justify-start sm:ml-auto sm:mr-24 sm:mt-20">
+            {menu?.map((item) => (
               <div className="sm:ml-14" key={item?.id}>
                 {item?.url ? (
                   <a
@@ -101,16 +130,15 @@ export function Footer({ className, ...rest }: FooterProps) {
             ))}
           </div>
         </div>
-        <div className="flex items-center">
-          <p className="text-sm text-main-3 flex-grow">
-            © Copyright 2018 - {new Date().getFullYear()} Saleor Commerce
+        <div className="flex items-center justify-between">
+          <p className="font-semibold text-sm w-7/12">
+            COPYRIGHT © {new Date().getFullYear()} VERANDA ALL RIGHTS RESERVED.
           </p>
-          <div className="invisible md:visible flex gap-4">
-            <ChannelDropdown horizontalAlignment="right" />
-            <LocaleDropdown horizontalAlignment="right" />
+          <div className="flex gap-4">
+            <LocaleDropdown />
           </div>
         </div>
-      </Box>
+      </div>
     </footer>
   );
 }
