@@ -30,15 +30,6 @@ export function Footer() {
     console.error("Footer component error", error.message);
   }
 
-  let menu;
-  if (data?.menu?.items) {
-    menu =
-      data?.menu.items.filter(
-        (item, index) =>
-          data.menu?.items?.findIndex((currItem) => currItem.name === item.name) === index
-      ) || [];
-  }
-
   return (
     <footer className={styles.footer}>
       <div className={styles["footer-inner"]}>
@@ -73,7 +64,7 @@ export function Footer() {
             </div>
           </div>
           <div className="grid sm:gap-[5rem] gap-[0] w-full sm:w-auto sm:flex sm:flex-wrap sm:justify-start sm:ml-auto sm:mr-24 sm:mt-20">
-            {menu?.map((item) => (
+            {data?.menu?.items?.map((item) => (
               <div className="sm:ml-14" key={item?.id}>
                 {item?.url ? (
                   <a
