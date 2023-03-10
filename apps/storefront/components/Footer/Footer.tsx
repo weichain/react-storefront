@@ -63,7 +63,7 @@ export function Footer() {
               <p className="ml-2.5">+66-1234-1234</p>
             </div>
           </div>
-          <div className="grid sm:gap-[5rem] gap-[0] w-full sm:w-auto sm:flex sm:flex-wrap sm:justify-start sm:ml-auto sm:mr-24 sm:mt-20">
+          <div className="grid sm:gap-[5rem] gap-[0] text-end w-full sm:w-auto sm:flex sm:flex-wrap sm:justify-start sm:ml-auto sm:mr-24 sm:mt-20">
             {data?.menu?.items?.map((item) => (
               <div className="sm:ml-14" key={item?.id}>
                 {item?.url ? (

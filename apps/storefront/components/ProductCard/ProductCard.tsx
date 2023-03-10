@@ -40,7 +40,7 @@ export function ProductCard({ product }: ProductCardProps) {
         legacyBehavior
       >
         <a href="pass">
-          <div className="bg-main active:bg-brand w-full aspect-1">
+          <div className="bg-main active:bg-brand w-full aspect-1 duration-7000 ease-in-out">
             <div className="bg-white w-full h-full relative object-contain ">
               {thumbnailUrl ? (
                 <Image src={thumbnailUrl} alt="image" width={512} height={512} />

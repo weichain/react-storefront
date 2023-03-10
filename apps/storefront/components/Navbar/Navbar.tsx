@@ -17,6 +17,7 @@ import { useRegions } from "@/components/RegionsProvider";
 import { invariant } from "@apollo/client/utilities/globals";
 import { useUser } from "@/lib/useUser";
 import veranda from "../../public/Veranda.png";
+import { LocaleDropdown } from "../regionDropdowns";
 
 export function Navbar() {
   const paths = usePaths();
@@ -83,6 +84,7 @@ export function Navbar() {
             <Menu />
           </div>
           <div className="flex-1 flex justify-end">
+            <LocaleDropdown />
             {!authenticated ? (
               <Link href={paths.account.login.$url()} passHref legacyBehavior>
                 <a href="pass" data-testid="userIcon">

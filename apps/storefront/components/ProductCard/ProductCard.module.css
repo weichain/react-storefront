@@ -3,6 +3,9 @@
   font-weight: 600;
   font-size: 14px;
   margin: 10px auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .secondaryDescription {

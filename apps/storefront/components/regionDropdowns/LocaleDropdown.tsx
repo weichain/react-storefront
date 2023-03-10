@@ -45,7 +45,7 @@ export function LocaleDropdown() {
   };
 
   return (
-    <div className="flex justify-between w-14 relative lg:mr-40 sm: mr-4">
+    <div className="flex justify-between items-center w-14 relative sm: mr-4">
       {localeOptions.map((option) => (
         <p
           className="cursor-pointer"
