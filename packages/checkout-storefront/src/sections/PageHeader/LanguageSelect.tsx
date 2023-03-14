@@ -24,7 +24,7 @@ export const LanguageSelect: React.FC = ({}) => {
     <div className="language-select-container">
       <IconButton
         icon={<img src={getSvgSrc(LanguageIcon)} alt="" />}
-        label={formatMessage(languagesMessages[locale])}
+        label={formatMessage(languagesMessages["en-US"])}
         className="pointer-events-none"
       />
       <Select
@@ -34,7 +34,7 @@ export const LanguageSelect: React.FC = ({}) => {
           handleLanguageChange(event.target.value as Locale)
         }
         options={locales.map((locale) => ({
-          label: formatMessage(languagesMessages[locale]),
+          label: formatMessage(languagesMessages["en-US"]),
           value: locale,
         }))}
       />

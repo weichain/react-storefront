@@ -1,29 +1,61 @@
 import React, { useState } from "react";
+import { isBrowser, isMobile } from "react-device-detect";
 
-import { ProductCard } from "../ProductCard";
 import { ProductCardFragment } from "@/saleor/api";
+import { ProductCard } from "../ProductCard";
 
 interface carouselProps {
   products: ProductCardFragment[];
 }
 
-const slides = [1, 2, 3, 4, 5];
-
 const Carousel = ({ products }: carouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const initialSlides = isMobile ? [products[currentIndex]] : products.slice(0, 3);
+  const [filteredSlides, setFilteredSlides] = useState(initialSlides);
+
   const prevSlide = () => {
-    if (currentIndex === 0) {
-      setCurrentIndex(slides.length - 1);
-    } else {
-      setCurrentIndex(currentIndex - 1);
+    if (isBrowser) {
+      if (currentIndex === 0) {
+        setCurrentIndex(() => products.length - 1);
+        setFilteredSlides(() => products.slice(7, products.length));
+      } else {
+        setCurrentIndex(currentIndex - 1);
+        if (currentIndex <= 3) {
+          setFilteredSlides(() => products.slice(currentIndex + 4, currentIndex + 7));
+        } else {
+          setFilteredSlides(() => products.slice(currentIndex - 4, currentIndex - 1));
+        }
+      }
+    }
+    if (isMobile) {
+      if (currentIndex === 0) {
+        setCurrentIndex(products.length - 1);
+        setFilteredSlides(() => products.filter((_, i) => currentIndex === i));
+      } else {
+        setCurrentIndex(currentIndex - 1);
+        setFilteredSlides(() => products.filter((_, i) => currentIndex === i));
+      }
     }
   };
 
   const nextSlide = () => {
-    if (currentIndex === slides.length - 1) {
-      setCurrentIndex(0);
-    } else {
-      setCurrentIndex(currentIndex + 1);
+    if (isBrowser) {
+      if (currentIndex >= 7) {
+        setCurrentIndex(0);
+        setFilteredSlides(() => products.slice(0, 3));
+      } else {
+        setCurrentIndex(() => currentIndex + 1);
+        setFilteredSlides(() => products.slice(currentIndex + 1, currentIndex + 4));
+      }
+    }
+    if (isMobile) {
+      if (currentIndex === products.length - 1) {
+        setCurrentIndex(0);
+        setFilteredSlides(() => products.filter((_, i) => currentIndex === i));
+      } else {
+        setCurrentIndex(currentIndex + 1);
+        setFilteredSlides(() => products.filter((_, i) => currentIndex === i));
+      }
     }
   };
 
@@ -33,9 +65,9 @@ const Carousel = ({ products }: carouselProps) => {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9 "
         data-testid="productsList"
       >
-        <ProductCard product={products[currentIndex]} />
-        <ProductCard product={products[currentIndex + 1]} />
-        <ProductCard product={products[currentIndex + 2]} />
+        {filteredSlides.map((product) => (
+          <ProductCard product={product} />
+        ))}
       </ul>
       <div className="absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 cursor-pointer">
         <button

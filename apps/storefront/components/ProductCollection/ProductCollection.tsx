@@ -33,7 +33,7 @@ export function ProductCollection({
   sortBy,
   setCounter,
   allowMore = true,
-  perPage = 7,
+  perPage = 10,
 }: ProductCollectionProps) {
   const t = useIntl();
   const { query } = useRegions();
