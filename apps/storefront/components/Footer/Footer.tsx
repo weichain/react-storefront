@@ -8,9 +8,6 @@ import { useFooterMenuQuery } from "@/saleor/api";
 
 import { LocaleDropdown } from "../regionDropdowns/LocaleDropdown";
 import { useRegions } from "../RegionsProvider";
-import email from "../../public/Envelope.png";
-import phone from "../../public/phone.png";
-import veranda from "../../public/Veranda.png";
 import styles from "./Footer.module.css";
 
 export type FooterProps = HTMLAttributes<HTMLElement>;
@@ -38,13 +35,13 @@ export function Footer() {
             <Link href={paths.$url()} passHref legacyBehavior>
               <a href="pass" className="hidden sm:inline-block">
                 <div className="mt-px group block h-16 w-28 relative">
-                  <Image src={veranda} alt="Saleor logo" width={150} height={150} />
+                  <Image src="/Veranda.png" alt="Saleor logo" width={150} height={150} />
                 </div>
               </a>
             </Link>
             <div className="flex items-center w-64 m-15px auto my-4 sm: w-80">
               <Image
-                src={email}
+                src="/Envelope.png"
                 alt="email"
                 width={15}
                 height={15}
@@ -54,7 +51,7 @@ export function Footer() {
             </div>
             <div className="flex items-center w-64 m-15px auto my-4 sm: w-80">
               <Image
-                src={phone}
+                src="/phone.png"
                 alt="phone"
                 width={15}
                 height={15}

@@ -16,7 +16,6 @@ import UserMenu from "./UserMenu";
 import { useRegions } from "@/components/RegionsProvider";
 import { invariant } from "@apollo/client/utilities/globals";
 import { useUser } from "@/lib/useUser";
-import veranda from "../../public/Veranda.png";
 import { LocaleDropdown } from "../regionDropdowns";
 
 export function Navbar() {
@@ -76,7 +75,7 @@ export function Navbar() {
           <div className="flex-1 flex">
             <Link href={paths.$url()} passHref legacyBehavior>
               <a href="pass" className="ml-5 sm:ml-16">
-                <Image src={veranda} alt="veranda" width={50} />
+                <Image src="/Veranda.png" alt="veranda" width={50} height={30} />
               </a>
             </Link>
           </div>

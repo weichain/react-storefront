@@ -6,7 +6,6 @@ import { LOCALES } from "@/lib/regions";
 import { HorizontalAlignment } from "@saleor/ui-kit";
 
 import { useRegions } from "../RegionsProvider";
-import divider from "../../public/Divider.jpg";
 
 interface DropdownOption {
   label: string;
@@ -55,7 +54,7 @@ export function LocaleDropdown() {
           {option.localeSlug}
         </p>
       ))}
-      <Image src={divider} alt="divider" className="absolute right-7" />
+      <Image src="/Divider.jpg" width={1} height={1} alt="divider" className="absolute right-7" />
     </div>
   );
 }

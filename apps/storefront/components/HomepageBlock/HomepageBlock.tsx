@@ -9,7 +9,6 @@ import { HomepageBlockFragment, ProductFilterInput } from "@/saleor/api";
 
 import { ProductCollection } from "../ProductCollection";
 import { RichText } from "../RichText";
-import viewAllBtn from "../../public/ViewAll.png";
 import styles from "./HomepageBlock.module.css";
 
 export interface HomepageBlockProps {
@@ -38,7 +37,7 @@ export function HomepageBlock({ menuItem }: HomepageBlockProps) {
       <div className={styles.viewAll}>
         <Link href={link} passHref legacyBehavior>
           <a href="pass">
-            <Image src={viewAllBtn} alt="viewAll" />
+            <Image src="/ViewAll.png" alt="viewAll" width={80} height={80} />
           </a>
         </Link>
         <h1

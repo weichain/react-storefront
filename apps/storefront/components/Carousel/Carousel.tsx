@@ -4,11 +4,11 @@ import { isBrowser, isMobile } from "react-device-detect";
 import { ProductCardFragment } from "@/saleor/api";
 import { ProductCard } from "../ProductCard";
 
-interface carouselProps {
+interface ICarouselProps {
   products: ProductCardFragment[];
 }
 
-const Carousel = ({ products }: carouselProps) => {
+const Carousel = ({ products }: ICarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const initialSlides = isMobile ? [products[currentIndex]] : products.slice(0, 3);
   const [filteredSlides, setFilteredSlides] = useState(initialSlides);
@@ -66,7 +66,7 @@ const Carousel = ({ products }: carouselProps) => {
         data-testid="productsList"
       >
         {filteredSlides.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </ul>
       <div className="absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 cursor-pointer">
