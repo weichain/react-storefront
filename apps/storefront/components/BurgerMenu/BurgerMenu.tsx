@@ -9,7 +9,6 @@ import { usePaths } from "@/lib/paths";
 import { useMainMenuQuery } from "@/saleor/api";
 
 import NavIconButton from "../Navbar/NavIconButton";
-import { ChannelDropdown } from "../regionDropdowns/ChannelDropdown";
 import { LocaleDropdown } from "../regionDropdowns/LocaleDropdown";
 import { useRegions } from "../RegionsProvider";
 import { messages } from "../translations";
@@ -93,7 +92,6 @@ export function BurgerMenu({ open, onCloseClick }: BurgerMenuProps) {
           </div>
         </div>
         <div className="flex mt-4 gap-4">
-          <ChannelDropdown />
           <LocaleDropdown />
         </div>
       </div>

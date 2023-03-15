@@ -1,4 +1,3 @@
-import { Text } from "@saleor/ui-kit";
 import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 
@@ -10,12 +9,13 @@ import {
   ProductOrderField,
   useProductCollectionQuery,
 } from "@/saleor/api";
+import { Text } from "@saleor/ui-kit";
 
 import { Pagination } from "../Pagination";
-import { ProductCard } from "../ProductCard";
 import { useRegions } from "../RegionsProvider";
 import { Spinner } from "../Spinner";
 import { messages } from "../translations";
+import Carousel from "../Carousel/Carousel";
 
 export interface ProductCollectionProps {
   filter?: ProductFilterInput;
@@ -33,7 +33,7 @@ export function ProductCollection({
   sortBy,
   setCounter,
   allowMore = true,
-  perPage = 4,
+  perPage = 10,
 }: ProductCollectionProps) {
   const t = useIntl();
   const { query } = useRegions();
@@ -80,16 +80,10 @@ export function ProductCollection({
       </Text>
     );
   }
+
   return (
-    <div>
-      <ul
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12"
-        data-testid="productsList"
-      >
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </ul>
+    <div className="w-11/12 m-auto">
+      <Carousel products={products} />
       {allowMore && (
         <Pagination
           onLoadMore={onLoadMore}

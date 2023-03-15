@@ -1,11 +1,10 @@
 import { ButtonHTMLAttributes } from "react";
+import Image from "next/image";
 
-import Bag from "./bagIcon.svg"; // in the final version it should be imported from ui-kit package
 import Close from "./closeIocn.svg"; // in the final version it should be imported from ui-kit package
 import MenuIcon from "./menuIcon.svg"; // in the final version it should be imported from ui-kit package
 import styles from "./Navbar.module.css"; // in the final version it should be imported from ui-kit package
 import Spyglass from "./spyglassIcon.svg"; // in the final version it should be imported from ui-kit package
-import User from "./userIcon.svg"; // in the final version it should be imported from ui-kit package
 
 interface NavIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: "user" | "bag" | "spyglass" | "menu" | "close";
@@ -16,9 +15,9 @@ interface NavIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const getIcon = (iconName: NavIconButtonProps["icon"]) => {
   switch (iconName) {
     case "user":
-      return <User />;
+      return <Image src="/User.png" alt="user" width={20} height={20} />;
     case "bag":
-      return <Bag />;
+      return <Image src="/Cart Menu.png" alt="cart" width={20} height={20} />;
     case "spyglass":
       return <Spyglass />;
     case "menu":

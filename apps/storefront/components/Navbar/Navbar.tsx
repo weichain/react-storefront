@@ -1,7 +1,8 @@
-import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import clsx from "clsx";
 
 import { usePaths } from "@/lib/paths";
 import { useCheckout } from "@/lib/providers/CheckoutProvider";
@@ -11,11 +12,11 @@ import { BurgerMenu } from "../BurgerMenu";
 import { Menu } from "./Menu";
 import styles from "./Navbar.module.css";
 import NavIconButton from "./NavIconButton";
-import Stamp from "./Stamp";
 import UserMenu from "./UserMenu";
 import { useRegions } from "@/components/RegionsProvider";
 import { invariant } from "@apollo/client/utilities/globals";
 import { useUser } from "@/lib/useUser";
+import { LocaleDropdown } from "../regionDropdowns";
 
 export function Navbar() {
   const paths = usePaths();
@@ -71,17 +72,18 @@ export function Navbar() {
     <>
       <div className={clsx(styles.navbar)}>
         <div className={clsx(styles.inner)}>
-          <div className="flex-1 h-full hidden xs:flex">
-            <Menu />
-          </div>
-          <div className="flex-1 flex xs:justify-center">
+          <div className="flex-1 flex">
             <Link href={paths.$url()} passHref legacyBehavior>
-              <a href="pass" className={styles.logo}>
-                <Stamp />
+              <a href="pass" className="ml-5 sm:ml-16">
+                <Image src="/Veranda.png" alt="veranda" width={50} height={30} />
               </a>
             </Link>
           </div>
+          <div className="flex-1 h-full hidden xs:flex justify-center">
+            <Menu />
+          </div>
           <div className="flex-1 flex justify-end">
+            <LocaleDropdown />
             {!authenticated ? (
               <Link href={paths.account.login.$url()} passHref legacyBehavior>
                 <a href="pass" data-testid="userIcon">
