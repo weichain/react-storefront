@@ -56,7 +56,7 @@ export const Summary: FC<SummaryProps> = ({
   });
 
   return (
-    <div className="summary">
+    <div className="summary" style={{ backgroundColor: "#F0F0F0" }}>
       <div className={clsx("summary-title", isOpen && "open")}>
         <div className="flex flex-row items-center w-full" onClick={() => setOpen(!isOpen)}>
           <Title className="mb-0">{formatMessage(summaryMessages.title)}</Title>

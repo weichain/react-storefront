@@ -1,4 +1,4 @@
-:local(.label) {
+/* :local(.label) {
   @apply cursor-pointer;
 }
 
@@ -11,7 +11,7 @@
 }
 
 :local([type="checkbox"]) {
-  @apply opacity-0 absolute z-10;
+  @apply opacity-1;
 }
 
 :local .checkbox:hover .checkbox-input {
@@ -36,4 +36,4 @@
 
 :local(.checkbox-input svg) {
   @apply opacity-0 absolute -top-px -left-px;
-}
+} */

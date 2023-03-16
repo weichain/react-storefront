@@ -34,7 +34,7 @@ module.exports = {
           5: "rgba(91, 104, 228, 0.2)",
         },
         disabled: {
-          DEFAULT: "#C2D1E4",
+          DEFAULT: "#d1d6de",
         },
         brand: {
           DEFAULT: "#5B68E4",

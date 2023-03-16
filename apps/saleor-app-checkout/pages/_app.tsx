@@ -50,7 +50,7 @@ export default function App(props: AppProps) {
               font-size: 1rem;
               margin: 0;
               background: transparent !important;
-            }
+            },
           `}
         </style>
       </Head>
@@ -74,6 +74,7 @@ export default function App(props: AppProps) {
                   transform: "translateY(-100%)",
                   height: "1.7rem",
                   marginTop: "-1.7rem",
+                  display: "none",
                 }}
               >
                 <small>{version}</small>

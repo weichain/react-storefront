@@ -2,7 +2,7 @@
 
 @layer components {
   .summary {
-    @apply flex flex-col w-full lg:w-1/2 h-fit border border-border-secondary rounded-lg overflow-hidden lg:overflow-visible;
+    @apply flex flex-col w-full lg:w-1/2 h-fit overflow-hidden lg:overflow-visible;
   }
 
   .summary-title {
