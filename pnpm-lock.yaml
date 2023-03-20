@@ -140,6 +140,7 @@ importers:
       typescript: 4.8.4
       url-join: 4.0.1
       urql: 3.0.3
+      use-omise: ^1.2.1
       yup: 1.0.0-beta.7
     dependencies:
       '@adyen/adyen-web': 5.28.2
@@ -178,6 +179,7 @@ importers:
       ts-invariant: 0.10.3
       url-join: 4.0.1
       urql: 3.0.3_onqnqwb3ubg5opvemcqf7c2qhy
+      use-omise: 1.2.1_react@18.2.0
       yup: 1.0.0-beta.7
     devDependencies:
       '@formatjs/cli': 5.1.3
@@ -272,6 +274,7 @@ importers:
       react-device-detect: ^2.2.3
       react-dom: 18.2.0
       react-hook-form: 7.38.0
+      react-icons: ^4.8.0
       react-intl: 6.2.1
       react-use: 17.4.0
       tailwind-scrollbar-hide: 1.1.7
@@ -307,6 +310,7 @@ importers:
       react-device-detect: 2.2.3_biqbaboplfbrettd7655fr4n2y
       react-dom: 18.2.0_react@18.2.0
       react-hook-form: 7.38.0_react@18.2.0
+      react-icons: 4.8.0_react@18.2.0
       react-intl: 6.2.1_uz2ogxeagc4rbieizlfzyaazee
       react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
       tailwind-scrollbar-hide: 1.1.7
@@ -397,6 +401,7 @@ importers:
       '@graphql-codegen/typescript-urql': 3.7.2
       '@graphql-codegen/urql-introspection': 2.2.1
       '@headlessui/react': 1.7.3
+      '@react-icons/all-files': ^4.1.0
       '@react-types/button': 3.6.2
       '@rollup/plugin-commonjs': 23.0.2
       '@rollup/plugin-image': 3.0.1
@@ -415,6 +420,8 @@ importers:
       '@types/node': 16.11.22
       '@types/react': 18.0.23
       '@types/react-dom': 18.0.7
+      '@types/react-icons': ^3.0.0
+      '@types/styled-components': ^5.1.26
       '@types/url-join': 4.0.1
       '@types/webpack-env': 1.18.0
       autoprefixer: 10.4.12
@@ -440,6 +447,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0
       react-error-boundary: 3.1.4
+      react-icons: ^4.8.0
       react-intl: 6.2.1
       react-test-renderer: 18.2.0
       react-toastify: 9.0.8
@@ -448,6 +456,7 @@ importers:
       rollup-plugin-peer-deps-external: 2.2.4
       rollup-plugin-postcss: 4.0.2
       rollup-plugin-terser: 7.0.2
+      styled-components: ^5.3.9
       tailwindcss: 3.2.1
       ts-invariant: 0.10.3
       ts-jest: 27.1.5
@@ -464,6 +473,7 @@ importers:
       '@adyen/api-library': 12.0.0
       '@apollo/client': 3.7.1_wxfjnvblbhu4ianu4f2qg722fu
       '@headlessui/react': 1.7.3_biqbaboplfbrettd7655fr4n2y
+      '@react-icons/all-files': 4.1.0_react@18.2.0
       '@react-types/button': 3.6.2_react@18.2.0
       '@saleor/ui-kit': link:../ui-kit
       '@stripe/react-stripe-js': 1.14.0_6nr2xug6y4biiuh7urbys4ixky
@@ -480,9 +490,11 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-error-boundary: 3.1.4_react@18.2.0
+      react-icons: 4.8.0_react@18.2.0
       react-intl: 6.2.1_uz2ogxeagc4rbieizlfzyaazee
       react-test-renderer: 18.2.0_react@18.2.0
       react-toastify: 9.0.8_biqbaboplfbrettd7655fr4n2y
+      styled-components: 5.3.9_7i5myeigehqah43i5u7wbekgba
       tailwindcss: 3.2.1_neo3lunb2qpadwxplzw7r2isgm
       ts-invariant: 0.10.3
       url-join: 4.0.1
@@ -512,6 +524,8 @@ importers:
       '@types/node': 16.11.22
       '@types/react': 18.0.23
       '@types/react-dom': 18.0.7
+      '@types/react-icons': 3.0.0_react@18.2.0
+      '@types/styled-components': 5.1.26
       '@types/url-join': 4.0.1
       '@types/webpack-env': 1.18.0
       autoprefixer: 10.4.12_postcss@8.4.18
@@ -2290,6 +2304,24 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+  /@babel/traverse/7.21.2_supports-color@5.5.0:
+    resolution: {integrity: sha512-ts5FFU/dSUPS13tv8XiEObDu9K+iagEKME9kAbaP7r0Y9KtZJZ+NGndDvWoRAYNpeWafbpFeki3q9QoMD6gxyw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/code-frame': 7.18.6
+      '@babel/generator': 7.21.1
+      '@babel/helper-environment-visitor': 7.18.9
+      '@babel/helper-function-name': 7.21.0
+      '@babel/helper-hoist-variables': 7.18.6
+      '@babel/helper-split-export-declaration': 7.18.6
+      '@babel/parser': 7.21.2
+      '@babel/types': 7.21.2
+      debug: 4.3.4_supports-color@5.5.0
+      globals: 11.12.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@babel/types/7.21.2:
     resolution: {integrity: sha512-3wRZSs7jiFaB8AjxiiD+VqN5DTG2iRvJGQ+qYFrs/654lg6kGTQWIOFjlBo5RaXuAZjBmP3+OQH4dmhqiiyYxw==}
     engines: {node: '>=6.9.0'}
@@ -2607,10 +2639,28 @@ packages:
     dev: false
     optional: true
 
+  /@emotion/is-prop-valid/1.2.0:
+    resolution: {integrity: sha512-3aDpDprjM0AwaxGE09bOPkNxHpBd+kA6jty3RnaEXdweX1DF1U3VQpPYb0g1IStAuK7SVQ1cy+bNBBKp4W3Fjg==}
+    dependencies:
+      '@emotion/memoize': 0.8.0
+    dev: false
+
   /@emotion/memoize/0.7.4:
     resolution: {integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==}
     dev: false
     optional: true
+
+  /@emotion/memoize/0.8.0:
+    resolution: {integrity: sha512-G/YwXTkv7Den9mXDO7AhLWkE3q+I92B+VqAE+dYG4NGPaHZGvt3G8Q0p9vmE+sq7rTGphUbAvmQ9YpbfMQGGlA==}
+    dev: false
+
+  /@emotion/stylis/0.8.5:
+    resolution: {integrity: sha512-h6KtPihKFn3T9fuIrwvXXUOwlx3rfUvfZIcP5a6rh8Y7zjE3O06hT5Ss4S/YI1AYhuZ1kjaE/5EaOOI2NqSylQ==}
+    dev: false
+
+  /@emotion/unitless/0.7.5:
+    resolution: {integrity: sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==}
+    dev: false
 
   /@esbuild/android-arm/0.17.11:
     resolution: {integrity: sha512-CdyX6sRVh1NzFCsf5vw3kULwlAhfy9wVt8SZlrhQ7eL2qBjGbFhRBWkkAzuZm9IIEOCKJw4DXA6R85g+qc8RDw==}
@@ -5622,6 +5672,14 @@ packages:
       url-parse: 1.5.10
     dev: true
 
+  /@react-icons/all-files/4.1.0_react@18.2.0:
+    resolution: {integrity: sha512-hxBI2UOuVaI3O/BhQfhtb4kcGn9ft12RWAFVMUeNjqqhLsHvFtzIkFaptBJpFDANTKoDfdVoHTKZDlwKCACbMQ==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /@react-types/button/3.6.2_react@18.2.0:
     resolution: {integrity: sha512-qgrYT6yiGVuZSPbzeDT6kTREQVxzJ9p5chV+JX7G5Rpjl2vyUDkEhZ5V/AHLKguBALgFaWJvjtwejHQ7FtycTw==}
     peerDependencies:
@@ -8388,7 +8446,6 @@ packages:
     dependencies:
       '@types/react': 18.0.23
       hoist-non-react-statics: 3.3.2
-    dev: false
 
   /@types/html-minifier-terser/5.1.2:
     resolution: {integrity: sha512-h4lTMgMJctJybDp8CQrxTUiiYmedihHWkjnF/8Pxseu2S6Nlfcy8kwboQ8yejh456rP2yWoEVm1sS/FVsfM48w==}
@@ -8576,6 +8633,15 @@ packages:
       '@types/react': 18.0.23
     dev: true
 
+  /@types/react-icons/3.0.0_react@18.2.0:
+    resolution: {integrity: sha512-Vefs6LkLqF61vfV7AiAqls+vpR94q67gunhMueDznG+msAkrYgRxl7gYjNem/kZ+as2l2mNChmF1jRZzzQQtMg==}
+    deprecated: This is a stub types definition. react-icons provides its own type definitions, so you do not need this installed.
+    dependencies:
+      react-icons: 4.8.0_react@18.2.0
+    transitivePeerDependencies:
+      - react
+    dev: true
+
   /@types/react-transition-group/4.4.5:
     resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
     dependencies:
@@ -8656,6 +8722,14 @@ packages:
 
   /@types/stack-utils/2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
+    dev: true
+
+  /@types/styled-components/5.1.26:
+    resolution: {integrity: sha512-KuKJ9Z6xb93uJiIyxo/+ksS7yLjS1KzG6iv5i78dhVg/X3u5t1H7juRWqVmodIdz6wGVaIApo1u01kmFRdJHVw==}
+    dependencies:
+      '@types/hoist-non-react-statics': 3.3.1
+      '@types/react': 18.0.23
+      csstype: 3.1.1
     dev: true
 
   /@types/tapable/1.0.8:
@@ -10152,6 +10226,23 @@ packages:
       - supports-color
     dev: true
 
+  /babel-plugin-styled-components/2.0.7_styled-components@5.3.9:
+    resolution: {integrity: sha512-i7YhvPgVqRKfoQ66toiZ06jPNA3p6ierpfUuEWxNF+fV27Uv5gxBkf8KZLHUCc1nFA9j6+80pYoIpqCeyW3/bA==}
+    peerDependencies:
+      styled-components: '>= 2'
+    dependencies:
+      '@babel/helper-annotate-as-pure': 7.18.6
+      '@babel/helper-module-imports': 7.18.6
+      babel-plugin-syntax-jsx: 6.18.0
+      lodash: 4.17.21
+      picomatch: 2.3.1
+      styled-components: 5.3.9_7i5myeigehqah43i5u7wbekgba
+    dev: false
+
+  /babel-plugin-syntax-jsx/6.18.0:
+    resolution: {integrity: sha512-qrPaCSo9c8RHNRHIotaufGbuOBN8rtdC4QrrFFc43vyWCCz7Kl7GL1PGaXtMGQZUXrkCjNEgxDfmAuAabr/rlw==}
+    dev: false
+
   /babel-plugin-syntax-trailing-function-commas/7.0.0-beta.0:
     resolution: {integrity: sha512-Xj9XuRuz3nTSbaTXWv3itLOcxyF4oPD8douBBmj7U9BBC6nEBYfyOJYQMf/8PJAFotC62UY5dFfIGEPr7WswzQ==}
 
@@ -10809,6 +10900,10 @@ packages:
     resolution: {integrity: sha512-xlx1yCK2Oc1APsPXDL2LdlNP6+uu8OCDdhOBSVT279M/S+y75O30C2VuD8T2ogdePBBl7PfPF4504tnLgX3zfw==}
     engines: {node: '>=14.16'}
     dev: true
+
+  /camelize/1.0.1:
+    resolution: {integrity: sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==}
+    dev: false
 
   /caniuse-api/3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
@@ -11692,6 +11787,11 @@ packages:
       postcss-selector-parser: 6.0.11
     dev: true
 
+  /css-color-keywords/1.0.0:
+    resolution: {integrity: sha512-FyyrDHZKEjXDpNJYvVsV960FiqQyXc/LlYmsxl2BcdMb2WPx0OGRVgTg55rPSyLSNMqP52R9r8geSp7apN3Ofg==}
+    engines: {node: '>=4'}
+    dev: false
+
   /css-declaration-sorter/6.3.1_postcss@8.4.18:
     resolution: {integrity: sha512-fBffmak0bPAnyqc/HO8C3n2sHrp9wcqQz6ES9koRF2/mLOVAx9zIQ3Y7R29sYCteTPqMCwns4WYQoCX91Xl3+w==}
     engines: {node: ^10 || ^12 || >=14}
@@ -11874,6 +11974,14 @@ packages:
       domutils: 2.8.0
       nth-check: 2.1.1
     dev: true
+
+  /css-to-react-native/3.2.0:
+    resolution: {integrity: sha512-e8RKaLXMOFii+02mOlqwjbD00KSEKqblnpO9e++1aXS1fPQOpS1YoqdVHBqPjHNoxeF2mimzVqawm2KCbEdtHQ==}
+    dependencies:
+      camelize: 1.0.1
+      css-color-keywords: 1.0.0
+      postcss-value-parser: 4.2.0
+    dev: false
 
   /css-tree/1.0.0-alpha.37:
     resolution: {integrity: sha512-DMxWJg0rnz7UgxKT0Q1HU/L9BeJI0M6ksor0OgqOnF+aRCDWg/N2641HmVyU9KVIu0OVVWOb2IpC9A+BJRnejg==}
@@ -12225,6 +12333,19 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+
+  /debug/4.3.4_supports-color@5.5.0:
+    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.2
+      supports-color: 5.5.0
+    dev: false
 
   /debug/4.3.4_supports-color@8.1.1:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -15200,7 +15321,6 @@ packages:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
     dependencies:
       react-is: 16.13.1
-    dev: false
 
   /hoopy/0.1.4:
     resolution: {integrity: sha512-HRcs+2mr52W0K+x8RzcLzuPPmVIKMSv97RGHy0Ea9y/mpcaK+xTrjICA04KAHi4GRzxliNqNJEFYWHghy3rSfQ==}
@@ -21492,6 +21612,13 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-icons/4.8.0_react@18.2.0:
+    resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
+
   /react-inlinesvg/2.3.0_react@18.2.0:
     resolution: {integrity: sha512-fEGOdDf4k4bcveArbEpj01pJcH8pOCKLxmSj2POFdGvEk5YK0NZVnH6BXpW/PzACHPRsuh1YKAhNZyFnD28oxg==}
     peerDependencies:
@@ -22843,6 +22970,10 @@ packages:
       kind-of: 6.0.3
     dev: true
 
+  /shallowequal/1.1.0:
+    resolution: {integrity: sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==}
+    dev: false
+
   /shebang-command/1.2.0:
     resolution: {integrity: sha512-EV3L1+UQWGor21OmnvojK36mhg+TyIKDh3iFBKBohr5xeXIhNBcx8oWdgkTEEQ+BEFFYdLRuqMfd5L84N1V5Vg==}
     engines: {node: '>=0.10.0'}
@@ -23595,6 +23726,29 @@ packages:
     dependencies:
       hey-listen: 1.0.8
       tslib: 2.5.0
+    dev: false
+
+  /styled-components/5.3.9_7i5myeigehqah43i5u7wbekgba:
+    resolution: {integrity: sha512-Aj3kb13B75DQBo2oRwRa/APdB5rSmwUfN5exyarpX+x/tlM/rwZA2vVk2vQgVSP6WKaZJHWwiFrzgHt+CLtB4A==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>= 16.8.0'
+      react-dom: '>= 16.8.0'
+      react-is: '>= 16.8.0'
+    dependencies:
+      '@babel/helper-module-imports': 7.18.6
+      '@babel/traverse': 7.21.2_supports-color@5.5.0
+      '@emotion/is-prop-valid': 1.2.0
+      '@emotion/stylis': 0.8.5
+      '@emotion/unitless': 0.7.5
+      babel-plugin-styled-components: 2.0.7_styled-components@5.3.9
+      css-to-react-native: 3.2.0
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-is: 18.2.0
+      shallowequal: 1.1.0
+      supports-color: 5.5.0
     dev: false
 
   /styled-jsx/5.1.0_otspjrsspon4ofp37rshhlhp2y:
@@ -24892,6 +25046,14 @@ packages:
         optional: true
     dependencies:
       '@types/react': 18.0.23
+      react: 18.2.0
+    dev: false
+
+  /use-omise/1.2.1_react@18.2.0:
+    resolution: {integrity: sha512-/HUSJSPFJW8I6v01ip6cmI4/Y4qcY0WM7wwAOLVZd/LyJaA/iB+r9gTdB/3PKhqNU8RhVB6C0E+Sf7mSw6BQSQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+    dependencies:
       react: 18.2.0
     dev: false
 

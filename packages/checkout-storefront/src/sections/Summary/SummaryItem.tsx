@@ -1,11 +1,11 @@
 import { CheckoutLineFragment, OrderLineFragment } from "@/checkout-storefront/graphql";
 import React, { PropsWithChildren } from "react";
-import { Text } from "@saleor/ui-kit";
 import { PhotoIcon } from "@/checkout-storefront/icons";
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { useSummaryLineLineAttributesText, getSummaryLineProps } from "./utils";
 import { getSvgSrc } from "@/checkout-storefront/lib/svgSrc";
 import { summaryLabels } from "./messages";
+import { SummaryItemMoneyEditableSection } from "./SummaryItemMoneyEditableSection";
 
 export type SummaryLine = CheckoutLineFragment | OrderLineFragment;
 
@@ -29,6 +29,7 @@ export const SummaryItem: React.FC<PropsWithChildren<LineItemProps>> = ({ line, 
               className="object-contain"
               alt={productImage?.alt || undefined}
               src={productImage?.url}
+              style={{ width: "100px", height: "100px" }}
             />
           ) : (
             <img className="object-cover" alt="product placeholder" src={getSvgSrc(PhotoIcon)} />
@@ -37,20 +38,21 @@ export const SummaryItem: React.FC<PropsWithChildren<LineItemProps>> = ({ line, 
       </div>
       <div className="summary-row w-full items-start">
         <div className="flex flex-col">
-          <Text
-            weight="bold"
+          <p
             aria-label={formatMessage(summaryLabels.summaryItemName)}
             className="mb-3"
+            style={{ color: "#E0BC75", fontSize: "14px", fontWeight: 600 }}
           >
             {productName}
-          </Text>
-          <Text
-            size="xs"
+          </p>
+          <p
             aria-label={formatMessage(summaryLabels.variantName)}
             className="max-w-38"
+            style={{ color: "#1F1F1F", fontSize: "16px", fontWeight: 600 }}
           >
             {attributesText}
-          </Text>
+          </p>
+          <SummaryItemMoneyEditableSection line={line as CheckoutLineFragment} />
         </div>
         {children}
       </div>

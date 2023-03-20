@@ -2,7 +2,7 @@ import { Divider } from "@/checkout-storefront/components/Divider";
 import { PaymentMethods } from "./PaymentMethods";
 import React from "react";
 
-export const PaymentSection = () => {
+export const PaymentSection = ({ children }: any) => {
   return (
     <>
       <Divider />

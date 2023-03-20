@@ -5,12 +5,12 @@
     @apply flex flex-col items-end w-full;
   }
   .checkout-form {
-    @apply flex flex-col w-7/12 m-auto;
+    @apply flex flex-col w-10/12 lg:w-6/12 m-auto;
   }
 
-  .section {
+  /* .section {
     @apply px-4 pt-5 pb-6;
-  }
+  } */
 
   .actions {
     @apply flex flex-row w-full justify-end items-center;
