@@ -25,10 +25,6 @@ export const SummaryItemMoneyEditableSection: React.FC<SummaryItemMoneyEditableS
   } = form;
   const quantity = useMemo(() => parseInt(quantityString), [quantityString]);
 
-  // const [number, setNumber] = useState(line.quantity);
-  // const increaseQuantityHandler = () =>  setNumber(() => number + 1);
-  // const decreaseQuantityHandler = () => setNumber(() => number - 1);
-
   const handleQuantityInputBlur = (event: React.FocusEvent<any, Element>) => {
     handleBlur(event);
     if (quantity === line.quantity) {
@@ -51,14 +47,9 @@ export const SummaryItemMoneyEditableSection: React.FC<SummaryItemMoneyEditableS
   };
 
   return (
-    // <div className="flex items-center justify-between">
-    //   <img src="/stepperDecrease.png" alt="-" />
-    //   <span>{quantity}</span>
-    //   <img src="/stepperIncrease.png" alt="+" />
-    //   <SummaryItemMoneyInfo {...line} />
-    // </div>
     <div className="flex flex-col items-end h-20 relative -top-2">
       <div className="flex flex-row items-baseline">
+        <p style={{ marginRight: "10px" }}>quantity:</p>
         <FormProvider form={form}>
           <TextInput
             onBlur={handleQuantityInputBlur}

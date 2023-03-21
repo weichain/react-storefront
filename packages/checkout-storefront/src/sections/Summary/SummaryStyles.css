@@ -30,7 +30,7 @@
   }
 
   .summary-item {
-    @apply flex flex-row items-start mb-6 relative;
+    @apply flex flex-row items-start mb-12 relative;
   }
 
   .summary-item:last-of-type {

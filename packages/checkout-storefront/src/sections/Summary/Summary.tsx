@@ -2,14 +2,17 @@ import React, { FC, useState } from "react";
 import { Text } from "@saleor/ui-kit";
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { SummaryItem, SummaryLine } from "./SummaryItem";
+import { ChevronDownIcon } from "@/checkout-storefront/icons";
 import { Transition } from "@headlessui/react";
 import clsx from "clsx";
 
+import { getSvgSrc } from "@/checkout-storefront/lib/svgSrc";
+import { PromoCodeAdd } from "./PromoCodeAdd";
 import { SummaryMoneyRow } from "./SummaryMoneyRow";
 import { SummaryPromoCodeRow } from "./SummaryPromoCodeRow";
 import { SummaryItemMoneyEditableSection } from "./SummaryItemMoneyEditableSection";
 import { getFormattedMoney } from "@/checkout-storefront/lib/utils/money";
-import { Divider, Money } from "@/checkout-storefront/components";
+import { Divider, Money, Title } from "@/checkout-storefront/components";
 import {
   CheckoutLineFragment,
   GiftCardFragment,
@@ -56,9 +59,8 @@ export const Summary: FC<SummaryProps> = ({
     <div className="summary" style={{ backgroundColor: "#F0F0F0" }}>
       <div className={clsx("summary-title", isOpen && "open")}>
         <div className="flex flex-row items-center w-full" onClick={() => setOpen(!isOpen)}>
-          <p style={{ fontSize: "24px", fontWeight: 600, color: "#1F1F1F" }}>
-            {formatMessage(summaryMessages.title)}
-          </p>
+          <Title className="mb-0">{formatMessage(summaryMessages.title)}</Title>
+          <img src={getSvgSrc(ChevronDownIcon)} alt="chevron-down" />
         </div>
         {!isOpen && (
           <Money
@@ -67,9 +69,6 @@ export const Summary: FC<SummaryProps> = ({
             money={totalPrice?.gross}
           />
         )}
-      </div>
-      <div style={{ width: "90%", margin: " 25px auto" }}>
-        <Divider className="mt-1 mb-4" />
       </div>
       <Transition
         show={isOpen}
@@ -82,7 +81,7 @@ export const Summary: FC<SummaryProps> = ({
         leaveTo="transform scale-95 opacity-0"
       >
         <ul
-          style={{ minHeight: "130vh" }}
+          style={{ maxHeight: maxSummaryHeight ? `${maxSummaryHeight}px` : "" }}
           className={clsx(
             "summary-items",
             allItemsHeight > maxSummaryHeight
@@ -91,9 +90,16 @@ export const Summary: FC<SummaryProps> = ({
           )}
         >
           {lines.map((line) => (
-            <SummaryItem line={line} key={line?.id} />
+            <SummaryItem line={line} key={line?.id}>
+              {editable ? (
+                <SummaryItemMoneyEditableSection line={line as CheckoutLineFragment} />
+              ) : (
+                <SummaryItemMoneySection line={line as OrderLineFragment} />
+              )}
+            </SummaryItem>
           ))}
         </ul>
+        {editable && <PromoCodeAdd />}
         <div className="summary-recap">
           <Divider className="mt-1 mb-4" />
           <SummaryMoneyRow

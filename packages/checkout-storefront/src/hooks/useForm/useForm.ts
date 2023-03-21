@@ -7,7 +7,6 @@ export const useForm = <TData extends FormDataBase>({
   ...formProps
 }: FormProps<TData>): UseFormReturn<TData> => {
   const form = useFormik<TData>(formProps);
-
   const { dirty, handleSubmit: handleFormikSubmit } = form;
 
   const handleSubmit = useCallback(
