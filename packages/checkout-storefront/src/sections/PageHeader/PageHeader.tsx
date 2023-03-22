@@ -6,6 +6,7 @@ export const PageHeader = () => {
   return (
     <div className="page-header">
       <div className="ml-5 flex justify-between" style={{ width: "170px" }}>
+        {/* TODO Change hardcoded links with those from menu */}
         <Link href="#" legacyBehavior>
           <a href="#" style={{ color: "white" }}>
             CHIANG MAI

@@ -47,18 +47,22 @@ export const Summary: FC<SummaryProps> = ({
 }) => {
   const formatMessage = useFormattedMessages();
   const [isOpen, setOpen] = useState(true);
+  const [displaySummary, setDisplay] = useState(false);
 
   const { maxSummaryHeight, allItemsHeight } = useSummaryHeightCalc({
     linesCount: lines.length,
     onBreakpointChange: (breakpoint: "lg" | "md") => {
-      setOpen(breakpoint === "lg");
+      setOpen(breakpoint === "lg" || displaySummary);
     },
   });
 
   return (
     <div className="summary" style={{ backgroundColor: "#F0F0F0" }}>
       <div className={clsx("summary-title", isOpen && "open")}>
-        <div className="flex flex-row items-center w-full" onClick={() => setOpen(!isOpen)}>
+        <div
+          className="flex flex-row items-center w-full"
+          onClick={() => setDisplay(!displaySummary)}
+        >
           <Title className="mb-0">{formatMessage(summaryMessages.title)}</Title>
           <img src={getSvgSrc(ChevronDownIcon)} alt="chevron-down" />
         </div>

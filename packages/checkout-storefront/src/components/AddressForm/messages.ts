@@ -33,8 +33,8 @@ export const localizedAddressFieldMessages = defineMessages<LocalizedAddressFiel
     description: "zip code",
   },
   postal: {
-    defaultMessage: "Postal code",
-    id: "AddressForm/messages/0KU6nT",
+    defaultMessage: "Zip code",
+    id: "AddressForm/messages/4MJfQQ",
     description: "postal code",
   },
   postTown: {

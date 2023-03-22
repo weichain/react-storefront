@@ -1,3 +1,4 @@
+import { useCheckout } from "@/checkout-storefront/hooks/useCheckout";
 import { Contact } from "@/checkout-storefront/sections/Contact";
 import { DeliveryMethods } from "@/checkout-storefront/sections/DeliveryMethods";
 import { Suspense, useState } from "react";
@@ -5,12 +6,15 @@ import { Button } from "@/checkout-storefront/components/Button";
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { ContactSkeleton } from "@/checkout-storefront/sections/Contact/ContactSkeleton";
 import { DeliveryMethodsSkeleton } from "@/checkout-storefront/sections/DeliveryMethods/DeliveryMethodsSkeleton";
+import { AddressSectionSkeleton } from "@/checkout-storefront/components/AddressSectionSkeleton";
 import { useCheckoutSubmit } from "@/checkout-storefront/sections/CheckoutForm/useCheckoutSubmit";
 import { commonMessages } from "@/checkout-storefront/lib/commonMessages";
 import { checkoutFormLabels, checkoutFormMessages } from "./messages";
 import { getQueryParams } from "@/checkout-storefront/lib/utils/url";
 import { CollapseSection } from "@/checkout-storefront/sections/CheckoutForm/CollapseSection";
 import { Divider } from "@/checkout-storefront/components";
+import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
+import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
 
 import { UserBillingAddressSection } from "@/checkout-storefront/sections/UserBillingAddressSection";
 import { PaymentSection } from "@/checkout-storefront/sections/PaymentSection";
@@ -23,6 +27,7 @@ import { Footer } from "@/checkout-storefront/components/Footer/Footer";
 export const CheckoutForm = () => {
   const formatMessage = useFormattedMessages();
   const { user } = useUser();
+  const { checkout } = useCheckout();
   const { passwordResetToken } = getQueryParams();
 
   const [showOnlyContact, setShowOnlyContact] = useState(!!passwordResetToken);
@@ -39,12 +44,19 @@ export const CheckoutForm = () => {
     <div className="checkout-form-container">
       <PageHeader />
       <div className="checkout-form">
-        <Suspense fallback={<ContactSkeleton />}>
-          <Contact setShowOnlyContact={setShowOnlyContact} />
-        </Suspense>
+        <Suspense fallback={<ContactSkeleton />}></Suspense>
         <>
+          {checkout?.isShippingRequired && (
+            <Suspense fallback={<AddressSectionSkeleton />}>
+              <CollapseSection collapse={showOnlyContact}>
+                <div className="section" data-testid="shippingAddressSection">
+                  {user ? <UserShippingAddressSection /> : <GuestShippingAddressSection />}
+                  <Contact setShowOnlyContact={setShowOnlyContact} />
+                </div>
+              </CollapseSection>
+            </Suspense>
+          )}
           <Suspense fallback={<DeliveryMethodsSkeleton />}>
-            <Divider />
             <DeliveryMethods collapsed={showOnlyContact} />
           </Suspense>
           <CollapseSection collapse={showOnlyContact}>

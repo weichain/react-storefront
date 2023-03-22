@@ -11,6 +11,10 @@
     "developer_comment": "postal code",
     "string": "Postal code"
   },
+  "AddressForm/messages/4MJfQQ": {
+    "developer_comment": "postal code",
+    "string": "Zip code"
+  },
   "AddressForm/messages/7bJ7Hd": {
     "developer_comment": "city area",
     "string": "City area"

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { CardInput, ConfirmHandler, CountryDropdown } from "./index";
+import { Title } from "../Title";
 
 export interface IReactCreditCardProps {
   name: string;
@@ -21,10 +22,7 @@ const CardPayment = () => {
 
   return (
     <div>
-      <p style={{ fontSize: "20px", fontWeight: 600, color: "#1E1E1E" }}>Confirm & Pay</p>
-      <p style={{ fontSize: "14px", fontWeight: 400, color: "#8F8F8F", marginTop: "20px" }}>
-        One last check to make sure your details are correct before placing your order.
-      </p>
+      <Title>Payment Providers</Title>
       <div className="flex flex-col gap-2 mt-4">
         <CardInput card={card} setCard={setCard} />
         <div className="flex flex-col gap-4">

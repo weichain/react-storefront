@@ -1,4 +1,4 @@
-:local(.label) {
+/* :local(.label) {
   @apply cursor-pointer;
 }
 
@@ -14,7 +14,7 @@
   @apply opacity-1;
 } */
 
-:local .checkbox:hover .checkbox-input {
+/* :local .checkbox:hover .checkbox-input {
   @apply border-border-active;
 }
 
@@ -36,4 +36,4 @@
 
 :local(.checkbox-input svg) {
   @apply opacity-0 absolute -top-px -left-px;
-}
+} */
