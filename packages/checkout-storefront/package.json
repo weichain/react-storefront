@@ -43,6 +43,7 @@
     "checkout-common": "workspace:*",
     "clsx": "1.2.1",
     "concurrently": "7.5.0",
+    "payment": "^2.4.6",
     "formik": "^2.2.9",
     "hex-rgb": "5.0.0",
     "libphonenumber-js": "^1.10.14",
@@ -60,7 +61,8 @@
     "url-join": "4.0.1",
     "urql": "3.0.3",
     "yup": "1.0.0-beta.7",
-    "zustand": "^4.1.4"
+    "zustand": "^4.1.4",
+    "@types/payment": "^2.1.4"
   },
   "devDependencies": {
     "@formatjs/cli": "5.1.3",

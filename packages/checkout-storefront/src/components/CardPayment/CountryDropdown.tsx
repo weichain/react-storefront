@@ -1,7 +1,7 @@
 /* eslint-disable import/no-restricted-paths */
 import React from "react";
 
-import { countries } from "../../../../../apps/saleor-app-checkout/constants/countries";
+import { countries } from "./utils/countries";
 
 interface ICountrySelectProps {
   country: string;

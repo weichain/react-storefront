@@ -6,7 +6,7 @@ import {
   formatExpirationDate,
   formatCVC,
   formatCardName,
-} from "../../../../../apps/saleor-app-checkout/utils/payments";
+} from "./utils/payments";
 import { IReactCreditCardProps } from "./CardPayment";
 import { cardImages } from "./images";
 
