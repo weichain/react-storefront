@@ -1,11 +1,8 @@
-import { Text } from "@saleor/ui-kit";
 import { CheckoutLineFragment } from "@/checkout-storefront/graphql";
-import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { TextInput } from "@/checkout-storefront/components/TextInput";
 
 import { Skeleton } from "@/checkout-storefront/components";
 import { SummaryItemMoneyInfo } from "@/checkout-storefront/sections/Summary/SummaryItemMoneyInfo";
-import { summaryMessages } from "./messages";
 import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
 import { useSummaryItemForm } from "@/checkout-storefront/sections/Summary/useSummaryItemForm";
 import { useMemo } from "react";
@@ -17,7 +14,6 @@ interface SummaryItemMoneyEditableSectionProps {
 export const SummaryItemMoneyEditableSection: React.FC<SummaryItemMoneyEditableSectionProps> = ({
   line,
 }) => {
-  const formatMessage = useFormattedMessages();
   const { form, onLineDelete } = useSummaryItemForm({ line });
 
   const {
@@ -27,12 +23,10 @@ export const SummaryItemMoneyEditableSection: React.FC<SummaryItemMoneyEditableS
     isSubmitting,
     values: { quantity: quantityString },
   } = form;
-
   const quantity = useMemo(() => parseInt(quantityString), [quantityString]);
 
   const handleQuantityInputBlur = (event: React.FocusEvent<any, Element>) => {
     handleBlur(event);
-
     if (quantity === line.quantity) {
       return;
     }
@@ -55,9 +49,7 @@ export const SummaryItemMoneyEditableSection: React.FC<SummaryItemMoneyEditableS
   return (
     <div className="flex flex-col items-end h-20 relative -top-2">
       <div className="flex flex-row items-baseline">
-        <Text size="xs" className="mr-2">
-          {formatMessage(summaryMessages.quantity)}:
-        </Text>
+        <p style={{ marginRight: "10px" }}>quantity:</p>
         <FormProvider form={form}>
           <TextInput
             onBlur={handleQuantityInputBlur}

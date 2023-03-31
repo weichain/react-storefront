@@ -15,11 +15,14 @@ import { CollapseSection } from "@/checkout-storefront/sections/CheckoutForm/Col
 import { Divider } from "@/checkout-storefront/components";
 import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
 import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
+
 import { UserBillingAddressSection } from "@/checkout-storefront/sections/UserBillingAddressSection";
 import { PaymentSection } from "@/checkout-storefront/sections/PaymentSection";
 import { GuestBillingAddressSection } from "@/checkout-storefront/sections/GuestBillingAddressSection";
 import { useFetchPaymentMethods } from "@/checkout-storefront/hooks/useFetchPaymentMethods";
 import { useUser } from "@/checkout-storefront/hooks/useUser";
+import { PageHeader } from "../PageHeader";
+import { Footer } from "@/checkout-storefront/components/Footer/Footer";
 
 export const CheckoutForm = () => {
   const formatMessage = useFormattedMessages();
@@ -39,17 +42,16 @@ export const CheckoutForm = () => {
 
   return (
     <div className="checkout-form-container">
+      <PageHeader />
       <div className="checkout-form">
-        <Suspense fallback={<ContactSkeleton />}>
-          <Contact setShowOnlyContact={setShowOnlyContact} />
-        </Suspense>
+        <Suspense fallback={<ContactSkeleton />}></Suspense>
         <>
           {checkout?.isShippingRequired && (
             <Suspense fallback={<AddressSectionSkeleton />}>
-              <Divider />
               <CollapseSection collapse={showOnlyContact}>
                 <div className="section" data-testid="shippingAddressSection">
                   {user ? <UserShippingAddressSection /> : <GuestShippingAddressSection />}
+                  <Contact setShowOnlyContact={setShowOnlyContact} />
                 </div>
               </CollapseSection>
             </Suspense>
@@ -62,6 +64,8 @@ export const CheckoutForm = () => {
               {user ? <UserBillingAddressSection /> : <GuestBillingAddressSection />}
             </PaymentSection>
           </CollapseSection>
+          <Divider />
+          <Footer />
         </>
       </div>
       {shouldShowPayButton &&

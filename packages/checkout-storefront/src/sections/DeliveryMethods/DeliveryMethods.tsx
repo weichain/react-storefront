@@ -7,6 +7,7 @@ import { SelectBox } from "@/checkout-storefront/components/SelectBox";
 import { SelectBoxGroup } from "@/checkout-storefront/components/SelectBoxGroup";
 import { getFormattedMoney } from "@/checkout-storefront/lib/utils/money";
 import { Divider } from "@/checkout-storefront/components/Divider";
+
 import { CommonSectionProps } from "@/checkout-storefront/lib/globalTypes";
 import { deliveryMethodsLabels, deliveryMethodsMessages } from "./messages";
 import { useDeliveryMethodsForm } from "@/checkout-storefront/sections/DeliveryMethods/useDeliveryMethodsForm";

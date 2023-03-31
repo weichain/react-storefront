@@ -1,4 +1,3 @@
-import { PageHeader } from "@/checkout-storefront/sections/PageHeader";
 import { SummarySkeleton } from "@/checkout-storefront/sections/Summary/SummarySkeleton";
 import { Skeleton } from "@/checkout-storefront/components/Skeleton";
 
@@ -6,7 +5,6 @@ export const OrderConfirmationSkeleton = () => {
   return (
     <div className="page">
       <header>
-        <PageHeader />
         <Skeleton className="title h-4 w-72 mb-6" />
         <Skeleton />
         <Skeleton className="w-2/3" />

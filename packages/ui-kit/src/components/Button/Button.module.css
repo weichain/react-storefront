@@ -27,11 +27,11 @@
 }
 
 .button-secondary {
-  @apply border-border-primary hover:border-border-active bg-transparent hover:bg-button-secondary active:bg-button-tertiary disabled:border-button-disabled disabled:bg-transparent;
+  @apply border-border-primary hover:border-border-active  hover:bg-button-secondary active:bg-button-tertiary disabled:border-button-disabled disabled:bg-transparent;
 }
 
 .button-tertiary {
-  @apply border-none bg-transparent p-0 h-auto;
+  @apply border-none p-0 h-auto;
 }
 
 .button-tertiary > span {

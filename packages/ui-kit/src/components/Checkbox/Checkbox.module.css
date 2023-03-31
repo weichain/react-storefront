@@ -1,4 +1,4 @@
-:local(.label) {
+/* :local(.label) {
   @apply cursor-pointer;
 }
 
@@ -10,16 +10,16 @@
   @apply absolute left-0 h-5 w-5 inline-flex;
 }
 
-:local([type="checkbox"]) {
-  @apply opacity-0 absolute z-10;
-}
+/* :local([type="checkbox"]) {
+  @apply opacity-1;
+} */
 
-:local .checkbox:hover .checkbox-input {
+/* :local .checkbox:hover .checkbox-input {
   @apply border-border-active;
 }
 
 :local([type="checkbox"]:checked + .checkbox-input) {
-  @apply border-border-primary;
+  @apply border-border-primary checked:bg-indigo-500;
 }
 
 :local([type="checkbox"]:focus + .checkbox-input) {
@@ -36,4 +36,4 @@
 
 :local(.checkbox-input svg) {
   @apply opacity-0 absolute -top-px -left-px;
-}
+} */

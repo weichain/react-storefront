@@ -2,6 +2,7 @@
 @import "react-toastify/dist/ReactToastify.css";
 @import "./views/Checkout/CheckoutStyles.css";
 @import "./components/Divider/DividerStyles.css";
+@import "./components/CardPayment/style.css";
 @import "./hooks/useAlerts/AlertStyles.css";
 @import "./components/SelectBox/SelectBoxStyles.css";
 @import "./components/PasswordInput/PasswordInputStyles.css";
@@ -16,12 +17,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html {
-  /* Font size set for rem */
-  font-size: 62.5%;
-  @apply antialiased;
-}
 
 body {
   @apply overscroll-none;
