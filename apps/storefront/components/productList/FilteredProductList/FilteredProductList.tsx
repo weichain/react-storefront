@@ -21,8 +21,6 @@ import { FilterDropdown } from "./FilterDropdown";
 import { FilterPill, FilterPills } from "./FilterPills";
 import { parseQuerySort, serializeQuerySort, UrlSorting } from "./sorting";
 import { SortingDropdown } from "./SortingDropdown";
-import { StockToggle } from "./StockToggle";
-
 export interface FilteredProductListProps {
   attributeFiltersData: AttributeFilterFragment[];
   collectionIDs?: string[];
@@ -136,9 +134,9 @@ export function FilteredProductList({
 
   return (
     <>
-      <div className="flex flex-col divide-y">
+      <div className="flex flex-col divide-y m-auto" style={{ width: "85%" }}>
         <div className="flex items-center">
-          <div className="flex-grow">
+          <div className="flex-grow flex gap-4">
             {attributeFiltersData.map((attribute) => (
               <FilterDropdown
                 key={attribute.id}
@@ -148,28 +146,16 @@ export function FilteredProductList({
                 options={getFilterOptions(attribute, pills)}
               />
             ))}
-            <SortingDropdown
-              optionToggle={(field?: ProductOrderField, direction?: OrderDirection) => {
-                return setSortBy(field && direction ? { field, direction } : null, {
-                  scroll: false,
-                  shallow: true,
-                });
-              }}
-              chosen={sortBy}
-            />
-            <StockToggle
-              enabled={inStockFilter}
-              onChange={(value: boolean) =>
-                setInStockFilter(!!value || null, {
-                  scroll: false,
-                  shallow: true,
-                })
-              }
-            />
           </div>
-          <div className="flex-none text-main-2 text-base">
-            <div>{itemsCounter} items</div>
-          </div>
+          <SortingDropdown
+            optionToggle={(field?: ProductOrderField, direction?: OrderDirection) => {
+              return setSortBy(field && direction ? { field, direction } : null, {
+                scroll: false,
+                shallow: true,
+              });
+            }}
+            chosen={sortBy}
+          />
         </div>
         {pills.length > 0 && (
           <FilterPills
@@ -178,6 +164,17 @@ export function FilteredProductList({
             onRemoveAttribute={removeAttributeFilter}
           />
         )}
+        <p
+          style={{
+            color: "#072137",
+            fontSize: "16px",
+            fontWeight: 600,
+            border: "none",
+            margin: "50px 0 32px",
+          }}
+        >
+          {itemsCounter} items
+        </p>
       </div>
 
       <div className="mt-4">

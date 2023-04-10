@@ -570,6 +570,12 @@
             "deprecationReason": null
           },
           {
+            "name": "PASSWORD_RESET_ALREADY_REQUESTED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "PASSWORD_TOO_COMMON",
             "description": null,
             "isDeprecated": false,
@@ -3743,6 +3749,12 @@
           },
           {
             "name": "INVALID",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "INVALID_CUSTOM_HEADERS",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -10536,6 +10548,66 @@
             "deprecationReason": null
           },
           {
+            "name": "contentType",
+            "description": "File content type.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "date",
+            "description": "Represents the date value of the attribute value.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateTime",
+            "description": "Represents the date/time value of the attribute value.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dropdown",
+            "description": "Attribute value ID.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "AttributeValueSelectableTypeInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "file",
+            "description": "URL of the file attribute. Every time, a new value is created.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": "ID of the selected attribute.",
             "type": {
@@ -10548,8 +10620,96 @@
             "deprecationReason": null
           },
           {
+            "name": "multiselect",
+            "description": "List of attribute value IDs.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "AttributeValueSelectableTypeInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "numeric",
+            "description": "Numeric value of an attribute.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "plainText",
+            "description": "Plain text content.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "references",
+            "description": "List of entity IDs that will be used as references.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "richText",
+            "description": "Text content in JSON format.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSONString",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "swatch",
+            "description": "Attribute value ID.\n\nAdded in Saleor 3.12.",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "AttributeValueSelectableTypeInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "values",
-            "description": "The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created.",
+            "description": "The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created.This field will be removed in Saleor 4.0.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -11117,7 +11277,7 @@
             "args": [
               {
                 "name": "format",
-                "description": "The format of the image. When not provided, format of the original image will be used. Must be provided together with the size value, otherwise original image will be returned.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+                "description": "The format of the image. When not provided, format of the original image will be used.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
                 "type": {
                   "kind": "ENUM",
                   "name": "ThumbnailFormatEnum",
@@ -11129,7 +11289,7 @@
               },
               {
                 "name": "size",
-                "description": "Size of the image. If not provided, the original image will be returned.",
+                "description": "Desired longest side the image in pixels. Defaults to 4096. Images are never cropped. Pass 0 to retrieve the original size (not recommended).",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Int",
@@ -18006,7 +18166,7 @@
             "args": [
               {
                 "name": "format",
-                "description": "The format of the image. When not provided, format of the original image will be used. Must be provided together with the size value, otherwise original image will be returned.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+                "description": "The format of the image. When not provided, format of the original image will be used.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
                 "type": {
                   "kind": "ENUM",
                   "name": "ThumbnailFormatEnum",
@@ -18018,7 +18178,7 @@
               },
               {
                 "name": "size",
-                "description": "Size of the image. If not provided, the original image will be returned.",
+                "description": "Desired longest side the image in pixels. Defaults to 4096. Images are never cropped. Pass 0 to retrieve the original size (not recommended).",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Int",
@@ -52204,13 +52364,9 @@
                 "name": "oldPassword",
                 "description": "Current user password.",
                 "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -58897,7 +59053,7 @@
           },
           {
             "name": "shippingTaxClass",
-            "description": "Denormalized tax class assigned to the shipping method.\n\nAdded in Saleor 3.9.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER.",
+            "description": "Denormalized tax class assigned to the shipping method.\n\nAdded in Saleor 3.9.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -63285,7 +63441,7 @@
           },
           {
             "name": "taxClass",
-            "description": "Denormalized tax class of the product in this order line.\n\nAdded in Saleor 3.9.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER.",
+            "description": "Denormalized tax class of the product in this order line.\n\nAdded in Saleor 3.9.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -63377,7 +63533,7 @@
             "args": [
               {
                 "name": "format",
-                "description": "The format of the image. When not provided, format of the original image will be used. Must be provided together with the size value, otherwise original image will be returned.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+                "description": "The format of the image. When not provided, format of the original image will be used.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
                 "type": {
                   "kind": "ENUM",
                   "name": "ThumbnailFormatEnum",
@@ -63389,7 +63545,7 @@
               },
               {
                 "name": "size",
-                "description": "Size of the image. If not provided, the original image will be returned.",
+                "description": "Desired longest side the image in pixels. Defaults to 4096. Images are never cropped. Pass 0 to retrieve the original size (not recommended).",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Int",
@@ -67806,7 +67962,7 @@
           },
           {
             "name": "availableAttributes",
-            "description": "Attributes that can be assigned to the page type.\n\nRequires one of the following permissions: MANAGE_PAGES.",
+            "description": "Attributes that can be assigned to the page type.\n\nRequires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES.",
             "args": [
               {
                 "name": "after",
@@ -67891,7 +68047,7 @@
           },
           {
             "name": "hasPages",
-            "description": "Whether page type has pages assigned.\n\nRequires one of the following permissions: MANAGE_PAGES.",
+            "description": "Whether page type has pages assigned.\n\nRequires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -74058,7 +74214,7 @@
           },
           {
             "name": "taxClass",
-            "description": "Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER.",
+            "description": "Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -74086,7 +74242,7 @@
             "args": [
               {
                 "name": "format",
-                "description": "The format of the image. When not provided, format of the original image will be used. Must be provided together with the size value, otherwise original image will be returned.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+                "description": "The format of the image. When not provided, format of the original image will be used.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
                 "type": {
                   "kind": "ENUM",
                   "name": "ThumbnailFormatEnum",
@@ -74098,7 +74254,7 @@
               },
               {
                 "name": "size",
-                "description": "Size of the image. If not provided, the original image will be returned.",
+                "description": "Desired longest side the image in pixels. Defaults to 4096. Images are never cropped. Pass 0 to retrieve the original size (not recommended).",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Int",
@@ -75652,7 +75808,7 @@
           },
           {
             "name": "taxCode",
-            "description": "Tax rate for enabled tax gateway. \n\nDEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product.",
+            "description": "Tax rate for enabled tax gateway. \n\nDEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -76641,7 +76797,7 @@
             "args": [
               {
                 "name": "format",
-                "description": "The format of the image. When not provided, format of the original image will be used. Must be provided together with the size value, otherwise original image will be returned.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+                "description": "The format of the image. When not provided, format of the original image will be used.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
                 "type": {
                   "kind": "ENUM",
                   "name": "ThumbnailFormatEnum",
@@ -76653,7 +76809,7 @@
               },
               {
                 "name": "size",
-                "description": "Size of the image. If not provided, the original image will be returned.",
+                "description": "Desired longest side the image in pixels. Defaults to 4096. Images are never cropped. Pass 0 to retrieve the original size (not recommended).",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Int",
@@ -76878,7 +77034,7 @@
           },
           {
             "name": "taxCode",
-            "description": "Tax rate for enabled tax gateway. \n\nDEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product.",
+            "description": "Tax rate for enabled tax gateway. \n\nDEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -77176,7 +77332,7 @@
             "args": [
               {
                 "name": "format",
-                "description": "The format of the image. When not provided, format of the original image will be used. Must be provided together with the size value, otherwise original image will be returned.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+                "description": "The format of the image. When not provided, format of the original image will be used.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
                 "type": {
                   "kind": "ENUM",
                   "name": "ThumbnailFormatEnum",
@@ -77188,7 +77344,7 @@
               },
               {
                 "name": "size",
-                "description": "Size of the image. If not provided, the original image will be returned.",
+                "description": "Desired longest side the image in pixels. Defaults to 4096. Images are never cropped. Pass 0 to retrieve the original size (not recommended).",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Int",
@@ -79300,7 +79456,7 @@
           },
           {
             "name": "taxClass",
-            "description": "Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER.",
+            "description": "Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -79984,7 +80140,7 @@
           },
           {
             "name": "taxCode",
-            "description": "Tax rate for enabled tax gateway. \n\nDEPRECATED: this field will be removed in Saleor 4.0.. Use tax classes to control the tax calculation for a product type.",
+            "description": "Tax rate for enabled tax gateway. \n\nDEPRECATED: this field will be removed in Saleor 4.0.. Use tax classes to control the tax calculation for a product type. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -93826,7 +93982,7 @@
           },
           {
             "name": "taxClass",
-            "description": "Tax class assigned to this shipping method.\n\nRequires one of the following permissions: MANAGE_TAXES, MANAGE_SHIPPING.",
+            "description": "Tax class assigned to this shipping method.\n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -103040,6 +103196,18 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "AVIF",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ORIGINAL",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "WEBP",
             "description": null,
             "isDeprecated": false,
@@ -105861,7 +106029,7 @@
             "args": [
               {
                 "name": "format",
-                "description": "The format of the image. When not provided, format of the original image will be used. Must be provided together with the size value, otherwise original image will be returned.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+                "description": "The format of the image. When not provided, format of the original image will be used.\n\nAdded in Saleor 3.6.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
                 "type": {
                   "kind": "ENUM",
                   "name": "ThumbnailFormatEnum",
@@ -105873,7 +106041,7 @@
               },
               {
                 "name": "size",
-                "description": "Size of the image. If not provided, the original image will be returned.",
+                "description": "Desired longest side the image in pixels. Defaults to 4096. Images are never cropped. Pass 0 to retrieve the original size (not recommended).",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Int",
@@ -112209,6 +112377,18 @@
             "deprecationReason": null
           },
           {
+            "name": "customHeaders",
+            "description": "Custom headers, which will be added to HTTP request.\n\nAdded in Saleor 3.12.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSONString",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "eventDeliveries",
             "description": "Event deliveries.",
             "args": [
@@ -112545,6 +112725,18 @@
                   "ofType": null
                 }
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "customHeaders",
+            "description": "Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only \"X-*\" and \"Authorization*\" keys are allowed.\n\nAdded in Saleor 3.12.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSONString",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -112962,6 +113154,12 @@
           },
           {
             "name": "INVALID",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "INVALID_CUSTOM_HEADERS",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -115611,6 +115809,18 @@
                   "ofType": null
                 }
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "customHeaders",
+            "description": "Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only \"X-*\" and \"Authorization*\" keys are allowed.\n\nAdded in Saleor 3.12.\n\nNote: this API is currently in Feature Preview and can be subject to changes at later point.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSONString",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,

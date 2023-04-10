@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from "
 import Custom404 from "pages/404";
 import React, { ReactElement } from "react";
 
-import { Layout, PageHero } from "@/components";
+import { Layout } from "@/components";
 import { FilteredProductList } from "@/components/productList/FilteredProductList";
 import { CollectionPageSeo } from "@/components/seo/CollectionPageSeo";
 import { mapEdgesToItems } from "@/lib/maps";
@@ -74,15 +74,18 @@ function CollectionPage({
   return (
     <>
       <CollectionPageSeo collection={collection} />
-      <header className="mb-4 pt-4">
-        <div className="container px-8">
-          <PageHero
-            title={translate(collection, "name")}
-            description={translate(collection, "description") || ""}
-          />
-        </div>
-      </header>
-      <div className="container px-8 mt-4">
+      <p
+        style={{
+          color: "#1E1E1E",
+          fontSize: "48px",
+          fontWeight: 600,
+          width: "85%",
+          margin: "70px auto",
+        }}
+      >
+        {translate(collection, "name")}
+      </p>
+      <div className="mt-4">
         <FilteredProductList
           attributeFiltersData={attributeFiltersData}
           collectionIDs={[collection.id]}

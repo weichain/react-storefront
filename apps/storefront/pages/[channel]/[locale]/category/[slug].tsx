@@ -1,14 +1,12 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { useRouter } from "next/router";
 import Custom404 from "pages/404";
 import React, { ReactElement } from "react";
 
-import { Layout, PageHero } from "@/components";
+import { Layout } from "@/components";
 import { FilteredProductList } from "@/components/productList/FilteredProductList/FilteredProductList";
 import { CategoryPageSeo } from "@/components/seo/CategoryPageSeo";
 import { mapEdgesToItems } from "@/lib/maps";
-import { usePaths } from "@/lib/paths";
 import { contextToRegionQuery } from "@/lib/regions";
 import { translate } from "@/lib/translations";
 import {
@@ -71,36 +69,32 @@ function CategoryPage({
   category,
   attributeFiltersData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const paths = usePaths();
-  const router = useRouter();
-
   if (!category) {
     return <Custom404 />;
   }
 
-  const subcategories = mapEdgesToItems(category.children);
+  // const subcategories = mapEdgesToItems(category.children);
 
-  const navigateToCategory = (categorySlug: string) => {
-    void router.push(paths.category._slug(categorySlug).$url());
-  };
+  // const navigateToCategory = (categorySlug: string) => {
+  //   void router.push(paths.category._slug(categorySlug).$url());
+  // };
 
   return (
     <>
       <CategoryPageSeo category={category} />
-      <header className="mb-4 pt-4">
-        <div className="container px-8">
-          <PageHero
-            title={translate(category, "name")}
-            description={translate(category, "description") || ""}
-            pills={subcategories.map((subcategory) => ({
-              label: translate(subcategory, "name"),
-              onClick: () => navigateToCategory(subcategory.slug),
-            }))}
-          />
-        </div>
-      </header>
-      <main>
-        <div className="container px-8 mt-4">
+      <p
+        style={{
+          color: "#1E1E1E",
+          fontSize: "48px",
+          fontWeight: 600,
+          width: "85%",
+          margin: "70px auto",
+        }}
+      >
+        {translate(category, "name")}
+      </p>
+      <main style={{ width: "90%", margin: "auto" }}>
+        <div className="mt-4">
           <FilteredProductList
             attributeFiltersData={attributeFiltersData}
             categoryIDs={[category.id]}

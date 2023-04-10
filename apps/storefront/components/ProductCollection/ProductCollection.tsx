@@ -80,7 +80,7 @@ export function ProductCollection({
       </Text>
     );
   }
-
+  console.log(data);
   return (
     <div className="w-11/12 m-auto">
       <Carousel products={products} />
