@@ -10,13 +10,11 @@ import {
   useProductCollectionQuery,
 } from "@/saleor/api";
 import { Text } from "@saleor/ui-kit";
-
+import { ProductCard } from "../ProductCard";
 import { Pagination } from "../Pagination";
 import { useRegions } from "../RegionsProvider";
 import { Spinner } from "../Spinner";
 import { messages } from "../translations";
-import Carousel from "../Carousel/Carousel";
-
 export interface ProductCollectionProps {
   filter?: ProductFilterInput;
   sortBy?: {
@@ -33,7 +31,7 @@ export function ProductCollection({
   sortBy,
   setCounter,
   allowMore = true,
-  perPage = 10,
+  perPage = 3,
 }: ProductCollectionProps) {
   const t = useIntl();
   const { query } = useRegions();
@@ -83,7 +81,14 @@ export function ProductCollection({
 
   return (
     <div className="w-11/12 m-auto">
-      <Carousel products={products} />
+      <ul
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9"
+        data-testid="productsList"
+      >
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </ul>
       {allowMore && (
         <Pagination
           onLoadMore={onLoadMore}

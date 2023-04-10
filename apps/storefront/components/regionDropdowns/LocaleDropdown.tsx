@@ -44,9 +44,10 @@ export function LocaleDropdown() {
   };
 
   return (
-    <div className="flex justify-between items-center w-14 relative sm: mr-4">
+    <div className="flex justify-between items-center w-14 relative sm:mr-0 lg:mr-4">
       {localeOptions.map((option) => (
         <p
+          style={{ color: option.localeSlug === currentLocale ? "#8F8F8F" : "#FFFFFF" }}
           className="cursor-pointer"
           key={option.label}
           onClick={() => onLocaleChange(option.localeSlug)}
