@@ -73,12 +73,6 @@ function CategoryPage({
     return <Custom404 />;
   }
 
-  // const subcategories = mapEdgesToItems(category.children);
-
-  // const navigateToCategory = (categorySlug: string) => {
-  //   void router.push(paths.category._slug(categorySlug).$url());
-  // };
-
   return (
     <>
       <CategoryPageSeo category={category} />
@@ -87,20 +81,30 @@ function CategoryPage({
           color: "#1E1E1E",
           fontSize: "48px",
           fontWeight: 600,
-          width: "85%",
-          margin: "70px auto",
+          width: "83%",
+          margin: "70px auto 16px",
         }}
       >
         {translate(category, "name")}
       </p>
-      <main style={{ width: "90%", margin: "auto" }}>
-        <div className="mt-4">
-          <FilteredProductList
-            attributeFiltersData={attributeFiltersData}
-            categoryIDs={[category.id]}
-          />
-        </div>
-      </main>
+      {/* TODO Fix the description and check the category if it is seoDescription or description */}
+      <p
+        style={{
+          color: "#8F8F8F",
+          fontSize: "20px",
+          margin: "0 auto 64px",
+          width: "83%",
+        }}
+      >
+        Here must be the description
+      </p>
+
+      <div className="mt-4 w-11/12 m-auto">
+        <FilteredProductList
+          attributeFiltersData={attributeFiltersData}
+          categoryIDs={[category.id]}
+        />
+      </div>
     </>
   );
 }

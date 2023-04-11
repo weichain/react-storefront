@@ -96,11 +96,6 @@ export function Navbar() {
             <a href={externalCheckoutUrl} className="ml-2 hidden xs:flex" data-testid="cartIcon">
               <NavIconButton isButton={false} icon="bag" aria-hidden="true" counter={counter} />
             </a>
-            <Link href={paths.search.$url()} passHref legacyBehavior>
-              <a href="pass" className="hidden lg:flex ml-2" data-testid="searchIcon">
-                <NavIconButton isButton={false} icon="spyglass" />
-              </a>
-            </Link>
             <NavIconButton
               icon="menu"
               className="ml-2 lg:hidden"

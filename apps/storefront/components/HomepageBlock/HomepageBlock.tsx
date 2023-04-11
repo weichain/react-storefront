@@ -47,7 +47,7 @@ export function HomepageBlock({ menuItem }: HomepageBlockProps) {
           {translate(menuItem, "name")}
         </h1>
       </div>
-      <ProductCollection filter={filter} allowMore={false} />
+      <ProductCollection filter={filter} allowMore={false} gridItems={3} />
     </div>
   );
 }

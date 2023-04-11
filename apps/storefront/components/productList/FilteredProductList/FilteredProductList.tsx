@@ -134,9 +134,10 @@ export function FilteredProductList({
 
   return (
     <>
-      <div className="flex flex-col divide-y m-auto" style={{ width: "85%" }}>
-        <div className="flex items-center">
-          <div className="flex-grow flex gap-4">
+      <div className="flex flex-col divide-y m-auto" style={{ width: "91%" }}>
+        <hr style={{ marginBottom: "30px", color: "#F0F0F0" }} />
+        <div className="flex items-center flex-wrap gap-8" style={{ border: "none" }}>
+          <div className="flex-grow flex gap-4 flex-wrap">
             {attributeFiltersData.map((attribute) => (
               <FilterDropdown
                 key={attribute.id}
@@ -164,6 +165,8 @@ export function FilteredProductList({
             onRemoveAttribute={removeAttributeFilter}
           />
         )}
+
+        <hr style={{ marginTop: "30px", color: "#F0F0F0" }} />
         <p
           style={{
             color: "#072137",
@@ -183,6 +186,7 @@ export function FilteredProductList({
           sortBy={sortBy || undefined}
           setCounter={setItemsCounter}
           perPage={40}
+          gridItems={4}
         />
       </div>
     </>

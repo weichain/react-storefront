@@ -79,13 +79,24 @@ function CollectionPage({
           color: "#1E1E1E",
           fontSize: "48px",
           fontWeight: 600,
-          width: "85%",
-          margin: "70px auto",
+          width: "83%",
+          margin: "70px auto 16px",
         }}
       >
         {translate(collection, "name")}
       </p>
-      <div className="mt-4">
+      {/* TODO Fix the description and check the category if it is seoDescription or description */}
+      <p
+        style={{
+          color: "#8F8F8F",
+          fontSize: "20px",
+          margin: "0 auto 64px",
+          width: "83%",
+        }}
+      >
+        Here must be the description
+      </p>
+      <div className="mt-4 w-11/12 m-auto">
         <FilteredProductList
           attributeFiltersData={attributeFiltersData}
           collectionIDs={[collection.id]}
