@@ -2370,8 +2370,8 @@ packages:
     dev: true
     optional: true
 
-  /@corex/deepmerge/4.0.37:
-    resolution: {integrity: sha512-PX90bEnrLdxd5e6rSFWsghExMuSw0Uov3fWJuuaoFuUQIS/446diu/4seExK5b+43L+SOBbd2uBGwYUkG1JfCw==}
+  /@corex/deepmerge/4.0.43:
+    resolution: {integrity: sha512-N8uEMrMPL0cu/bdboEWpQYb/0i2K5Qn8eCsxzOmxSggJbbQte7ljMRoXm917AbntqTGOzdTu+vP3KOOzoC70HQ==}
     dev: false
 
   /@cspotcode/source-map-support/0.8.1:
@@ -9989,7 +9989,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001477
+      caniuse-lite: 1.0.30001478
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -10005,7 +10005,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001477
+      caniuse-lite: 1.0.30001478
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -10021,7 +10021,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001477
+      caniuse-lite: 1.0.30001478
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -10034,7 +10034,7 @@ packages:
     hasBin: true
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001477
+      caniuse-lite: 1.0.30001478
       normalize-range: 0.1.2
       num2fraction: 1.2.2
       picocolors: 0.2.1
@@ -10685,8 +10685,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001477
-      electron-to-chromium: 1.4.357
+      caniuse-lite: 1.0.30001478
+      electron-to-chromium: 1.4.359
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10_browserslist@4.21.5
 
@@ -10928,13 +10928,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001477
+      caniuse-lite: 1.0.30001478
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
 
-  /caniuse-lite/1.0.30001477:
-    resolution: {integrity: sha512-lZim4iUHhGcy5p+Ri/G7m84hJwncj+Kz7S5aD4hoQfslKZJgt0tHc/hafVbqHC5bbhHb+mrW2JOUHkI5KH7toQ==}
+  /caniuse-lite/1.0.30001478:
+    resolution: {integrity: sha512-gMhDyXGItTHipJj2ApIvR+iVB5hd0KP3svMWWXDvZOmjzJJassGLMfxRkQCSYgGd2gtdL/ReeiyvMSFD1Ss6Mw==}
 
   /capital-case/1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -12871,8 +12871,8 @@ packages:
       jake: 10.8.5
     dev: true
 
-  /electron-to-chromium/1.4.357:
-    resolution: {integrity: sha512-UTkCbNTAcGXABmEnQrGcW4m3cG6fcyBfD4KDF0iyEAlbrGZiY9dmslyDAGOD1Kr5biN2F743Y30aRCOtau35Vw==}
+  /electron-to-chromium/1.4.359:
+    resolution: {integrity: sha512-OoVcngKCIuNXtZnsYoqlCvr0Cf3NIPzDIgwUfI9bdTFjXCrr79lI0kwQstLPZ7WhCezLlGksZk/BFAzoXC7GDw==}
 
   /elliptic/6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
@@ -18371,8 +18371,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /minipass/4.2.7:
-    resolution: {integrity: sha512-ScVIgqHcXRMyfflqHmEW0bm8z8rb5McHyOY3ewX9JBgZaR77G7nxq9L/mtV96/QbAAwtbCAHVVLzD1kkyfFQEw==}
+  /minipass/4.2.8:
+    resolution: {integrity: sha512-fNzuVyifolSLFL4NzpF+wEF4qrgqaaKX0haXPQEdQ7NKAN+WecoKMHV09YcuL/DHxrUsYQOK3MiuDf7Ip2OXfQ==}
     engines: {node: '>=8'}
     dev: true
 
@@ -18615,7 +18615,7 @@ packages:
       '@next/env': '*'
       next: '*'
     dependencies:
-      '@corex/deepmerge': 4.0.37
+      '@corex/deepmerge': 4.0.43
       '@next/env': 13.3.0
       minimist: 1.2.8
       next: 13.0.4_qtpcxnaaarbm4ws7ughq6oxfve
@@ -18673,7 +18673,7 @@ packages:
     dependencies:
       '@next/env': 13.0.4
       '@swc/helpers': 0.4.11
-      caniuse-lite: 1.0.30001477
+      caniuse-lite: 1.0.30001478
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -24047,7 +24047,7 @@ packages:
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
-      minipass: 4.2.7
+      minipass: 4.2.8
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0

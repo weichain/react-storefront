@@ -20,4 +20,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 20px;
+  font-size: 14px;
+  color: #4c4c4c;
 }

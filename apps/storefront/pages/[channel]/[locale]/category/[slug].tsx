@@ -76,26 +76,11 @@ function CategoryPage({
   return (
     <>
       <CategoryPageSeo category={category} />
-      <p
-        style={{
-          color: "#1E1E1E",
-          fontSize: "48px",
-          fontWeight: 600,
-          width: "83%",
-          margin: "70px auto 16px",
-        }}
-      >
+      <p className="text-[#1E1E1E] text-[48px] font-semibold w-5/6 mt-18 mb-4 mx-auto">
         {translate(category, "name")}
       </p>
       {/* TODO Fix the description and check the category if it is seoDescription or description */}
-      <p
-        style={{
-          color: "#8F8F8F",
-          fontSize: "20px",
-          margin: "0 auto 64px",
-          width: "83%",
-        }}
-      >
+      <p className="text-secondary text-[20px] mt-0 mx-auto mb-16 w-10/12">
         Here must be the description
       </p>
 
