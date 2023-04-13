@@ -59,12 +59,7 @@ export function ProductCard({ product }: ProductCardProps) {
               <p className={styles.secondaryDescription}>{secondaryDescription}</p>
             )}
           </a>
-          <p
-            className={styles.additionalDescription}
-            style={{ fontSize: "14px", color: "#4C4C4C" }}
-          >
-            {product.seoDescription}
-          </p>
+          <p className={styles.additionalDescription}>{product.seoDescription}</p>
           <p className={styles.secondaryDescription}>
             {product.pricing?.priceRange?.start?.gross.amount}$
           </p>

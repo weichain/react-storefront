@@ -26,6 +26,7 @@ module.exports = {
         },
       },
       colors: {
+        secondary: "#8F8F8F",
         action: {
           1: "#5B68E4",
           2: "rgba(91, 104, 228, 0.8)",

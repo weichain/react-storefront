@@ -24,6 +24,12 @@ export interface ProductCollectionProps {
   allowMore?: boolean;
   perPage?: number;
   setCounter?: (value: number) => void;
+  gridItems: number;
+}
+
+interface IGridVariants {
+  3: string;
+  4: string;
 }
 
 export function ProductCollection({
@@ -32,6 +38,7 @@ export function ProductCollection({
   setCounter,
   allowMore = true,
   perPage = 3,
+  gridItems,
 }: ProductCollectionProps) {
   const t = useIntl();
   const { query } = useRegions();
@@ -47,6 +54,11 @@ export function ProductCollection({
           field: sortBy.field,
         },
       }),
+  };
+
+  const gridVariants: IGridVariants = {
+    3: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9",
+    4: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-9",
   };
 
   const { loading, error, data, fetchMore } = useProductCollectionQuery({
@@ -82,7 +94,7 @@ export function ProductCollection({
   return (
     <div className="w-11/12 m-auto">
       <ul
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9"
+        className={`${gridVariants[gridItems as keyof IGridVariants]}`}
         data-testid="productsList"
       >
         {products.map((product) => (

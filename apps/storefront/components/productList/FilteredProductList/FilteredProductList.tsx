@@ -21,8 +21,6 @@ import { FilterDropdown } from "./FilterDropdown";
 import { FilterPill, FilterPills } from "./FilterPills";
 import { parseQuerySort, serializeQuerySort, UrlSorting } from "./sorting";
 import { SortingDropdown } from "./SortingDropdown";
-import { StockToggle } from "./StockToggle";
-
 export interface FilteredProductListProps {
   attributeFiltersData: AttributeFilterFragment[];
   collectionIDs?: string[];
@@ -136,9 +134,10 @@ export function FilteredProductList({
 
   return (
     <>
-      <div className="flex flex-col divide-y">
-        <div className="flex items-center">
-          <div className="flex-grow">
+      <div className="flex flex-col divide-y m-auto w-11/12">
+        <hr className="mb-8 text-[#F0F0F0]" />
+        <div className="flex items-center flex-wrap gap-8 border-none">
+          <div className="flex-grow flex gap-4 flex-wrap">
             {attributeFiltersData.map((attribute) => (
               <FilterDropdown
                 key={attribute.id}
@@ -148,28 +147,16 @@ export function FilteredProductList({
                 options={getFilterOptions(attribute, pills)}
               />
             ))}
-            <SortingDropdown
-              optionToggle={(field?: ProductOrderField, direction?: OrderDirection) => {
-                return setSortBy(field && direction ? { field, direction } : null, {
-                  scroll: false,
-                  shallow: true,
-                });
-              }}
-              chosen={sortBy}
-            />
-            <StockToggle
-              enabled={inStockFilter}
-              onChange={(value: boolean) =>
-                setInStockFilter(!!value || null, {
-                  scroll: false,
-                  shallow: true,
-                })
-              }
-            />
           </div>
-          <div className="flex-none text-main-2 text-base">
-            <div>{itemsCounter} items</div>
-          </div>
+          <SortingDropdown
+            optionToggle={(field?: ProductOrderField, direction?: OrderDirection) => {
+              return setSortBy(field && direction ? { field, direction } : null, {
+                scroll: false,
+                shallow: true,
+              });
+            }}
+            chosen={sortBy}
+          />
         </div>
         {pills.length > 0 && (
           <FilterPills
@@ -178,6 +165,11 @@ export function FilteredProductList({
             onRemoveAttribute={removeAttributeFilter}
           />
         )}
+
+        <hr className="mt-8 text-[#F0F0F0]" />
+        <p className="text-[#072137] text-[16px] font-semibold border-none mt-12 mb-8">
+          {itemsCounter} items
+        </p>
       </div>
 
       <div className="mt-4">
@@ -186,6 +178,7 @@ export function FilteredProductList({
           sortBy={sortBy || undefined}
           setCounter={setItemsCounter}
           perPage={40}
+          gridItems={4}
         />
       </div>
     </>

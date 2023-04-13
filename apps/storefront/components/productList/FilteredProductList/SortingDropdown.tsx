@@ -22,8 +22,9 @@ export function SortingDropdown({ optionToggle, chosen }: SortingDropdownProps) 
           className="inline-flex w-full justify-left px-2 py-2 text-base font-medium  hover:bg-opacity-30 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           data-testid="sortBy"
         >
-          Sort by
-          <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5 " aria-hidden="true" />
+          <p className="text-secondary">Sort by:</p>
+          <p className="mx-2.5 my-0 text-[#1F1F1F]">Default</p>
+          <ChevronDownIcon className="h-5" aria-hidden="true" />
         </Menu.Button>
       </div>
       <Transition
@@ -36,7 +37,7 @@ export function SortingDropdown({ optionToggle, chosen }: SortingDropdownProps) 
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="focus:outline-none absolute left-0 w-56 origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-10"
+          className="focus:outline-none absolute -left-9 w-38 origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-10"
           data-testid="sortingDropdown"
         >
           {options?.map((option) => (
