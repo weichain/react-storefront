@@ -19,8 +19,6 @@ export const createTransaction = async (
     )
     .toPromise();
 
-  console.log(data?.transactionCreate?.errors, error);
-
   if (data?.transactionCreate?.transaction?.id && data.transactionCreate.errors.length === 0) {
     return true;
   }

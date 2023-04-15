@@ -2,10 +2,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from "react";
+// import Omise from '../../../../../../../omise-node'
 import { BsSquare, BsCheckSquare } from "react-icons/bs";
 import styled, { css } from "styled-components";
 
 import { IReactCreditCardProps } from "./CardPayment";
+import { createChargeRequest } from "./utils/requests";
+let omise = require("../../../../../../../omise-node")({
+  publicKey: "pkey_test_5v0tzstq34vn9s6800h",
+  secretKey: "skey_test_5v1asluvtklyiikdd5z",
+});
+
+// console.log(createTokenPromise)
 
 export interface IConfrimHandlerProps {
   card: IReactCreditCardProps;
@@ -40,17 +48,25 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({
     enableBtn = true;
   }
 
-  const cardDetails = {
-    name: "JOHN DOE",
-    number: "4242424242424242",
-    expiration_month: 12,
-    expiration_year: 2027,
-    security_code: "123",
-  };
+  const month = card.expiry.split("/")[0];
+  const year = "20" + card.expiry.split("/")[1];
 
-  const submitHandler = () => {
-    console.log(country, card, checkedBox);
-    console.log(cardDetails);
+  const cardDetails = {
+    card: {
+      name: card.name,
+      city: country,
+      postal_code: 1000,
+      number: String(card.number),
+      expiration_month: Number(month),
+      expiration_year: Number(year),
+      security_code: String(card.cvc),
+    },
+  };
+  const submitHandler = async () => {
+    const token = await omise.tokens.create(cardDetails);
+    const result = await createChargeRequest("10000", "thb", token);
+
+    // console.log('the result: ', await result.json())
   };
 
   const checkHandler = (e: any) => {

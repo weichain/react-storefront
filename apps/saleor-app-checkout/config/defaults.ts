@@ -8,10 +8,10 @@ import { ChannelActivePaymentProvidersByChannel } from "checkout-common";
 
 export const defaultActiveChannelPaymentProviders: ChannelActivePaymentProvidersByChannel = {
   applePay: "",
-  creditCard: "",
+  creditCard: "omise",
   paypal: "",
   dropin: "",
-  dummy: "dummy",
+  dummy: "",
 };
 
 export const defaultPaymentProviderSettings: PaymentProviderSettingsValues<"unencrypted"> = {
@@ -31,6 +31,10 @@ export const defaultPaymentProviderSettings: PaymentProviderSettingsValues<"unen
     publishableKey: "",
     secretKey: "",
     webhookSecret: "",
+  },
+  omise: {
+    publicKey: "pkey_test_5v0tzstq34vn9s6800h",
+    secretKey: "skey_test_5v1asluvtklyiikdd5z",
   },
   dummy: {
     dummyKey: "",

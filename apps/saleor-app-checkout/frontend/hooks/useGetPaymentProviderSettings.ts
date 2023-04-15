@@ -16,7 +16,7 @@ export const useGetPaymentProviderSettings = <TArgs>(
   const domain = app.getState().domain;
 
   // @todo use `saleorApiUrl`
-  const saleorApiUrl = `https://${domain}/graphql/`;
+  const saleorApiUrl = `https://f92d-46-10-125-139.eu.ngrok.io/graphql/`;
 
   const [{ data, loading, error }] = useFetch(requestGetPaymentProviderSettings, {
     skip: !isAuthorized,

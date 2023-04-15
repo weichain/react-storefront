@@ -46,6 +46,7 @@ const sectionsManager = (checkout?: CheckoutDetailsFragment): CollapsedSections 
 
 export function CheckoutForm() {
   const { checkout } = useCheckout();
+  console.log("yooooooooooooooooooooooooooooo?????????????????????");
 
   if (!checkout) {
     return null;
@@ -72,6 +73,11 @@ export function CheckoutForm() {
           <ShippingMethodSection active={!collapsedSections.shippingMethod} checkout={checkout} />
         </div>
       )}
+      <div>ASDAWQESDASFQWEQWFQWFQWFWQFQWFQWFQWFQW</div>
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="checkout-section-container">
         <PaymentSection active={!collapsedSections.payment} checkout={checkout} />
       </div>

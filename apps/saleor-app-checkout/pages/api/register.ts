@@ -14,7 +14,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     return;
   }
   // @todo use `saleorApiUrl` from request
-  const saleorApiUrl = `https://${domain}/graphql/`;
+  const saleorApiUrl = `https://f92d-46-10-125-139.eu.ngrok.io/graphql/`;
 
   const authToken = request.body?.auth_token as string;
   if (!authToken) {

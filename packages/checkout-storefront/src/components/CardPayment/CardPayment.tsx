@@ -6,7 +6,7 @@ import { Title } from "../Title";
 export interface IReactCreditCardProps {
   name: string;
   number: string | number;
-  expiry: string | number;
+  expiry: string;
   cvc: string | number;
 }
 

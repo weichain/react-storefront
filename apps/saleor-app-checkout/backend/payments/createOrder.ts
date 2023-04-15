@@ -54,7 +54,6 @@ export const createOrder = async ({
       errors: ["TOTAL_AMOUNT_MISMATCH"],
     };
   }
-
   const { data, error } = await client
     .mutation<OrderCreateMutation, OrderCreateMutationVariables>(OrderCreateDocument, {
       id: checkoutId,
