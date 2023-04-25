@@ -3,15 +3,15 @@ import React from "react";
 export const Footer = () => {
   return (
     <div className="pb-20 flex flex-col gap-6">
-      <p style={{ color: "#1E1E1E", fontSize: "16px", fontWeight: 600 }}>Heed Help?</p>
-      <div className="flex items-center" style={{ width: "90px" }}>
+      <p className="text-[#1E1E1E] text-[16px] font-bold">Heed Help?</p>
+      <div className="flex items-center w-11/12">
         <img src="/EnvelopeBlack.png" alt="email" width={15} height={15} />
-        <p style={{ margin: "auto 5px auto 10px" }}>[Email]</p>
-        <img src="/ArrowUpRight.png" alt="logo" style={{ width: "12px", height: "10px" }} />
+        <p className="mt-auto mr-1 mb-auto ml-3">[Email]</p>
+        <img src="/ArrowUpRight.png" alt="logo" width={9} height={5} />
       </div>
       <div className="flex items-center">
         <img src="/PhoneBlack.png" alt="phone" width={15} height={15} />
-        <p style={{ marginLeft: "10px" }}>+66 (0)1234 1234</p>
+        <p className="ml-2">+66 (0)1234 1234</p>
       </div>
     </div>
   );

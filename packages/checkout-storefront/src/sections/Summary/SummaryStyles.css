@@ -2,11 +2,11 @@
 
 @layer components {
   .summary {
-    @apply flex flex-col w-full lg:w-1/2 h-fit overflow-hidden lg:overflow-visible;
+    @apply flex flex-col bg-[#F0F0F0] w-full lg:w-1/2 h-fit overflow-hidden lg:overflow-visible;
   }
 
   .summary-title {
-    @apply flex flex-row px-6 justify-between items-baseline z-50 py-4 lg:pointer-events-none;
+    @apply flex flex-row justify-between items-baseline z-50 lg:pointer-events-none;
   }
 
   .summary-title .text {
@@ -26,7 +26,7 @@
   }
 
   .summary-items {
-    @apply px-4 overflow-visible lg:pt-2;
+    @apply overflow-visible lg:pt-2;
   }
 
   .summary-item {
@@ -51,9 +51,5 @@
 
   .summary-recap {
     @apply flex flex-col max-w-full;
-  }
-
-  .summary-recap > .summary-row {
-    @apply px-4;
   }
 }

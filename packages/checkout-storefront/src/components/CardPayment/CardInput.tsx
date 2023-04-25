@@ -8,7 +8,6 @@ import {
   formatCardName,
 } from "./utils/payments";
 import { IReactCreditCardProps } from "./CardPayment";
-import { cardImages } from "./images";
 
 export interface ICardInputProps {
   card: IReactCreditCardProps;
@@ -37,72 +36,51 @@ export const CardInput: React.FC<ICardInputProps> = ({ card, setCard }) => {
 
   return (
     <>
-      <div className="flex flex-col relative">
-        <label>Card number</label>
+      <div className="flex flex-col">
+        <label className="text-[#4C4C4C] text-[12px] font-bold uppercase tracking-[.20em]">
+          Name on card
+        </label>
         <input
-          style={{ color: "#475266", borderColor: "rgb(185 193 207", borderRadius: "5px" }}
+          name="name"
+          className="min-w-8 h-3 mb-2 max-w-full border border-[#CBCBCB] pt-6 pb-4 px-4 outline-none"
+          onChange={handleInputChange}
+          value={card.name}
+        />
+      </div>
+      <div className="flex flex-col relative">
+        <label className="text-[#4C4C4C] text-[12px] font-bold uppercase tracking-[.20em]">
+          Card number
+        </label>
+        <input
           name="number"
-          className="min-w-8 h-3 mb-2 max-w-full border border-skeleton pt-6 pb-4 px-6 outline-none"
+          className="min-w-8 h-3 mb-2 max-w-full border border-[#CBCBCB] pt-6 pb-4 px-4 outline-none"
           onChange={handleInputChange}
           value={card.number}
         />
-        <img
-          src="/inputcard.svg.svg"
-          alt="logo"
-          style={{
-            position: "absolute",
-            right: "13px",
-            top: "26px",
-            width: "36px",
-          }}
-        />
-        <div className="flex">
-          {cardImages.map((image) => (
-            <img key={image} src={`/${image}.svg`} alt="card" width="30px" />
-          ))}
-        </div>
       </div>
       <div className="flex justify-between flex-col lg:flex-row">
         <div className="flex flex-col w-full lg:w-5/12">
-          <label>Expiry date</label>
+          <label className="text-[#4C4C4C] text-[12px] font-bold uppercase tracking-[.20em]">
+            Expiry date
+          </label>
           <input
-            style={{ color: "#475266", borderColor: "rgb(185 193 207", borderRadius: "5px" }}
             name="expiry"
-            className="min-w-8 h-3 mb-2 max-w-full border border-skeleton pt-6 pb-4 px-6 outline-none"
+            className="min-w-8 h-3 mb-2 max-w-full border border-[#CBCBCB] pt-6 pb-4 px-4 outline-none"
             onChange={handleInputChange}
             value={card.expiry}
           />
         </div>
         <div className="flex flex-col w-full lg:w-5/12 relative">
-          <label>CVC / CVV</label>
+          <label className="text-[#4C4C4C] text-[12px] font-bold uppercase tracking-[.20em]">
+            Security code
+          </label>
           <input
-            style={{ color: "#475266", borderColor: "rgb(185 193 207", borderRadius: "5px" }}
             name="cvc"
-            className="min-w-8 h-3 mb-2 max-w-full border border-skeleton pt-6 pb-4 px-6 outline-none"
+            className="min-w-8 h-3 mb-2 max-w-full border border-[#CBCBCB] pt-6 pb-4 px-4 outline-none"
             onChange={handleInputChange}
             value={card.cvc}
           />
-          <img
-            src="/cvv.svg"
-            alt="logo"
-            style={{
-              position: "absolute",
-              right: "13px",
-              top: "26px",
-              width: "38px",
-            }}
-          />
         </div>
-      </div>
-      <div className="flex flex-col">
-        <label>Name on card</label>
-        <input
-          style={{ color: "#475266", borderColor: "rgb(185 193 207", borderRadius: "5px" }}
-          name="name"
-          className="min-w-8 h-3 mb-2 max-w-full border border-skeleton pt-6 pb-4 px-6 outline-none"
-          onChange={handleInputChange}
-          value={card.name}
-        />
       </div>
     </>
   );

@@ -2,8 +2,7 @@
 
 @layer components {
   .page-header {
-    @apply mb-6 md:mb-12 w-full h-20 flex flex-row justify-between items-center;
-    background-color: #072137;
+    @apply mb-6 md:mb-12 w-full h-20 bg-[#072137] flex flex-row justify-center items-center;
   }
 
   .logo {

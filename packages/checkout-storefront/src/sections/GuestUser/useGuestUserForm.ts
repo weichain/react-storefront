@@ -22,14 +22,18 @@ export interface GuestUserFormData {
   email: string;
   password: string;
   createAccount: boolean;
+  name: string;
+  number: string;
 }
 
 interface GuestUserFormProps {
   // shared between sign in form and guest user form
   initialEmail: string;
+  fullName: string;
+  phoneNumber: string;
 }
 
-export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
+export const useGuestUserForm = ({ initialEmail, fullName, phoneNumber }: GuestUserFormProps) => {
   const { checkout } = useCheckout();
   const { user } = useUser();
   const shouldUserRegister = useUserRegisterState();
@@ -48,6 +52,8 @@ export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
 
   const defaultFormData: GuestUserFormData = {
     email: initialEmail || checkout.email || "",
+    name: fullName,
+    number: phoneNumber,
     password: "",
     createAccount: false,
   };
@@ -62,9 +68,11 @@ export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
           const errors = await validateForm(formData);
           return hasErrors(errors);
         },
-        parse: ({ email, password, channel }) => ({
+        parse: ({ email, name, number, password, channel }) => ({
           input: {
             email,
+            name,
+            number,
             password,
             channel,
             redirectUrl: getCurrentHref(),
@@ -92,11 +100,11 @@ export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
     validationSchema,
     validateOnChange: true,
     validateOnBlur: false,
-    initialTouched: { email: true },
+    initialTouched: { email: true, name: true, number: true },
   });
 
   const {
-    values: { email, createAccount },
+    values: { email, name, number, createAccount },
     handleSubmit,
     handleChange,
   } = form;

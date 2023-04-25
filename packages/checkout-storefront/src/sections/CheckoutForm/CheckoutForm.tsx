@@ -1,11 +1,9 @@
 import { useCheckout } from "@/checkout-storefront/hooks/useCheckout";
 import { Contact } from "@/checkout-storefront/sections/Contact";
-import { DeliveryMethods } from "@/checkout-storefront/sections/DeliveryMethods";
 import { Suspense, useState } from "react";
 import { Button } from "@/checkout-storefront/components/Button";
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { ContactSkeleton } from "@/checkout-storefront/sections/Contact/ContactSkeleton";
-import { DeliveryMethodsSkeleton } from "@/checkout-storefront/sections/DeliveryMethods/DeliveryMethodsSkeleton";
 import { AddressSectionSkeleton } from "@/checkout-storefront/components/AddressSectionSkeleton";
 import { useCheckoutSubmit } from "@/checkout-storefront/sections/CheckoutForm/useCheckoutSubmit";
 import { commonMessages } from "@/checkout-storefront/lib/commonMessages";
@@ -31,11 +29,8 @@ export const CheckoutForm = () => {
   const { passwordResetToken } = getQueryParams();
 
   const [showOnlyContact, setShowOnlyContact] = useState(!!passwordResetToken);
-
   const { handleSubmit, isProcessing } = useCheckoutSubmit();
-
   const { availablePaymentProviders } = useFetchPaymentMethods();
-
   const shouldShowPayButton = availablePaymentProviders.some(
     (provider) => provider && provider !== "adyen"
   );
@@ -44,21 +39,19 @@ export const CheckoutForm = () => {
     <div className="checkout-form-container">
       <PageHeader />
       <div className="checkout-form">
-        <Suspense fallback={<ContactSkeleton />}></Suspense>
+        <Suspense fallback={<ContactSkeleton />}>
+          <Contact setShowOnlyContact={setShowOnlyContact} />
+        </Suspense>
         <>
-          {checkout?.isShippingRequired && (
+          {/* {checkout?.isShippingRequired && (
             <Suspense fallback={<AddressSectionSkeleton />}>
               <CollapseSection collapse={showOnlyContact}>
                 <div className="section" data-testid="shippingAddressSection">
                   {user ? <UserShippingAddressSection /> : <GuestShippingAddressSection />}
-                  <Contact setShowOnlyContact={setShowOnlyContact} />
                 </div>
               </CollapseSection>
             </Suspense>
-          )}
-          <Suspense fallback={<DeliveryMethodsSkeleton />}>
-            <DeliveryMethods collapsed={showOnlyContact} />
-          </Suspense>
+          )} */}
           <CollapseSection collapse={showOnlyContact}>
             <PaymentSection>
               {user ? <UserBillingAddressSection /> : <GuestBillingAddressSection />}

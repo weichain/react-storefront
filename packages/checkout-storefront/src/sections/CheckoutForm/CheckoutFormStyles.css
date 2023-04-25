@@ -2,10 +2,10 @@
 
 @layer components {
   .checkout-form-container {
-    @apply flex flex-col items-end w-full;
+    @apply flex flex-col items-end w-full bg-[#ffffff];
   }
   .checkout-form {
-    @apply flex flex-col w-10/12 lg:w-6/12 m-auto;
+    @apply flex flex-col w-10/12 lg:w-[55%] m-auto;
   }
 
   /* .section {

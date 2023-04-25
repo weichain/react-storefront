@@ -15,20 +15,17 @@ export const CountryDropdown: React.FC<ICountrySelectProps> = ({ country, setCou
 
   return (
     <div>
-      <label id="countries">Country</label>
+      <label
+        className="text-[#4C4C4C] text-[12px] font-bold uppercase tracking-[.20em]"
+        id="countries"
+      >
+        Country
+      </label>
       <select
         id="countries"
         onChange={handleChange}
         value={country}
-        style={{
-          width: "100%",
-          height: "40px",
-          margin: "0 auto 16px",
-          paddingLeft: "16px",
-          border: "1px solid rgb(143 143 143)",
-          color: "#475266",
-          outline: "none",
-        }}
+        className="w-full mb-4 pb-4 pt-3 px-4 border border-[#CBCBCB] text-[#475266] outline-none"
       >
         {countries.map((country) => (
           <option key={country} value={country}>
