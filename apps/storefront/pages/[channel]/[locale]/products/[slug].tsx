@@ -28,6 +28,7 @@ import {
 } from "@/saleor/api";
 import { serverApolloClient } from "@/lib/auth/useAuthenticatedApolloClient";
 import { useUser } from "@/lib/useUser";
+import { convertProductUrl } from "@/lib/convertMediaUrls";
 
 export type OptionalQuery = {
   variant?: string;
@@ -49,7 +50,7 @@ export const getStaticProps = async (
   }
 
   const productSlug = context.params.slug.toString();
-  const response: ApolloQueryResult<ProductBySlugQuery> = await serverApolloClient.query<
+  let response: ApolloQueryResult<ProductBySlugQuery> = await serverApolloClient.query<
     ProductBySlugQuery,
     ProductBySlugQueryVariables
   >({
@@ -59,6 +60,29 @@ export const getStaticProps = async (
       ...contextToRegionQuery(context),
     },
   });
+
+  response = convertProductUrl(response, (deepcopy: any, invalid: string, valid: string) => {
+    deepcopy.data.product.variants?.forEach((v: { media: Array<{ url: string }> }) => {
+      v.media?.forEach((m: { url: string }) => {
+        if (m.url.startsWith(invalid)) {
+          m.url = m.url.replace(invalid, valid);
+        }
+      });
+    });
+    deepcopy.data.product.media?.forEach((m: { url: string }) => {
+      if (m.url.startsWith(invalid)) {
+        m.url = m.url.replace(invalid, valid);
+      }
+    });
+    if (deepcopy.data.product.thumbnail?.url.startsWith(invalid)) {
+      deepcopy.data.product.thumbnail.url = deepcopy.data.product.thumbnail?.url.replace(
+        invalid,
+        valid
+      );
+    }
+    return deepcopy;
+  }) as ApolloQueryResult<ProductBySlugQuery>;
+
   return {
     props: {
       product: response.data.product,
