@@ -17,6 +17,9 @@ fragment ProductDetailsFragment on Product {
   category {
     ...CategoryBasicFragment
   }
+  collections {
+    ...CollectionBasicFragment
+  }
   variants {
     ...ProductVariantDetailsFragment
   }
