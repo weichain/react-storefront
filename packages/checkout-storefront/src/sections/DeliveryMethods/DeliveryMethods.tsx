@@ -29,36 +29,36 @@ export const DeliveryMethods: React.FC<CommonSectionProps> = ({ collapsed }) => 
     });
   };
 
-  if (!checkout?.isShippingRequired || collapsed) {
+  if (true || collapsed) {
     return null;
   }
 
-  return (
-    <FormProvider form={form}>
-      <Divider />
-      <div className="section" data-testid="deliveryMethods">
-        <Title className="mb-2">{formatMessage(deliveryMethodsMessages.deliveryMethods)}</Title>
-        {!shippingAddress && (
-          <Text>{formatMessage(deliveryMethodsMessages.noShippingAddressMessage)}</Text>
-        )}
-        <SelectBoxGroup label={formatMessage(deliveryMethodsLabels.deliveryMethods)}>
-          {shippingMethods?.map(
-            ({ id, name, price, minimumDeliveryDays: min, maximumDeliveryDays: max }) => (
-              <SelectBox key={id} name="selectedMethodId" value={id}>
-                <div className="min-h-12 grow flex flex-col justify-center pointer-events-none">
-                  <div className="flex flex-row justify-between self-stretch items-center">
-                    <Text>{name}</Text>
-                    <Text>{getFormattedMoney(price)}</Text>
-                  </div>
-                  <Text size="xs" color="secondary">
-                    {getSubtitle({ min, max })}
-                  </Text>
-                </div>
-              </SelectBox>
-            )
-          )}
-        </SelectBoxGroup>
-      </div>
-    </FormProvider>
-  );
+  // return (
+  //   <FormProvider form={form}>
+  //     <Divider />
+  //     <div className="section" data-testid="deliveryMethods">
+  //       <Title className="mb-2">{formatMessage(deliveryMethodsMessages.deliveryMethods)}</Title>
+  //       {!shippingAddress && (
+  //         <Text>{formatMessage(deliveryMethodsMessages.noShippingAddressMessage)}</Text>
+  //       )}
+  //       <SelectBoxGroup label={formatMessage(deliveryMethodsLabels.deliveryMethods)}>
+  //         {shippingMethods?.map(
+  //           ({ id, name, price, minimumDeliveryDays: min, maximumDeliveryDays: max }) => (
+  //             <SelectBox key={id} name="selectedMethodId" value={id}>
+  //               <div className="min-h-12 grow flex flex-col justify-center pointer-events-none">
+  //                 <div className="flex flex-row justify-between self-stretch items-center">
+  //                   <Text>{name}</Text>
+  //                   <Text>{getFormattedMoney(price)}</Text>
+  //                 </div>
+  //                 <Text size="xs" color="secondary">
+  //                   {getSubtitle({ min, max })}
+  //                 </Text>
+  //               </div>
+  //             </SelectBox>
+  //           )
+  //         )}
+  //       </SelectBoxGroup>
+  //     </div>
+  //   </FormProvider>
+  // );
 };

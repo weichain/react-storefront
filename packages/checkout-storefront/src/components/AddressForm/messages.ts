@@ -46,6 +46,11 @@ export const localizedAddressFieldMessages = defineMessages<LocalizedAddressFiel
 
 export const addressFieldMessages = defineMessages<AddressFieldLabel>({
   city: { defaultMessage: "City", id: "AddressForm/messages/X51P1g", description: "city" },
+  fullName: {
+    defaultMessage: "Full name",
+    id: "AddressForm/messages/R3ennE",
+    description: "full name",
+  },
   firstName: {
     defaultMessage: "First name",
     id: "AddressForm/messages/Jbz2k6",

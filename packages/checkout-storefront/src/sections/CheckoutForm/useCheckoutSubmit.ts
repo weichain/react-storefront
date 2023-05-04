@@ -37,8 +37,8 @@ export const useCheckoutSubmit = () => {
   const finishedApiChangesWithNoError =
     !anyRequestsInProgress && updateStateValues.every((status) => status === "success");
 
-  const allFormsValid =
-    !validating && Object.values(validationState).every((value) => value === "valid");
+  const allFormsValid = !validating && true;
+  // !validating && Object.values(validationState).every((value) => value === "valid");
 
   const handleSubmit = useCallback(async () => {
     if (submitInProgress && finishedApiChangesWithNoError && allFormsValid) {

@@ -149,6 +149,7 @@ export const getAddressValidationRulesVariables = (
     : {};
 
 export const addressFieldsOrder: AddressField[] = [
+  "fullName",
   "firstName",
   "lastName",
   "companyName",
@@ -184,5 +185,7 @@ export const getFilteredAddressFields = (addressFields: ApiAddressField[]): Addr
     (addressField: ApiAddressField) => addressField !== "name"
   ) as AddressField[];
 
-  return uniq([...filteredAddressFields, "firstName", "lastName", "phone"]);
+  // return uniq([...filteredAddressFields, "fullName", "phone"]);
+  return uniq(["fullName", "phone"]);
+  // return uniq([...filteredAddressFields, "firstName", "lastName", "fullName", "phone"]);
 };

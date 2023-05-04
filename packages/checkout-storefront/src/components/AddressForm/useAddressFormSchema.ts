@@ -7,17 +7,19 @@ export const useAddressFormSchema = () => {
 
   return useMemo(
     () =>
+      // TODO: validations for form
       object({
-        firstName: string().required(errorMessages.required),
-        lastName: string().required(errorMessages.required),
-        streetAddress1: string().required(errorMessages.required),
+        // firstName: string().required(errorMessages.required),
+        // lastName: string().required(errorMessages.required),
+        fullName: string().required(errorMessages.required),
+        // streetAddress1: string().required(errorMessages.required),
         streetAddress2: string(),
         companyName: string(),
-        city: string().required(errorMessages.required),
+        // city: string().required(errorMessages.required),
         cityArea: string(),
         countryArea: string(),
-        phone: string(),
-        postalCode: string().required(errorMessages.required),
+        phone: string().required(errorMessages.required),
+        // postalCode: string().required(errorMessages.required),
         countryCode: string(),
       }),
     [errorMessages]
