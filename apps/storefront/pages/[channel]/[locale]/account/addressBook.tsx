@@ -3,8 +3,9 @@ import { useIntl } from "react-intl";
 
 import { AccountLayout, AddressBookCard, Spinner } from "@/components";
 import { messages } from "@/components/translations";
-import { useCurrentUserAddressesQuery } from "@/saleor/api";
+import { useCurrentUserAddressesQuery, useUserQuery } from "@/saleor/api";
 import { useUser } from "@/lib/useUser";
+import { UserDetailsCard } from "@/components/UserDetailsCard";
 
 function AddressBookPage() {
   const t = useIntl();
@@ -13,26 +14,45 @@ function AddressBookPage() {
     skip: !authenticated,
     fetchPolicy: "network-only",
   });
+  const {
+    loading: loadingUser,
+    error: errorUser,
+    data: dataUser,
+    refetch: refetchuser,
+  } = useUserQuery();
 
-  if (loading) {
+  if (loading || loadingUser) {
     return <Spinner />;
   }
-  if (error) {
-    return <p>Error :{error.message}</p>;
+  if (error || errorUser) {
+    return <p>Error :{error?.message || errorUser?.message}</p>;
   }
 
   const addresses = data?.me?.addresses || [];
-
-  if (addresses.length === 0) {
+  if (addresses.length === 0 && !dataUser?.user?.email) {
     return <div>{t.formatMessage(messages.noAddressDataMessage)}</div>;
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
-      {addresses.map((address) => (
-        <AddressBookCard key={address.id} address={address} onRefreshBook={() => refetch()} />
-      ))}
-    </div>
+    <>
+      <div className="flex flex-row items-start p-0 gap-10">
+        <span className="font-poppins font-normal font-normal text-lg leading-125 tracking-tighter text-gray-800">
+          Details
+        </span>
+      </div>
+      <div className="h-4"></div>
+      <div className="grid grid-cols-1">
+        {[addresses[0]].map((address) => (
+          // <AddressBookCard key={address.id} address={address} onRefreshBook={() => refetch()} />
+          <UserDetailsCard
+            key={address?.id}
+            address={address}
+            email={dataUser?.user?.email || ""}
+            onRefreshBook={() => refetch()}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 

@@ -71,10 +71,15 @@ export const messages = defineMessages({
     description: "Link to account preferences view",
     defaultMessage: "Account preferences",
   },
-  menuAccountAddressBook: {
-    id: "app.navigation.addressBook",
-    description: "Link to address book view",
-    defaultMessage: "Address book",
+  // menuAccountAddressBook: {
+  //   id: "app.navigation.addressBook",
+  //   description: "Link to address book view",
+  //   defaultMessage: "Address book",
+  // }, original
+  menuAccountDetails: {
+    id: "app.navigation.accountDetails",
+    description: "Link to account details view",
+    defaultMessage: "Details",
   },
   menuAccountOrders: {
     id: "app.navigation.orders",

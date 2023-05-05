@@ -14,7 +14,10 @@ export const useLogout = () => {
   const onLogout = async () => {
     signOut();
     resetCheckoutToken();
-    void router.push(paths.$url());
+    void router.push({
+      pathname: "/[channel]/[locale]" as const,
+      query: { channel: "default-channel", locale: "EN" },
+    });
   };
 
   return onLogout;
