@@ -32,7 +32,7 @@ export const Checkbox = ({ label, checked, value, classNames, ...rest }: Checkbo
               <CheckIcon />
             </div>
           </div>
-          <span className="pointer-events-none">{label && label}</span>
+          <span className={clsx(styles["checkbox-span"])}>{label && label}</span>
         </div>
       </>
     </Label>

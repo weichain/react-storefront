@@ -39,6 +39,10 @@
     "developer_comment": "company",
     "string": "Company"
   },
+  "AddressForm/messages/R3ennE": {
+    "developer_comment": "full name",
+    "string": "Full name"
+  },
   "AddressForm/messages/X/8oa4": {
     "developer_comment": "district",
     "string": "District"

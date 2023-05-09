@@ -33,6 +33,7 @@ export const usePhoneNumberValidator = (countryCode: CountryCode) => {
       }
 
       const valid = isValidPhoneNumber(phone, countryCode);
+
       return valid ? undefined : errorMessages.invalid;
     },
     [countryCode, errorMessages.invalid]

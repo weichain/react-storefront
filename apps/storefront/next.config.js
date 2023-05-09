@@ -7,7 +7,7 @@ const apiURL = new URL(process.env.NEXT_PUBLIC_API_URI);
 const allowedImageDomains = process.env.NEXT_PUBLIC_ALLOWED_IMAGE_DOMAINS
   ? process.env.NEXT_PUBLIC_ALLOWED_IMAGE_DOMAINS.split(",")
   : [];
-console.log(apiURL, "API URL");
+
 const checkoutEmbededInStorefrontPath = "/saleor-app-checkout";
 
 module.exports = withBundleAnalyzer({

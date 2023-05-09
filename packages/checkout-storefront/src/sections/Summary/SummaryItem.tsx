@@ -18,19 +18,20 @@ export const SummaryItem: React.FC<PropsWithChildren<LineItemProps>> = ({ line, 
   return (
     <li className="summary-item">
       <div className="relative flex flex-row">
-        <div className="summary-item-image mr-4 z-1">
+        <div className="summary-item-imagez-1">
           {productImage ? (
             <img
               className="object-contain"
               alt={productImage?.alt || undefined}
               src={productImage?.url}
+              style={{ width: "100px", height: "100px" }}
             />
           ) : (
             <img className="object-cover" alt="product placeholder" src={getSvgSrc(PhotoIcon)} />
           )}
         </div>
       </div>
-      <div className="summary-row w-full items-start">
+      <div className="summary-row w-full">
         <div className="flex flex-col">
           <p className="text-[#E0BC75] text-[14px] font-bold">{attributesText}</p>
           <p className="mb-3 text-[#1F1F1F] font-bold">{productName}</p>

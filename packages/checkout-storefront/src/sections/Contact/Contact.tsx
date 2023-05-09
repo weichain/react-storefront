@@ -21,9 +21,6 @@ export const Contact: FC<ContactProps> = ({ setShowOnlyContact }) => {
   const { user, authenticated } = useUser();
 
   const [email, setEmail] = useState(user?.email || "");
-  const [fullName, setFullName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-
   const [passwordResetShown, setPasswordResetShown] = useState(false);
 
   const selectInitialSection = (): Section => {
@@ -78,10 +75,6 @@ export const Contact: FC<ContactProps> = ({ setShowOnlyContact }) => {
           onSectionChange={handleChangeSection("signIn")}
           onEmailChange={setEmail}
           email={email}
-          fullName={fullName}
-          onFullNameChange={setFullName}
-          phoneNumber={phoneNumber}
-          onPhoneNumberChange={setPhoneNumber}
         />
       )}
 

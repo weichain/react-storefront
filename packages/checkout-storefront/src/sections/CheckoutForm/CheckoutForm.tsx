@@ -1,19 +1,20 @@
 import { useCheckout } from "@/checkout-storefront/hooks/useCheckout";
 import { Contact } from "@/checkout-storefront/sections/Contact";
+import { DeliveryMethods } from "@/checkout-storefront/sections/DeliveryMethods";
 import { Suspense, useState } from "react";
-import { Button } from "@/checkout-storefront/components/Button";
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { ContactSkeleton } from "@/checkout-storefront/sections/Contact/ContactSkeleton";
+import { DeliveryMethodsSkeleton } from "@/checkout-storefront/sections/DeliveryMethods/DeliveryMethodsSkeleton";
 import { AddressSectionSkeleton } from "@/checkout-storefront/components/AddressSectionSkeleton";
 import { useCheckoutSubmit } from "@/checkout-storefront/sections/CheckoutForm/useCheckoutSubmit";
-import { commonMessages } from "@/checkout-storefront/lib/commonMessages";
-import { checkoutFormLabels, checkoutFormMessages } from "./messages";
 import { getQueryParams } from "@/checkout-storefront/lib/utils/url";
 import { CollapseSection } from "@/checkout-storefront/sections/CheckoutForm/CollapseSection";
-import { Divider } from "@/checkout-storefront/components";
-import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
-import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
-
+// import { Button } from "@/checkout-storefront/components/Button";
+// import { commonMessages } from "@/checkout-storefront/lib/commonMessages";
+// import { checkoutFormLabels, checkoutFormMessages } from "./messages";
+// import { Divider } from "@/checkout-storefront/components";
+// import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
+// import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
 import { UserBillingAddressSection } from "@/checkout-storefront/sections/UserBillingAddressSection";
 import { PaymentSection } from "@/checkout-storefront/sections/PaymentSection";
 import { GuestBillingAddressSection } from "@/checkout-storefront/sections/GuestBillingAddressSection";
@@ -29,8 +30,11 @@ export const CheckoutForm = () => {
   const { passwordResetToken } = getQueryParams();
 
   const [showOnlyContact, setShowOnlyContact] = useState(!!passwordResetToken);
+
   const { handleSubmit, isProcessing } = useCheckoutSubmit();
+
   const { availablePaymentProviders } = useFetchPaymentMethods();
+
   const shouldShowPayButton = availablePaymentProviders.some(
     (provider) => provider && provider !== "adyen"
   );
@@ -43,25 +47,28 @@ export const CheckoutForm = () => {
           <Contact setShowOnlyContact={setShowOnlyContact} />
         </Suspense>
         <>
-          {/* {checkout?.isShippingRequired && (
+          {checkout?.isShippingRequired && (
             <Suspense fallback={<AddressSectionSkeleton />}>
+              {/* <Divider />
               <CollapseSection collapse={showOnlyContact}>
                 <div className="section" data-testid="shippingAddressSection">
                   {user ? <UserShippingAddressSection /> : <GuestShippingAddressSection />}
                 </div>
-              </CollapseSection>
+              </CollapseSection> */}
             </Suspense>
-          )} */}
+          )}
+          <Suspense fallback={<DeliveryMethodsSkeleton />}>
+            <DeliveryMethods collapsed={showOnlyContact} />
+          </Suspense>
           <CollapseSection collapse={showOnlyContact}>
             <PaymentSection>
               {user ? <UserBillingAddressSection /> : <GuestBillingAddressSection />}
             </PaymentSection>
           </CollapseSection>
-          <Divider />
-          <Footer />
         </>
+        <Footer />
       </div>
-      {shouldShowPayButton &&
+      {/* {shouldShowPayButton &&
         !showOnlyContact &&
         (isProcessing ? (
           <Button
@@ -78,7 +85,7 @@ export const CheckoutForm = () => {
             onClick={handleSubmit}
             data-testid="pay-button"
           />
-        ))}
+        ))} */}
     </div>
   );
 };

@@ -26,7 +26,7 @@
   }
 
   .summary-items {
-    @apply overflow-visible lg:pt-2;
+    @apply overflow-visible;
   }
 
   .summary-item {
@@ -38,7 +38,7 @@
   }
 
   .summary-row {
-    @apply flex flex-row justify-between items-center;
+    @apply flex flex-col gap-5;
   }
 
   .summary-item-image {

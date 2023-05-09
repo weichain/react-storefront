@@ -26,29 +26,31 @@ export const GuestBillingAddressSection = () => {
 
   const { handleBlur, handleChange } = form;
 
-  return (
-    <Suspense fallback={<AddressSectionSkeleton />}>
-      {isShippingRequired && (
-        <FormProvider form={billingSameAsShippingForm}>
-          <Checkbox
-            classNames={{ container: "!mb-0" }}
-            name="billingSameAsShipping"
-            label={formatMessage(billingMessages.useShippingAsBilling)}
-            data-testid={"useShippingAsBillingCheckbox"}
-          />
-        </FormProvider>
-      )}
-      {!billingSameAsShipping && (
-        <FormProvider form={form}>
-          <AddressForm
-            title={formatMessage(billingMessages.billingAddress)}
-            fieldProps={{
-              onChange: handleChange,
-              onBlur: handleBlur,
-            }}
-          />
-        </FormProvider>
-      )}
-    </Suspense>
-  );
+  return null;
+
+  // return (
+  // <Suspense fallback={<AddressSectionSkeleton />}>
+  //   {isShippingRequired && (
+  //     <FormProvider form={billingSameAsShippingForm}>
+  //       <Checkbox
+  //         classNames={{ container: "!mb-0" }}
+  //         name="billingSameAsShipping"
+  //         label={formatMessage(billingMessages.useShippingAsBilling)}
+  //         data-testid={"useShippingAsBillingCheckbox"}
+  //       />
+  //     </FormProvider>
+  //   )}
+  //   {!billingSameAsShipping && (
+  //     <FormProvider form={form}>
+  //       <AddressForm
+  //         title={formatMessage(billingMessages.billingAddress)}
+  //         fieldProps={{
+  //           onChange: handleChange,
+  //           onBlur: handleBlur,
+  //         }}
+  //       />
+  //     </FormProvider>
+  //   )}
+  // </Suspense>
+  // );
 };
