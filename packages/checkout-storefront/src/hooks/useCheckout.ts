@@ -17,6 +17,24 @@ export const useCheckout = ({ pause = false } = {}) => {
     variables: { id, languageCode: localeToLanguageCode(locale) },
     pause: pause || isAuthenticating,
   });
+  console.log(data?.checkout, "checkout data");
+
+  // const address = {
+  //   id: "123123",
+  //   city: "1231312",
+  //   phone: "1234557",
+  //   postalCode: "123123",
+  //   companyName: "aaaa",
+  //   cityArea: "abc",
+  //   streetAddress1: "avasd",
+  //   streetAddress2: "dsdadad",
+  //   countryArea: "dasdadas",
+  //   firstName: "sadad",
+  //   lastName: "aaaaaa",
+  //   country: { code: "1000", country: "USA" },
+  // };
+
+  //data?.checkout?.billingAddress === null ? {...data, checkout.billingAddress = address} : data;
 
   useEffect(() => setLoadingCheckout(loading || stale), [loading, setLoadingCheckout, stale]);
 

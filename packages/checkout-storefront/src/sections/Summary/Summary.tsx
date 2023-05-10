@@ -113,7 +113,7 @@ export const Summary: FC<SummaryProps> = ({
           </Transition>
         </div>
         <div className="summary-recap">
-          <Divider className="my-4" />
+          <Divider className="mb-4 mt-32" />
           <SummaryMoneyRow
             label={formatMessage(summaryMessages.subtotalPrice)}
             money={subtotalPrice?.gross}

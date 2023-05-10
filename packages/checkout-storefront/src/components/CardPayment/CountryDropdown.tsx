@@ -13,9 +13,9 @@ export const CountryDropdown: React.FC<ICountrySelectProps> = ({ country, setCou
   // const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   //   setCountry(event.target.value);
   // };
-  return null;
+  //return null;
   // Here is where I'm trying to reuse the component to use the country
-  //return <GuestShippingAddressSection content="payment" />;
+  return <GuestShippingAddressSection content="payment" />;
   // <div>
   //   <label
   //     className="text-[#4C4C4C] text-[12px] font-bold uppercase tracking-[.20em]"
