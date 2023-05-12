@@ -42,6 +42,7 @@ const getApl = () => {
 const apl = getApl();
 
 export const get = async (saleorApiUrl: string): Promise<Result> => {
+
   //const authData = await apl.get(saleorApiUrl);
 
   // invariant(

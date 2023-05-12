@@ -35,10 +35,10 @@ export const pagesPath = {
             query: { channel, locale },
             hash: url?.hash,
           }),
-          _token: (token: string | number) => ({
+          _token: (token: string | number, created: string) => ({
             $url: (url?: { hash?: string }) => ({
               pathname: "/[channel]/[locale]/account/orders/[token]" as const,
-              query: { channel, locale, token },
+              query: { channel, locale, token, created },
               hash: url?.hash,
             }),
           }),

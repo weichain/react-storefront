@@ -122,7 +122,7 @@ module.exports = withBundleAnalyzer({
     return [
       {
         source: "/:channel/:locale/account/",
-        destination: "/[channel]/[locale]/account/preferences",
+        destination: "/[channel]/[locale]/account/addressBook",
         permanent: true,
       },
     ];
