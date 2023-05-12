@@ -17,7 +17,7 @@ import { useRegions } from "../RegionsProvider";
 import { Spinner } from "../Spinner";
 import { messages } from "../translations";
 import invariant from "ts-invariant";
-import { convertProductUrl } from "@/lib/convertMediaUrls";
+
 export interface ProductCollectionProps {
   filter?: ProductFilterInput;
   sortBy?: {
@@ -64,7 +64,8 @@ export function ProductCollection({
     4: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-9",
   };
 
-  let { loading, error, data, fetchMore } = useProductCollectionQuery({
+
+  const { loading, error, data, fetchMore } = useProductCollectionQuery({
     variables,
   });
 

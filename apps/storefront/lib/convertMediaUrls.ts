@@ -18,14 +18,3 @@ function deepCopy(obj: any): any {
   }
   return result;
 }
-
-export const convertProductUrl = (data: any, fallback: any) => {
-  const saleorApiUrl = process.env.NEXT_PUBLIC_API_URI;
-  invariant(saleorApiUrl, "Missing NEXT_PUBLIC_API_URI");
-  const url = new URL(saleorApiUrl);
-  const [domain, port] = [url.hostname, url.port];
-  const invalid = "http://localhost:8000";
-  const replacement = `http://${domain}:${port}`;
-  const _data = deepCopy(data);
-  return fallback(_data, invalid, replacement);
-};
