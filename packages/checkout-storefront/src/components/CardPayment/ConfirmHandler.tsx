@@ -23,8 +23,7 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
     String(card.number).length >= 17 &&
     String(card.expiry).length === 5 &&
     String(card.cvc).length === 3 &&
-    card.name.trim().length > 2 &&
-    checked
+    card.name.trim().length > 2
   ) {
     enableBtn = true;
   }
