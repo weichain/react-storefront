@@ -50,7 +50,7 @@ export const get = async (saleorApiUrl: string): Promise<Result> => {
   // );
 
   return {
-    saleorApiUrl: "https://3511-139-59-244-9.ngrok-free.app/graphql/",
+    saleorApiUrl: "https://dac5-139-59-244-9.ngrok-free.app/graphql/",
     appToken: "IREqIe4R9Gi6ftn3AUzI7tyB1lqNoW",
   };
 };

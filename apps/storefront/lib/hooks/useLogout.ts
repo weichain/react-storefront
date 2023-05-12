@@ -9,7 +9,6 @@ export const useLogout = () => {
   const { signOut } = useSaleorAuthContext();
   const { resetCheckoutToken } = useCheckout();
   const router = useRouter();
-  const paths = usePaths();
 
   const onLogout = async () => {
     signOut();

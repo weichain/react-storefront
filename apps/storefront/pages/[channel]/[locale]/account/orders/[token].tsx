@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Image from "next/legacy/image";
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 
 import { AccountLayout, Spinner } from "@/components";
 import { AddressDisplay } from "@/components/checkout/AddressDisplay";
@@ -8,11 +8,15 @@ import { useRegions } from "@/components/RegionsProvider";
 import { useOrderDetailsByTokenQuery } from "@/saleor/api";
 import { useUser } from "@/lib/useUser";
 
-export const getStaticProps = async (context: GetStaticPropsContext) => ({
-  props: {
-    token: context.params?.token?.toString(),
-  },
-});
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  console.log("context", context);
+
+  return {
+    props: {
+      token: context.params?.token?.toString(),
+    },
+  };
+};
 
 export async function getStaticPaths() {
   return {
@@ -28,6 +32,7 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
     variables: { token: token as string },
     skip: !token || !authenticated,
   });
+  console.log("data", data);
 
   if (loading) return <Spinner />;
   if (error) {
@@ -42,7 +47,10 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
   return (
     <>
       <h1 className="text-2xl ml-2 md:ml-20 mt-5 font-bold text-gray-800 mb-2">
-        Your order number : {order?.number}
+        Order : {order?.number}
+      </h1>
+      <h1 className="text-1xl ml-2 md:ml-20 font-semibold text-gray-600 mb-4">
+        Created : {"test"}
       </h1>
       <h1 className="text-1xl ml-2 md:ml-20 font-semibold text-gray-600 mb-4">
         Status : {order?.status}
