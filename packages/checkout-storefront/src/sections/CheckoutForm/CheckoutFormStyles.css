@@ -5,7 +5,7 @@
     @apply flex flex-col items-end w-full bg-[#ffffff];
   }
   .checkout-form {
-    @apply flex flex-col w-10/12 lg:w-[55%] m-auto;
+    @apply flex flex-col w-10/12 lg:w-[55%] m-auto min-h-max lg:min-h-[1000px];
   }
 
   /* .section {

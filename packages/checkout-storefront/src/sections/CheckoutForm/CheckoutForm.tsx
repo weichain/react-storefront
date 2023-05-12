@@ -16,16 +16,16 @@ import { CollapseSection } from "@/checkout-storefront/sections/CheckoutForm/Col
 // import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
 // import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
 // import { useFetchPaymentMethods } from "@/checkout-storefront/hooks/useFetchPaymentMethods";
-import { UserBillingAddressSection } from "@/checkout-storefront/sections/UserBillingAddressSection";
+// import { UserBillingAddressSection } from "@/checkout-storefront/sections/UserBillingAddressSection";
+// import { GuestBillingAddressSection } from "@/checkout-storefront/sections/GuestBillingAddressSection";
+//import { useUser } from "@/checkout-storefront/hooks/useUser";
 import { PaymentSection } from "@/checkout-storefront/sections/PaymentSection";
-import { GuestBillingAddressSection } from "@/checkout-storefront/sections/GuestBillingAddressSection";
-import { useUser } from "@/checkout-storefront/hooks/useUser";
 import { PageHeader } from "../PageHeader";
 import { Footer } from "@/checkout-storefront/components/Footer/Footer";
 
 export const CheckoutForm = () => {
   //const formatMessage = useFormattedMessages();
-  const { user } = useUser();
+  //const { user } = useUser();
   const { checkout } = useCheckout();
   const { passwordResetToken } = getQueryParams();
 
@@ -62,7 +62,7 @@ export const CheckoutForm = () => {
           </Suspense>
           <CollapseSection collapse={showOnlyContact}>
             <PaymentSection>
-              {user ? <UserBillingAddressSection /> : <GuestBillingAddressSection />}
+              {/* {user ? <UserBillingAddressSection /> : <GuestBillingAddressSection />} */}
             </PaymentSection>
           </CollapseSection>
         </>

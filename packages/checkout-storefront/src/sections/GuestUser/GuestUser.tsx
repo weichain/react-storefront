@@ -7,7 +7,8 @@ import { contactMessages } from "../Contact/messages";
 import { useGuestUserForm } from "@/checkout-storefront/sections/GuestUser/useGuestUserForm";
 import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
 import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
-import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
+//import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
+import { GuestBillingAddressSection } from "@/checkout-storefront/sections/GuestBillingAddressSection";
 import { useUser } from "@/checkout-storefront/hooks/useUser";
 
 type GuestUserProps = Pick<SignInFormContainerProps, "onSectionChange"> & {
@@ -43,7 +44,8 @@ export const GuestUser: React.FC<GuestUserProps> = ({
           }}
         />
         <div className="section" data-testid="shippingAddressSection">
-          {user ? <UserShippingAddressSection /> : <GuestShippingAddressSection />}
+          {/* {user ? <UserShippingAddressSection /> : <GuestShippingAddressSection />} */}
+          {user ? <UserShippingAddressSection /> : <GuestBillingAddressSection />}
         </div>
         <Checkbox
           name="createAccount"

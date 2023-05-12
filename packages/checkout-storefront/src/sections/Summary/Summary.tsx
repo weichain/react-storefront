@@ -21,6 +21,7 @@ import { SummaryItemMoneySection } from "@/checkout-storefront/sections/Summary/
 import { GrossMoney, GrossMoneyWithTax } from "@/checkout-storefront/lib/globalTypes";
 import { summaryLabels, summaryMessages } from "./messages";
 import { useSummaryHeightCalc } from "@/checkout-storefront/sections/Summary/useSummaryHeightCalc";
+import { useUser } from "@/checkout-storefront/hooks/useUser";
 
 interface SummaryProps {
   editable?: boolean;
@@ -45,6 +46,7 @@ export const Summary: FC<SummaryProps> = ({
   const formatMessage = useFormattedMessages();
   const [isOpen, setOpen] = useState(true);
   const [displaySummary, setDisplay] = useState(false);
+  const { user } = useUser();
 
   const { maxSummaryHeight, allItemsHeight } = useSummaryHeightCalc({
     linesCount: lines.length,
@@ -80,7 +82,7 @@ export const Summary: FC<SummaryProps> = ({
             )}
           </div>
         </div>
-        <div className="h-auto lg:h-[133vh]">
+        <div className={`h-auto ${user ? "lg:h-[110vh]" : "lg:h-[133vh]"}`}>
           <Transition
             show={isOpen}
             unmount={false}
