@@ -1,4 +1,5 @@
 export const countries = [
+  "Select a country",
   "Afghanistan",
   "Åland Islands",
   "Albania",

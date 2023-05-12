@@ -39,6 +39,10 @@
     "developer_comment": "company",
     "string": "Company"
   },
+  "AddressForm/messages/R3ennE": {
+    "developer_comment": "full name",
+    "string": "Full name"
+  },
   "AddressForm/messages/X/8oa4": {
     "developer_comment": "district",
     "string": "District"
@@ -127,10 +131,6 @@
     "developer_comment": "resend?",
     "string": "Resend?"
   },
-  "Contact/messages/5hAp9w": {
-    "developer_comment": "already have account?",
-    "string": "Already have an account?"
-  },
   "Contact/messages/Cu74z+": {
     "developer_comment": "reset password",
     "string": "Reset password"
@@ -138,6 +138,10 @@
   "Contact/messages/E8oPzo": {
     "developer_comment": "account",
     "string": "Account"
+  },
+  "Contact/messages/GRW/kA": {
+    "developer_comment": "contact",
+    "string": "Your Details"
   },
   "Contact/messages/HvSpKk": {
     "developer_comment": "send password reset link",
@@ -151,13 +155,17 @@
     "developer_comment": "Guest checkout",
     "string": "Guest checkout"
   },
+  "Contact/messages/JsMW0F": {
+    "developer_comment": "password (min 8 characters)",
+    "string": "Password"
+  },
   "Contact/messages/Ng/PvP": {
     "developer_comment": "a link has been sent to",
     "string": "A magic link has been sent to {email}"
   },
-  "Contact/messages/aGetQg": {
-    "developer_comment": "password (min 8 characters)",
-    "string": "Password (minimum 8 characters)"
+  "Contact/messages/SQQps6": {
+    "developer_comment": "repeatpassword",
+    "string": "Repeat Password"
   },
   "Contact/messages/bHaSzm": {
     "developer_comment": "password confirmation",
@@ -167,9 +175,21 @@
     "developer_comment": "change section",
     "string": "change section"
   },
+  "Contact/messages/iA/lnx": {
+    "developer_comment": "telephone number",
+    "string": "Telephone Number"
+  },
   "Contact/messages/ljwlqe": {
     "developer_comment": "sign in",
     "string": "Sign in"
+  },
+  "Contact/messages/niXCHx": {
+    "developer_comment": "terms and conditions",
+    "string": "By placing this order I have and accept the Terms and conditions and privacy policy"
+  },
+  "Contact/messages/qhHd/h": {
+    "developer_comment": "full name",
+    "string": "Full Name"
   },
   "Contact/messages/reCzHf": {
     "developer_comment": "sign out",
@@ -191,13 +211,13 @@
     "developer_comment": "i want to create account",
     "string": "I want to create account"
   },
-  "Contact/messages/vPJeeQ": {
-    "developer_comment": "contact",
-    "string": "Contact details"
-  },
   "Contact/messages/xRJQ5g": {
     "developer_comment": "provide a new password",
     "string": "Provide a new password for your account"
+  },
+  "Contact/messages/zDk6Zu": {
+    "developer_comment": "already have account?",
+    "string": "Have an account?"
   },
   "DeliveryMethods/messages/927KCY": {
     "developer_comment": "no shipping address message",
@@ -379,9 +399,9 @@
     "developer_comment": "single piece price acessibility label",
     "string": "single piece price"
   },
-  "Summary/messages/62kM+I": {
+  "Summary/messages/3Ugceo": {
     "developer_comment": "summary title",
-    "string": "Summary"
+    "string": "Order Summary"
   },
   "Summary/messages/8yNMpu": {
     "developer_comment": "remove promo code",

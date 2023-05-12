@@ -21,7 +21,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({ only = [] }) => {
   return (
     <Select
       name="countryCode"
-      classNames={{ container: "flex-1 inline-block !w-auto" }}
+      classNames={{ container: "w-full" }}
       options={countryOptions}
       autoComplete="countryCode"
     />

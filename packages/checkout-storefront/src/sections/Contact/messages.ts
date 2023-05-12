@@ -2,13 +2,13 @@ import { defineMessages } from "react-intl";
 
 export const contactMessages = defineMessages({
   contact: {
-    defaultMessage: "Contact details",
-    id: "Contact/messages/vPJeeQ",
+    defaultMessage: "Your Details",
+    id: "Contact/messages/GRW/kA",
     description: "contact",
   },
   haveAccount: {
-    defaultMessage: "Already have an account?",
-    id: "Contact/messages/5hAp9w",
+    defaultMessage: "Have an account?",
+    id: "Contact/messages/zDk6Zu",
     description: "already have account?",
   },
   signIn: {
@@ -21,24 +21,45 @@ export const contactMessages = defineMessages({
     id: "Contact/messages/reCzHf",
     description: "sign out",
   },
+  fullName: {
+    defaultMessage: "Full Name",
+    id: "Contact/messages/qhHd/h",
+    description: "full name",
+  },
   email: {
     defaultMessage: "Email",
     id: "Contact/messages/tCwlQg",
     description: "email",
+  },
+  telephoneNumber: {
+    defaultMessage: "Telephone Number",
+    id: "Contact/messages/iA/lnx",
+    description: "telephone number",
   },
   wantToCreateAccount: {
     defaultMessage: "I want to create account",
     id: "Contact/messages/v8Xp5+",
     description: "i want to create account",
   },
+  acceptTerms: {
+    defaultMessage:
+      "By placing this order I have and accept the Terms and conditions and privacy policy",
+    id: "Contact/messages/niXCHx",
+    description: "terms and conditions",
+  },
   password: {
     defaultMessage: "Password",
     id: "Contact/messages/IbOUpe",
     description: "password",
   },
+  repeatPassword: {
+    defaultMessage: "Repeat Password",
+    id: "Contact/messages/SQQps6",
+    description: "repeatpassword",
+  },
   passwordWithRequirements: {
-    defaultMessage: "Password (minimum 8 characters)",
-    id: "Contact/messages/aGetQg",
+    defaultMessage: "Password",
+    id: "Contact/messages/JsMW0F",
     description: "password (min 8 characters)",
   },
   forgotPassword: {

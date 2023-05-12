@@ -2,7 +2,6 @@ import { CountryCode } from "@/checkout-storefront/graphql";
 import { AddressField, AddressFormData } from "@/checkout-storefront/components/AddressForm/types";
 import { FC, PropsWithChildren, useEffect, useRef } from "react";
 import { difference } from "lodash-es";
-import { Title } from "@/checkout-storefront/components/Title";
 import { TextInput } from "@/checkout-storefront/components/TextInput";
 import { autocompleteTags, typeTags } from "@/checkout-storefront/lib/consts/inputAttributes";
 import { CountrySelect } from "@/checkout-storefront/components/CountrySelect";
@@ -17,6 +16,7 @@ import { usePhoneNumberValidator } from "@/checkout-storefront/lib/utils/phoneNu
 import { FieldValidator } from "formik";
 
 export interface AddressFormProps {
+  content: string | undefined;
   title: string;
   availableCountries?: CountryCode[];
   fieldProps?: {
@@ -26,7 +26,7 @@ export interface AddressFormProps {
 }
 
 export const AddressForm: FC<PropsWithChildren<AddressFormProps>> = ({
-  title,
+  content,
   children,
   availableCountries,
   fieldProps = {},
@@ -80,45 +80,48 @@ export const AddressForm: FC<PropsWithChildren<AddressFormProps>> = ({
 
   return (
     <>
-      <div className="flex flex-row justify-between items-baseline mb-3">
-        <Title className="flex-1">{title}</Title>
-        <CountrySelect only={availableCountries} />
-      </div>
-      <div className="mt-2">
-        {orderedAddressFields.map((field) => {
-          const isRequired = isRequiredField(field);
-          const label = getFieldLabel(field);
+      {content && (
+        <div className="mb-3 flex flex-col">
+          <p className="text-[#4C4C4C] text-[12px] font-bold uppercase tracking-[.20em]">country</p>
+          <CountrySelect only={availableCountries} />
+        </div>
+      )}
+      {!content && (
+        <div className="mt-2">
+          {orderedAddressFields.map((field) => {
+            const isRequired = isRequiredField(field);
+            const label = getFieldLabel(field);
+            const commonProps = {
+              key: field,
+              name: field,
+              label: label,
+              autoComplete: autocompleteTags[field],
+              optional: isRequired ? undefined : true,
+              validate: customValidators[field],
+              ...fieldProps,
+            };
 
-          const commonProps = {
-            key: field,
-            name: field,
-            label: label,
-            autoComplete: autocompleteTags[field],
-            optional: isRequired ? undefined : true,
-            validate: customValidators[field],
-            ...fieldProps,
-          };
+            if (field === "countryArea" && isRequired) {
+              return (
+                <Select
+                  {...commonProps}
+                  classNames={{ container: "mb-4" }}
+                  placeholder={getFieldLabel("countryArea")}
+                  options={
+                    countryAreaChoices?.map(({ verbose, raw }) => ({
+                      label: verbose as string,
+                      value: raw as string,
+                    })) || []
+                  }
+                />
+              );
+            }
 
-          if (field === "countryArea" && isRequired) {
-            return (
-              <Select
-                {...commonProps}
-                classNames={{ container: "mb-4" }}
-                placeholder={getFieldLabel("countryArea")}
-                options={
-                  countryAreaChoices?.map(({ verbose, raw }) => ({
-                    label: verbose as string,
-                    value: raw as string,
-                  })) || []
-                }
-              />
-            );
-          }
-
-          return <TextInput {...commonProps} type={typeTags[field] || "text"} />;
-        })}
-        {children}
-      </div>
+            return <TextInput {...commonProps} type={typeTags[field] || "text"} />;
+          })}
+          {children}
+        </div>
+      )}
     </>
   );
 };

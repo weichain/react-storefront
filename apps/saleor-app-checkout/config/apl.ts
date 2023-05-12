@@ -42,7 +42,8 @@ const getApl = () => {
 const apl = getApl();
 
 export const get = async (saleorApiUrl: string): Promise<Result> => {
-  // const authData = await apl.get(saleorApiUrl);
+
+  //const authData = await apl.get(saleorApiUrl);
 
   // invariant(
   //   authData,
@@ -51,7 +52,7 @@ export const get = async (saleorApiUrl: string): Promise<Result> => {
 
   return {
     saleorApiUrl: "https://dac5-139-59-244-9.ngrok-free.app/graphql/",
-    appToken: "IREqIe4R9Gi6ftn3AUzI7tyB1lqNoW",
+    appToken: "5ayZ0aMKle4Q77YNI8xROGfNmE7TKh",
   };
 };
 
