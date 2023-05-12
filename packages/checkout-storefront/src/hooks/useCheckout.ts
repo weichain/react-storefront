@@ -17,6 +17,7 @@ export const useCheckout = ({ pause = false } = {}) => {
     variables: { id, languageCode: localeToLanguageCode(locale) },
     pause: pause || isAuthenticating,
   });
+  console.log(data?.checkout, "checkout data");
 
   useEffect(() => setLoadingCheckout(loading || stale), [loading, setLoadingCheckout, stale]);
 

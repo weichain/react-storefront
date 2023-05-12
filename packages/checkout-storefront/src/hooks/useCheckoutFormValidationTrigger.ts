@@ -24,7 +24,6 @@ export const useCheckoutFormValidationTrigger = <TData extends FormDataBase>({
   const { validating } = useCheckoutValidationState();
 
   const { values, validateForm, setTouched } = form;
-
   console.log({ validating });
 
   const handleGlobalValidationTrigger = useCallback(async () => {

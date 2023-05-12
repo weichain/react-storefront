@@ -58,6 +58,7 @@ export const getStaticProps = async (
       ...contextToRegionQuery(context),
     },
   });
+
   return {
     props: {
       product: response.data.product,

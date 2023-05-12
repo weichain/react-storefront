@@ -1,10 +1,5 @@
 import React, { PropsWithChildren } from "react";
 import { Text } from "@saleor/ui-kit";
-import { Button } from "@/checkout-storefront/components/Button";
-import { Title } from "@/checkout-storefront/components/Title";
-import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
-import { contactLabels } from "@/checkout-storefront/sections/Contact/messages";
-
 export interface SignInFormContainerProps {
   title: string;
   redirectSubtitle?: string;
@@ -21,26 +16,22 @@ export const SignInFormContainer: React.FC<PropsWithChildren<SignInFormContainer
   onSectionChange,
   children,
 }) => {
-  const formatMessage = useFormattedMessages();
-
   return (
     <div className="section">
       <div className="flex flex-col mb-2">
         <div className="flex flex-row justify-between items-baseline">
-          <Title>{title}</Title>
+          <p className="font-bold text-[#1E1E1E] text-[20px]">{title}</p>
           <div className="flex flex-row">
             {redirectSubtitle && (
-              <Text color="secondary" className="mr-2">
-                {redirectSubtitle}
-              </Text>
+              <p className="mr-2 text-[#8F8F8F] text-[14px]">{redirectSubtitle}</p>
             )}
             {redirectButtonLabel && (
-              <Button
-                ariaLabel={formatMessage(contactLabels.changeSection)}
+              <p
+                className="underline text-[#1E1E1E] text-[14px] cursor-pointer"
                 onClick={onSectionChange}
-                variant="tertiary"
-                label={redirectButtonLabel}
-              />
+              >
+                {redirectButtonLabel}
+              </p>
             )}
           </div>
         </div>

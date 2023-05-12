@@ -27,6 +27,16 @@ export const TextInput = ({
 
   return (
     <div className={clsx(styles["text-input-container"], classNames.container)}>
+      {label && (
+        <Label
+          className={clsx(styles["text-input-label"], {
+            [styles["text-input-filled-label"]]: value || placeholder,
+          })}
+        >
+          {label}
+          {required && <span className={clsx(styles["text-required"])}>*</span>}
+        </Label>
+      )}
       <input
         className={clsx(
           styles["text-input"],
@@ -43,18 +53,8 @@ export const TextInput = ({
         {...rest}
         type={type}
       />
-      {label && (
-        <Label
-          className={clsx(styles["text-input-label"], {
-            [styles["text-input-filled-label"]]: value || placeholder,
-          })}
-        >
-          {label}
-          {required && "*"}
-        </Label>
-      )}
       {hasError && (
-        <Text size="sm" color="error" className={styles["text-input-error-caption"]}>
+        <Text size="sm" className={styles["text-input-error-caption"]}>
           {error}
         </Text>
       )}

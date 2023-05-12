@@ -48,8 +48,10 @@ export const UserBillingAddressSection: React.FC<UserBillingAddressSectionProps>
   const billingSameAsShippingForm = useBillingSameAsShippingForm({
     autoSave: false,
     onSetBillingSameAsShipping: handleSetBillingSameAsShipping,
+    values: { billingAdress: true, billingSameAsShipping: true },
   });
 
+  //console.log(billingSameAsShippingForm, "form");
   useCheckoutFormValidationTrigger({
     scope: "billingAddress",
     form: billingSameAsShippingForm,
@@ -59,60 +61,64 @@ export const UserBillingAddressSection: React.FC<UserBillingAddressSectionProps>
     values: { billingSameAsShipping },
   } = billingSameAsShippingForm;
 
-  return (
-    <Suspense fallback={<AddressSectionSkeleton />}>
-      {isShippingRequired && (
-        <FormProvider form={billingSameAsShippingForm}>
-          <Checkbox
-            classNames={{ container: "!mb-0" }}
-            name="billingSameAsShipping"
-            label={formatMessage(billingMessages.useShippingAsBilling)}
-            data-testid={"useShippingAsBillingCheckbox"}
-          />
-        </FormProvider>
-      )}
-      {!billingSameAsShipping && (
-        <UserAddressSectionContainer>
-          {({
-            displayAddressCreate,
-            displayAddressEdit,
-            displayAddressList,
-            setDisplayAddressCreate,
-            setDisplayAddressEdit,
-            editedAddressId,
-          }) => (
-            <>
-              {displayAddressCreate && (
-                <AddressCreateForm
-                  onClose={() => setDisplayAddressCreate(false)}
-                  onSuccess={onAddressCreateSuccess}
-                />
-              )}
+  // console.log(billingSameAsShippingForm.values.billingAddress);
+  // console.log(billingSameAsShippingForm.values.billingSameAsShipping);
+  return null;
 
-              {displayAddressEdit && (
-                <AddressEditForm
-                  title={formatMessage(billingMessages.billingAddress)}
-                  onClose={() => setDisplayAddressEdit()}
-                  address={
-                    form.values.addressList.find(getById(editedAddressId)) as AddressFragment
-                  }
-                  onUpdate={onAddressUpdateSuccess}
-                  onDelete={onAddressDeleteSuccess}
-                />
-              )}
+  // return (
+  //   <Suspense fallback={<AddressSectionSkeleton />}>
+  //     {isShippingRequired && (
+  //       <FormProvider form={billingSameAsShippingForm}>
+  //         <Checkbox
+  //           classNames={{ container: "!mb-0" }}
+  //           name="billingSameAsShipping"
+  //           label={formatMessage(billingMessages.useShippingAsBilling)}
+  //           data-testid={"useShippingAsBillingCheckbox"}
+  //         />
+  //       </FormProvider>
+  //     )}
+  //     {!billingSameAsShipping && (
+  //       <UserAddressSectionContainer>
+  //         {({
+  //           displayAddressCreate,
+  //           displayAddressEdit,
+  //           displayAddressList,
+  //           setDisplayAddressCreate,
+  //           setDisplayAddressEdit,
+  //           editedAddressId,
+  //         }) => (
+  //           <>
+  //             {displayAddressCreate && (
+  //               <AddressCreateForm
+  //                 onClose={() => setDisplayAddressCreate(false)}
+  //                 onSuccess={onAddressCreateSuccess}
+  //               />
+  //             )}
 
-              {displayAddressList && (
-                <AddressList
-                  onEditChange={setDisplayAddressEdit}
-                  onAddAddressClick={() => setDisplayAddressCreate(true)}
-                  title={formatMessage(billingMessages.billingAddress)}
-                  form={form}
-                />
-              )}
-            </>
-          )}
-        </UserAddressSectionContainer>
-      )}
-    </Suspense>
-  );
+  //             {displayAddressEdit && (
+  //               <AddressEditForm
+  //                 title={formatMessage(billingMessages.billingAddress)}
+  //                 onClose={() => setDisplayAddressEdit()}
+  //                 address={
+  //                   form.values.addressList.find(getById(editedAddressId)) as AddressFragment
+  //                 }
+  //                 onUpdate={onAddressUpdateSuccess}
+  //                 onDelete={onAddressDeleteSuccess}
+  //               />
+  //             )}
+
+  //             {displayAddressList && (
+  //               <AddressList
+  //                 onEditChange={setDisplayAddressEdit}
+  //                 onAddAddressClick={() => setDisplayAddressCreate(true)}
+  //                 title={formatMessage(billingMessages.billingAddress)}
+  //                 form={form}
+  //               />
+  //             )}
+  //           </>
+  //         )}
+  //       </UserAddressSectionContainer>
+  //     )}
+  //   </Suspense>
+  // );
 };

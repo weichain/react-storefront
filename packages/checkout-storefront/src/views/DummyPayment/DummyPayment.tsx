@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import React from "react";
 import { Button, TextInput } from "../../components";
 import { useOrderQuery } from "../../graphql";
@@ -7,7 +8,7 @@ import { useLocale } from "@/checkout-storefront/hooks/useLocale";
 import { getQueryParams } from "@/checkout-storefront/lib/utils/url";
 import { useDummyPaymentForm } from "@/checkout-storefront/views/DummyPayment/useDummyPaymentForm";
 import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
-import { getOrderConfirmationUrl } from "@/checkout-storefront/views/DummyPayment/utils";
+//import { getOrderConfirmationUrl } from "@/checkout-storefront/views/DummyPayment/utils";
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 
 export const DummyPayment = () => {
@@ -29,11 +30,14 @@ export const DummyPayment = () => {
 
   const { isSubmitting } = form;
 
-  React.useEffect(() => {
-    if (orderResult.data?.order?.isPaid) {
-      window.location.href = getOrderConfirmationUrl();
-    }
-  }, [orderResult.data?.order?.id, orderResult.data?.order?.isPaid]);
+  const submitHandler = () =>
+    (window.location.href = `/default-channel/EN/order/${orderResult.data?.order?.userEmail}`);
+
+  // React.useEffect(() => {
+  //   if (orderResult.data?.order?.isPaid) {
+  //     window.location.href = getOrderConfirmationUrl();
+  //   }
+  // }, [orderResult.data?.order?.id, orderResult.data?.order?.isPaid]);
 
   return (
     <section className="h-screen flex justify-center items-center">
@@ -68,7 +72,8 @@ export const DummyPayment = () => {
               />
               <Button
                 disabled={orderResult.fetching}
-                type="submit"
+                onClick={submitHandler}
+                //type="submit"
                 ariaLabel={formatMessage(dummyPaymentMessages.dummyPay)}
                 label={
                   isSubmitting

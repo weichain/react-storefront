@@ -14,6 +14,7 @@ const getPhoneNumberInstance = (
 ): PhoneNumber | null => {
   try {
     const phoneNumber = parsePhoneNumberWithError(phone, countryCode as PhoneNumberLibCountryCode);
+
     return phoneNumber;
   } catch (error) {
     return null;

@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { mapEdgesToItems } from "@/lib/maps";
 import {
   OrderDirection,
+  ProductCollectionQuery,
   ProductCollectionQueryVariables,
   ProductFilterInput,
   ProductOrderField,
@@ -15,6 +16,8 @@ import { Pagination } from "../Pagination";
 import { useRegions } from "../RegionsProvider";
 import { Spinner } from "../Spinner";
 import { messages } from "../translations";
+import invariant from "ts-invariant";
+
 export interface ProductCollectionProps {
   filter?: ProductFilterInput;
   sortBy?: {

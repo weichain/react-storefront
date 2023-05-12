@@ -40,7 +40,7 @@ export function AddressBookCard({ address, onRefreshBook }: AddressBookCardProps
     <div className="justify-between flex flex-col checkout-section-container md:mx-2 mb-2">
       {!!cardHeader && <p className="text-md font-semibold mb-1">{cardHeader}</p>}
       <AddressDisplay address={address} />
-      {!address.isDefaultBillingAddress && (
+      {/* {!address.isDefaultBillingAddress && (
         <Button
           className="my-1"
           onClick={() =>
@@ -66,7 +66,7 @@ export function AddressBookCard({ address, onRefreshBook }: AddressBookCardProps
       )}
       <Button className="my-1" onClick={() => onDeleteAddress(address.id)}>
         {t.formatMessage(messages.removeButton)}
-      </Button>
+      </Button> */}
     </div>
   );
 }
