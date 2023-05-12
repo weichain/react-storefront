@@ -42,16 +42,17 @@ const getApl = () => {
 const apl = getApl();
 
 export const get = async (saleorApiUrl: string): Promise<Result> => {
-  const authData = await apl.get(saleorApiUrl);
 
-  invariant(
-    authData,
-    `No auth data found for given host: ${saleorApiUrl}. Is the app installed and configured?`
-  );
+  //const authData = await apl.get(saleorApiUrl);
+
+  // invariant(
+  //   authData,
+  //   `No auth data found for given host: ${saleorApiUrl}. Is the app installed and configured?`
+  // );
 
   return {
-    saleorApiUrl,
-    appToken: authData.token,
+    saleorApiUrl: "https://dac5-139-59-244-9.ngrok-free.app/graphql/",
+    appToken: "5ayZ0aMKle4Q77YNI8xROGfNmE7TKh",
   };
 };
 

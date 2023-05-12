@@ -2,15 +2,15 @@
 
 @layer components {
   .checkout-form-container {
-    @apply flex flex-col items-end lg:w-1/2;
+    @apply flex flex-col items-end w-full bg-[#ffffff];
   }
   .checkout-form {
-    @apply border border-border-secondary rounded-lg flex flex-col w-full;
+    @apply flex flex-col w-10/12 lg:w-[55%] m-auto min-h-max lg:min-h-[1000px];
   }
 
-  .section {
+  /* .section {
     @apply px-4 pt-5 pb-6;
-  }
+  } */
 
   .actions {
     @apply flex flex-row w-full justify-end items-center;

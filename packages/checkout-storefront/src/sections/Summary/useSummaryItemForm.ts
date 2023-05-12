@@ -47,6 +47,5 @@ export const useSummaryItemForm = ({ line }: SummaryItemFormProps) => {
     onSubmit: deleteLines,
     parse: ({ languageCode, checkoutId }) => ({ languageCode, checkoutId, lineId: line.id }),
   });
-
   return { form, onLineDelete };
 };

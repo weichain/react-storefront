@@ -14,8 +14,8 @@ export interface FilterPillsProps {
 
 export function FilterPills({ pills, onRemoveAttribute, onClearFilters }: FilterPillsProps) {
   return (
-    <div className="flex pt-4">
-      <div className="flex-grow flex gap-2">
+    <div className="flex flex-col gap-4 pt-4 border-none">
+      <div className="flex-grow flex gap-2 flex-wrap">
         {typeof window !== "undefined" &&
           pills.map(({ label, attributeSlug, choiceSlug }) => (
             <Chip

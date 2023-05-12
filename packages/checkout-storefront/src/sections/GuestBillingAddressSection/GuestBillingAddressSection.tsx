@@ -26,6 +26,8 @@ export const GuestBillingAddressSection = () => {
 
   const { handleBlur, handleChange } = form;
 
+  //return null;
+
   return (
     <Suspense fallback={<AddressSectionSkeleton />}>
       {isShippingRequired && (

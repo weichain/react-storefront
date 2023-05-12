@@ -6,6 +6,10 @@ import { TextInput } from "@/checkout-storefront/components/TextInput";
 import { contactMessages } from "../Contact/messages";
 import { useGuestUserForm } from "@/checkout-storefront/sections/GuestUser/useGuestUserForm";
 import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
+import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
+//import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
+import { GuestBillingAddressSection } from "@/checkout-storefront/sections/GuestBillingAddressSection";
+import { useUser } from "@/checkout-storefront/hooks/useUser";
 
 type GuestUserProps = Pick<SignInFormContainerProps, "onSectionChange"> & {
   onEmailChange: (email: string) => void;
@@ -21,6 +25,7 @@ export const GuestUser: React.FC<GuestUserProps> = ({
   const form = useGuestUserForm({ initialEmail });
   const { handleChange } = form;
   const { createAccount } = form.values;
+  const { user } = useUser();
 
   return (
     <SignInFormContainer
@@ -38,6 +43,10 @@ export const GuestUser: React.FC<GuestUserProps> = ({
             onEmailChange(event.target.value);
           }}
         />
+        <div className="section" data-testid="shippingAddressSection">
+          {/* {user ? <UserShippingAddressSection /> : <GuestShippingAddressSection />} */}
+          {user ? <UserShippingAddressSection /> : <GuestBillingAddressSection />}
+        </div>
         <Checkbox
           name="createAccount"
           label={formatMessage(contactMessages.wantToCreateAccount)}
@@ -49,6 +58,10 @@ export const GuestUser: React.FC<GuestUserProps> = ({
             <PasswordInput
               name="password"
               label={formatMessage(contactMessages.passwordWithRequirements)}
+            />{" "}
+            <PasswordInput
+              name="repeatPassword"
+              label={formatMessage(contactMessages.repeatPassword)}
             />
           </div>
         )}

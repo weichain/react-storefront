@@ -17,6 +17,7 @@ import { useRegions } from "../RegionsProvider";
 import { Spinner } from "../Spinner";
 import { messages } from "../translations";
 import invariant from "ts-invariant";
+
 export interface ProductCollectionProps {
   filter?: ProductFilterInput;
   sortBy?: {
@@ -63,10 +64,28 @@ export function ProductCollection({
     4: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-9",
   };
 
+
   const { loading, error, data, fetchMore } = useProductCollectionQuery({
     variables,
   });
 
+  data = convertProductUrl(data, (deepcopy: any, invalid: string, valid: string) => {
+    deepcopy?.products?.edges.forEach(
+      (edge: { node: { media: any[]; thumbnail: { url: string } } }) => {
+        edge.node.media?.forEach((m: { url: string }) => {
+          if (m.url.startsWith(invalid)) {
+            m.url = m.url.replace(invalid, valid);
+          }
+        });
+        if (edge.node.thumbnail?.url.startsWith(invalid)) {
+          edge.node.thumbnail.url = edge.node.thumbnail?.url.replace(invalid, valid);
+        }
+      }
+    );
+    return deepcopy;
+  });
+
+  data = data as ProductCollectionQuery;
   useEffect(() => {
     if (setCounter) {
       setCounter(data?.products?.totalCount || 0);

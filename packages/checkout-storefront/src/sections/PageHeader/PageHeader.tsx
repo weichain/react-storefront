@@ -1,12 +1,10 @@
-import { SaleorLogo } from "@/checkout-storefront/images";
-import { getSvgSrc } from "@/checkout-storefront/lib/svgSrc";
-import { LanguageSelect } from "@/checkout-storefront/sections/PageHeader/LanguageSelect";
+/* eslint-disable import/no-restricted-paths */
+import Image from "next/image";
 
 export const PageHeader = () => {
   return (
     <div className="page-header">
-      <img src={getSvgSrc(SaleorLogo)} alt="logo" className="logo" />
-      <LanguageSelect />
+      <Image src="/Veranda.png" alt="Saleor logo" width={50} height={50} />
     </div>
   );
 };

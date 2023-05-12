@@ -6,6 +6,7 @@ import { paymentSectionLabels, paymentMethodsMessages } from "./messages";
 import { usePaymentMethodsForm } from "@/checkout-storefront/sections/PaymentSection/usePaymentMethodsForm";
 import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
 import { AdyenDropIn } from "@/checkout-storefront/sections/PaymentSection/AdyenDropIn/AdyenDropIn";
+import { CardPayment } from "@/checkout-storefront/components/CardPayment";
 
 export const PaymentMethods = () => {
   const formatMessage = useFormattedMessages();
@@ -16,22 +17,25 @@ export const PaymentMethods = () => {
   return showAdyenDropin ? (
     <AdyenDropIn />
   ) : (
-    <FormProvider form={form}>
-      <SelectBoxGroup
-        label={formatMessage(paymentSectionLabels.paymentProviders)}
-        className="flex flex-row gap-2 mb-8"
-      >
-        {availablePaymentMethods.map((paymentMethodId) => (
-          <SelectBox
-            key={paymentMethodId}
-            className="shrink"
-            name="selectedMethodId"
-            value={paymentMethodId}
-          >
-            <Text>{formatMessage(paymentMethodsMessages[paymentMethodId])}</Text>
-          </SelectBox>
-        ))}
-      </SelectBoxGroup>
-    </FormProvider>
+    <>
+      <FormProvider form={form}>
+        <SelectBoxGroup
+          label={formatMessage(paymentSectionLabels.paymentProviders)}
+          className="flex flex-row gap-2 mb-8"
+        >
+          {availablePaymentMethods.map((paymentMethodId) => (
+            <SelectBox
+              key={paymentMethodId}
+              className="shrink"
+              name="selectedMethodId"
+              value={paymentMethodId}
+            >
+              <Text>{formatMessage(paymentMethodsMessages[paymentMethodId])}</Text>
+            </SelectBox>
+          ))}
+        </SelectBoxGroup>
+      </FormProvider>
+      <CardPayment />
+    </>
   );
 };

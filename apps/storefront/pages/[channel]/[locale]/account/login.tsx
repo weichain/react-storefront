@@ -54,7 +54,11 @@ function LoginPage() {
       return;
     }
 
-    void router.push(redirectURL);
+    // void router.push(redirectURL);
+    void router.push({
+      pathname: "/[channel]/[locale]" as const,
+      query: { channel: "default-channel", locale: "EN" },
+    });
   });
 
   return (

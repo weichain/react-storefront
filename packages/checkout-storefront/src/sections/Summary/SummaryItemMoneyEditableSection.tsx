@@ -1,14 +1,15 @@
-import { Text } from "@saleor/ui-kit";
+/* eslint-disable react/button-has-type */
+// import { Button, Text } from "@saleor/ui-kit";
+// import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
+// import { TextInput } from "@/checkout-storefront/components/TextInput";
 import { CheckoutLineFragment } from "@/checkout-storefront/graphql";
-import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
-import { TextInput } from "@/checkout-storefront/components/TextInput";
 
 import { Skeleton } from "@/checkout-storefront/components";
 import { SummaryItemMoneyInfo } from "@/checkout-storefront/sections/Summary/SummaryItemMoneyInfo";
-import { summaryMessages } from "./messages";
 import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
 import { useSummaryItemForm } from "@/checkout-storefront/sections/Summary/useSummaryItemForm";
-import { useMemo } from "react";
+// import { summaryMessages } from "./messages";
+// import { useMemo } from "react";
 
 interface SummaryItemMoneyEditableSectionProps {
   line: CheckoutLineFragment;
@@ -17,55 +18,76 @@ interface SummaryItemMoneyEditableSectionProps {
 export const SummaryItemMoneyEditableSection: React.FC<SummaryItemMoneyEditableSectionProps> = ({
   line,
 }) => {
-  const formatMessage = useFormattedMessages();
+  // const formatMessage = useFormattedMessages();
   const { form, onLineDelete } = useSummaryItemForm({ line });
 
   const {
-    handleBlur,
+    // handleBlur,
+    // handleSubmit,
     setFieldValue,
-    handleSubmit,
     isSubmitting,
-    values: { quantity: quantityString },
+    // values: { quantity: quantityString },
   } = form;
 
-  const quantity = useMemo(() => parseInt(quantityString), [quantityString]);
+  //const quantity = useMemo(() => parseInt(quantityString), [quantityString]);
 
-  const handleQuantityInputBlur = (event: React.FocusEvent<any, Element>) => {
-    handleBlur(event);
-
-    if (quantity === line.quantity) {
-      return;
-    }
-
-    const isQuantityValid = !Number.isNaN(quantity) && quantity >= 0;
-
-    if (quantityString === "" || !isQuantityValid) {
-      void setFieldValue("quantity", String(line.quantity));
-      return;
-    }
-
-    if (quantity === 0) {
-      void onLineDelete();
-      return;
-    }
-
-    void handleSubmit();
+  const increase = () => {
+    void setFieldValue("quantity", String(line.quantity + 1));
   };
 
+  const decrease = () => {
+    void setFieldValue("quantity", String(line.quantity - 1));
+  };
+
+  const removeItem = () => {
+    void onLineDelete();
+  };
+
+  // const handleQuantityInputBlur = (event: React.FocusEvent<any, Element>) => {
+  //   handleBlur(event);
+
+  //   if (quantity === line.quantity) {
+  //     return;
+  //   }
+
+  //   const isQuantityValid = !Number.isNaN(quantity) && quantity >= 0;
+
+  //   if (quantityString === "" || !isQuantityValid) {
+  //     void setFieldValue("quantity", String(line.quantity));
+  //     return;
+  //   }
+
+  //   if (quantity === 0) {
+  //     void onLineDelete();
+  //     return;
+  //   }
+
+  //   void handleSubmit();
+  // };
+
   return (
-    <div className="flex flex-col items-end h-20 relative -top-2">
-      <div className="flex flex-row items-baseline">
-        <Text size="xs" className="mr-2">
+    <div className="flex justify-between items-center relative -top-2">
+      <div className="flex flex-row items-center">
+        {/* <Text size="xs" className="mr-2">
           {formatMessage(summaryMessages.quantity)}:
-        </Text>
+        </Text> */}
         <FormProvider form={form}>
-          <TextInput
-            onBlur={handleQuantityInputBlur}
-            name="quantity"
-            classNames={{ container: "!w-13 !mb-0", input: "text-center !h-8" }}
-            label=""
-          />
+          <div className="flex justify-between items-center w-[100px]">
+            <button onClick={decrease}>
+              <img src="/minus.svg" alt="decrease" className="cursor-pointer" onClick={decrease} />
+            </button>
+            <p>{line.quantity}</p>
+            <button onClick={increase}>
+              <img src="/plus.svg" alt="increase" className="cursor-pointer" onClick={increase} />
+            </button>
+          </div>
         </FormProvider>
+        <img
+          src="/trash.svg"
+          alt="bin"
+          className="absolute bottom-[60px] right-0 cursor-pointer"
+          onClick={removeItem}
+        />
       </div>
       {isSubmitting ? (
         <div className="flex flex-col items-end mt-3 w-full">

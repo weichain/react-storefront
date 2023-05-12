@@ -1,4 +1,3 @@
-import { PageHeader } from "@/checkout-storefront/sections/PageHeader";
 import { Summary, SummarySkeleton } from "@/checkout-storefront/sections/Summary";
 import { CheckoutForm, CheckoutFormSkeleton } from "@/checkout-storefront/sections/CheckoutForm";
 import { Suspense } from "react";
@@ -26,7 +25,6 @@ export const Checkout = () => {
   ) : (
     <ErrorBoundary FallbackComponent={PageNotFound}>
       <div className="page">
-        <PageHeader />
         <div className="page-content">
           {isEmptyCart ? (
             <EmptyCartPage />
@@ -35,7 +33,6 @@ export const Checkout = () => {
               <Suspense fallback={<CheckoutFormSkeleton />}>
                 <CheckoutForm />
               </Suspense>
-              <div className="page-divider" />
               <Suspense fallback={<SummarySkeleton />}>
                 <Summary {...checkout} />
               </Suspense>

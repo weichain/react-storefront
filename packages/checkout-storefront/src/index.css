@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
 @import "react-toastify/dist/ReactToastify.css";
 @import "./views/Checkout/CheckoutStyles.css";
 @import "./components/Divider/DividerStyles.css";
+@import "./components/CardPayment/style.css";
 @import "./hooks/useAlerts/AlertStyles.css";
 @import "./components/SelectBox/SelectBoxStyles.css";
 @import "./components/PasswordInput/PasswordInputStyles.css";
@@ -17,12 +18,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  /* Font size set for rem */
-  font-size: 62.5%;
-  @apply antialiased;
-}
-
 body {
   @apply overscroll-none;
+  font-family: "Poppins", sans-serif !important;
 }

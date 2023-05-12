@@ -14,7 +14,6 @@ export interface SortingOption {
 
 export const getSortingOptions = (chosenSorting: UrlSorting | null) => {
   const options: SortingOption[] = [
-    { label: "Popularity", chosen: false },
     { label: "Name ascending", field: "NAME", direction: "ASC", chosen: false },
     { label: "Name descending", field: "NAME", direction: "DESC", chosen: false },
   ];

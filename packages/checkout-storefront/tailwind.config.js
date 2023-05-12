@@ -16,7 +16,7 @@ const spacing = getSpacing(
 const theme = {
   colors: {
     transparent: "transparent",
-    skeleton: "rgba(var(--border-color-primary-rgb), 0.1)",
+    skeleton: "#8F8F8F",
     background: {
       primary: "#FAFAFA",
       secondary: "#FFFFFF",
@@ -71,6 +71,9 @@ const theme = {
       lg: "0.8rem",
       DEFAULT: "0.4rem",
     },
+  },
+  fontFamily: {
+    display: ["Poppins", "sans-serif"],
   },
 };
 

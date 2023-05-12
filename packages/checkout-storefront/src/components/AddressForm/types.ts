@@ -8,6 +8,7 @@ export interface AddressFormData
 export type OptionalAddress = AddressFragment | undefined | null;
 
 export type AddressField =
+  | "fullName"
   | "city"
   | "firstName"
   | "lastName"

@@ -6,7 +6,11 @@ import { useGuestShippingAddressForm } from "@/checkout-storefront/sections/Gues
 import React from "react";
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 
-export const GuestShippingAddressSection = () => {
+type TGuestContent = {
+  content?: string;
+};
+
+export const GuestShippingAddressSection = ({ content }: TGuestContent) => {
   const formatMessage = useFormattedMessages();
   const { availableShippingCountries } = useAvailableShippingCountries();
 
@@ -17,6 +21,7 @@ export const GuestShippingAddressSection = () => {
   return (
     <FormProvider form={form}>
       <AddressForm
+        content={content}
         title={formatMessage(shippingMessages.shippingAddress)}
         availableCountries={availableShippingCountries}
         fieldProps={{

@@ -9,12 +9,14 @@ export const useLogout = () => {
   const { signOut } = useSaleorAuthContext();
   const { resetCheckoutToken } = useCheckout();
   const router = useRouter();
-  const paths = usePaths();
 
   const onLogout = async () => {
     signOut();
     resetCheckoutToken();
-    void router.push(paths.$url());
+    void router.push({
+      pathname: "/[channel]/[locale]" as const,
+      query: { channel: "default-channel", locale: "EN" },
+    });
   };
 
   return onLogout;
