@@ -25341,6 +25341,13 @@ export type ProductDetailsFragment = {
     slug: string;
     translation?: { __typename?: "CategoryTranslation"; id: string; name?: string | null } | null;
   } | null;
+  collections?: Array<{
+    __typename?: "Collection";
+    id: string;
+    name: string;
+    slug: string;
+    translation?: { __typename?: "CollectionTranslation"; id: string; name?: string | null } | null;
+  }> | null;
   variants?: Array<{
     __typename?: "ProductVariant";
     id: string;
@@ -27464,6 +27471,17 @@ export type ProductBySlugQuery = {
       slug: string;
       translation?: { __typename?: "CategoryTranslation"; id: string; name?: string | null } | null;
     } | null;
+    collections?: Array<{
+      __typename?: "Collection";
+      id: string;
+      name: string;
+      slug: string;
+      translation?: {
+        __typename?: "CollectionTranslation";
+        id: string;
+        name?: string | null;
+      } | null;
+    }> | null;
     variants?: Array<{
       __typename?: "ProductVariant";
       id: string;
@@ -28181,6 +28199,9 @@ export const ProductDetailsFragmentDoc = gql`
     category {
       ...CategoryBasicFragment
     }
+    collections {
+      ...CollectionBasicFragment
+    }
     variants {
       ...ProductVariantDetailsFragment
     }
@@ -28205,6 +28226,7 @@ export const ProductDetailsFragmentDoc = gql`
   }
   ${SelectedAttributeDetailsFragmentDoc}
   ${CategoryBasicFragmentDoc}
+  ${CollectionBasicFragmentDoc}
   ${ProductVariantDetailsFragmentDoc}
   ${PriceFragmentDoc}
   ${ProductMediaFragmentDoc}
