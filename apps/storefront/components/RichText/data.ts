@@ -4,6 +4,7 @@ export const dummyData = {
       data: { text: "Description", level: 1 },
       id: "R5DtmhF8sy",
       type: "header",
+      display: false,
     },
     {
       data: {
@@ -12,11 +13,13 @@ export const dummyData = {
       },
       id: "PZAjzEr2G6",
       type: "list",
+      display: false,
     },
     {
       data: { text: "How to use", level: 1 },
       id: "6Y60FyNIHV",
       type: "header",
+      display: false,
     },
     {
       data: {
@@ -28,11 +31,13 @@ export const dummyData = {
       },
       id: "o9YGJmFEw6",
       type: "list",
+      display: false,
     },
     {
       data: { text: "Refund Policy", level: 1 },
       id: "zGx2T8FV2T",
       type: "header",
+      display: false,
     },
     {
       data: {
@@ -45,6 +50,7 @@ export const dummyData = {
       },
       id: "Q2otly_3Ah",
       type: "list",
+      display: false,
     },
   ],
   time: 1681824782941,

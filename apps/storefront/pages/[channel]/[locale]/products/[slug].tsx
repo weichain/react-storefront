@@ -2,6 +2,7 @@ import { ApolloQueryResult } from "@apollo/client";
 import clsx from "clsx";
 import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Link from "next/link";
+// import { useRouter } from "next/router";
 
 import Custom404 from "pages/404";
 import React, { ReactElement, useState } from "react";
@@ -16,6 +17,8 @@ import { usePaths } from "@/lib/paths";
 import { useCheckout } from "@/lib/providers/CheckoutProvider";
 import { contextToRegionQuery } from "@/lib/regions";
 import { translate } from "@/lib/translations";
+// import { AttributeDetails } from "@/components/product/AttributeDetails";
+// import { getSelectedVariantID } from "@/lib/product";
 import {
   CheckoutError,
   ProductBySlugDocument,
@@ -67,6 +70,7 @@ export const getStaticProps = async (
   };
 };
 function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
+  // const router = useRouter();
   const paths = usePaths();
   const t = useIntl();
   const { currentChannel, formatPrice, query } = useRegions();
@@ -175,6 +179,17 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
         </div>
         <div className="space-y-5 mt-10 md:mt-0">
           <div>
+            {/* <h1
+              className="text-4xl font-bold tracking-tight text-gray-800"
+              data-testid="productName"
+            >
+              {translate(product, "name")}
+            </h1>
+            {shouldDisplayPrice && (
+              <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                {formatPrice(price)}
+              </h2>
+            )} */}
             {!!product.category?.slug && (
               <Link
                 href={paths.category._slug(product?.category?.slug).$url()}
@@ -215,6 +230,11 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
               ? t.formatMessage(messages.adding)
               : t.formatMessage(messages.addToCart)}
           </button>
+          {/* {!selectedVariant && (
+            <p className="text-base text-yellow-600">
+              {t.formatMessage(messages.variantNotChosen)}
+            </p>
+          )} */}
           {selectedVariant?.quantityAvailable === 0 && (
             <p className="text-base text-yellow-600" data-testid="soldOut">
               {t.formatMessage(messages.soldOut)}
@@ -228,6 +248,7 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
               <RichText jsonStringData={description} />
             </div>
           )}
+          {/* <AttributeDetails product={product} selectedVariant={selectedVariant} /> */}
         </div>
       </main>
     </>
