@@ -20,6 +20,7 @@ interface BillingSameAsShippingFormData {
 interface BillingSameAsShippingFormProps {
   autoSave: boolean;
   onSetBillingSameAsShipping?: (address: OptionalAddress) => void;
+  values?: { billingAdress: boolean; billingSameAsShipping: boolean };
 }
 
 export const useBillingSameAsShippingForm = (

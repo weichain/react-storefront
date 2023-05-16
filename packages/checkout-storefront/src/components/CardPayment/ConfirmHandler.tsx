@@ -2,38 +2,28 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { omisePay } from "@/checkout-storefront/fetch";
-import React from "react";
 import Omise from "omise";
 import { useRouter } from "next/router";
 import { BsSquare, BsCheckSquare } from "react-icons/bs";
 import styled, { css } from "styled-components";
+import React, { useState } from "react";
 
+import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { IReactCreditCardProps } from "./CardPayment";
 import { useAppConfig } from "@/checkout-storefront/providers/AppConfigProvider";
+import { Checkbox } from "@saleor/ui-kit";
+import { contactMessages } from "@/checkout-storefront/sections/Contact/messages";
+import { useCheckoutSubmit } from "@/checkout-storefront/sections/CheckoutForm/useCheckoutSubmit";
 
 export interface IConfrimHandlerProps {
   card: IReactCreditCardProps;
   country: string;
-  checkedBox: boolean;
-  setCheckedBox: (value: boolean) => void;
 }
 
-const Input = styled.input`
-  ${() => css`
-    border: 1px solid white;
-    position: absolute;
-      &:checked + svg {
-      fill: #E7C130;
-      }
-    }
-  `}
-`;
-export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({
-  country,
-  card,
-  checkedBox,
-  setCheckedBox,
-}) => {
+export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }) => {
+  const [checked, setChecked] = useState(false);
+  const formatMessage = useFormattedMessages();
+  const { handleSubmit, isProcessing } = useCheckoutSubmit();
   let enableBtn = false;
   if (
     String(card.number).length >= 17 &&
@@ -81,31 +71,28 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({
 
   return (
     <>
-      <div className="flex justify-between items-center">
-        <Input
-          type="checkbox"
-          onClick={checkHandler}
-          id="checkbox"
-          style={{ opacity: 0 }}
-          defaultChecked
+      <div className="flex justify-between items-center relative">
+        <div
+          className="w-6 h-5 absolute bottom-5 -left-[1.5px] z-50 cursor-pointer"
+          onClick={() => setChecked(() => !checked)}
+        ></div>
+        <Checkbox
+          classNames={{ container: "!mb-0" }}
+          name="billingSameAsShipping"
+          label={formatMessage(contactMessages.acceptTerms)}
+          data-testid={"useShippingAsBillingCheckbox"}
+          checked={checked}
         />
-        {!checkedBox && <BsSquare fill={"#E7C130"} size={18} />}
-        {checkedBox && <BsCheckSquare size={18} />}
-        <label htmlFor="checkbox" className="ml-4">
-          By placing this order I have and accept the Terms and conditions and privacy policy
-        </label>
       </div>
       <button
+        onClick={submitHandler}
         disabled={!enableBtn}
         type="submit"
-        style={{
-          backgroundColor: enableBtn ? "#E7C130" : "#CBCBCB",
-          width: "100%",
-          height: "48px",
-        }}
-        onClick={submitHandler}
+        className={`${
+          enableBtn ? "bg-[#E7C130] text-[#1F1F1F]" : "bg-[#F0F0F0] text-[#8F8F8F]"
+        } h-12`}
       >
-        Place order
+        {isProcessing ? "Processing" : "Place order"}
       </button>
     </>
   );

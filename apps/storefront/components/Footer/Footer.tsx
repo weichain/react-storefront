@@ -122,7 +122,7 @@ export function Footer() {
           <p className="font-semibold text-sm w-7/12">
             COPYRIGHT © {new Date().getFullYear()} VERANDA ALL RIGHTS RESERVED.
           </p>
-          <div className="flex gap-4">
+          <div className="sm:mr-0 lg:mr-12">
             <LocaleDropdown />
           </div>
         </div>

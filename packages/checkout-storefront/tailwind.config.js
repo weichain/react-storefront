@@ -72,6 +72,9 @@ const theme = {
       DEFAULT: "0.4rem",
     },
   },
+  fontFamily: {
+    display: ["Poppins", "sans-serif"],
+  },
 };
 
 module.exports = {

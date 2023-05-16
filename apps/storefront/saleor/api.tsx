@@ -121,6 +121,7 @@ export type AccountErrorCode =
   | "OUT_OF_SCOPE_PERMISSION"
   | "OUT_OF_SCOPE_USER"
   | "PASSWORD_ENTIRELY_NUMERIC"
+  | "PASSWORD_RESET_ALREADY_REQUESTED"
   | "PASSWORD_TOO_COMMON"
   | "PASSWORD_TOO_SHORT"
   | "PASSWORD_TOO_SIMILAR"
@@ -749,6 +750,7 @@ export type AppErrorCode =
   | "FORBIDDEN"
   | "GRAPHQL_ERROR"
   | "INVALID"
+  | "INVALID_CUSTOM_HEADERS"
   | "INVALID_MANIFEST_FORMAT"
   | "INVALID_PERMISSION"
   | "INVALID_STATUS"
@@ -2083,9 +2085,75 @@ export type AttributeWhereInput = {
 export type BulkAttributeValueInput = {
   /** The boolean value of an attribute to resolve. If the passed value is non-existent, it will be created. */
   boolean?: InputMaybe<Scalars["Boolean"]>;
+  /**
+   * File content type.
+   *
+   * Added in Saleor 3.12.
+   */
+  contentType?: InputMaybe<Scalars["String"]>;
+  /**
+   * Represents the date value of the attribute value.
+   *
+   * Added in Saleor 3.12.
+   */
+  date?: InputMaybe<Scalars["Date"]>;
+  /**
+   * Represents the date/time value of the attribute value.
+   *
+   * Added in Saleor 3.12.
+   */
+  dateTime?: InputMaybe<Scalars["DateTime"]>;
+  /**
+   * Attribute value ID.
+   *
+   * Added in Saleor 3.12.
+   */
+  dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
+  /**
+   * URL of the file attribute. Every time, a new value is created.
+   *
+   * Added in Saleor 3.12.
+   */
+  file?: InputMaybe<Scalars["String"]>;
   /** ID of the selected attribute. */
   id?: InputMaybe<Scalars["ID"]>;
-  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. */
+  /**
+   * List of attribute value IDs.
+   *
+   * Added in Saleor 3.12.
+   */
+  multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
+  /**
+   * Numeric value of an attribute.
+   *
+   * Added in Saleor 3.12.
+   */
+  numeric?: InputMaybe<Scalars["String"]>;
+  /**
+   * Plain text content.
+   *
+   * Added in Saleor 3.12.
+   */
+  plainText?: InputMaybe<Scalars["String"]>;
+  /**
+   * List of entity IDs that will be used as references.
+   *
+   * Added in Saleor 3.12.
+   */
+  references?: InputMaybe<Array<Scalars["ID"]>>;
+  /**
+   * Text content in JSON format.
+   *
+   * Added in Saleor 3.12.
+   */
+  richText?: InputMaybe<Scalars["JSONString"]>;
+  /**
+   * Attribute value ID.
+   *
+   * Added in Saleor 3.12.
+   */
+  swatch?: InputMaybe<AttributeValueSelectableTypeInput>;
+  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created.This field will be removed in Saleor 4.0. */
   values?: InputMaybe<Array<Scalars["String"]>>;
 };
 
@@ -12230,7 +12298,7 @@ export type Order = Node &
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
      */
     shippingTaxClass?: Maybe<TaxClass>;
     /**
@@ -13095,7 +13163,7 @@ export type OrderLine = Node &
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
      */
     taxClass?: Maybe<TaxClass>;
     /**
@@ -14062,13 +14130,13 @@ export type PageType = Node &
     /**
      * Attributes that can be assigned to the page type.
      *
-     * Requires one of the following permissions: MANAGE_PAGES.
+     * Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES.
      */
     availableAttributes?: Maybe<AttributeCountableConnection>;
     /**
      * Whether page type has pages assigned.
      *
-     * Requires one of the following permissions: MANAGE_PAGES.
+     * Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES.
      */
     hasPages?: Maybe<Scalars["Boolean"]>;
     id: Scalars["ID"];
@@ -15326,7 +15394,7 @@ export type Product = Node &
     /**
      * Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.
      *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
      */
     taxClass?: Maybe<TaxClass>;
     /**
@@ -15709,7 +15777,7 @@ export type ProductCreateInput = {
   /**
    * Tax rate for enabled tax gateway.
    *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product.
+   * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode?: InputMaybe<Scalars["String"]>;
   /** Weight of the Product. */
@@ -15970,7 +16038,7 @@ export type ProductInput = {
   /**
    * Tax rate for enabled tax gateway.
    *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product.
+   * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode?: InputMaybe<Scalars["String"]>;
   /** Weight of the Product. */
@@ -16517,7 +16585,7 @@ export type ProductType = Node &
     /**
      * Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.
      *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
      */
     taxClass?: Maybe<TaxClass>;
     /**
@@ -16673,7 +16741,7 @@ export type ProductTypeInput = {
   /**
    * Tax rate for enabled tax gateway.
    *
-   * DEPRECATED: this field will be removed in Saleor 4.0.. Use tax classes to control the tax calculation for a product type.
+   * DEPRECATED: this field will be removed in Saleor 4.0.. Use tax classes to control the tax calculation for a product type. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
    */
   taxCode?: InputMaybe<Scalars["String"]>;
   /** List of attributes used to distinguish between different variants of a product. */
@@ -19655,7 +19723,7 @@ export type ShippingMethodType = Node &
     /**
      * Tax class assigned to this shipping method.
      *
-     * Requires one of the following permissions: MANAGE_TAXES, MANAGE_SHIPPING.
+     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
      */
     taxClass?: Maybe<TaxClass>;
     /** Returns translated shipping method fields for the given language code. */
@@ -23663,6 +23731,14 @@ export type Webhook = Node & {
   app: App;
   /** List of asynchronous webhook events. */
   asyncEvents: Array<WebhookEventAsync>;
+  /**
+   * Custom headers, which will be added to HTTP request.
+   *
+   * Added in Saleor 3.12.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  customHeaders?: Maybe<Scalars["JSONString"]>;
   /** Event deliveries. */
   eventDeliveries?: Maybe<EventDeliveryCountableConnection>;
   /**
@@ -23715,6 +23791,14 @@ export type WebhookCreateInput = {
   app?: InputMaybe<Scalars["ID"]>;
   /** The asynchronous events that webhook wants to subscribe. */
   asyncEvents?: InputMaybe<Array<WebhookEventTypeAsyncEnum>>;
+  /**
+   * Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only "X-*" and "Authorization*" keys are allowed.
+   *
+   * Added in Saleor 3.12.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  customHeaders?: InputMaybe<Scalars["JSONString"]>;
   /**
    * The events that webhook wants to subscribe.
    *
@@ -23811,6 +23895,7 @@ export type WebhookErrorCode =
   | "DELETE_FAILED"
   | "GRAPHQL_ERROR"
   | "INVALID"
+  | "INVALID_CUSTOM_HEADERS"
   | "MISSING_EVENT"
   | "MISSING_SUBSCRIPTION"
   | "NOT_FOUND"
@@ -24722,6 +24807,14 @@ export type WebhookUpdateInput = {
   /** The asynchronous events that webhook wants to subscribe. */
   asyncEvents?: InputMaybe<Array<WebhookEventTypeAsyncEnum>>;
   /**
+   * Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only "X-*" and "Authorization*" keys are allowed.
+   *
+   * Added in Saleor 3.12.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  customHeaders?: InputMaybe<Scalars["JSONString"]>;
+  /**
    * The events that webhook wants to subscribe.
    *
    * DEPRECATED: this field will be removed in Saleor 4.0. Use `asyncEvents` or `syncEvents` instead.
@@ -25174,6 +25267,7 @@ export type ProductCardFragment = {
   id: string;
   slug: string;
   name: string;
+  seoDescription?: string | null;
   translation?: { __typename?: "ProductTranslation"; id: string; name?: string | null } | null;
   thumbnail?: { __typename?: "Image"; url: string; alt?: string | null } | null;
   category?: {
@@ -25181,6 +25275,13 @@ export type ProductCardFragment = {
     id: string;
     name: string;
     translation?: { __typename?: "CategoryTranslation"; id: string; name?: string | null } | null;
+  } | null;
+  pricing?: {
+    __typename?: "ProductPricingInfo";
+    priceRange?: {
+      __typename?: "TaxedMoneyRange";
+      start?: { __typename?: "TaxedMoney"; gross: { __typename?: "Money"; amount: number } } | null;
+    } | null;
   } | null;
   media?: Array<{
     __typename?: "ProductMedia";
@@ -25240,6 +25341,13 @@ export type ProductDetailsFragment = {
     slug: string;
     translation?: { __typename?: "CategoryTranslation"; id: string; name?: string | null } | null;
   } | null;
+  collections?: Array<{
+    __typename?: "Collection";
+    id: string;
+    name: string;
+    slug: string;
+    translation?: { __typename?: "CollectionTranslation"; id: string; name?: string | null } | null;
+  }> | null;
   variants?: Array<{
     __typename?: "ProductVariant";
     id: string;
@@ -27363,6 +27471,17 @@ export type ProductBySlugQuery = {
       slug: string;
       translation?: { __typename?: "CategoryTranslation"; id: string; name?: string | null } | null;
     } | null;
+    collections?: Array<{
+      __typename?: "Collection";
+      id: string;
+      name: string;
+      slug: string;
+      translation?: {
+        __typename?: "CollectionTranslation";
+        id: string;
+        name?: string | null;
+      } | null;
+    }> | null;
     variants?: Array<{
       __typename?: "ProductVariant";
       id: string;
@@ -27449,6 +27568,7 @@ export type ProductCollectionQuery = {
         id: string;
         slug: string;
         name: string;
+        seoDescription?: string | null;
         translation?: {
           __typename?: "ProductTranslation";
           id: string;
@@ -27463,6 +27583,16 @@ export type ProductCollectionQuery = {
             __typename?: "CategoryTranslation";
             id: string;
             name?: string | null;
+          } | null;
+        } | null;
+        pricing?: {
+          __typename?: "ProductPricingInfo";
+          priceRange?: {
+            __typename?: "TaxedMoneyRange";
+            start?: {
+              __typename?: "TaxedMoney";
+              gross: { __typename?: "Money"; amount: number };
+            } | null;
           } | null;
         } | null;
         media?: Array<{
@@ -27965,6 +28095,16 @@ export const ProductCardFragmentDoc = gql`
         name
       }
     }
+    seoDescription
+    pricing {
+      priceRange {
+        start {
+          gross {
+            amount
+          }
+        }
+      }
+    }
     media {
       url
       alt
@@ -28059,6 +28199,9 @@ export const ProductDetailsFragmentDoc = gql`
     category {
       ...CategoryBasicFragment
     }
+    collections {
+      ...CollectionBasicFragment
+    }
     variants {
       ...ProductVariantDetailsFragment
     }
@@ -28083,6 +28226,7 @@ export const ProductDetailsFragmentDoc = gql`
   }
   ${SelectedAttributeDetailsFragmentDoc}
   ${CategoryBasicFragmentDoc}
+  ${CollectionBasicFragmentDoc}
   ${ProductVariantDetailsFragmentDoc}
   ${PriceFragmentDoc}
   ${ProductMediaFragmentDoc}
@@ -40527,6 +40671,7 @@ export type WarehouseUpdatedFieldPolicy = {
 export type WebhookKeySpecifier = (
   | "app"
   | "asyncEvents"
+  | "customHeaders"
   | "eventDeliveries"
   | "events"
   | "id"
@@ -40541,6 +40686,7 @@ export type WebhookKeySpecifier = (
 export type WebhookFieldPolicy = {
   app?: FieldPolicy<any> | FieldReadFunction<any>;
   asyncEvents?: FieldPolicy<any> | FieldReadFunction<any>;
+  customHeaders?: FieldPolicy<any> | FieldReadFunction<any>;
   eventDeliveries?: FieldPolicy<any> | FieldReadFunction<any>;
   events?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;

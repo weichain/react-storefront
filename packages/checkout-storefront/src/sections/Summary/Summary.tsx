@@ -7,12 +7,10 @@ import { Transition } from "@headlessui/react";
 import clsx from "clsx";
 
 import { getSvgSrc } from "@/checkout-storefront/lib/svgSrc";
-import { PromoCodeAdd } from "./PromoCodeAdd";
 import { SummaryMoneyRow } from "./SummaryMoneyRow";
 import { SummaryPromoCodeRow } from "./SummaryPromoCodeRow";
 import { SummaryItemMoneyEditableSection } from "./SummaryItemMoneyEditableSection";
-import { getFormattedMoney } from "@/checkout-storefront/lib/utils/money";
-import { Divider, Money, Title } from "@/checkout-storefront/components";
+import { Divider, Money } from "@/checkout-storefront/components";
 import {
   CheckoutLineFragment,
   GiftCardFragment,
@@ -23,6 +21,7 @@ import { SummaryItemMoneySection } from "@/checkout-storefront/sections/Summary/
 import { GrossMoney, GrossMoneyWithTax } from "@/checkout-storefront/lib/globalTypes";
 import { summaryLabels, summaryMessages } from "./messages";
 import { useSummaryHeightCalc } from "@/checkout-storefront/sections/Summary/useSummaryHeightCalc";
+import { useUser } from "@/checkout-storefront/hooks/useUser";
 
 interface SummaryProps {
   editable?: boolean;
@@ -42,12 +41,12 @@ export const Summary: FC<SummaryProps> = ({
   subtotalPrice,
   giftCards = [],
   voucherCode,
-  shippingPrice,
   discount,
 }) => {
   const formatMessage = useFormattedMessages();
   const [isOpen, setOpen] = useState(true);
   const [displaySummary, setDisplay] = useState(false);
+  const { user } = useUser();
 
   const { maxSummaryHeight, allItemsHeight } = useSummaryHeightCalc({
     linesCount: lines.length,
@@ -57,55 +56,66 @@ export const Summary: FC<SummaryProps> = ({
   });
 
   return (
-    <div className="summary" style={{ backgroundColor: "#F0F0F0" }}>
-      <div className={clsx("summary-title", isOpen && "open")}>
-        <div
-          className="flex flex-row items-center w-full"
-          onClick={() => setDisplay(!displaySummary)}
-        >
-          <Title className="mb-0">{formatMessage(summaryMessages.title)}</Title>
-          <img src={getSvgSrc(ChevronDownIcon)} alt="chevron-down" />
+    <div className="summary">
+      <div className="w-11/12 m-auto min-h-auto lg:min-h-screen flex flex-col">
+        <div>
+          <div className={clsx("summary-title", isOpen && "open")}>
+            <div
+              className="flex flex-row items-center w-full"
+              onClick={() => setDisplay(!displaySummary)}
+            >
+              <p className="mb-0 mt-6 text-[24px] text-[#1F1F1F] font-bold">
+                {formatMessage(summaryMessages.title)}
+              </p>
+              <img
+                src={getSvgSrc(ChevronDownIcon)}
+                alt="chevron-down"
+                style={{ marginTop: "20px" }}
+              />
+            </div>
+            {!isOpen && (
+              <Money
+                ariaLabel={formatMessage(summaryLabels.totalPrice)}
+                weight="bold"
+                money={totalPrice?.gross}
+              />
+            )}
+          </div>
         </div>
-        {!isOpen && (
-          <Money
-            ariaLabel={formatMessage(summaryLabels.totalPrice)}
-            weight="bold"
-            money={totalPrice?.gross}
-          />
-        )}
-      </div>
-      <Transition
-        show={isOpen}
-        unmount={false}
-        enter="transition duration-300 ease-out"
-        enterFrom="transform scale-95 opacity-0"
-        enterTo="transform scale-100 opacity-100"
-        leave="transition duration-75 ease-out"
-        leaveFrom="transform scale-100 opacity-100"
-        leaveTo="transform scale-95 opacity-0"
-      >
-        <ul
-          style={{ maxHeight: maxSummaryHeight ? `${maxSummaryHeight}px` : "" }}
-          className={clsx(
-            "summary-items",
-            allItemsHeight > maxSummaryHeight
-              ? "border-b border-border-secondary lg:overflow-y-scroll"
-              : ""
-          )}
-        >
-          {lines.map((line) => (
-            <SummaryItem line={line} key={line?.id}>
-              {editable ? (
-                <SummaryItemMoneyEditableSection line={line as CheckoutLineFragment} />
-              ) : (
-                <SummaryItemMoneySection line={line as OrderLineFragment} />
+        <div className={`h-auto ${user ? "lg:h-[110vh]" : "lg:h-[133vh]"}`}>
+          <Transition
+            show={isOpen}
+            unmount={false}
+            enter="transition duration-300 ease-out"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0"
+          >
+            <Divider className="my-4" />
+            <ul
+              className={clsx(
+                "summary-items",
+                allItemsHeight > maxSummaryHeight
+                  ? "border-b border-border-secondary lg:overflow-y-scroll"
+                  : ""
               )}
-            </SummaryItem>
-          ))}
-        </ul>
-        {editable && <PromoCodeAdd />}
+            >
+              {lines.map((line) => (
+                <SummaryItem line={line} key={line?.id}>
+                  {editable ? (
+                    <SummaryItemMoneyEditableSection line={line as CheckoutLineFragment} />
+                  ) : (
+                    <SummaryItemMoneySection line={line as OrderLineFragment} />
+                  )}
+                </SummaryItem>
+              ))}
+            </ul>
+          </Transition>
+        </div>
         <div className="summary-recap">
-          <Divider className="mt-1 mb-4" />
+          <Divider className="mb-4 mt-32" />
           <SummaryMoneyRow
             label={formatMessage(summaryMessages.subtotalPrice)}
             money={subtotalPrice?.gross}
@@ -133,20 +143,10 @@ export const Summary: FC<SummaryProps> = ({
               negative
             />
           ))}
-          <SummaryMoneyRow
-            label={formatMessage(summaryMessages.shippingCost)}
-            ariaLabel={formatMessage(summaryLabels.shippingCost)}
-            money={shippingPrice?.gross}
-          />
           <Divider className="my-4" />
-          <div className="summary-row pb-4 items-baseline">
+          <div className="flex justify-between pb-4">
             <div className="flex flex-row items-baseline">
-              <Text weight="bold">{formatMessage(summaryMessages.totalPrice)}</Text>
-              <Text color="secondary" className="ml-2">
-                {formatMessage(summaryMessages.taxCost, {
-                  taxCost: getFormattedMoney(totalPrice?.tax),
-                })}
-              </Text>
+              <Text color="secondary">{formatMessage(summaryMessages.totalPrice)}</Text>
             </div>
             <Money
               ariaLabel={formatMessage(summaryLabels.totalPrice)}
@@ -156,7 +156,7 @@ export const Summary: FC<SummaryProps> = ({
             />
           </div>
         </div>
-      </Transition>
+      </div>
     </div>
   );
 };

@@ -32,3 +32,7 @@
 html {
   font-size: 62.5%;
 }
+
+.ReactCollapse--collapse {
+  transition: height 800ms;
+}

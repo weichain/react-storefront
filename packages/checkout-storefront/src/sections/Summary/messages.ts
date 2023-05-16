@@ -2,8 +2,8 @@ import { defineMessages } from "react-intl";
 
 export const summaryMessages = defineMessages({
   title: {
-    defaultMessage: "Summary",
-    id: "Summary/messages/62kM+I",
+    defaultMessage: "Order Summary",
+    id: "Summary/messages/3Ugceo",
     description: "summary title",
   },
   subtotalPrice: {

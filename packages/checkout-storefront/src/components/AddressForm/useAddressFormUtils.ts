@@ -64,7 +64,9 @@ export const useAddressFormUtils = (countryCode: CountryCode = defaultCountry) =
   );
 
   const hasAllRequiredFields = useCallback(
-    (address: OptionalAddress) => !getMissingFieldsFromAddress(address).length,
+    (address: OptionalAddress) => {
+      return !getMissingFieldsFromAddress(address).length;
+    },
     [getMissingFieldsFromAddress]
   );
 
