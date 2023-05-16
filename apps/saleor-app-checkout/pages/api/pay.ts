@@ -33,6 +33,7 @@ import {
 } from "checkout-common";
 import { unpackPromise, unpackThrowable } from "@/saleor-app-checkout/utils/unpackErrors";
 import { getSaleorApiUrlFromRequest } from "@/saleor-app-checkout/backend/auth";
+import { createOmisePayment } from "@/saleor-app-checkout/backend/payments/providers/omise";
 
 const reuseExistingSession = (
   saleorApiUrl: string,
@@ -59,6 +60,8 @@ const reuseExistingSession = (
       return reuseExistingAdyenSession(saleorApiUrl, params);
     case "stripe":
       return reuseExistingStripeSession(saleorApiUrl, params);
+    case "omise":
+      return undefined;
     case "dummy":
       return undefined;
     default:
@@ -75,6 +78,7 @@ const getPaymentResponse = async ({
   body: PayRequestBody;
   appUrl: string;
 }): Promise<PayRequestResponse> => {
+  console.log("the body is: ", PaymentProviders);
   if (!PaymentProviders.includes(body.provider)) {
     throw new KnownPaymentError(body.provider, ["UNKNOWN_PROVIDER"]);
   }
@@ -83,7 +87,6 @@ const getPaymentResponse = async ({
   }
 
   const order = await createOrderFromBodyOrId(saleorApiUrl, body);
-
   if (order.privateMetafield) {
     const existingSessionResponse = await reuseExistingSession(saleorApiUrl, {
       orderId: order.id,
@@ -105,9 +108,9 @@ const getPaymentResponse = async ({
     console.error(paymentUrlError);
     throw new UnknownPaymentError(body.provider, paymentUrlError, order);
   }
-
-  const { id, url } = data;
-
+  console.log("data is :", data);
+  let { id, url } = data;
+  url = "http://localhost:3000/";
   if (!url) {
     throw new MissingUrlError(body.provider, order);
   }
@@ -213,6 +216,8 @@ const getPaymentUrlIdForProvider = ({
       return createAdyenCheckoutPaymentLinks(createPaymentData);
     case "stripe":
       return createStripePayment(createPaymentData);
+    case "omise":
+      return createOmisePayment(createPaymentData);
     case "dummy":
       const url = new URL(body.redirectUrl);
       url.searchParams.set("order", order.id);

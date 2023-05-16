@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import { omisePay } from "@/checkout-storefront/fetch";
+import Omise from "omise";
+import { useRouter } from "next/router";
+import { BsSquare, BsCheckSquare } from "react-icons/bs";
+import styled, { css } from "styled-components";
 import React, { useState } from "react";
 
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { IReactCreditCardProps } from "./CardPayment";
+import { useAppConfig } from "@/checkout-storefront/providers/AppConfigProvider";
 import { Checkbox } from "@saleor/ui-kit";
 import { contactMessages } from "@/checkout-storefront/sections/Contact/messages";
 import { useCheckoutSubmit } from "@/checkout-storefront/sections/CheckoutForm/useCheckoutSubmit";
@@ -27,19 +33,40 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
   ) {
     enableBtn = true;
   }
+  const router = useRouter();
+  const { checkout } = router.query;
+  const month = card.expiry.split("/")[0];
+  const year = "20" + card.expiry.split("/")[1];
 
-  // const cardDetails = {
-  //   name: "JOHN DOE",
-  //   number: "4242424242424242",
-  //   expiration_month: 12,
-  //   expiration_year: 2027,
-  //   security_code: "123",
-  // };
+  const cardDetails = {
+    card: {
+      name: card.name,
+      city: country,
+      postal_code: 1000,
+      number: String(card.number),
+      expiration_month: Number(month),
+      expiration_year: Number(year),
+      security_code: String(card.cvc),
+    },
+  };
+  const {
+    env: { checkoutApiUrl },
+    saleorApiUrl,
+  } = useAppConfig();
+  const submitHandler = async () => {
+    const result = omisePay({
+      checkoutApiUrl,
+      saleorApiUrl,
+      orderId: checkout as string,
+      amountCharged: { amount: "20000", currency: "thb" },
+      cardDetails,
+    });
 
-  const submitHandler = () => {
-    console.log(country, card);
-    console.log(checked);
-    handleSubmit();
+    // console.log('the result: ', await result.json())
+  };
+
+  const checkHandler = (e: any) => {
+    setCheckedBox(e.target.checked);
   };
 
   return (

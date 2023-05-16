@@ -41,3 +41,20 @@ export type DummyPayRequestResult =
       ok: true;
     }
   | { ok: false; error: string };
+
+export type OmisePayRequestBody = {
+  checkoutApiUrl: string;
+  saleorApiUrl: string;
+  orderId: string;
+  token: string;
+  amountCharged: {
+    amount: string;
+    currency: string;
+  };
+} & Pick<OrderBody, "orderId">;
+
+export type OmisePayRequestResult =
+  | {
+      ok: true;
+    }
+  | { ok: false; error: string };

@@ -5,7 +5,7 @@ import { CardInput, ConfirmHandler, CountryDropdown } from "./index";
 export interface IReactCreditCardProps {
   name: string;
   number: string | number;
-  expiry: string | number;
+  expiry: string;
   cvc: string | number;
 }
 

@@ -20,11 +20,13 @@ export const adyenProviderSettingIDs = [
 ] as const;
 export type AdyenProviderSettingID = typeof adyenProviderSettingIDs[number];
 export type StripeProviderSettingID = "publishableKey" | "secretKey" | "webhookSecret";
+export type OmiseProviderSettingID = "publicKey" | "secretKey";
 
 export const PaymentProviders: readonly (keyof PaymentProviderToSettings)[] = [
   "mollie",
   "adyen",
   "stripe",
+  "omise",
   "dummy",
 ] as const;
 export type PaymentProviderID = typeof PaymentProviders[number];
@@ -33,6 +35,7 @@ export type PaymentProviderToSettings = {
   mollie: MollieProviderSettingID;
   adyen: AdyenProviderSettingID;
   stripe: StripeProviderSettingID;
+  omise: OmiseProviderSettingID;
   dummy: "dummyKey";
 };
 

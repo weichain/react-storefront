@@ -23,6 +23,13 @@ type StripeResponse = {
   };
 };
 
+type OmiseResponse = {
+  provider: "omise";
+  data: {
+    paymentUrl: string;
+  };
+};
+
 type DummyResponse = {
   provider: "dummy";
   data: {
@@ -34,7 +41,7 @@ export type PayRequestSuccessResponse = {
   provider: PaymentProviderID;
   ok: true;
   orderId: string;
-} & (MollieResponse | AdyenResponse | StripeResponse | DummyResponse);
+} & (MollieResponse | AdyenResponse | StripeResponse | OmiseResponse | DummyResponse);
 
 export type PayRequestErrorResponse = {
   ok: false;
