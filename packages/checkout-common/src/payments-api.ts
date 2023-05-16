@@ -46,10 +46,20 @@ export type OmisePayRequestBody = {
   checkoutApiUrl: string;
   saleorApiUrl: string;
   orderId: string;
-  token: string;
   amountCharged: {
     amount: string;
     currency: string;
+  };
+  cardDetails: {
+    card: {
+      name: string;
+      city: string;
+      postal_code: number;
+      number: string;
+      expiration_month: number;
+      expiration_year: number;
+      security_code: string;
+    };
   };
 } & Pick<OrderBody, "orderId">;
 
