@@ -16,9 +16,7 @@ export interface PaymentSectionProps {
 export function PaymentSection({ checkout, active }: PaymentSectionProps) {
   const t = useIntl();
   const existingGateways = [STRIPE_GATEWAY, DUMMY_CREDIT_CARD_GATEWAY];
-  console.log("the checkout data is: ", checkout);
   const availableGateways = checkout.availablePaymentGateways.filter((g) => {
-    console.log("the g is: ", g);
     existingGateways.includes(g.id);
   });
 

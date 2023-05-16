@@ -24,7 +24,7 @@ const PaymentProvider = () => {
   const { app } = useAppContext();
   const domain = app.getState().domain;
   // @todo use `saleorApiUrl`
-  const saleorApiUrl = `https://f92d-46-10-125-139.eu.ngrok.io/graphql/`;
+  const saleorApiUrl = `https://ed67-139-59-244-9.ngrok-free.app/graphql/`;
   const token = app.getState().token;
 
   const paymentProvider = paymentProviders.find(

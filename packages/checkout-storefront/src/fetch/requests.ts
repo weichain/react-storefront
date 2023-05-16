@@ -12,6 +12,8 @@ import {
   PostAdyenDropInPaymentsDetailsResponse,
   DummyPayRequestResult,
   DummyPayRequestBody,
+  OmisePayRequestBody,
+  OmisePayRequestResult,
 } from "checkout-common";
 import { PayResult } from "./types";
 import { urlJoinTrailingSlash } from "./urlJoin";
@@ -143,6 +145,21 @@ export const dummyPay = ({
 }: DummyPayRequestBody): FetchResponse<DummyPayRequestResult> =>
   fetch(
     urlJoinTrailingSlash(checkoutApiUrl, "dummy-pay") +
+      `?` +
+      new URLSearchParams({ saleorApiUrl }).toString(),
+    {
+      method: "POST",
+      body: JSON.stringify(body),
+    }
+  );
+
+export const omisePay = ({
+  checkoutApiUrl,
+  saleorApiUrl,
+  ...body
+}: OmisePayRequestBody): FetchResponse<OmisePayRequestResult> =>
+  fetch(
+    urlJoinTrailingSlash(checkoutApiUrl, "omise-pay") +
       `?` +
       new URLSearchParams({ saleorApiUrl }).toString(),
     {

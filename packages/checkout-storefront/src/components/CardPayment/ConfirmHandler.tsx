@@ -1,19 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import { omisePay } from "@/checkout-storefront/fetch";
 import React from "react";
-// import Omise from '../../../../../../../omise-node'
+import Omise from "omise";
+import { useRouter } from "next/router";
 import { BsSquare, BsCheckSquare } from "react-icons/bs";
 import styled, { css } from "styled-components";
 
 import { IReactCreditCardProps } from "./CardPayment";
-import { createChargeRequest } from "./utils/requests";
-let omise = require("../../../../../../../omise-node")({
-  publicKey: "pkey_test_5v0tzstq34vn9s6800h",
-  secretKey: "skey_test_5v1asluvtklyiikdd5z",
-});
-
-// console.log(createTokenPromise)
+import { useAppConfig } from "@/checkout-storefront/providers/AppConfigProvider";
 
 export interface IConfrimHandlerProps {
   card: IReactCreditCardProps;
@@ -47,7 +43,8 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({
   ) {
     enableBtn = true;
   }
-
+  const router = useRouter();
+  const { checkout } = router.query;
   const month = card.expiry.split("/")[0];
   const year = "20" + card.expiry.split("/")[1];
 
@@ -62,9 +59,18 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({
       security_code: String(card.cvc),
     },
   };
+  const {
+    env: { checkoutApiUrl },
+    saleorApiUrl,
+  } = useAppConfig();
   const submitHandler = async () => {
-    const token = await omise.tokens.create(cardDetails);
-    const result = await createChargeRequest("10000", "thb", token);
+    const result = omisePay({
+      checkoutApiUrl,
+      saleorApiUrl,
+      orderId: checkout as string,
+      amountCharged: { amount: "20000", currency: "thb" },
+      cardDetails,
+    });
 
     // console.log('the result: ', await result.json())
   };
