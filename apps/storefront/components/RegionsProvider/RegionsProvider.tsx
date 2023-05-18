@@ -22,7 +22,7 @@ export interface RegionsConsumerProps {
     locale: LanguageCodeEnum;
   };
   setCurrentChannel: (slug: string) => Promise<void>;
-  formatPrice: (price?: PriceFragment) => string;
+  formatPrice: (quantity: number, price?: PriceFragment) => string | number;
 }
 
 export const [useContext, Provider] = createSafeContext<RegionsConsumerProps>();
@@ -62,8 +62,13 @@ export function RegionsProvider({ children }: { children: ReactNode }) {
   const currentChannel =
     CHANNELS.find(({ slug }) => slug === currentChannelSlug) || DEFAULT_CHANNEL;
 
-  const formatPrice = (price?: PriceFragment) =>
-    formatAsMoney(price?.amount || 0, price?.currency || currentChannel.currencyCode, locale);
+  const formatPrice = (quantity: number, price?: PriceFragment) =>
+    formatAsMoney(
+      price?.amount || 0,
+      price?.currency || currentChannel.currencyCode,
+      locale,
+      quantity
+    );
 
   const providerValues: RegionsConsumerProps = {
     channels: CHANNELS,

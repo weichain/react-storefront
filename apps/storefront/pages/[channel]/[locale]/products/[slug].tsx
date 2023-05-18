@@ -73,7 +73,7 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
   // const router = useRouter();
   const paths = usePaths();
   const t = useIntl();
-  const { currentChannel, formatPrice, query } = useRegions();
+  const { currentChannel, query } = useRegions();
 
   const { checkoutToken, setCheckoutToken, checkout } = useCheckout();
 
@@ -83,6 +83,7 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
   const [addProductToCheckout] = useCheckoutAddProductLineMutation();
   const [loadingAddToCheckout, setLoadingAddToCheckout] = useState(false);
   const [addToCartError, setAddToCartError] = useState("");
+  const [itemQuantity, setItemQuantity] = useState(1);
 
   if (!product?.id) {
     return <Custom404 />;
@@ -99,14 +100,13 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
     // Clear previous error messages
     setAddToCartError("");
 
-    // Block add to checkout button
     setLoadingAddToCheckout(true);
+    // Block add to checkout button
     const errors: CheckoutError[] = [];
 
     if (!selectedVariantID) {
       return;
     }
-
     if (checkout) {
       // If checkout is already existing, add products
       const { data: addToCartData } = await addProductToCheckout({
@@ -129,7 +129,7 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
           channel: currentChannel.slug,
           lines: [
             {
-              quantity: 1,
+              quantity: itemQuantity,
               variantId: selectedVariantID,
             },
           ],
@@ -162,8 +162,8 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
 
   const description = translate(product, "description");
 
-  const price = product.pricing?.priceRange?.start?.gross;
-  const shouldDisplayPrice = product.variants?.length === 1 && price;
+  //const price = product.pricing?.priceRange?.start?.gross;
+  //const shouldDisplayPrice = product.variants?.length === 1 && price;
 
   return (
     <>
@@ -209,14 +209,18 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
             >
               {translate(product, "name")}
             </h1>
-            {shouldDisplayPrice && (
+            {/* {shouldDisplayPrice && (
               <h2 className="text-xl font-bold tracking-tight text-gray-800">
                 {formatPrice(price)}
               </h2>
-            )}
+            )} */}
           </div>
           <hr />
-          <VariantSelector product={product} />
+          <VariantSelector
+            product={product}
+            itemQuantity={itemQuantity}
+            setItemQuantity={setItemQuantity}
+          />
           <button
             onClick={onAddToCart}
             type="submit"

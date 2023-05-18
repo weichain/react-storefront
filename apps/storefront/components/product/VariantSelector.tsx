@@ -1,4 +1,4 @@
-import React from "react";
+//import React, { useEffect, useState } from "react";
 // import { RadioGroup } from "@headlessui/react";
 // import clsx from "clsx";
 // import { useRouter } from "next/router";
@@ -12,15 +12,23 @@ import Selector from "./Selector";
 
 export interface VariantSelectorProps {
   product: ProductDetailsFragment;
+  itemQuantity: number;
+  setItemQuantity: (value: number) => void;
   // selectedVariantID?: string;
 }
 
-export function VariantSelector({ product }: VariantSelectorProps) {
+export function VariantSelector({ product, itemQuantity, setItemQuantity }: VariantSelectorProps) {
   // const paths = usePaths();
   // const router = useRouter();
   // const [selectedVariant, setSelectedVariant] = useState(selectedVariantID);
   const { formatPrice } = useRegions();
   const { variants } = product;
+  // const [calculatePrice, setCalculatePrice] = useState(0);
+
+  // console.log(variants[0].pricing?.price?.gross.amount);
+  // useEffect(() => {
+  //   // setCalculatePrice(() => variants[0].pricing?.price?.gross * itemQuantity)
+  // }, [itemQuantity]);
 
   // Skip displaying selector when theres less than 2 variants
   if (!variants || variants.length === 1) {
@@ -44,12 +52,16 @@ export function VariantSelector({ product }: VariantSelectorProps) {
       <div className="flex justify-between">
         <div className="flex flex-col">
           <p className="text-sm mb-2 text-[#4C4C4C]">Quantity</p>
-          <Selector />
+          <Selector
+            product={product}
+            itemQuantity={itemQuantity}
+            setItemQuantity={setItemQuantity}
+          />
         </div>
         <div>
           <p className="text-sm text-secondary">PRICE PER ITEM</p>
           <p className="text-[24px] font-bold text-[#072137]">
-            {formatPrice(variants[0].pricing?.price?.gross)}
+            {formatPrice(itemQuantity, variants[0].pricing?.price?.gross)}
           </p>
           <p className="text-sm text-secondary">+12% VAT Added</p>
         </div>
