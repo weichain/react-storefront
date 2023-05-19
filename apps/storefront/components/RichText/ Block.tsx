@@ -25,7 +25,7 @@ const Block = ({ block, index, openAccordion }: IBlock) => {
         <>
           <hr />
           <div className="flex justify-between">
-            <p className="m-0 font-bold text-[#1E1E1E]">{block.data.text}</p>
+            <p className="m-0 font-bold text-black">{block.data.text}</p>
             <p
               className="m-0 text-4xl text-[#1F1F1F] cursor-pointer"
               onClick={() => openAccordion(block.id)}

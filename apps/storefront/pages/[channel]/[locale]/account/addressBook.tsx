@@ -36,11 +36,10 @@ function AddressBookPage() {
   return (
     <>
       <div className="flex flex-row items-start p-0 gap-10">
-        <span className="font-poppins font-normal font-normal text-lg leading-125 tracking-tighter text-gray-800">
+        <span className="font-poppins font-[600] text-[24px] leading-125 tracking-tighter text-gray-800 pt-4">
           Details
         </span>
       </div>
-      <div className="h-4"></div>
       <div className="grid grid-cols-1">
         {[addresses[0]].map((address) => (
           // <AddressBookCard key={address.id} address={address} onRefreshBook={() => refetch()} />

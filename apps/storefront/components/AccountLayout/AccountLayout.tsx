@@ -34,7 +34,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
         <main className="flex flex-col md:flex-row container px-8">
           <div className="mb-2 flex-initial md:w-3/5">
             <div className="flex flex-row items-start py-0 gap-10">
-              <span className="p-4 font-poppins font-semibold text-2xl leading-125 tracking-tighter text-gray-900">
+              <span className="p-4 font-poppins font-semibold text-[24px] leading-125 tracking-tighter text-gray-900">
                 My Account
               </span>
             </div>

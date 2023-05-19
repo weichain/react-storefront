@@ -15,8 +15,8 @@ function OrderCompletedPage() {
     <main className="flex items-center justify-center text-center">
       <div className="flex flex-col items-center my-[81.2px]">
         <Image src="/checkfilled.svg" alt="checklogo" width={50} height={50} />
-        <p className="font-bold text-[32px] text-[#1E1E1E] mt-2.5 mb-4">Order Complete!</p>
-        <p className="text-[14px] text-[#8F8F8F] w-11/12">
+        <p className="font-bold text-[32px] text-black mt-2.5 mb-4">Order Complete!</p>
+        <p className="text-[14px] text-secondary w-11/12">
           We’ve sent an e-mail to <span>{router.query.email}</span>. Please open it and follow the
           instructions{" "}
         </p>
