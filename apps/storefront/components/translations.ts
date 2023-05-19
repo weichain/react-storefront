@@ -276,7 +276,7 @@ export const messages = defineMessages({
   loadMoreButton: {
     id: "app.ui.loadMoreButton",
     description: "Display more products button label.",
-    defaultMessage: "Load more",
+    defaultMessage: "Show more",
   },
   noProducts: {
     id: "app.ui.noProductsInfo",

@@ -204,7 +204,7 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
               </Link>
             )}
             <h1
-              className="text-[24px] font-bold tracking-tight text-[#1E1E1E] mt-4"
+              className="text-[24px] font-bold tracking-tight text-black mt-4"
               data-testid="productName"
             >
               {translate(product, "name")}

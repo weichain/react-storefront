@@ -76,7 +76,7 @@ function CategoryPage({
   return (
     <>
       <CategoryPageSeo category={category} />
-      <p className="text-[#1E1E1E] text-[48px] font-semibold w-5/6 mt-18 mb-4 mx-auto">
+      <p className="text-black text-[48px] font-semibold w-5/6 mt-18 mb-4 mx-auto">
         {translate(category, "name")}
       </p>
       {/* TODO Fix the description and check the category if it is seoDescription or description */}
