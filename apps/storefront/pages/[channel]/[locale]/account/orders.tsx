@@ -1,11 +1,14 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 
 import { AccountLayout, OrdersTable, Pagination, Spinner } from "@/components";
 import { mapEdgesToItems } from "@/lib/maps";
 import { useOrdersQuery } from "@/saleor/api";
 import { useUser } from "@/lib/useUser";
+import { WatchQueryFetchPolicy } from "@apollo/client";
 
 function OrdersPage() {
+  const [value, setValue] = useState("cache-first");
+  const [number, setNumber] = useState(0);
   const { authenticated } = useUser();
   const {
     data: ordersCollection,
@@ -13,6 +16,7 @@ function OrdersPage() {
     error,
     fetchMore,
   } = useOrdersQuery({
+    fetchPolicy: value as WatchQueryFetchPolicy,
     skip: !authenticated,
   });
 
@@ -32,6 +36,8 @@ function OrdersPage() {
   const orders = mapEdgesToItems(ordersCollection?.me?.orders);
 
   const onLoadMore = () => {
+    setValue("cache-only");
+    setNumber(10);
     return fetchMore({
       variables: {
         after: ordersCollection?.me?.orders?.pageInfo.endCursor,
@@ -45,7 +51,7 @@ function OrdersPage() {
       <Pagination
         onLoadMore={onLoadMore}
         pageInfo={ordersCollection?.me?.orders?.pageInfo}
-        itemsCount={ordersCollection?.me?.orders?.edges.length}
+        itemsCount={(ordersCollection?.me?.orders?.edges.length as number) + number}
         totalCount={ordersCollection?.me?.orders?.totalCount || undefined}
       />
     </>

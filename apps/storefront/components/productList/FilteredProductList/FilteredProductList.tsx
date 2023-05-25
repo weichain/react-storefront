@@ -177,7 +177,7 @@ export function FilteredProductList({
           filter={productsFilter}
           sortBy={sortBy || undefined}
           setCounter={setItemsCounter}
-          perPage={40}
+          perPage={5}
           gridItems={4}
         />
       </div>

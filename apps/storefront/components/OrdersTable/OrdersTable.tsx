@@ -13,6 +13,25 @@ import { useRegions } from "../RegionsProvider";
 export interface OrdersTableProps {
   orders: OrderDetailsFragment[];
 }
+export const formatDate = (date: string): string => {
+  const _date = new Date(date);
+  return `${_date.getDay()}/${_date.getMonth()}/${_date.getFullYear()}`;
+};
+
+export const getIcon = (label: string) => {
+  switch (label) {
+    case "CANCELED":
+      return Canceled;
+    case "UNFULFILLED":
+      return Unfulfilled;
+    case "FULFILLED":
+      return Fulfilled;
+    case "UNCONFIRMED":
+      return Unconfirmed;
+    default:
+      return Unconfirmed;
+  }
+};
 
 export function OrdersTable({ orders }: OrdersTableProps) {
   const router = useRouter();
@@ -20,25 +39,6 @@ export function OrdersTable({ orders }: OrdersTableProps) {
   const { formatPrice } = useRegions();
   const quantity = 1;
 
-  const formatDate = (date: string): string => {
-    const _date = new Date(date);
-    return `${_date.getDay()}/${_date.getMonth()}/${_date.getFullYear()}`;
-  };
-
-  const getIcon = (label: string) => {
-    switch (label) {
-      case "CANCELED":
-        return Canceled;
-      case "UNFULFILLED":
-        return Unfulfilled;
-      case "FULFILLED":
-        return Fulfilled;
-      case "UNCONFIRMED":
-        return Unconfirmed;
-      default:
-        return Unconfirmed;
-    }
-  };
   return (
     <>
       <div className="flex flex-row items-start px-4 gap-10">
