@@ -1,10 +1,10 @@
+// import { SelectBoxGroup } from "@/checkout-storefront/components/SelectBoxGroup";
+// import { SelectBox } from "@/checkout-storefront/components/SelectBox";
+// import { Text } from "@saleor/ui-kit";
+// import { paymentSectionLabels, paymentMethodsMessages } from "./messages";
+// import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
-import { SelectBoxGroup } from "@/checkout-storefront/components/SelectBoxGroup";
-import { SelectBox } from "@/checkout-storefront/components/SelectBox";
-import { Text } from "@saleor/ui-kit";
-import { paymentSectionLabels, paymentMethodsMessages } from "./messages";
 import { usePaymentMethodsForm } from "@/checkout-storefront/sections/PaymentSection/usePaymentMethodsForm";
-import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
 import { AdyenDropIn } from "@/checkout-storefront/sections/PaymentSection/AdyenDropIn/AdyenDropIn";
 import { CardPayment } from "@/checkout-storefront/components/CardPayment";
 
@@ -18,7 +18,7 @@ export const PaymentMethods = () => {
     <AdyenDropIn />
   ) : (
     <>
-      <FormProvider form={form}>
+      {/* <FormProvider form={form}>
         <SelectBoxGroup
           label={formatMessage(paymentSectionLabels.paymentProviders)}
           className="flex flex-row gap-2 mb-8"
@@ -34,7 +34,7 @@ export const PaymentMethods = () => {
             </SelectBox>
           ))}
         </SelectBoxGroup>
-      </FormProvider>
+      </FormProvider> */}
       <CardPayment />
     </>
   );

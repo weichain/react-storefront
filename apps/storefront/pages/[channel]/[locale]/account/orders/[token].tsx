@@ -5,13 +5,10 @@ import { ReactElement } from "react";
 import { AccountLayout, Spinner } from "@/components";
 //import { AddressDisplay } from "@/components/checkout/AddressDisplay";
 import { useRegions } from "@/components/RegionsProvider";
-import { useOrderDetailsByTokenQuery } from "@/saleor/api";
+import { useOrderDetailsByTokenQuery, useUserQuery } from "@/saleor/api";
 import { useUser } from "@/lib/useUser";
-import Unfulfilled from "public/Unfulfilled.png";
-import Canceled from "public/circle-xmark.png";
-import Fulfilled from "public/circle-check.png";
-import Unconfirmed from "public/circle-ellipsis.png";
 import { useRouter } from "next/router";
+import { formatDate, getIcon } from "@/components/OrdersTable/OrdersTable";
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   console.log("context", context);
@@ -29,22 +26,6 @@ export async function getStaticPaths() {
     fallback: "blocking",
   };
 }
-
-const getIcon = (label: string) => {
-  switch (label) {
-    case "CANCELED":
-      return Canceled;
-    case "UNFULFILLED":
-      return Unfulfilled;
-    case "FULFILLED":
-      return Fulfilled;
-    case "UNCONFIRMED":
-      return Unconfirmed;
-    default:
-      return Unconfirmed;
-  }
-};
-
 function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { formatPrice } = useRegions();
   const { authenticated } = useUser();
@@ -53,8 +34,9 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
     variables: { token: token as string },
     skip: !token || !authenticated,
   });
+  const { data: dataUser } = useUserQuery();
+
   const quantity = 1;
-  console.log("data", data);
 
   if (loading) return <Spinner />;
   if (error) {
@@ -78,7 +60,10 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
       <h1 className="text-[24px]  font-bold text-black !mt-0 mb-2">Order : {order?.number}</h1>
       <div className="flex">
         <h1 className="text-[12px] text-secondary">
-          ORDER STATE: <span className="text-black text-[12px]">[DATE]</span>
+          ORDER STATE:{" "}
+          <span className="text-black text-[12px]">
+            {formatDate(router.query.created as string)}
+          </span>
         </h1>
         <div className="flex">
           <h1 className="text-[12px] ml-2 md:ml-20 text-secondary mr-2">STATUS :</h1>
@@ -170,7 +155,7 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
           <div className="bg-[#F0F0F0] p-5">
             <p className="text-[14px] text-black font-[600]">This is a digital item.</p>
             <p className="text-[12px] text-[#4C4C4C] w-[75%]">
-              An e-mail has been sent to <span>[e-mail]</span> with instructions
+              An e-mail has been sent to <span>{dataUser?.user?.email}</span> with instructions
             </p>
           </div>
         </div>

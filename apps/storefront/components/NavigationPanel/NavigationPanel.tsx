@@ -1,16 +1,17 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 
 import { usePaths } from "../../lib/paths";
 import { messages } from "../translations";
 import useLogout from "@/lib/hooks/useLogout";
+import { useRouter } from "next/router";
 
 export function NavigationPanel() {
   const paths = usePaths();
   const t = useIntl();
   const onLogout = useLogout();
-  const [backgroundColor, setBackgroundColor] = useState(true);
+  const router = useRouter();
 
   const linkClassname = "flex p-4 items-center w-full rounded-md h-10 hover:text-blue-500";
   const activeLink = "bg-[#F3E4C8]";
@@ -20,8 +21,11 @@ export function NavigationPanel() {
         <a href="pass" className="text-black">
           {/* <span className={linkClassname}>{t.formatMessage(messages.menuAccountAddressBook)}</span> */}
           <span
-            onClick={() => setBackgroundColor(true)}
-            className={backgroundColor ? linkClassname + " " + activeLink : linkClassname}
+            className={
+              router.pathname === paths.account.addressBook.$url().pathname
+                ? linkClassname + " " + activeLink
+                : linkClassname
+            }
           >
             {t.formatMessage(messages.menuAccountDetails)}
           </span>
@@ -30,8 +34,11 @@ export function NavigationPanel() {
       <Link href={paths.account.orders.$url()} passHref legacyBehavior>
         <a href="pass" className="text-black">
           <span
-            onClick={() => setBackgroundColor(false)}
-            className={!backgroundColor ? linkClassname + " " + activeLink : linkClassname}
+            className={
+              router.pathname.substring(0, 34) === paths.account.orders.$url().pathname
+                ? linkClassname + " " + activeLink
+                : linkClassname
+            }
           >
             {t.formatMessage(messages.menuAccountOrders)}
           </span>
