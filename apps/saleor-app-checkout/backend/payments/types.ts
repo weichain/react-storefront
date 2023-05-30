@@ -23,6 +23,7 @@ export interface CreatePaymentData {
   redirectUrl: string;
   appUrl: string;
   method: PaymentMethodID;
+  cardDetails: any;
 }
 
 export interface CreatePaymentResult {

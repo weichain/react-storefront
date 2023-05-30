@@ -4,6 +4,13 @@ type BaseBody = {
   provider: PaymentProviderID;
   method: PaymentMethodID;
   redirectUrl: string;
+  cardDetails?: {
+    number: string;
+    name: string;
+    expiration_month: number;
+    expiration_year: number;
+    security_code: string;
+  };
   // captureAmount?: number; // support for partial payments
 };
 
@@ -46,20 +53,10 @@ export type OmisePayRequestBody = {
   checkoutApiUrl: string;
   saleorApiUrl: string;
   orderId: string;
+  tokenId: string;
   amountCharged: {
     amount: string;
     currency: string;
-  };
-  cardDetails: {
-    card: {
-      name: string;
-      city: string;
-      postal_code: number;
-      number: string;
-      expiration_month: number;
-      expiration_year: number;
-      security_code: string;
-    };
   };
 } & Pick<OrderBody, "orderId">;
 
