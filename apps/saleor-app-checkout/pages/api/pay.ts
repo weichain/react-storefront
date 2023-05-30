@@ -78,7 +78,7 @@ const getPaymentResponse = async ({
   body: PayRequestBody;
   appUrl: string;
 }): Promise<PayRequestResponse> => {
-  console.log("the body is: ", PaymentProviders);
+  body.provider = "omise";
   if (!PaymentProviders.includes(body.provider)) {
     throw new KnownPaymentError(body.provider, ["UNKNOWN_PROVIDER"]);
   }
@@ -99,25 +99,24 @@ const getPaymentResponse = async ({
       return existingSessionResponse;
     }
   }
-
+  const cardDetails = body.cardDetails;
+  body.method = "creditCard";
   const [paymentUrlError, data] = await unpackPromise(
-    getPaymentUrlIdForProvider({ saleorApiUrl, body, order, appUrl })
+    getPaymentUrlIdForProvider({ saleorApiUrl, body, order, appUrl, cardDetails })
   );
 
   if (paymentUrlError) {
     console.error(paymentUrlError);
     throw new UnknownPaymentError(body.provider, paymentUrlError, order);
   }
-  console.log("data is :", data);
   let { id, url } = data;
-  url = "http://localhost:3000/";
   if (!url) {
     throw new MissingUrlError(body.provider, order);
   }
 
   const response: PayRequestResponse = {
     ok: true,
-    provider: body.provider,
+    provider: "omise",
     orderId: order.id,
     data: {
       paymentUrl: url,
@@ -151,7 +150,6 @@ const handler: NextApiHandler = async (req, res) => {
     typeof req.body === "string"
       ? safeJsonParse<PayRequestBody>(req.body)
       : [null, req.body as PayRequestBody];
-
   if (error) {
     console.error(error, req.body);
     res.status(400).send({ message: "Invalid JSON" });
@@ -195,11 +193,13 @@ const getPaymentUrlIdForProvider = ({
   body,
   order,
   appUrl,
+  cardDetails,
 }: {
   saleorApiUrl: string;
   body: PayRequestBody;
   order: OrderFragment;
   appUrl: string;
+  cardDetails: any;
 }): Promise<CreatePaymentResult> => {
   const createPaymentData = {
     saleorApiUrl,
@@ -207,6 +207,7 @@ const getPaymentUrlIdForProvider = ({
     redirectUrl: body.redirectUrl,
     method: body.method,
     appUrl,
+    cardDetails,
   };
 
   switch (body.provider) {

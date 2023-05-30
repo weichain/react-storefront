@@ -5,6 +5,22 @@ import { OrderBody, CheckoutBody } from "checkout-common";
 import { useCallback } from "react";
 import { useAppConfig } from "../providers/AppConfigProvider";
 
+const cardDetails = {
+  number: "",
+  name: "",
+  expiration_month: 0,
+  expiration_year: 0,
+  security_code: "",
+};
+
+export const getCardData = (card: any) => {
+  cardDetails.number = card.number;
+  cardDetails.name = card.name;
+  cardDetails.expiration_month = card.expiration_month;
+  cardDetails.expiration_year = card.expiration_year;
+  cardDetails.security_code = card.security_code;
+};
+
 const getRedirectUrl = (saleorApiUrl: string) => {
   const url = new URL(window.location.href);
   const redirectUrl = url.searchParams.get("redirectUrl");
@@ -37,6 +53,7 @@ export const usePay = () => {
         checkoutId,
         totalAmount,
         redirectUrl,
+        cardDetails,
       });
       if ((result as PaySuccessResult)?.data?.paymentUrl) {
         const {

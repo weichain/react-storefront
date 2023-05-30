@@ -4,6 +4,8 @@ import { TypedTypePolicies } from "@/saleor/api";
 
 export const typePolicies: TypedTypePolicies = {
   User: {
+    keyFields: false,
+    merge: true,
     fields: {
       orders: relayStylePagination(),
     },

@@ -127,6 +127,15 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
         variables: {
           email: user?.email,
           channel: currentChannel.slug,
+          billingAddress: {
+            city: "CHELSEALAND",
+            firstName: "Christian",
+            lastName: "West",
+            streetAddress1: "132 Mclean Meadow Suite 446",
+            postalCode: "03962",
+            country: "US",
+            countryArea: "ME",
+          },
           lines: [
             {
               quantity: 1,
