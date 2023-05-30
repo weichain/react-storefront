@@ -5,25 +5,43 @@ import { useIntl } from "react-intl";
 import { usePaths } from "../../lib/paths";
 import { messages } from "../translations";
 import useLogout from "@/lib/hooks/useLogout";
+import { useRouter } from "next/router";
 
 export function NavigationPanel() {
   const paths = usePaths();
   const t = useIntl();
   const onLogout = useLogout();
+  const router = useRouter();
 
-  const linkClassname =
-    "flex p-4 items-center w-full rounded-md shadow-sm h-10 hover:text-blue-500";
+  const linkClassname = "flex p-4 items-center w-full rounded-md h-10 hover:text-blue-500";
+  const activeLink = "bg-[#F3E4C8]";
   return (
-    <div className="group w-full md:w-4/5 cursor-default rounded-md bg-white">
+    <div className="group w-full cursor-default rounded-md bg-white text-[16px]">
       <Link href={paths.account.addressBook.$url()} passHref legacyBehavior>
         <a href="pass" className="text-black">
           {/* <span className={linkClassname}>{t.formatMessage(messages.menuAccountAddressBook)}</span> */}
-          <span className={linkClassname}>{t.formatMessage(messages.menuAccountDetails)}</span>
+          <span
+            className={
+              router.pathname === paths.account.addressBook.$url().pathname
+                ? linkClassname + " " + activeLink
+                : linkClassname
+            }
+          >
+            {t.formatMessage(messages.menuAccountDetails)}
+          </span>
         </a>
       </Link>
       <Link href={paths.account.orders.$url()} passHref legacyBehavior>
         <a href="pass" className="text-black">
-          <span className={linkClassname}>{t.formatMessage(messages.menuAccountOrders)}</span>
+          <span
+            className={
+              router.pathname.substring(0, 34) === paths.account.orders.$url().pathname
+                ? linkClassname + " " + activeLink
+                : linkClassname
+            }
+          >
+            {t.formatMessage(messages.menuAccountOrders)}
+          </span>
         </a>
       </Link>
       <button className={linkClassname} type="button" onClick={onLogout}>

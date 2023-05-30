@@ -2,12 +2,17 @@ import { DataProp } from "editorjs-blocks-react-renderer";
 
 import { DEFAULT_LOCALE } from "@/lib/regions";
 
-export const formatAsMoney = (amount = 0, currency = "USD", locale = DEFAULT_LOCALE) =>
-  new Intl.NumberFormat(locale, {
+export const formatAsMoney = (
+  amount = 0,
+  currency = "USD",
+  locale = DEFAULT_LOCALE,
+  quantity: number
+) => {
+  return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
-  }).format(amount);
-
+  }).format(amount * quantity);
+};
 // Returns true for non nullable values
 export function notNullable<TValue>(value: TValue | null | undefined): value is TValue {
   return value !== null && value !== undefined;
