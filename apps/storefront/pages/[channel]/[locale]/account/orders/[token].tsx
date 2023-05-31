@@ -11,8 +11,6 @@ import { useRouter } from "next/router";
 import { formatDate, getIcon } from "@/components/OrdersTable/OrdersTable";
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  console.log("context", context);
-
   return {
     props: {
       token: context.params?.token?.toString(),
@@ -35,8 +33,6 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
     skip: !token || !authenticated,
   });
   const { data: dataUser } = useUserQuery();
-
-  const quantity = 1;
 
   if (loading) return <Spinner />;
   if (error) {
@@ -97,7 +93,7 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
             </div>
             <div>
               <p className="text-[#072137] font-[600] text-[16px]">
-                {formatPrice(quantity, line?.unitPrice.gross)}
+                {formatPrice(line?.unitPrice.gross)}
               </p>
               <p className="text-secondary text-[12px] text-right">QTY: {line?.quantity}</p>
             </div>
@@ -114,10 +110,7 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
           <p className="font-[600] text-[20px] text-black mb-5">Order summary</p>
           <div className="flex justify-between items-center">
             <p className="text-[16px] text-secondary">Subtotal</p>
-            <p className="text-[16px] text-[#072137]">
-              {" "}
-              {formatPrice(quantity, order?.subtotal.net)}
-            </p>
+            <p className="text-[16px] text-[#072137]"> {formatPrice(order?.subtotal.net)}</p>
           </div>
           <div className="flex justify-between items-center">
             <div>
@@ -130,7 +123,7 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
             <p className="text-[16px] text-secondary">Total</p>
             <p className="text-[16px] text-[#072137] font-[600]">
               {" "}
-              {formatPrice(quantity, order?.total.gross)}
+              {formatPrice(order?.total.gross)}
             </p>
           </div>
         </div>

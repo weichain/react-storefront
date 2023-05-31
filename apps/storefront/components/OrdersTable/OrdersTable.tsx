@@ -37,7 +37,6 @@ export function OrdersTable({ orders }: OrdersTableProps) {
   const router = useRouter();
   const paths = usePaths();
   const { formatPrice } = useRegions();
-  const quantity = 1;
 
   return (
     <>
@@ -89,7 +88,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                   </p>
                 </div>
               </td>
-              <td className="text-[14px]">{formatPrice(quantity, order.total.gross)}</td>
+              <td className="text-[14px]">{formatPrice(order.total.gross)}</td>
             </tr>
           ))}
         </tbody>
