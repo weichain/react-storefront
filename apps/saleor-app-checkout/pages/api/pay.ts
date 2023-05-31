@@ -109,7 +109,7 @@ const getPaymentResponse = async ({
     console.error(paymentUrlError);
     throw new UnknownPaymentError(body.provider, paymentUrlError, order);
   }
-  let { id, url } = data;
+  const { id, url } = data;
   if (!url) {
     throw new MissingUrlError(body.provider, order);
   }

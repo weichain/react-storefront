@@ -12,6 +12,7 @@ export function NavigationPanel() {
   const t = useIntl();
   const onLogout = useLogout();
   const router = useRouter();
+  console.log(paths.account.preferences.$url().pathname);
 
   const linkClassname = "flex p-4 items-center w-full rounded-md h-10 hover:text-blue-500";
   const activeLink = "bg-[#F3E4C8]";
@@ -22,7 +23,8 @@ export function NavigationPanel() {
           {/* <span className={linkClassname}>{t.formatMessage(messages.menuAccountAddressBook)}</span> */}
           <span
             className={
-              router.pathname === paths.account.addressBook.$url().pathname
+              router.pathname === paths.account.addressBook.$url().pathname ||
+              router.pathname === paths.account.preferences.$url().pathname
                 ? linkClassname + " " + activeLink
                 : linkClassname
             }

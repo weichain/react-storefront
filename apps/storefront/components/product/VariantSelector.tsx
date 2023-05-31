@@ -61,7 +61,7 @@ export function VariantSelector({ product, itemQuantity, setItemQuantity }: Vari
         <div>
           <p className="text-sm text-secondary">PRICE PER ITEM</p>
           <p className="text-[24px] font-bold text-[#072137]">
-            {formatPrice(itemQuantity, variants[0].pricing?.price?.gross)}
+            {formatPrice(variants[0].pricing?.price?.gross)}
           </p>
           <p className="text-sm text-secondary">+12% VAT Added</p>
         </div>

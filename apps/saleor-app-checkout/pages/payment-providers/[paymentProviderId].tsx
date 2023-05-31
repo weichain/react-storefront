@@ -24,7 +24,7 @@ const PaymentProvider = () => {
   const { app } = useAppContext();
   const domain = app.getState().domain;
   // @todo use `saleorApiUrl`
-  const saleorApiUrl = `https://${domain}/graphql/`;
+  const saleorApiUrl = ``;
   const token = app.getState().token;
 
   const paymentProvider = paymentProviders.find(
