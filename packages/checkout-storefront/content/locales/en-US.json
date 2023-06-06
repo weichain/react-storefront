@@ -7,6 +7,10 @@
     "developer_comment": "edit address",
     "string": "Edit address"
   },
+  "AddressForm/messages/+gSsRb": {
+    "developer_comment": "first name",
+    "string": "Full name"
+  },
   "AddressForm/messages/0KU6nT": {
     "developer_comment": "postal code",
     "string": "Postal code"
@@ -18,10 +22,6 @@
   "AddressForm/messages/7bJ7Hd": {
     "developer_comment": "city area",
     "string": "City area"
-  },
-  "AddressForm/messages/Jbz2k6": {
-    "developer_comment": "first name",
-    "string": "First name"
   },
   "AddressForm/messages/K/a8rS": {
     "developer_comment": "last name",

@@ -52,8 +52,8 @@ export const addressFieldMessages = defineMessages<AddressFieldLabel>({
     description: "full name",
   },
   firstName: {
-    defaultMessage: "First name",
-    id: "AddressForm/messages/Jbz2k6",
+    defaultMessage: "Full name",
+    id: "AddressForm/messages/+gSsRb",
     description: "first name",
   },
   countryArea: {

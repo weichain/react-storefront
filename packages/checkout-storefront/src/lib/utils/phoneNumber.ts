@@ -30,7 +30,8 @@ export const usePhoneNumberValidator = (countryCode: CountryCode) => {
   const isValid = useCallback(
     (phone: string) => {
       if (phone === "") {
-        return undefined;
+        return errorMessages.invalid;
+        //return undefined
       }
 
       const valid = isValidPhoneNumber(phone, countryCode);

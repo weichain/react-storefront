@@ -6,7 +6,7 @@ import { TextInput } from "@/checkout-storefront/components/TextInput";
 import { contactMessages } from "../Contact/messages";
 import { useGuestUserForm } from "@/checkout-storefront/sections/GuestUser/useGuestUserForm";
 import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
-import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
+//import { UserShippingAddressSection } from "@/checkout-storefront/sections/UserShippingAddressSection";
 //import { GuestShippingAddressSection } from "@/checkout-storefront/sections/GuestShippingAddressSection";
 import { GuestBillingAddressSection } from "@/checkout-storefront/sections/GuestBillingAddressSection";
 import { useUser } from "@/checkout-storefront/hooks/useUser";

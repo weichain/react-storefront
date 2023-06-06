@@ -16,6 +16,7 @@ import {
 } from "../../components/AddressForm/types";
 
 export const getEmptyAddressFormData = (): AddressFormData => ({
+  fullName: "",
   firstName: "",
   lastName: "",
   streetAddress1: "",
@@ -57,8 +58,8 @@ export const getAddressInputData = ({
   }
 >): AddressInput => ({
   ...pick(rest, getAllAddressFieldKeys()),
-  //country: countryCode || (country?.code as CountryCode),
-  country: "US",
+  country: countryCode || (country?.code as CountryCode),
+  //country: "US",
 });
 
 export const getAddressInputDataFromAddress = (
@@ -174,7 +175,7 @@ export const getOrderedAddressFields = (addressFields: AddressField[] = []): Add
 };
 
 export const getRequiredAddressFields = (requiredFields: AddressField[] = []): AddressField[] => {
-  return [...requiredFields, "fullName", "phone"];
+  return [...requiredFields, "firstName", "phone"];
 };
 
 // api doesn't approve of "name" so we replace it with "firstName"
@@ -184,6 +185,6 @@ export const getFilteredAddressFields = (addressFields: ApiAddressField[]): Addr
     (addressField: ApiAddressField) => addressField !== "name"
   ) as AddressField[];
 
-  return uniq(["fullName", "phone"]);
+  return uniq(["firstName", "phone"]);
   //return uniq([...filteredAddressFields, "firstName", "lastName", "phone"]);
 };

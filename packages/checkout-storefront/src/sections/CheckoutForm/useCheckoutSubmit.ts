@@ -9,6 +9,7 @@ import {
 import { useCallback, useEffect } from "react";
 import { useCheckoutFinalize } from "@/checkout-storefront/sections/CheckoutForm/useCheckoutFinalize";
 import { useUser } from "@/checkout-storefront/hooks/useUser";
+import { fieldValues } from "@/checkout-storefront/components/AddressForm";
 
 export const useCheckoutSubmit = () => {
   const { user } = useUser();
@@ -37,12 +38,16 @@ export const useCheckoutSubmit = () => {
   const finishedApiChangesWithNoError =
     !anyRequestsInProgress && updateStateValues.every((status) => status === "success");
 
-  // const allFormsValid =
-  //   !validating && Object.values(validationState).every((value) => value === "valid");
+  const allFormsValid =
+    !validating && Object.values(validationState).every((value) => value === "valid");
 
-  const allFormsValid = !validating && true;
+  //const allFormsValid = !validating && true;
 
   const handleSubmit = useCallback(async () => {
+    if (!user) {
+      if (!fieldValues.firstName || typeof fieldValues.phone === "string") return;
+    }
+
     if (submitInProgress && finishedApiChangesWithNoError && allFormsValid) {
       void checkoutFinalize();
       return;
