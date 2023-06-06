@@ -128,13 +128,13 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
           email: user?.email,
           channel: currentChannel.slug,
           billingAddress: {
-            city: "CHELSEALAND",
-            firstName: "Christian",
-            lastName: "West",
-            streetAddress1: "132 Mclean Meadow Suite 446",
-            postalCode: "03962",
-            country: "US",
-            countryArea: "ME",
+            city: "BANGKOK",
+            firstName: "",
+            lastName: "",
+            streetAddress1: "1 Phitsanulok Road Dusit District",
+            postalCode: "10300",
+            country: "TH",
+            //countryArea: "SOF",
           },
           lines: [
             {

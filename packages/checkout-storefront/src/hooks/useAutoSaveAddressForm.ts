@@ -54,10 +54,30 @@ export const useAutoSaveAddressForm = ({
   const partialSubmit = useCallback(async () => {
     const formErrors = await validateForm(values);
 
+    let nameParts: string[] | any[] = [];
+    let firstName = "";
+    let lastName = "";
+    if (values.firstName) {
+      nameParts = values?.firstName.split(" ");
+    }
+
+    if (nameParts.length > 1) {
+      firstName = nameParts[0];
+      lastName = nameParts[nameParts.length - 1];
+    } else {
+      firstName = nameParts[0];
+    }
+
     if (!hasErrors(formErrors) && dirty) {
       setCheckoutUpdateState("loading");
       void debouncedSubmit(
-        { ...initialValues, countryCode: values.countryCode, ...values },
+        {
+          ...initialValues,
+          countryCode: values.countryCode,
+          ...values,
+          firstName: firstName,
+          lastName: lastName,
+        },
         formHelpers
       );
     }

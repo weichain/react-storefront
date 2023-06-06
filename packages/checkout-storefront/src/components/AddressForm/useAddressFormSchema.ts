@@ -8,7 +8,7 @@ export const useAddressFormSchema = () => {
   return useMemo(
     () =>
       object({
-        // firstName: string().required(errorMessages.required),
+        firstName: string().required(errorMessages.required),
         // lastName: string().required(errorMessages.required),
         // streetAddress1: string().required(errorMessages.required),
         // streetAddress2: string(),
@@ -18,7 +18,7 @@ export const useAddressFormSchema = () => {
         // countryArea: string(),
         // postalCode: string().required(errorMessages.required),
         // countryCode: string(),
-        fullName: string().required(errorMessages.required),
+        //fullName: string().required(errorMessages.required),
         phone: string().required(errorMessages.required),
       }),
     [errorMessages]

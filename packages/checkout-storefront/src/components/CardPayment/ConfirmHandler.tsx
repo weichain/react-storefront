@@ -19,6 +19,7 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
   const [checked, setChecked] = useState(false);
   const formatMessage = useFormattedMessages();
   const { handleSubmit, isProcessing } = useCheckoutSubmit();
+
   let enableBtn = false;
   if (
     String(card.number).length >= 17 &&
@@ -28,12 +29,13 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
   ) {
     enableBtn = true;
   }
-  const month = card.expiry.split("/")[0];
-  const year = "20" + card.expiry.split("/")[1];
+
+  const month = card.expiry.substring(0, 2);
+  const year = "20" + card.expiry.substring(3, 5);
 
   const cardDetails = {
     name: card.name,
-    city: "Thailand",
+    city: country,
     postal_code: 1000,
     number: String(card.number),
     expiration_month: Number(month),
@@ -42,12 +44,7 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
   };
   const submitHandler = async () => {
     getCardData(cardDetails);
-
     handleSubmit();
-  };
-
-  const checkHandler = (e: any) => {
-    setCheckedBox(e.target.checked);
   };
 
   return (

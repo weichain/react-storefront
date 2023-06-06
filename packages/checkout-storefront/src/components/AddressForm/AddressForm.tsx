@@ -25,6 +25,16 @@ export interface AddressFormProps {
   };
 }
 
+interface IFieldValues {
+  firstName: string;
+  phone: string | undefined;
+}
+
+export const fieldValues: IFieldValues = {
+  firstName: "",
+  phone: undefined,
+};
+
 export const AddressForm: FC<PropsWithChildren<AddressFormProps>> = ({
   content,
   children,
@@ -57,7 +67,6 @@ export const AddressForm: FC<PropsWithChildren<AddressFormProps>> = ({
     if (!hasFormDataChanged) {
       return;
     }
-
     previousValues.current = values;
 
     const removedFields = difference(allowedFieldsRef.current, allowedFields);
@@ -77,6 +86,9 @@ export const AddressForm: FC<PropsWithChildren<AddressFormProps>> = ({
       );
     }
   }, [allowedFields, dirty, setValues, values]);
+
+  fieldValues.firstName = values.firstName;
+  fieldValues.phone = isValidPhoneNumber(values.phone);
 
   return (
     <>
@@ -116,7 +128,6 @@ export const AddressForm: FC<PropsWithChildren<AddressFormProps>> = ({
                 />
               );
             }
-
             return <TextInput {...commonProps} type={typeTags[field] || "text"} />;
           })}
           {children}
