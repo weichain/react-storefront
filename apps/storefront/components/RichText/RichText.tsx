@@ -1,34 +1,38 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 
 import { parseEditorJSData } from "@/lib/util";
-
 import Block from "./ Block";
-import { dummyData } from "./data";
 //import Blocks from "editorjs-blocks-react-renderer";
 
 export interface RichTextProps {
   jsonStringData?: string;
 }
 
+export interface IBlock {
+  content: string;
+  display: boolean;
+  items: { items: []; content: string }[];
+}
+
 export function RichText({ jsonStringData }: RichTextProps) {
-  const [dummyBlocks, setDummyBlocks] = useState(dummyData.blocks);
+  const [blocks, setBlocks] = useState<IBlock[]>(
+    parseEditorJSData(jsonStringData)?.blocks[0].data.items as IBlock[]
+  );
+
+  useEffect(() => {
+    setBlocks(() => blocks.map((block: IBlock) => ({ ...block, display: false })));
+  }, []);
 
   const data = parseEditorJSData(jsonStringData);
   if (!data) {
     return null;
   }
 
-  const openAccordion = (id: string) => {
-    const findIndex = dummyBlocks.findIndex((block) => block.id === id) + 1;
-
-    setDummyBlocks(() =>
-      dummyBlocks.map((block, index) =>
-        block.id === id
-          ? { ...block, display: !block.display }
-          : block && findIndex === index
-          ? { ...block, display: !block.display }
-          : block
+  const openAccordion = (content: string) => {
+    setBlocks(() =>
+      blocks.map((block: IBlock) =>
+        block.content === content ? { ...block, display: !block.display } : block
       )
     );
   };
@@ -36,8 +40,8 @@ export function RichText({ jsonStringData }: RichTextProps) {
   return (
     <article className="prose-2xl">
       {/* <Blocks data={data} /> */}
-      {dummyBlocks.map((block, index) => (
-        <Block key={block.id} block={block} index={index} openAccordion={openAccordion} />
+      {blocks.map((block: IBlock) => (
+        <Block key={block.content} block={block} openAccordion={openAccordion} />
       ))}
     </article>
   );

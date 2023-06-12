@@ -1,57 +1,50 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import React from "react";
 import { Collapse } from "react-collapse";
 
-interface IBlock {
-  block: {
-    data: {
-      text?: string;
-      level?: number;
-      items?: string[];
-      style?: string;
-    };
-    id: string;
-    type: string;
-    display: boolean;
-  };
-  index: number;
+import { IBlock } from "./RichText";
+
+interface IBlockProps {
+  block: IBlock;
   openAccordion: (id: string) => void;
 }
 
-const Block = ({ block, index, openAccordion }: IBlock) => {
+const Block = ({ block, openAccordion }: IBlockProps) => {
   return (
     <div>
-      {block.type === "header" ? (
-        <>
-          <hr />
-          <div className="flex justify-between">
-            <p className="m-0 font-bold text-black">{block.data.text}</p>
-            <p
-              className="m-0 text-4xl text-[#1F1F1F] cursor-pointer"
-              onClick={() => openAccordion(block.id)}
-            >
-              {block.display ? "-" : "+"}
-            </p>
-          </div>
-        </>
-      ) : (
+      <hr />
+      <div>
+        <div className="flex items-center justify-between">
+          <p>{block.content}</p>
+          <p onClick={() => openAccordion(block.content)} className="cursor-pointer">
+            {block.display ? "-" : "+"}
+          </p>
+        </div>
         <Collapse isOpened={block.display}>
           {block.display && (
             <>
-              <ul className={`${index === 3 ? "list-none pl-0" : "list-disc pl-6"} text-[#4C4C4C]`}>
-                {block.data.items?.map((item) => (
-                  <li key={item}>{item}</li>
+              <ul
+                className={`${
+                  block.content === "How to use" ? "list-none pl-0" : "list-disc pl-6"
+                } text-[#4C4C4C]`}
+              >
+                {block.items?.map((item) => (
+                  <li key={item.content}>{item.content}</li>
                 ))}
               </ul>
-              <img
+              <Image
                 src="/learnmore.svg"
                 alt="back"
-                className={`${index === 3 ? "block" : "hidden"} cursor-pointer pl-2`}
+                width={110}
+                height={50}
+                className={`${
+                  block.content === "How to use" ? "block" : "hidden"
+                } cursor-pointer pl-2`}
               />
             </>
           )}
         </Collapse>
-      )}
+      </div>
     </div>
   );
 };
