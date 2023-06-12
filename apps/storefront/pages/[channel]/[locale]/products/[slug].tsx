@@ -25,6 +25,7 @@ import {
   ProductBySlugQuery,
   ProductBySlugQueryVariables,
   useCheckoutAddProductLineMutation,
+  useCheckoutLineUpdateMutation,
   useCreateCheckoutMutation,
 } from "@/saleor/api";
 import { serverApolloClient } from "@/lib/auth/useAuthenticatedApolloClient";
@@ -81,6 +82,7 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
   const { user } = useUser();
 
   const [addProductToCheckout] = useCheckoutAddProductLineMutation();
+  const [updateLines] = useCheckoutLineUpdateMutation();
   const [loadingAddToCheckout, setLoadingAddToCheckout] = useState(false);
   const [addToCartError, setAddToCartError] = useState("");
   const [itemQuantity, setItemQuantity] = useState(1);
@@ -109,14 +111,14 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
     }
     if (checkout) {
       // If checkout is already existing, add products
-      const { data: addToCartData } = await addProductToCheckout({
+      const { data: addToCartData } = await updateLines({
         variables: {
-          checkoutToken,
-          variantId: selectedVariantID,
+          token: checkoutToken,
+          lines: [{ quantity: itemQuantity, variantId: selectedVariantID }],
           locale: query.locale,
         },
       });
-      addToCartData?.checkoutLinesAdd?.errors.forEach((e) => {
+      addToCartData?.checkoutLinesUpdate?.errors.forEach((e) => {
         if (e) {
           errors.push(e);
         }
