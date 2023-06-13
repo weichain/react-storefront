@@ -26,7 +26,7 @@ const handler: Handler = (request) => {
     appUrl: baseURL,
     dataPrivacyUrl: `${baseURL}/data-privacy`,
     supportUrl: `${baseURL}/support`,
-    tokenTargetUrl: `${baseURL}/api/register`,
+    tokenTargetUrl: `${baseURL}/api/register/`,
     webhooks: [
       {
         name: "Checkout app payment notifications",

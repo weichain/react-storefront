@@ -4,6 +4,7 @@ fragment OrderDetailsFragment on Order {
   created
   number
   status
+  userEmail
   total {
     currency
     gross {
