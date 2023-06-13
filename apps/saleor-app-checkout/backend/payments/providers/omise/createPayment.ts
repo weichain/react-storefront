@@ -19,7 +19,7 @@ export const createOmisePayment = async ({
   });
   const result = await response.json();
   return {
-    url: "/default-channel/EN/order/admin@example.com",
+    url: `/default-channel/EN/order/${order.id}`,
     id: result.metadata.id,
   };
 };
