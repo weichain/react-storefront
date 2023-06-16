@@ -78,7 +78,7 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
       <hr />
       <div>
         {order.lines.map((line) => (
-          <div className="flex justify-between items-center">
+          <div key={line.id} className="flex justify-between items-center">
             <div className="flex">
               <Image
                 src={line?.thumbnail?.url || "/"}

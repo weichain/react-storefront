@@ -46,7 +46,7 @@
   "app.preferences.addressbook.setDefaultBilling": "Set as billing default",
   "app.preferences.addressbook.setDefaultShipping": "Set as shipping default",
   "app.preferences.changeEmail.header": "Change email",
-  "app.preferences.changePassword.header": "Repeat new password",
+  "app.preferences.changePassword.header": "Change password",
   "app.preferences.changePassword.newPasswordFieldLabel": "New password",
   "app.preferences.changePassword.oldPasswordFieldLabel": "Old password",
   "app.product.adding": "Adding...",

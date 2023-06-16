@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -5,6 +6,7 @@ import { useIntl } from "react-intl";
 import { useRequestEmailChangeMutation } from "@/saleor/api";
 
 import { messages } from "../translations";
+import { useRouter } from "next/router";
 
 interface EmailChangeFormData {
   newEmail: string;
@@ -16,6 +18,7 @@ export function EmailPreferences() {
   const t = useIntl();
   const [requestEmailChange] = useRequestEmailChangeMutation({});
   const [successMessage, setSuccessMessage] = React.useState<string>();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -24,11 +27,12 @@ export function EmailPreferences() {
   } = useForm<EmailChangeFormData>();
 
   const onEmailPreferenceSubmit = handleSubmit(async (formData) => {
+    // default channel/en;
     const result = await requestEmailChange({
       variables: {
         newEmail: formData.newEmail,
         password: formData.password,
-        redirectUrl: `https://${window.location.host}/account/preferences`,
+        redirectUrl: `https://${window.location.host}/${router.query.channel}/${router.query.locale}/account/preferences`,
       },
     });
     const mutationErrors = result?.data?.requestEmailChange?.errors || [];

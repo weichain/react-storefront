@@ -31,9 +31,9 @@ export function VariantSelector({ product, itemQuantity, setItemQuantity }: Vari
   // }, [itemQuantity]);
 
   // Skip displaying selector when theres less than 2 variants
-  if (!variants || variants.length === 1) {
-    return null;
-  }
+  // if (!variants || variants.length === 1) {
+  //   return null;
+  // }
 
   // const onChange = (value: string) => {
   //   setSelectedVariant(value);
@@ -46,6 +46,8 @@ export function VariantSelector({ product, itemQuantity, setItemQuantity }: Vari
   //     }
   //   );
   // };
+
+  if (!variants) return null;
 
   return (
     <div className="w-full">

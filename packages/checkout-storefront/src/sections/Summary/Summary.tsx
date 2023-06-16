@@ -82,7 +82,7 @@ export const Summary: FC<SummaryProps> = ({
             )}
           </div>
         </div>
-        <div className={`h-auto ${user ? "lg:h-[110vh]" : "lg:h-[133vh]"}`}>
+        <div className={`h-auto overflow-auto ${user ? "lg:h-[110vh]" : "lg:h-[133vh]"}`}>
           <Transition
             show={isOpen}
             unmount={false}
@@ -94,14 +94,7 @@ export const Summary: FC<SummaryProps> = ({
             leaveTo="transform scale-95 opacity-0"
           >
             <Divider className="my-4" />
-            <ul
-              className={clsx(
-                "summary-items",
-                allItemsHeight > maxSummaryHeight
-                  ? "border-b border-border-secondary lg:overflow-y-scroll"
-                  : ""
-              )}
-            >
+            <ul>
               {lines.map((line) => (
                 <SummaryItem line={line} key={line?.id}>
                   {editable ? (
