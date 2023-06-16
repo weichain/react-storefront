@@ -15,6 +15,7 @@ import {
 } from "@/checkout-storefront/state/updateStateStore";
 import { pick } from "lodash-es";
 import { useCallback } from "react";
+import { fetchUserData } from "../sections/GuestUser/useGuestUserForm";
 
 export type AutoSaveAddressFormData = Partial<AddressFormData>;
 
@@ -31,7 +32,6 @@ export const useAutoSaveAddressForm = ({
   const { values, validateForm, dirty, handleBlur, handleChange } = form;
 
   const debouncedSubmit = useDebouncedSubmit(onSubmit);
-
   const formHelpers = pick(form, [
     "setErrors",
     "setStatus",
@@ -67,6 +67,12 @@ export const useAutoSaveAddressForm = ({
     } else {
       firstName = nameParts[0];
     }
+    const userObject = {
+      firstName,
+      lastName,
+      phone: values.phone,
+    };
+    fetchUserData(userObject);
 
     if (!hasErrors(formErrors) && dirty) {
       setCheckoutUpdateState("loading");

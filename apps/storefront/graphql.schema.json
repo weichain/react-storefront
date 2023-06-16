@@ -869,6 +869,18 @@
             "deprecationReason": null
           },
           {
+            "name": "phone",
+            "description": "Phone number.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "redirectUrl",
             "description": "Base of frontend URL that will be needed to create confirmation URL.",
             "type": {
@@ -100078,6 +100090,18 @@
                   "ofType": null
                 }
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "phone",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
