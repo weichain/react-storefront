@@ -45,8 +45,7 @@ function AddressBookPage() {
           // <AddressBookCard key={address.id} address={address} onRefreshBook={() => refetch()} />
           <UserDetailsCard
             key={address?.id}
-            address={address}
-            email={dataUser?.user?.email || ""}
+            user={dataUser?.user || ""}
             onRefreshBook={() => refetch()}
           />
         ))}
