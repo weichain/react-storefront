@@ -22,12 +22,26 @@ export interface GuestUserFormData {
   email: string;
   password: string;
   createAccount: boolean;
+  fullName: string;
+  phoneNumber: string;
 }
 
 interface GuestUserFormProps {
   // shared between sign in form and guest user form
   initialEmail: string;
 }
+
+const userData = {
+  fistName: "",
+  lastName: "",
+  phoneNumber: "",
+};
+
+export const fetchUserData = (user: any) => {
+  userData.fistName = user.firstName;
+  userData.lastName = user.lastName;
+  userData.phoneNumber = user.phone;
+};
 
 export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
   const { checkout } = useCheckout();
@@ -50,6 +64,8 @@ export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
     email: initialEmail || checkout.email || "",
     password: "",
     createAccount: false,
+    fullName: "",
+    phoneNumber: "",
   };
 
   const onSubmit = useFormSubmit<GuestUserFormData, typeof userRegister>(
@@ -68,6 +84,9 @@ export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
             password,
             channel,
             redirectUrl: getCurrentHref(),
+            firstName: userData.fistName,
+            lastName: userData.lastName,
+            phone: userData.phoneNumber,
           },
         }),
         onError: ({ errors }) => {

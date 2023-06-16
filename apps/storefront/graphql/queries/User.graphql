@@ -2,6 +2,9 @@ query User {
   user: me {
     id
     email
+    phone
+    firstName
+    lastName
     addresses {
       ...AddressDetailsFragment
     }
