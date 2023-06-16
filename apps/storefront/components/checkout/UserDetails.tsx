@@ -3,8 +3,7 @@ import { AddressDetailsFragment } from "@/saleor/api";
 import Link from "next/link";
 
 export interface addressDisplayProps {
-  address: AddressDetailsFragment;
-  email: string;
+  user: any;
 }
 
 interface UserInfoLabelProps {
@@ -55,24 +54,16 @@ function Title({ title }: { title: string }) {
   );
 }
 
-export function UserDetails({ address, email }: addressDisplayProps) {
-  const fullName =
-    address?.firstName && address?.lastName
-      ? `${address?.firstName} ${address?.lastName}`
-      : address?.firstName
-      ? address?.firstName
-      : address?.lastName
-      ? address?.lastName
-      : "Unknown Name";
+export function UserDetails({ user }: addressDisplayProps) {
   return (
     <>
       <Title title="Your Details" />
       <div className="h-8"></div>
-      <UserInfoLabel label={"full name"} text={fullName} />
+      <UserInfoLabel label={"full name"} text={user.firstName + " " + user.lastName} />
       <div className="h-4"></div>
-      <UserInfoLabel label={"email"} text={email} />
+      <UserInfoLabel label={"email"} text={user.email} />
       <div className="h-4"></div>
-      <UserInfoLabel label={"phone number"} text={address?.phone || "Unknown Phone"} />
+      <UserInfoLabel label={"phone number"} text={user.phone || "Unknown Phone"} />
       <div className="h-8"></div>
       <Spacer />
       <div className="h-8"></div>

@@ -167,6 +167,8 @@ export type AccountRegisterInput = {
   metadata?: InputMaybe<Array<MetadataInput>>;
   /** Password. */
   password: Scalars["String"];
+  /** Phone number. */
+  phone?: InputMaybe<Scalars["String"]>;
   /** Base of frontend URL that will be needed to create confirmation URL. */
   redirectUrl?: InputMaybe<Scalars["String"]>;
 };
@@ -20624,6 +20626,7 @@ export type User = Node &
     orders?: Maybe<OrderCountableConnection>;
     /** List of user's permission groups. */
     permissionGroups?: Maybe<Array<Group>>;
+    phone?: Maybe<Scalars["String"]>;
     /** List of private metadata items. Requires staff permissions to access. */
     privateMetadata: Array<MetadataItem>;
     /**
@@ -25622,6 +25625,9 @@ export type UserQuery = {
     __typename?: "User";
     id: string;
     email: string;
+    phone?: string | null;
+    firstName: string;
+    lastName: string;
     addresses: Array<{
       __typename?: "Address";
       id: string;
@@ -27116,6 +27122,7 @@ export const RequestPasswordResetDocument = gql`
     }
   }
 `;
+
 export type RequestPasswordResetMutationFn = Apollo.MutationFunction<
   RequestPasswordResetMutation,
   RequestPasswordResetMutationVariables
@@ -28451,6 +28458,9 @@ export const UserDocument = gql`
     user: me {
       id
       email
+      phone
+      firstName
+      lastName
       addresses {
         ...AddressDetailsFragment
       }
@@ -37643,6 +37653,7 @@ export type UserKeySpecifier = (
   | "note"
   | "orders"
   | "permissionGroups"
+  | "phone"
   | "privateMetadata"
   | "privateMetafield"
   | "privateMetafields"
@@ -37678,6 +37689,7 @@ export type UserFieldPolicy = {
   note?: FieldPolicy<any> | FieldReadFunction<any>;
   orders?: FieldPolicy<any> | FieldReadFunction<any>;
   permissionGroups?: FieldPolicy<any> | FieldReadFunction<any>;
+  phone?: FieldPolicy<any> | FieldReadFunction<any>;
   privateMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
   privateMetafield?: FieldPolicy<any> | FieldReadFunction<any>;
   privateMetafields?: FieldPolicy<any> | FieldReadFunction<any>;
