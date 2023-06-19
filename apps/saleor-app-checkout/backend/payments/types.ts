@@ -31,6 +31,8 @@ export interface CreatePaymentResult {
   url?: string | undefined | null;
   // Vendor-specific ID of the payment session
   id: string;
+  lastDigits?: string;
+  brand?: string;
 }
 
 export interface ReuseExistingSessionParams {

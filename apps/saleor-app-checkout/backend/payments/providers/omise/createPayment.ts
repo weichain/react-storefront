@@ -20,6 +20,8 @@ export const createOmisePayment = async ({
   const result = await response.json();
   return {
     url: `/default-channel/EN/order/${order.id}`,
+    lastDigits: result.card.last_digits,
+    brand: result.card.brand,
     id: result.metadata.id,
   };
 };
