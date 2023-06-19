@@ -39,9 +39,11 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
     return <div>Error :{error.message}</div>;
   }
 
-  if (!data || !data.orderByToken) {
+  if (!data || !data.orderByToken || !data.orderByToken.privateMetafield) {
     return null;
   }
+
+  const { lastDigits, brand } = JSON.parse(data.orderByToken.privateMetafield);
   const order = data.orderByToken;
 
   return (
@@ -104,7 +106,9 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
       <div className="flex justify-between">
         <div>
           <p className="text-black text-[20px] font-[600]">Payment</p>
-          <p className="text-[#4C4C4C] text-[16px]">Visa **56</p>
+          <p className="text-[#4C4C4C] text-[16px]">
+            {brand} **{lastDigits.substr(2)}
+          </p>
         </div>
         <div className="w-6/12">
           <p className="font-[600] text-[20px] text-black mb-5">Order summary</p>

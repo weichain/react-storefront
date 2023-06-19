@@ -25252,6 +25252,7 @@ export type OrderDetailsByTokenQuery = {
     id: string;
     status: OrderStatus;
     number: string;
+    privateMetafield?: string | null;
     shippingAddress?: {
       __typename?: "Address";
       id: string;
@@ -27122,7 +27123,6 @@ export const RequestPasswordResetDocument = gql`
     }
   }
 `;
-
 export type RequestPasswordResetMutationFn = Apollo.MutationFunction<
   RequestPasswordResetMutation,
   RequestPasswordResetMutationVariables
@@ -28017,6 +28017,7 @@ export const OrderDetailsByTokenDocument = gql`
       id
       status
       number
+      privateMetafield(key: "payment")
       shippingAddress {
         ...AddressDetailsFragment
       }

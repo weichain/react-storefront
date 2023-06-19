@@ -109,7 +109,7 @@ const getPaymentResponse = async ({
     console.error(paymentUrlError);
     throw new UnknownPaymentError(body.provider, paymentUrlError, order);
   }
-  const { id, url } = data;
+  const { id, url, lastDigits, brand } = data;
   if (!url) {
     throw new MissingUrlError(body.provider, order);
   }
@@ -126,6 +126,8 @@ const getPaymentResponse = async ({
     provider: body.provider,
     method: body.method,
     session: id,
+    lastDigits,
+    brand,
   };
 
   await updatePaymentMetafield({ saleorApiUrl, orderId: order.id, payment });
