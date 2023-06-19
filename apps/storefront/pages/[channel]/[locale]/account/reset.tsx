@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -8,6 +9,7 @@ function PasswordReset() {
   const [userPassword, setUserPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [successMessage, setSuccessMessage] = useState(false);
+  const [displayPassword, setDisplayPassword] = useState(false);
   const { resetPassword } = useSaleorAuthContext();
   const router = useRouter();
   const paths = usePaths();
@@ -35,27 +37,51 @@ function PasswordReset() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col mt-[200px] m-auto gap-[30px] w-[80%] lg:w-[50%] border border-slate-700 p-6">
-      <label className="text-[20px]">Please enter a new password</label>
-      <input
-        onChange={(event) => setUserPassword(event.target.value)}
-        type="password"
-        className="border border-black-500 w-[90%] h-8 outline-none text-[14px] focus:border-black-500"
-      />
-      {passwordError && <p className="text-[14px] text-red-500 text-center">{passwordError}</p>}
-      {successMessage ? (
-        <p className="text-[14px] text-green-500 text-center">
-          Password has been successfully reset
-        </p>
-      ) : (
-        <button
-          className="bg-green-500 text-white px-10 py-2 rounded-md"
-          type="button"
-          onClick={resetPasswordHandler}
-        >
-          Submit
-        </button>
-      )}
+    <div className="w-11/12 lg:w-4/12 m-auto mt-40">
+      <div className="flex justify-between">
+        <h2 className="font-bold text-[#1E1E1E] text-[20px]">Reset password</h2>
+        <div className="flex items-center">
+          <p className="mr-2 text-[#8F8F8F] text-[14px]">Remembered your password?</p>
+          <p
+            className="underline text-[#1E1E1E] text-[14px] cursor-pointer"
+            onClick={() => router.push(paths.account.login.$url())}
+          >
+            Sign in
+          </p>
+        </div>
+      </div>
+      <p className="my-3 text-[#8F8F8F] text-[14px]">Provide a new password for your account</p>
+      <div className="flex flex-col relative">
+        <img
+          alt="show"
+          src={displayPassword ? "/eyeHidden.svg" : "/eye.svg"}
+          width="30px"
+          className="absolute right-[20px] top-[25px] cursor-pointer"
+          onClick={() => setDisplayPassword((prevState) => !prevState)}
+        />
+        <label className="text-[#4C4C4C] text-[12px] font-bold uppercase tracking-[.20em]">
+          PASSWORD
+        </label>
+        <input
+          onChange={(event) => setUserPassword(event.target.value)}
+          type={displayPassword ? "text" : "password"}
+          className="min-w-8 h-3 mb-2 max-w-full border border-[#CBCBCB] pt-6 pb-4 px-4 outline-none"
+        />
+        {passwordError && <p className="text-[14px] text-red-500 text-center">{passwordError}</p>}
+        {successMessage ? (
+          <p className="text-[14px] text-green-500 text-center">
+            Password has been successfully reset
+          </p>
+        ) : (
+          <button
+            className="ml-auto mt-4 bg-[#394052] h-10 w-52 text-white rounded text-[14px] hover:bg-white hover:text-[#394052] border border-[#394052]"
+            type="button"
+            onClick={resetPasswordHandler}
+          >
+            Reset Password
+          </button>
+        )}
+      </div>
     </div>
   );
 }
