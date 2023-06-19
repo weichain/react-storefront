@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -8,6 +10,7 @@ import { messages } from "@/components/translations";
 import { DEMO_MODE } from "@/lib/const";
 import { usePaths } from "@/lib/paths";
 import { useSaleorAuthContext } from "@/lib/auth";
+import { useRequestPasswordResetMutation } from "@/saleor/api";
 
 export type OptionalQuery = {
   next?: string;
@@ -23,6 +26,12 @@ function LoginPage() {
   const paths = usePaths();
   const t = useIntl();
 
+  const [userEmail, setUserEmail] = useState("");
+  const [errorValidateEmail, setErrorValidateEmail] = useState(false);
+  const [errorRequestPasswordReset, setErrorRequestPasswordReset] = useState("");
+  const [successRequestPasswordRest, setSuccessRequestPasswordRest] = useState("");
+
+  const [requestPasswordReset] = useRequestPasswordResetMutation();
   const { signIn } = useSaleorAuthContext();
 
   const defaultValues = DEMO_MODE
@@ -61,6 +70,27 @@ function LoginPage() {
     });
   });
 
+  const requestPasswordResetHandler = async () => {
+    setErrorValidateEmail(false);
+    setErrorRequestPasswordReset("");
+
+    if (!userEmail.includes("@") || !userEmail.includes(".")) {
+      setErrorValidateEmail(true);
+      return;
+    }
+    const url = "http://localhost:3000/default-channel/EN/account/reset";
+
+    const result = await requestPasswordReset({
+      variables: { email: userEmail, channel: router.query.channel as string, redirectUrl: url },
+    });
+
+    if (result.data?.requestPasswordReset?.errors.length) {
+      setErrorRequestPasswordReset(result.data?.requestPasswordReset?.errors[0].message as string);
+      return;
+    }
+    setSuccessRequestPasswordRest("We sent a link to your email");
+  };
+
   return (
     <div className="min-h-screen bg-no-repeat bg-cover bg-center bg-gradient-to-r from-blue-100 to-blue-500">
       <div className="flex justify-end">
@@ -86,7 +116,21 @@ function LoginPage() {
                   {...registerForm("email", {
                     required: true,
                   })}
+                  onChange={(e) => setUserEmail(e.target.value)}
                 />
+                {errorValidateEmail && (
+                  <p className="text-center text-red-500 text-[12px]">Please enter a valid email</p>
+                )}
+                {errorRequestPasswordReset && (
+                  <p className="text-center text-red-500 text-[12px]">
+                    {errorRequestPasswordReset}
+                  </p>
+                )}
+                {successRequestPasswordRest && (
+                  <p className="text-center text-green-500 text-[12px]">
+                    {successRequestPasswordRest}
+                  </p>
+                )}
               </div>
               <div className="mt-5">
                 <label htmlFor="password" className="block text-md mb-2">
@@ -103,7 +147,10 @@ function LoginPage() {
                 />
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-blue-700 hover:underline cursor-pointer pt-2">
+                <span
+                  onClick={requestPasswordResetHandler}
+                  className="text-sm text-blue-700 hover:underline cursor-pointer pt-2"
+                >
                   {t.formatMessage(messages.loginRemindPasswordButtonLabel)}
                 </span>
               </div>

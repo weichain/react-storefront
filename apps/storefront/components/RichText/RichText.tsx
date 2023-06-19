@@ -21,11 +21,11 @@ export function RichText({ jsonStringData }: RichTextProps) {
   );
 
   useEffect(() => {
-    setBlocks(() => blocks.map((block: IBlock) => ({ ...block, display: false })));
+    blocks ? setBlocks(() => blocks.map((block: IBlock) => ({ ...block, display: false }))) : null;
   }, []);
 
   const data = parseEditorJSData(jsonStringData);
-  if (!data) {
+  if (!data || !blocks) {
     return null;
   }
 
