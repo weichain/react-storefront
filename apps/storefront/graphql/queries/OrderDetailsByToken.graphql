@@ -3,7 +3,7 @@ query OrderDetailsByToken($token: UUID!) {
     id
     status
     number
-    privateMetafield(key: "payment")
+    metafield(key: "payment")
     shippingAddress {
       ...AddressDetailsFragment
     }
