@@ -25252,7 +25252,7 @@ export type OrderDetailsByTokenQuery = {
     id: string;
     status: OrderStatus;
     number: string;
-    privateMetafield?: string | null;
+    metafield?: string | null;
     shippingAddress?: {
       __typename?: "Address";
       id: string;
@@ -28017,7 +28017,7 @@ export const OrderDetailsByTokenDocument = gql`
       id
       status
       number
-      privateMetafield(key: "payment")
+      metafield(key: "payment")
       shippingAddress {
         ...AddressDetailsFragment
       }

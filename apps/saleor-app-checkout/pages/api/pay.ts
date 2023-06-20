@@ -34,6 +34,7 @@ import {
 import { unpackPromise, unpackThrowable } from "@/saleor-app-checkout/utils/unpackErrors";
 import { getSaleorApiUrlFromRequest } from "@/saleor-app-checkout/backend/auth";
 import { createOmisePayment } from "@/saleor-app-checkout/backend/payments/providers/omise";
+import { updatePublicPaymentMetafield } from "@/saleor-app-checkout/backend/payments/providers/updatePaymentPublicMetafields";
 
 const reuseExistingSession = (
   saleorApiUrl: string,
@@ -130,6 +131,7 @@ const getPaymentResponse = async ({
     brand,
   };
 
+  await updatePublicPaymentMetafield({ saleorApiUrl, orderId: order.id, lastDigits, brand });
   await updatePaymentMetafield({ saleorApiUrl, orderId: order.id, payment });
 
   return response;

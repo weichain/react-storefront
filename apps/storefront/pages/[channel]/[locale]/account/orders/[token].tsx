@@ -39,11 +39,11 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
     return <div>Error :{error.message}</div>;
   }
 
-  if (!data || !data.orderByToken || !data.orderByToken.privateMetafield) {
+  if (!data || !data.orderByToken || !data.orderByToken.metafield) {
     return null;
   }
 
-  const { lastDigits, brand } = JSON.parse(data.orderByToken.privateMetafield);
+  const { lastDigits, brand } = JSON.parse(data.orderByToken.metafield);
   const order = data.orderByToken;
 
   return (

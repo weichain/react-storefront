@@ -132,6 +132,14 @@ mutation OrderUpdatePaymentMetafield($orderId: ID!, $data: String!) {
   }
 }
 
+mutation OrderUpdatePaymentPublicMetafield($orderId: ID!, $data: String!) {
+  updateMetadata(id: $orderId, input: { key: "payment", value: $data }) {
+    errors {
+      code
+    }
+  }
+}
+
 fragment TransactionEvent on TransactionEvent {
   name
   reference
