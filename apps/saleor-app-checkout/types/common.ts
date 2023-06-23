@@ -67,6 +67,4 @@ export type OrderPaymentMetafield = {
   session: string;
   provider: PaymentProviderID;
   method: PaymentMethodID;
-  lastDigits?: string;
-  brand?: string;
 };

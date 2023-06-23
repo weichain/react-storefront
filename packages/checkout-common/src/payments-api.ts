@@ -55,7 +55,7 @@ export type OmisePayRequestBody = {
   orderId: string;
   tokenId: string;
   amountCharged: {
-    amount: string;
+    amount: number;
     currency: string;
   };
 } & Pick<OrderBody, "orderId">;
