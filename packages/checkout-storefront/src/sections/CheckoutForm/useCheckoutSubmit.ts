@@ -64,6 +64,7 @@ export const useCheckoutSubmit = () => {
     checkoutFinalize,
     setSubmitInProgress,
     validating,
+    user,
   ]);
 
   useEffect(() => void handleSubmit(), [handleSubmit]);

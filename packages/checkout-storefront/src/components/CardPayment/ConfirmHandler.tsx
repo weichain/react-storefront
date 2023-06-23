@@ -9,23 +9,59 @@ import { Checkbox } from "@saleor/ui-kit";
 import { contactMessages } from "@/checkout-storefront/sections/Contact/messages";
 import { useCheckoutSubmit } from "@/checkout-storefront/sections/CheckoutForm/useCheckoutSubmit";
 import { getCardData } from "@/checkout-storefront/hooks/usePay";
-
+import { useUser } from "@/checkout-storefront/hooks/useUser";
 export interface IConfrimHandlerProps {
   card: IReactCreditCardProps;
   country: string;
 }
 
+interface IUserData {
+  email: string;
+  name: string;
+  phone: string | undefined;
+}
+
+const userData = {
+  email: "",
+  name: "",
+  phone: "",
+} as IUserData;
+
+export const getUserEmail = (email: string) => {
+  if (email.includes("@") && email.includes(".")) {
+    userData.email = email;
+  } else {
+    userData.email = "";
+  }
+};
+
+export const getUserInputs = (name: string, phone: string | undefined) => {
+  userData.name = name;
+  userData.phone = phone;
+};
+
 export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }) => {
   const [checked, setChecked] = useState(false);
   const formatMessage = useFormattedMessages();
   const { handleSubmit, isProcessing } = useCheckoutSubmit();
-
+  const { user } = useUser();
+  const { name, phone, email } = userData;
   let enableBtn = false;
+  let validateFields = false;
+
+  if (user) {
+    validateFields = true;
+  } else if (name && email && !phone) {
+    validateFields = true;
+  }
+
   if (
     String(card.number).length >= 17 &&
     String(card.expiry).length === 5 &&
     String(card.cvc).length === 3 &&
-    card.name.trim().length > 2
+    card.name.trim().length > 2 &&
+    checked &&
+    validateFields
   ) {
     enableBtn = true;
   }

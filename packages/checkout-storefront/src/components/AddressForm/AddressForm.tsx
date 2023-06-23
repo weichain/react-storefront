@@ -14,6 +14,7 @@ import { BlurHandler, ChangeHandler, useFormContext } from "@/checkout-storefron
 import { useAddressFormUtils } from "@/checkout-storefront/components/AddressForm/useAddressFormUtils";
 import { usePhoneNumberValidator } from "@/checkout-storefront/lib/utils/phoneNumber";
 import { FieldValidator } from "formik";
+import { getUserInputs } from "../CardPayment";
 
 export interface AddressFormProps {
   content: string | undefined;
@@ -89,6 +90,7 @@ export const AddressForm: FC<PropsWithChildren<AddressFormProps>> = ({
 
   fieldValues.firstName = values.firstName;
   fieldValues.phone = isValidPhoneNumber(values.phone);
+  getUserInputs(values.firstName, isValidPhoneNumber(values.phone));
 
   return (
     <>
