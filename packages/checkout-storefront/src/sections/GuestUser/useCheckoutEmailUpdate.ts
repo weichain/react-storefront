@@ -1,3 +1,4 @@
+import { getUserEmail } from "@/checkout-storefront/components/CardPayment";
 import { useCheckoutEmailUpdateMutation } from "@/checkout-storefront/graphql";
 import { useDebouncedSubmit } from "@/checkout-storefront/hooks/useDebouncedSubmit";
 import { useSubmit } from "@/checkout-storefront/hooks/useSubmit/useSubmit";
@@ -11,7 +12,7 @@ interface CheckoutEmailUpdateFormData {
 export const useCheckoutEmailUpdate = ({ email }: CheckoutEmailUpdateFormData) => {
   const [, updateEmail] = useCheckoutEmailUpdateMutation();
   const previousEmail = useRef(email);
-
+  getUserEmail(email);
   const onSubmit = useSubmit<CheckoutEmailUpdateFormData, typeof updateEmail>(
     useMemo(
       () => ({
