@@ -127,8 +127,6 @@ const getPaymentResponse = async ({
     provider: body.provider,
     method: body.method,
     session: id,
-    lastDigits,
-    brand,
   };
 
   await updatePublicPaymentMetafield({ saleorApiUrl, orderId: order.id, lastDigits, brand });

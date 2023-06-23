@@ -143,7 +143,9 @@ export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
   // state as "loading" right away
   const onChange: ChangeHandler = async (event) => {
     handleChange(event);
-
+    if (event.target.name !== "email") {
+      return;
+    }
     const error = await isValidEmail(event.target.value as string);
 
     if (!error) {

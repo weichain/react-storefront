@@ -1,5 +1,6 @@
 import { omisePay } from "@/saleor-app-checkout/../../packages/checkout-storefront/src/fetch";
 import { CreatePaymentData, CreatePaymentResult } from "../../types";
+import { getIntegerAmountFromSaleor } from "../../utils";
 import { omiseClient } from "./omiseClient";
 
 export const createOmisePayment = async ({
@@ -15,7 +16,10 @@ export const createOmisePayment = async ({
     saleorApiUrl,
     tokenId: token.id,
     orderId: order.id,
-    amountCharged: { amount: "20000", currency: "thb" },
+    amountCharged: {
+      amount: getIntegerAmountFromSaleor(order.total.gross.amount),
+      currency: order.total.gross.currency,
+    },
   });
   const result = await response.json();
   return {
