@@ -31,7 +31,7 @@ export const SummaryItem: React.FC<PropsWithChildren<LineItemProps>> = ({ line, 
           )}
         </div>
       </div>
-      <div className="summary-row w-full">
+      <div className="summary-row w-full mt-4 ml-4">
         <div className="flex flex-col">
           <p className="text-[#E0BC75] text-[14px] font-bold">{attributesText}</p>
           <p className="mb-3 text-[#1F1F1F] font-bold">{productName}</p>

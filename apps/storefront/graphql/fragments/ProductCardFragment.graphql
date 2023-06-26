@@ -23,6 +23,7 @@ fragment ProductCardFragment on Product {
       start {
         gross {
           amount
+          currency
         }
       }
     }

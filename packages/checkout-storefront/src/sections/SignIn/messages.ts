@@ -6,4 +6,9 @@ export const passwordMessages = defineMessages({
     id: "SignIn/messages/Hz38OL",
     description: "password must be at least 8 characters",
   },
+  passwordsMustBeTheSame: {
+    defaultMessage: "Passwords must match",
+    id: "SignIn/messages/ugs/wu",
+    description: "password must match",
+  },
 });

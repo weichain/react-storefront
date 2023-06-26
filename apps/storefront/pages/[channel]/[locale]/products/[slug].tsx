@@ -256,7 +256,7 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
             </p>
           )}
 
-          {!!addToCartError && <p>{addToCartError}</p>}
+          {!!addToCartError && <p className="text-red-500">{addToCartError}</p>}
 
           {description && (
             <div className="space-y-6">

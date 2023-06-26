@@ -23213,7 +23213,10 @@ export type ProductCardFragment = {
     __typename?: "ProductPricingInfo";
     priceRange?: {
       __typename?: "TaxedMoneyRange";
-      start?: { __typename?: "TaxedMoney"; gross: { __typename?: "Money"; amount: number } } | null;
+      start?: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      } | null;
     } | null;
   } | null;
   media?: Array<{
@@ -25569,7 +25572,7 @@ export type ProductCollectionQuery = {
             __typename?: "TaxedMoneyRange";
             start?: {
               __typename?: "TaxedMoney";
-              gross: { __typename?: "Money"; amount: number };
+              gross: { __typename?: "Money"; amount: number; currency: string };
             } | null;
           } | null;
         } | null;
@@ -26083,6 +26086,7 @@ export const ProductCardFragmentDoc = gql`
         start {
           gross {
             amount
+            currency
           }
         }
       }

@@ -7,6 +7,8 @@ import { translate } from "@/lib/translations";
 import { PhotographIcon } from "@heroicons/react/outline";
 import { ProductCardFragment } from "@/saleor/api";
 import styles from "./ProductCard.module.css";
+import { useRegions } from "../RegionsProvider";
+import { PriceFragment } from "@/saleor/api";
 
 export interface ProductCardProps {
   product: ProductCardFragment;
@@ -28,6 +30,7 @@ const getCardSecondaryDescription = (product: ProductCardFragment) => {
 
 export function ProductCard({ product }: ProductCardProps) {
   const paths = usePaths();
+  const { formatPrice } = useRegions();
   const secondaryDescription = getCardSecondaryDescription(product);
   const thumbnailUrl = product.media?.find((media) => media.type === "IMAGE")?.url;
 
@@ -61,7 +64,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </a>
           <p className={styles.additionalDescription}>{product.seoDescription}</p>
           <p className={styles.secondaryDescription}>
-            {product.pricing?.priceRange?.start?.gross.amount}$
+            {formatPrice(product.pricing?.priceRange?.start?.gross as PriceFragment)}
           </p>
         </div>
       </Link>

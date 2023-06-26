@@ -391,6 +391,10 @@
     "developer_comment": "password must be at least 8 characters",
     "string": "Password must be at least 8 characters"
   },
+  "SignIn/messages/vpnWkk": {
+    "developer_comment": "password must be the same",
+    "string": "Password must be the same"
+  },
   "Summary/messages/+3aZyi": {
     "developer_comment": "shipping cost acessibility label",
     "string": "shippingCost"
