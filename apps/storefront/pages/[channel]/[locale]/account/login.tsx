@@ -63,11 +63,7 @@ function LoginPage() {
       return;
     }
 
-    // void router.push(redirectURL);
-    void router.push({
-      pathname: "/[channel]/[locale]" as const,
-      query: { channel: "default-channel", locale: "EN" },
-    });
+    void router.push(redirectURL);
   });
 
   const requestPasswordResetHandler = async () => {
@@ -78,7 +74,8 @@ function LoginPage() {
       setErrorValidateEmail(true);
       return;
     }
-    const url = "http://localhost:3000/default-channel/EN/account/reset";
+    const params = paths.account.reset.$url().query;
+    const url = `${window.location.origin}/${params.channel}/${params.locale}/account/reset`;
 
     const result = await requestPasswordReset({
       variables: { email: userEmail, channel: router.query.channel as string, redirectUrl: url },

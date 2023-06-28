@@ -20,7 +20,7 @@ import {
   ReuseExistingSessionResult,
 } from "@/saleor-app-checkout/backend/payments/types";
 import { updatePaymentMetafield } from "@/saleor-app-checkout/backend/payments/updatePaymentMetafield";
-import { allowCors, getBaseUrl } from "@/saleor-app-checkout/backend/utils";
+import { allowCors, getBaseUrl, getChannelAndLocale } from "@/saleor-app-checkout/backend/utils";
 import { OrderFragment } from "@/saleor-app-checkout/graphql";
 import { PayRequestErrorResponse, PayRequestResponse } from "@/saleor-app-checkout/types/api/pay";
 import { OrderPaymentMetafield } from "@/saleor-app-checkout/types/common";
@@ -74,10 +74,12 @@ const getPaymentResponse = async ({
   saleorApiUrl,
   body,
   appUrl,
+  channelAndLocale,
 }: {
   saleorApiUrl: string;
   body: PayRequestBody;
   appUrl: string;
+  channelAndLocale: string;
 }): Promise<PayRequestResponse> => {
   body.provider = "omise";
   if (!PaymentProviders.includes(body.provider)) {
@@ -103,7 +105,7 @@ const getPaymentResponse = async ({
   const cardDetails = body.cardDetails;
   body.method = "creditCard";
   const [paymentUrlError, data] = await unpackPromise(
-    getPaymentUrlIdForProvider({ saleorApiUrl, body, order, appUrl, cardDetails })
+    getPaymentUrlIdForProvider({ saleorApiUrl, body, order, appUrl, cardDetails, channelAndLocale })
   );
 
   if (paymentUrlError) {
@@ -160,7 +162,8 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const appUrl = getBaseUrl(req);
-    const response = await getPaymentResponse({ saleorApiUrl, body, appUrl });
+    const channelAndLocale = getChannelAndLocale(req);
+    const response = await getPaymentResponse({ saleorApiUrl, body, appUrl, channelAndLocale });
     return res.status(200).json(response);
   } catch (err) {
     if (err instanceof KnownPaymentError) {
@@ -196,12 +199,14 @@ const getPaymentUrlIdForProvider = ({
   order,
   appUrl,
   cardDetails,
+  channelAndLocale,
 }: {
   saleorApiUrl: string;
   body: PayRequestBody;
   order: OrderFragment;
   appUrl: string;
   cardDetails: any;
+  channelAndLocale: string;
 }): Promise<CreatePaymentResult> => {
   const createPaymentData = {
     saleorApiUrl,
@@ -220,7 +225,7 @@ const getPaymentUrlIdForProvider = ({
     case "stripe":
       return createStripePayment(createPaymentData);
     case "omise":
-      return createOmisePayment(createPaymentData);
+      return createOmisePayment(createPaymentData, channelAndLocale);
     case "dummy":
       const url = new URL(body.redirectUrl);
       url.searchParams.set("order", order.id);
