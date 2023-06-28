@@ -24,7 +24,7 @@ const PaymentProvider = () => {
   const { app } = useAppContext();
   const domain = app.getState().domain;
   // @todo use `saleorApiUrl`
-  const saleorApiUrl = process.env.SALEOR_API_URL;
+  const saleorApiUrl = ``;
   const token = app.getState().token;
 
   const paymentProvider = paymentProviders.find(
