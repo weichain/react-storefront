@@ -1,5 +1,4 @@
 .env.local
-.env
 .envrc
 .auth_token
 
