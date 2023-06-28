@@ -159,7 +159,9 @@ export const omisePay = ({
   ...body
 }: OmisePayRequestBody): FetchResponse<OmisePayRequestResult> =>
   fetch(
-    urlJoinTrailingSlash("", "omise-pay") + `?` + new URLSearchParams({ saleorApiUrl }).toString(),
+    urlJoinTrailingSlash(checkoutApiUrl, "api", "omise-pay") +
+      `?` +
+      new URLSearchParams({ saleorApiUrl }).toString(),
     {
       method: "POST",
       body: JSON.stringify(body),

@@ -63,3 +63,13 @@ export const getBaseUrl = (req: { headers: Record<string, string | string[] | un
 
   return `${protocol}://${host}`;
 };
+
+export const getChannelAndLocale = (req: {
+  headers: Record<string, string | string[] | undefined>;
+}) => {
+  const result = (req.headers.referer as string).split("&");
+  const locale = result[1].split("=")[1];
+  const channel = result[2].split("=")[1];
+
+  return `${channel}/${locale}`;
+};

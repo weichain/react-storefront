@@ -3,13 +3,10 @@ import { CreatePaymentData, CreatePaymentResult } from "../../types";
 import { getIntegerAmountFromSaleor } from "../../utils";
 import { omiseClient } from "./omiseClient";
 
-export const createOmisePayment = async ({
-  saleorApiUrl,
-  order,
-  redirectUrl,
-  appUrl,
-  cardDetails,
-}: CreatePaymentData): Promise<CreatePaymentResult> => {
+export const createOmisePayment = async (
+  { saleorApiUrl, order, redirectUrl, appUrl, cardDetails }: CreatePaymentData,
+  channelAndLocale: string
+): Promise<CreatePaymentResult> => {
   const token = await createPaymentToken({ cardDetails });
   const response = await omisePay({
     checkoutApiUrl: process.env.CHECKOUT_APP_URL as string,
@@ -23,7 +20,7 @@ export const createOmisePayment = async ({
   });
   const result = await response.json();
   return {
-    url: `/default-channel/EN/order/${order.id}`,
+    url: `/${channelAndLocale}/order/${order.id}`,
     lastDigits: result.card.last_digits,
     brand: result.card.brand,
     id: result.metadata.id,

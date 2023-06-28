@@ -57,6 +57,13 @@ export const pagesPath = {
             hash: url?.hash,
           }),
         },
+        reset: {
+          $url: (url?: { hash?: string }) => ({
+            pathname: "/[channel]/[locale]/account/reset" as const,
+            query: { channel, locale },
+            hash: url?.hash,
+          }),
+        },
       },
       category: {
         _slug: (slug: string | number) => ({
