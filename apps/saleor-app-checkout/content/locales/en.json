@@ -115,6 +115,10 @@
     "developer_comment": "payment provider setting",
     "string": "Webhook HMAC key"
   },
+  "messages/paymentProviders/7ZZXFm": {
+    "developer_comment": "payment provider",
+    "string": "Omise Payment"
+  },
   "messages/paymentProviders/9hBUgM": {
     "developer_comment": "payment provider setting",
     "string": "API key"
