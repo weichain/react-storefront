@@ -1,13 +1,10 @@
 import { getClientForAuthData } from "@/saleor-app-checkout/backend/saleorGraphqlClient";
 import {
-  OrderUpdatePaymentMetafieldDocument,
-  OrderUpdatePaymentMetafieldMutation,
   OrderUpdatePaymentMetafieldMutationVariables,
   OrderUpdatePaymentPublicMetafieldDocument,
   OrderUpdatePaymentPublicMetafieldMutation,
   OrderUpdatePaymentPublicMetafieldMutationVariables,
 } from "@/saleor-app-checkout/graphql";
-import { OrderPaymentMetafield } from "@/saleor-app-checkout/types";
 import * as Apl from "@/saleor-app-checkout/config/apl";
 
 export const updatePublicPaymentMetafield = async ({
@@ -18,8 +15,8 @@ export const updatePublicPaymentMetafield = async ({
 }: {
   saleorApiUrl: string;
   orderId: OrderUpdatePaymentMetafieldMutationVariables["orderId"];
-  lastDigits: string;
-  brand: string;
+  lastDigits?: string;
+  brand?: string;
 }) => {
   const authData = await Apl.get(saleorApiUrl);
   const client = getClientForAuthData(authData);

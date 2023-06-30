@@ -7,7 +7,7 @@ import { unpackPromise, unpackThrowable } from "@/saleor-app-checkout/utils/unpa
 import { NextApiHandler } from "next";
 import { MissingPaymentProviderSettingsError } from "@/saleor-app-checkout/backend/payments/errors";
 
-const handler: NextApiHandler<any> = async (req, res) => {
+const handler: NextApiHandler = async (req, res) => {
   const body = req.body;
   const [saleorApiUrlError, saleorApiUrl] = unpackThrowable(() => getSaleorApiUrlFromRequest(req));
 

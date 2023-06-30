@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useIntl } from "react-intl";
 import { Customization, CustomizationSettings, SettingID, CustomizationID } from "types/common";
 import {
@@ -163,6 +164,7 @@ const paymentProviderFields: Record<PaymentProviderID, any> = {
   mollie: molliePaymentProvider,
   adyen: adyenPaymentProvider,
   stripe: stripePaymentProvider,
+  omise: {},
   dummy: {},
 };
 
@@ -209,6 +211,16 @@ export const useStripePaymentProvider = (): PaymentProvider<"stripe"> => {
     label: intl.formatMessage(paymentProvidersMessages.stripe),
     logo: StripeIcon,
     settings: withLabels(intl, stripePaymentProviderMessages, stripePaymentProvider),
+  };
+};
+
+export const useOmisePaymentProvider = (): PaymentProvider<"omise"> => {
+  const intl = useIntl();
+
+  return {
+    id: "omise",
+    label: intl.formatMessage(paymentProvidersMessages.omise),
+    settings: [],
   };
 };
 

@@ -27,7 +27,7 @@ export interface ProductCollectionProps {
   allowMore?: boolean;
   perPage?: number;
   setCounter?: (value: number) => void;
-  gridItems: number;
+  gridItems?: number;
 }
 
 interface IGridVariants {

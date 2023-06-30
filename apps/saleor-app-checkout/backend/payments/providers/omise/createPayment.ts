@@ -1,3 +1,4 @@
+/* eslint-disable import/no-restricted-paths */
 import { omisePay } from "@/saleor-app-checkout/../../packages/checkout-storefront/src/fetch";
 import { CreatePaymentData, CreatePaymentResult } from "../../types";
 import { getIntegerAmountFromSaleor } from "../../utils";
@@ -7,6 +8,7 @@ export const createOmisePayment = async (
   { saleorApiUrl, order, redirectUrl, appUrl, cardDetails }: CreatePaymentData,
   channelAndLocale: string
 ): Promise<CreatePaymentResult> => {
+  console.log(redirectUrl, appUrl);
   const token = await createPaymentToken({ cardDetails });
   const response = await omisePay({
     checkoutApiUrl: process.env.CHECKOUT_APP_URL as string,

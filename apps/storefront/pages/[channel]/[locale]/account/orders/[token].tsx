@@ -10,6 +10,11 @@ import { useUser } from "@/lib/useUser";
 import { useRouter } from "next/router";
 import { formatDate, getIcon } from "@/components/OrdersTable/OrdersTable";
 
+interface CardDetails {
+  lastDigits: string;
+  brand: string;
+}
+
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
@@ -43,7 +48,7 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
     return null;
   }
 
-  const { lastDigits, brand } = JSON.parse(data.orderByToken.metafield);
+  const { lastDigits, brand }: CardDetails = JSON.parse(data.orderByToken.metafield);
   const order = data.orderByToken;
 
   return (

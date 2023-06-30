@@ -1,24 +1,16 @@
 import { useIntl } from "react-intl";
 
-import { Button } from "@/components/Button";
 import { AddressDisplay } from "@/components/checkout/AddressDisplay";
-import {
-  AddressDetailsFragment,
-  useAddressDeleteMutation,
-  useSetAddressDefaultMutation,
-} from "@/saleor/api";
+import { AddressDetailsFragment } from "@/saleor/api";
 
 import { messages } from "../translations";
 
 export interface AddressBookCardProps {
   address: AddressDetailsFragment;
-  onRefreshBook: () => void;
 }
 
-export function AddressBookCard({ address, onRefreshBook }: AddressBookCardProps) {
+export function AddressBookCard({ address }: AddressBookCardProps) {
   const t = useIntl();
-  const [setAddressDefaultMutation] = useSetAddressDefaultMutation();
-  const [deleteAddressMutation] = useAddressDeleteMutation();
 
   let cardHeader = "";
   if (address.isDefaultShippingAddress && address.isDefaultBillingAddress) {
@@ -28,13 +20,6 @@ export function AddressBookCard({ address, onRefreshBook }: AddressBookCardProps
   } else if (address.isDefaultBillingAddress) {
     cardHeader = t.formatMessage(messages.defaultBilling);
   }
-
-  const onDeleteAddress = async (addressId: string) => {
-    await deleteAddressMutation({
-      variables: { id: addressId },
-    });
-    onRefreshBook();
-  };
 
   return (
     <div className="justify-between flex flex-col checkout-section-container md:mx-2 mb-2">
