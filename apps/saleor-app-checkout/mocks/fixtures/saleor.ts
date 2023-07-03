@@ -38,6 +38,7 @@ export const paymentProviders: PaymentProviderSettingsValues<"encrypted"> = {
       value: testingVars.stripePublishableKey,
     },
   },
+  omise: { omiseKey: encryptSetting("") },
   dummy: { dummyKey: encryptSetting("") },
 };
 

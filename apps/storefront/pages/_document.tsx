@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Document, { DocumentContext, Head, Html, Main, NextScript } from "next/document";
 
 class MyDocument extends Document<{ lang?: string }> {

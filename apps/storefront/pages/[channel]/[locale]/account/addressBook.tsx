@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 
-import { AccountLayout, AddressBookCard, Spinner } from "@/components";
+import { AccountLayout, Spinner } from "@/components";
 import { messages } from "@/components/translations";
 import { useCurrentUserAddressesQuery, useUserQuery } from "@/saleor/api";
 import { useUser } from "@/lib/useUser";
@@ -14,12 +14,7 @@ function AddressBookPage() {
     skip: !authenticated,
     fetchPolicy: "network-only",
   });
-  const {
-    loading: loadingUser,
-    error: errorUser,
-    data: dataUser,
-    refetch: refetchuser,
-  } = useUserQuery();
+  const { loading: loadingUser, error: errorUser, data: dataUser } = useUserQuery();
 
   if (loading || loadingUser) {
     return <Spinner />;

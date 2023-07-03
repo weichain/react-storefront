@@ -173,6 +173,12 @@
       "value": "Webhook HMAC key"
     }
   ],
+  "messages/paymentProviders/7ZZXFm": [
+    {
+      "type": 0,
+      "value": "Omise Payment"
+    }
+  ],
   "messages/paymentProviders/9hBUgM": [
     {
       "type": 0,

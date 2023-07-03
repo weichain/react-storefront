@@ -17,7 +17,7 @@ import { FieldValidator } from "formik";
 import { getUserInputs } from "../CardPayment";
 
 export interface AddressFormProps {
-  content: string | undefined;
+  content?: string | undefined;
   title: string;
   availableCountries?: CountryCode[];
   fieldProps?: {

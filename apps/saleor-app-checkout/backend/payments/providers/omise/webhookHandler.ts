@@ -17,7 +17,7 @@ export const omiseWebhookEventToTransactionCreateMutationVariables = ({
         chargeSession: body.data,
       });
     default:
-      return undefined;
+      return body;
   }
 };
 

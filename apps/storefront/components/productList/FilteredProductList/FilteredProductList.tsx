@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { queryTypes, TransitionOptions, useQueryState } from "next-usequerystate";
 import { useEffect, useState } from "react";
 

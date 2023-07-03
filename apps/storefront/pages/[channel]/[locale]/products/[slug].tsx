@@ -24,7 +24,6 @@ import {
   ProductBySlugDocument,
   ProductBySlugQuery,
   ProductBySlugQueryVariables,
-  useCheckoutAddProductLineMutation,
   useCheckoutLineUpdateMutation,
   useCreateCheckoutMutation,
 } from "@/saleor/api";
@@ -81,7 +80,6 @@ function ProductPage({ product }: InferGetStaticPropsType<typeof getStaticProps>
   const [createCheckout] = useCreateCheckoutMutation();
   const { user } = useUser();
 
-  const [addProductToCheckout] = useCheckoutAddProductLineMutation();
   const [updateLines] = useCheckoutLineUpdateMutation();
   const [loadingAddToCheckout, setLoadingAddToCheckout] = useState(false);
   const [addToCartError, setAddToCartError] = useState("");

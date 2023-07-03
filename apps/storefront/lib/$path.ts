@@ -91,12 +91,10 @@ export const pagesPath = {
         }),
       },
       order: {
-        _email: (email: string | number) => ({
-          $url: (url?: { hash?: string }) => ({
-            pathname: "/[channel]/[locale]/order/[email]" as const,
-            query: { channel, locale, email },
-            hash: url?.hash,
-          }),
+        $url: (url?: { hash?: string }) => ({
+          pathname: "/[channel]/[locale]/order" as const,
+          query: { channel, locale },
+          hash: url?.hash,
         }),
       },
       page: {

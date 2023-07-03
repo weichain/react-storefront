@@ -1,9 +1,31 @@
 import usePaths from "@/lib/paths";
-import { AddressDetailsFragment } from "@/saleor/api";
 import Link from "next/link";
 
+export interface IUserAdress {
+  city: string;
+  country: { typename: string; code: string; country: string };
+  firstName: string;
+  id: string;
+  isDefaultBillingAdress: boolean;
+  isDefaultShippingAddress: boolean;
+  lastName: string;
+  phone: string;
+  postalCode: string;
+  streetAddress1: string;
+  typename: string;
+}
 export interface addressDisplayProps {
-  user: any;
+  user: {
+    addresses: IUserAdress;
+    defaultBillingAddress: IUserAdress;
+    defaultShippingAddress?: null;
+    email: string;
+    firstName: string;
+    id: string;
+    lastName: string;
+    phone: string;
+    __typeName: string;
+  };
 }
 
 interface UserInfoLabelProps {

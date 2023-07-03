@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
 
-import { usePaths } from "@/lib/paths";
-
 import { useCheckout } from "../providers/CheckoutProvider";
 import { useSaleorAuthContext } from "@/lib/auth";
 

@@ -35,7 +35,7 @@ export type PaymentProviderToSettings = {
   mollie: MollieProviderSettingID;
   adyen: AdyenProviderSettingID;
   stripe: StripeProviderSettingID;
-  omise: OmiseProviderSettingID;
+  omise: "omiseKey";
   dummy: "dummyKey";
 };
 

@@ -33,8 +33,7 @@ export const defaultPaymentProviderSettings: PaymentProviderSettingsValues<"unen
     webhookSecret: "",
   },
   omise: {
-    publicKey: "",
-    secretKey: "",
+    omiseKey: "",
   },
   dummy: {
     dummyKey: "",
