@@ -72,13 +72,23 @@ export const SummaryItemMoneyEditableSection: React.FC<SummaryItemMoneyEditableS
           {formatMessage(summaryMessages.quantity)}:
         </Text> */}
         <FormProvider form={form}>
-          <div className="flex justify-between items-center w-[100px]">
+          <div className="flex justify-between items-center w-[80px]">
             <button onClick={decrease}>
-              <img src="/minus.svg" alt="decrease" className="cursor-pointer" onClick={decrease} />
+              <img
+                src="/minus.svg"
+                alt="decrease"
+                className="cursor-pointer w-6"
+                onClick={decrease}
+              />
             </button>
             <p>{line.quantity}</p>
             <button onClick={increase}>
-              <img src="/plus.svg" alt="increase" className="cursor-pointer" onClick={increase} />
+              <img
+                src="/plus.svg"
+                alt="increase"
+                className="cursor-pointer w-6"
+                onClick={increase}
+              />
             </button>
           </div>
         </FormProvider>

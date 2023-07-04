@@ -161,6 +161,10 @@ fragment CheckoutLineFragment on CheckoutLine {
     }
     product {
       name
+      productType {
+        id
+        name
+      }
       translation(languageCode: $languageCode) {
         language {
           code

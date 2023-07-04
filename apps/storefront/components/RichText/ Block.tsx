@@ -15,7 +15,7 @@ const Block = ({ block, openAccordion }: IBlockProps) => {
       <hr />
       <div>
         <div className="flex items-center justify-between">
-          <p>{block.content}</p>
+          <p dangerouslySetInnerHTML={{ __html: block.content }} />
           <p onClick={() => openAccordion(block.content)} className="cursor-pointer">
             {block.display ? "-" : "+"}
           </p>
@@ -29,7 +29,7 @@ const Block = ({ block, openAccordion }: IBlockProps) => {
                 } text-[#4C4C4C]`}
               >
                 {block.items?.map((item) => (
-                  <li key={item.content}>{item.content}</li>
+                  <li key={item.content} dangerouslySetInnerHTML={{ __html: item.content }} />
                 ))}
               </ul>
               <Image
@@ -38,7 +38,7 @@ const Block = ({ block, openAccordion }: IBlockProps) => {
                 width={110}
                 height={50}
                 className={`${
-                  block.content === "How to use" ? "block" : "hidden"
+                  block.content.includes("How to use") ? "block" : "hidden"
                 } cursor-pointer pl-2`}
               />
             </>

@@ -19,7 +19,7 @@ const Selector = ({ itemQuantity, setItemQuantity }: VariantSelectorProps) => {
       </div>
       <ul
         className={`bg-white overflow-y-auto ${
-          open ? "max-h-60 border border-lightgray" : "max-h-0"
+          open ? "max-h-60 border border-lightgray relative z-10" : "max-h-0"
         } `}
       >
         {numbers?.map((number) => (
