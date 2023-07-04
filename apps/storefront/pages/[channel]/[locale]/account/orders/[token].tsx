@@ -93,7 +93,7 @@ function OrderDetailsPage({ token }: InferGetStaticPropsType<typeof getStaticPro
                 width={80}
                 height={80}
               />
-              <div className="flex flex-col justify-center">
+              <div className="flex flex-col justify-center ml-3">
                 <p className="text-[14px] font-[600] text-[#E0BC75]">{line?.variantName}</p>
                 <p className="text-[16px] font-[600] text-[#1F1F1F]">{line?.productName}</p>
               </div>

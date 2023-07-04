@@ -87,7 +87,7 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
     <>
       <div className="flex justify-between items-center relative">
         <div
-          className="w-6 h-5 absolute bottom-5 -left-[1.5px] z-50 cursor-pointer"
+          className="w-6 h-5 absolute bottom-10 lg:bottom-5 -left-[1.5px] z-50 cursor-pointer"
           onClick={() => setChecked(() => !checked)}
         ></div>
         <Checkbox

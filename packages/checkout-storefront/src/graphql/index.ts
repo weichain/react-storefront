@@ -17,12 +17,9 @@ export type Scalars = {
   Float: number;
   Date: any;
   DateTime: string;
-  Decimal: any;
   GenericScalar: any;
-  JSON: any;
   JSONString: string;
   Metadata: Record<string, string>;
-  Minute: any;
   PositiveDecimal: any;
   UUID: string;
   Upload: any;
@@ -80,7 +77,6 @@ export type AccountDelete = {
   user?: Maybe<User>;
 };
 
-/** Represents errors in account mutations. */
 export type AccountError = {
   __typename?: "AccountError";
   /** A type of address that causes the error. */
@@ -130,7 +126,6 @@ export type AccountErrorCode =
   | "REQUIRED"
   | "UNIQUE";
 
-/** Fields required to update the user. */
 export type AccountInput = {
   /** Billing address of the customer. */
   defaultBillingAddress?: InputMaybe<AddressInput>;
@@ -155,7 +150,6 @@ export type AccountRegister = {
   user?: Maybe<User>;
 };
 
-/** Fields required to create a user. */
 export type AccountRegisterInput = {
   /** Slug of a channel which will be used to notify users. Optional when only one channel exists. */
   channel?: InputMaybe<Scalars["String"]>;
@@ -171,6 +165,8 @@ export type AccountRegisterInput = {
   metadata?: InputMaybe<Array<MetadataInput>>;
   /** Password. */
   password: Scalars["String"];
+  /** Phone number. */
+  phone?: InputMaybe<Scalars["String"]>;
   /** Base of frontend URL that will be needed to create confirmation URL. */
   redirectUrl?: InputMaybe<Scalars["String"]>;
 };
@@ -215,98 +211,25 @@ export type AccountUpdate = {
 };
 
 /** Represents user address data. */
-export type Address = Node &
-  ObjectWithMetadata & {
-    __typename?: "Address";
-    city: Scalars["String"];
-    cityArea: Scalars["String"];
-    companyName: Scalars["String"];
-    /** Shop's default country. */
-    country: CountryDisplay;
-    countryArea: Scalars["String"];
-    firstName: Scalars["String"];
-    id: Scalars["ID"];
-    /** Address is user's default billing address. */
-    isDefaultBillingAddress?: Maybe<Scalars["Boolean"]>;
-    /** Address is user's default shipping address. */
-    isDefaultShippingAddress?: Maybe<Scalars["Boolean"]>;
-    lastName: Scalars["String"];
-    /**
-     * List of public metadata items. Can be accessed without permissions.
-     *
-     * Added in Saleor 3.10.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metadata: Array<MetadataItem>;
-    /**
-     * A single key from public metadata.
-     *
-     * Tip: Use GraphQL aliases to fetch multiple keys.
-     *
-     * Added in Saleor 3.10.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metafield?: Maybe<Scalars["String"]>;
-    /**
-     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-     *
-     * Added in Saleor 3.10.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metafields?: Maybe<Scalars["Metadata"]>;
-    phone?: Maybe<Scalars["String"]>;
-    postalCode: Scalars["String"];
-    /**
-     * List of private metadata items. Requires staff permissions to access.
-     *
-     * Added in Saleor 3.10.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetadata: Array<MetadataItem>;
-    /**
-     * A single key from private metadata. Requires staff permissions to access.
-     *
-     * Tip: Use GraphQL aliases to fetch multiple keys.
-     *
-     * Added in Saleor 3.10.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetafield?: Maybe<Scalars["String"]>;
-    /**
-     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-     *
-     * Added in Saleor 3.10.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetafields?: Maybe<Scalars["Metadata"]>;
-    streetAddress1: Scalars["String"];
-    streetAddress2: Scalars["String"];
-  };
-
-/** Represents user address data. */
-export type AddressMetafieldArgs = {
-  key: Scalars["String"];
-};
-
-/** Represents user address data. */
-export type AddressMetafieldsArgs = {
-  keys?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-/** Represents user address data. */
-export type AddressPrivateMetafieldArgs = {
-  key: Scalars["String"];
-};
-
-/** Represents user address data. */
-export type AddressPrivateMetafieldsArgs = {
-  keys?: InputMaybe<Array<Scalars["String"]>>;
+export type Address = Node & {
+  __typename?: "Address";
+  city: Scalars["String"];
+  cityArea: Scalars["String"];
+  companyName: Scalars["String"];
+  /** Shop's default country. */
+  country: CountryDisplay;
+  countryArea: Scalars["String"];
+  firstName: Scalars["String"];
+  id: Scalars["ID"];
+  /** Address is user's default billing address. */
+  isDefaultBillingAddress?: Maybe<Scalars["Boolean"]>;
+  /** Address is user's default shipping address. */
+  isDefaultShippingAddress?: Maybe<Scalars["Boolean"]>;
+  lastName: Scalars["String"];
+  phone?: Maybe<Scalars["String"]>;
+  postalCode: Scalars["String"];
+  streetAddress1: Scalars["String"];
+  streetAddress2: Scalars["String"];
 };
 
 /**
@@ -328,6 +251,8 @@ export type AddressCreate = {
  * Event sent when new address is created.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AddressCreated = Event & {
   __typename?: "AddressCreated";
@@ -362,6 +287,8 @@ export type AddressDelete = {
  * Event sent when address is deleted.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AddressDeleted = Event & {
   __typename?: "AddressDeleted";
@@ -438,6 +365,8 @@ export type AddressUpdate = {
  * Event sent when address is updated.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AddressUpdated = Event & {
   __typename?: "AddressUpdated";
@@ -453,7 +382,6 @@ export type AddressUpdated = Event & {
   version?: Maybe<Scalars["String"]>;
 };
 
-/** Represents address validation rules for a country. */
 export type AddressValidationData = {
   __typename?: "AddressValidationData";
   addressFormat: Scalars["String"];
@@ -515,14 +443,6 @@ export type App = Node &
     /** URL to iframe with the app. */
     appUrl?: Maybe<Scalars["String"]>;
     /**
-     * The App's author name.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    author?: Maybe<Scalars["String"]>;
-    /**
      * URL to iframe with the configuration for the app.
      * @deprecated This field will be removed in Saleor 4.0. Use `appUrl` instead.
      */
@@ -540,6 +460,8 @@ export type App = Node &
      * App's dashboard extensions.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     extensions: Array<AppExtension>;
     /** Homepage of the app. */
@@ -721,6 +643,8 @@ export type AppDeleteFailedInstallation = {
  * Event sent when app is deleted.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AppDeleted = Event & {
   __typename?: "AppDeleted";
@@ -753,7 +677,6 @@ export type AppErrorCode =
   | "FORBIDDEN"
   | "GRAPHQL_ERROR"
   | "INVALID"
-  | "INVALID_CUSTOM_HEADERS"
   | "INVALID_MANIFEST_FORMAT"
   | "INVALID_PERMISSION"
   | "INVALID_STATUS"
@@ -763,8 +686,7 @@ export type AppErrorCode =
   | "OUT_OF_SCOPE_APP"
   | "OUT_OF_SCOPE_PERMISSION"
   | "REQUIRED"
-  | "UNIQUE"
-  | "UNSUPPORTED_SALEOR_VERSION";
+  | "UNIQUE";
 
 /** Represents app data. */
 export type AppExtension = Node & {
@@ -901,6 +823,8 @@ export type AppInstallation = Job &
  * Event sent when new app is installed.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AppInstalled = Event & {
   __typename?: "AppInstalled";
@@ -928,26 +852,6 @@ export type AppManifestExtension = {
   target: AppExtensionTargetEnum;
   /** URL of a view where extension's iframe is placed. */
   url: Scalars["String"];
-};
-
-export type AppManifestRequiredSaleorVersion = {
-  __typename?: "AppManifestRequiredSaleorVersion";
-  /**
-   * Required Saleor version as semver range.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  constraint: Scalars["String"];
-  /**
-   * Informs if the Saleor version matches the required one.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  satisfied: Scalars["Boolean"];
 };
 
 export type AppManifestWebhook = {
@@ -984,7 +888,7 @@ export type AppSortField =
   | "NAME";
 
 export type AppSortingInput = {
-  /** Specifies the direction in which to sort apps. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort apps by the selected field. */
   field: AppSortField;
@@ -994,6 +898,8 @@ export type AppSortingInput = {
  * Event sent when app status has changed.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AppStatusChanged = Event & {
   __typename?: "AppStatusChanged";
@@ -1088,6 +994,8 @@ export type AppUpdate = {
  * Event sent when app is updated.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AppUpdated = Event & {
   __typename?: "AppUpdated";
@@ -1137,27 +1045,15 @@ export type AssignedVariantAttribute = {
 export type Attribute = Node &
   ObjectWithMetadata & {
     __typename?: "Attribute";
-    /**
-     * Whether the attribute can be displayed in the admin product list. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-     * @deprecated This field will be removed in Saleor 4.0.
-     */
+    /** Whether the attribute can be displayed in the admin product list. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
     availableInGrid: Scalars["Boolean"];
     /** List of attribute's values. */
     choices?: Maybe<AttributeValueCountableConnection>;
     /** The entity type which can be used as a reference. */
     entityType?: Maybe<AttributeEntityTypeEnum>;
-    /**
-     * External ID of this attribute.
-     *
-     * Added in Saleor 3.10.
-     */
-    externalReference?: Maybe<Scalars["String"]>;
     /** Whether the attribute can be filtered in dashboard. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
     filterableInDashboard: Scalars["Boolean"];
-    /**
-     * Whether the attribute can be filtered in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-     * @deprecated This field will be removed in Saleor 4.0.
-     */
+    /** Whether the attribute can be filtered in storefront. Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
     filterableInStorefront: Scalars["Boolean"];
     id: Scalars["ID"];
     /** The input type to use for entering attribute values in the dashboard. */
@@ -1208,10 +1104,7 @@ export type Attribute = Node &
     productVariantTypes: ProductTypeCountableConnection;
     /** Internal representation of an attribute name. */
     slug?: Maybe<Scalars["String"]>;
-    /**
-     * The position of the attribute in the storefront navigation (0 by default). Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
-     * @deprecated This field will be removed in Saleor 4.0.
-     */
+    /** The position of the attribute in the storefront navigation (0 by default). Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES, MANAGE_PRODUCTS, MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES. */
     storefrontSearchPosition: Scalars["Int"];
     /** Returns translated attribute fields for the given language code. */
     translation?: Maybe<AttributeTranslation>;
@@ -1299,7 +1192,7 @@ export type AttributeChoicesSortField =
   | "SLUG";
 
 export type AttributeChoicesSortingInput = {
-  /** Specifies the direction in which to sort attribute choices. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort attribute choices by the selected field. */
   field: AttributeChoicesSortField;
@@ -1332,27 +1225,13 @@ export type AttributeCreate = {
 };
 
 export type AttributeCreateInput = {
-  /**
-   * Whether the attribute can be displayed in the admin product list.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0.
-   */
+  /** Whether the attribute can be displayed in the admin product list. */
   availableInGrid?: InputMaybe<Scalars["Boolean"]>;
   /** The entity type which can be used as a reference. */
   entityType?: InputMaybe<AttributeEntityTypeEnum>;
-  /**
-   * External ID of this attribute.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** Whether the attribute can be filtered in dashboard. */
   filterableInDashboard?: InputMaybe<Scalars["Boolean"]>;
-  /**
-   * Whether the attribute can be filtered in storefront.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0.
-   */
+  /** Whether the attribute can be filtered in storefront. */
   filterableInStorefront?: InputMaybe<Scalars["Boolean"]>;
   /** The input type to use for entering attribute values in the dashboard. */
   inputType?: InputMaybe<AttributeInputTypeEnum>;
@@ -1362,11 +1241,7 @@ export type AttributeCreateInput = {
   name: Scalars["String"];
   /** Internal representation of an attribute name. */
   slug?: InputMaybe<Scalars["String"]>;
-  /**
-   * The position of the attribute in the storefront navigation (0 by default).
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0.
-   */
+  /** The position of the attribute in the storefront navigation (0 by default). */
   storefrontSearchPosition?: InputMaybe<Scalars["Int"]>;
   /** The attribute type. */
   type: AttributeTypeEnum;
@@ -1384,6 +1259,8 @@ export type AttributeCreateInput = {
  * Event sent when new attribute is created.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AttributeCreated = Event & {
   __typename?: "AttributeCreated";
@@ -1416,6 +1293,8 @@ export type AttributeDelete = {
  * Event sent when attribute is deleted.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AttributeDeleted = Event & {
   __typename?: "AttributeDeleted";
@@ -1433,13 +1312,6 @@ export type AttributeDeleted = Event & {
 
 /** An enumeration. */
 export type AttributeEntityTypeEnum = "PAGE" | "PRODUCT" | "PRODUCT_VARIANT";
-
-export type AttributeEntityTypeEnumFilterInput = {
-  /** The value equal to. */
-  eq?: InputMaybe<AttributeEntityTypeEnum>;
-  /** The value included in. */
-  oneOf?: InputMaybe<Array<AttributeEntityTypeEnum>>;
-};
 
 export type AttributeError = {
   __typename?: "AttributeError";
@@ -1511,13 +1383,6 @@ export type AttributeInputTypeEnum =
   | "RICH_TEXT"
   | "SWATCH";
 
-export type AttributeInputTypeEnumFilterInput = {
-  /** The value equal to. */
-  eq?: InputMaybe<AttributeInputTypeEnum>;
-  /** The value included in. */
-  oneOf?: InputMaybe<Array<AttributeInputTypeEnum>>;
-};
-
 /**
  * Reorder the values of an attribute.
  *
@@ -1553,7 +1418,7 @@ export type AttributeSortField =
   | "VISIBLE_IN_STOREFRONT";
 
 export type AttributeSortingInput = {
-  /** Specifies the direction in which to sort attributes. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort attributes by the selected field. */
   field: AttributeSortField;
@@ -1600,13 +1465,6 @@ export type AttributeTranslation = Node & {
 /** An enumeration. */
 export type AttributeTypeEnum = "PAGE_TYPE" | "PRODUCT_TYPE";
 
-export type AttributeTypeEnumFilterInput = {
-  /** The value equal to. */
-  eq?: InputMaybe<AttributeTypeEnum>;
-  /** The value included in. */
-  oneOf?: InputMaybe<Array<AttributeTypeEnum>>;
-};
-
 /**
  * Updates attribute.
  *
@@ -1623,25 +1481,11 @@ export type AttributeUpdate = {
 export type AttributeUpdateInput = {
   /** New values to be created for this attribute. */
   addValues?: InputMaybe<Array<AttributeValueUpdateInput>>;
-  /**
-   * Whether the attribute can be displayed in the admin product list.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0.
-   */
+  /** Whether the attribute can be displayed in the admin product list. */
   availableInGrid?: InputMaybe<Scalars["Boolean"]>;
-  /**
-   * External ID of this product.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** Whether the attribute can be filtered in dashboard. */
   filterableInDashboard?: InputMaybe<Scalars["Boolean"]>;
-  /**
-   * Whether the attribute can be filtered in storefront.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0.
-   */
+  /** Whether the attribute can be filtered in storefront. */
   filterableInStorefront?: InputMaybe<Scalars["Boolean"]>;
   /** Whether the attribute is for variants only. */
   isVariantOnly?: InputMaybe<Scalars["Boolean"]>;
@@ -1651,11 +1495,7 @@ export type AttributeUpdateInput = {
   removeValues?: InputMaybe<Array<Scalars["ID"]>>;
   /** Internal representation of an attribute name. */
   slug?: InputMaybe<Scalars["String"]>;
-  /**
-   * The position of the attribute in the storefront navigation (0 by default).
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0.
-   */
+  /** The position of the attribute in the storefront navigation (0 by default). */
   storefrontSearchPosition?: InputMaybe<Scalars["Int"]>;
   /** The unit of attribute values. */
   unit?: InputMaybe<MeasurementUnitsEnum>;
@@ -1669,6 +1509,8 @@ export type AttributeUpdateInput = {
  * Event sent when attribute is updated.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AttributeUpdated = Event & {
   __typename?: "AttributeUpdated";
@@ -1693,12 +1535,6 @@ export type AttributeValue = Node & {
   date?: Maybe<Scalars["Date"]>;
   /** Represents the date/time value of the attribute value. */
   dateTime?: Maybe<Scalars["DateTime"]>;
-  /**
-   * External ID of this attribute value.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: Maybe<Scalars["String"]>;
   /** Represents file URL and content type (if attribute value is a file). */
   file?: Maybe<File>;
   id: Scalars["ID"];
@@ -1778,12 +1614,6 @@ export type AttributeValueCreate = {
 export type AttributeValueCreateInput = {
   /** File content type. */
   contentType?: InputMaybe<Scalars["String"]>;
-  /**
-   * External ID of this attribute value.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** URL of the file attribute. Every time, a new value is created. */
   fileUrl?: InputMaybe<Scalars["String"]>;
   /** Name of a value displayed in the interface. */
@@ -1810,6 +1640,8 @@ export type AttributeValueCreateInput = {
  * Event sent when new attribute value is created.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AttributeValueCreated = Event & {
   __typename?: "AttributeValueCreated";
@@ -1844,6 +1676,8 @@ export type AttributeValueDelete = {
  * Event sent when attribute value is deleted.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AttributeValueDeleted = Event & {
   __typename?: "AttributeValueDeleted";
@@ -1873,64 +1707,22 @@ export type AttributeValueInput = {
   date?: InputMaybe<Scalars["Date"]>;
   /** Represents the date/time value of the attribute value. */
   dateTime?: InputMaybe<Scalars["DateTime"]>;
-  /**
-   * Attribute value ID.
-   *
-   * Added in Saleor 3.9.
-   */
-  dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
   /** URL of the file attribute. Every time, a new value is created. */
   file?: InputMaybe<Scalars["String"]>;
   /** ID of the selected attribute. */
   id?: InputMaybe<Scalars["ID"]>;
-  /**
-   * List of attribute value IDs.
-   *
-   * Added in Saleor 3.9.
-   */
-  multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
-  /**
-   * Numeric value of an attribute.
-   *
-   * Added in Saleor 3.9.
-   */
-  numeric?: InputMaybe<Scalars["String"]>;
   /** Plain text content. */
   plainText?: InputMaybe<Scalars["String"]>;
   /** List of entity IDs that will be used as references. */
   references?: InputMaybe<Array<Scalars["ID"]>>;
   /** Text content in JSON format. */
   richText?: InputMaybe<Scalars["JSONString"]>;
-  /**
-   * Attribute value ID.
-   *
-   * Added in Saleor 3.9.
-   */
-  swatch?: InputMaybe<AttributeValueSelectableTypeInput>;
-  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. This field will be removed in Saleor 4.0. */
-  values?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-/**
- * Represents attribute value. If no ID provided, value will be resolved.
- *
- * Added in Saleor 3.9.
- */
-export type AttributeValueSelectableTypeInput = {
-  /** ID of an attribute value. */
-  id?: InputMaybe<Scalars["ID"]>;
   /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. */
-  value?: InputMaybe<Scalars["String"]>;
+  values?: InputMaybe<Array<Scalars["String"]>>;
 };
 
 export type AttributeValueTranslatableContent = Node & {
   __typename?: "AttributeValueTranslatableContent";
-  /**
-   * Associated attribute that can be translated.
-   *
-   * Added in Saleor 3.9.
-   */
-  attribute?: Maybe<AttributeTranslatableContent>;
   /**
    * Represents a value of an attribute.
    * @deprecated This field will be removed in Saleor 4.0. Get model fields from the root level queries.
@@ -2013,12 +1805,6 @@ export type AttributeValueUpdate = {
 export type AttributeValueUpdateInput = {
   /** File content type. */
   contentType?: InputMaybe<Scalars["String"]>;
-  /**
-   * External ID of this attribute value.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** URL of the file attribute. Every time, a new value is created. */
   fileUrl?: InputMaybe<Scalars["String"]>;
   /** Name of a value displayed in the interface. */
@@ -2045,6 +1831,8 @@ export type AttributeValueUpdateInput = {
  * Event sent when attribute value is updated.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type AttributeValueUpdated = Event & {
   __typename?: "AttributeValueUpdated";
@@ -2060,106 +1848,12 @@ export type AttributeValueUpdated = Event & {
   version?: Maybe<Scalars["String"]>;
 };
 
-/**
- * Where filtering options.
- *
- * Added in Saleor 3.11.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type AttributeWhereInput = {
-  /** List of conditions that must be met. */
-  AND?: InputMaybe<Array<AttributeWhereInput>>;
-  /** A list of conditions of which at least one must be met. */
-  OR?: InputMaybe<Array<AttributeWhereInput>>;
-  entityType?: InputMaybe<AttributeEntityTypeEnumFilterInput>;
-  filterableInDashboard?: InputMaybe<Scalars["Boolean"]>;
-  ids?: InputMaybe<Array<Scalars["ID"]>>;
-  inCategory?: InputMaybe<Scalars["ID"]>;
-  inCollection?: InputMaybe<Scalars["ID"]>;
-  inputType?: InputMaybe<AttributeInputTypeEnumFilterInput>;
-  metadata?: InputMaybe<Array<MetadataFilter>>;
-  name?: InputMaybe<StringFilterInput>;
-  slug?: InputMaybe<StringFilterInput>;
-  type?: InputMaybe<AttributeTypeEnumFilterInput>;
-  unit?: InputMaybe<MeasurementUnitsEnumFilterInput>;
-  valueRequired?: InputMaybe<Scalars["Boolean"]>;
-  visibleInStorefront?: InputMaybe<Scalars["Boolean"]>;
-  withChoices?: InputMaybe<Scalars["Boolean"]>;
-};
-
 export type BulkAttributeValueInput = {
   /** The boolean value of an attribute to resolve. If the passed value is non-existent, it will be created. */
   boolean?: InputMaybe<Scalars["Boolean"]>;
-  /**
-   * File content type.
-   *
-   * Added in Saleor 3.12.
-   */
-  contentType?: InputMaybe<Scalars["String"]>;
-  /**
-   * Represents the date value of the attribute value.
-   *
-   * Added in Saleor 3.12.
-   */
-  date?: InputMaybe<Scalars["Date"]>;
-  /**
-   * Represents the date/time value of the attribute value.
-   *
-   * Added in Saleor 3.12.
-   */
-  dateTime?: InputMaybe<Scalars["DateTime"]>;
-  /**
-   * Attribute value ID.
-   *
-   * Added in Saleor 3.12.
-   */
-  dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
-  /**
-   * URL of the file attribute. Every time, a new value is created.
-   *
-   * Added in Saleor 3.12.
-   */
-  file?: InputMaybe<Scalars["String"]>;
   /** ID of the selected attribute. */
   id?: InputMaybe<Scalars["ID"]>;
-  /**
-   * List of attribute value IDs.
-   *
-   * Added in Saleor 3.12.
-   */
-  multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
-  /**
-   * Numeric value of an attribute.
-   *
-   * Added in Saleor 3.12.
-   */
-  numeric?: InputMaybe<Scalars["String"]>;
-  /**
-   * Plain text content.
-   *
-   * Added in Saleor 3.12.
-   */
-  plainText?: InputMaybe<Scalars["String"]>;
-  /**
-   * List of entity IDs that will be used as references.
-   *
-   * Added in Saleor 3.12.
-   */
-  references?: InputMaybe<Array<Scalars["ID"]>>;
-  /**
-   * Text content in JSON format.
-   *
-   * Added in Saleor 3.12.
-   */
-  richText?: InputMaybe<Scalars["JSONString"]>;
-  /**
-   * Attribute value ID.
-   *
-   * Added in Saleor 3.12.
-   */
-  swatch?: InputMaybe<AttributeValueSelectableTypeInput>;
-  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created.This field will be removed in Saleor 4.0. */
+  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. */
   values?: InputMaybe<Array<Scalars["String"]>>;
 };
 
@@ -2203,6 +1897,8 @@ export type BulkStockError = {
  * Synchronous webhook for calculating checkout/order taxes.
  *
  * Added in Saleor 3.7.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CalculateTaxes = Event & {
   __typename?: "CalculateTaxes";
@@ -2363,10 +2059,8 @@ export type CategoryProductsArgs = {
   after?: InputMaybe<Scalars["String"]>;
   before?: InputMaybe<Scalars["String"]>;
   channel?: InputMaybe<Scalars["String"]>;
-  filter?: InputMaybe<ProductFilterInput>;
   first?: InputMaybe<Scalars["Int"]>;
   last?: InputMaybe<Scalars["Int"]>;
-  sortBy?: InputMaybe<ProductOrder>;
 };
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
@@ -2422,6 +2116,8 @@ export type CategoryCreate = {
  * Event sent when new category is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CategoryCreated = Event & {
   __typename?: "CategoryCreated";
@@ -2454,6 +2150,8 @@ export type CategoryDelete = {
  * Event sent when category is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CategoryDeleted = Event & {
   __typename?: "CategoryDeleted";
@@ -2522,7 +2220,7 @@ export type CategorySortingInput = {
    * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
    */
   channel?: InputMaybe<Scalars["String"]>;
-  /** Specifies the direction in which to sort categories. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort categories by the selected field. */
   field: CategorySortField;
@@ -2613,6 +2311,8 @@ export type CategoryUpdate = {
  * Event sent when category is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CategoryUpdated = Event & {
   __typename?: "CategoryUpdated";
@@ -2635,12 +2335,16 @@ export type Channel = Node & {
    * Shipping methods that are available for the channel.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   availableShippingMethodsPerCountry?: Maybe<Array<ShippingMethodsPerCountry>>;
   /**
    * List of shippable countries for the channel.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   countries?: Maybe<Array<CountryDisplay>>;
   /**
@@ -2676,20 +2380,14 @@ export type Channel = Node & {
    * Requires one of the following permissions: AUTHENTICATED_APP, AUTHENTICATED_STAFF_USER.
    */
   name: Scalars["String"];
-  /**
-   * Channel-specific order settings.
-   *
-   * Added in Saleor 3.12.
-   *
-   * Requires one of the following permissions: MANAGE_CHANNELS, MANAGE_ORDERS.
-   */
-  orderSettings: OrderSettings;
   /** Slug of the channel. */
   slug: Scalars["String"];
   /**
    * Define the stock setting for this channel.
    *
    * Added in Saleor 3.7.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: AUTHENTICATED_APP, AUTHENTICATED_STAFF_USER.
    */
@@ -2698,6 +2396,8 @@ export type Channel = Node & {
    * List of warehouses assigned to this channel.
    *
    * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: AUTHENTICATED_APP, AUTHENTICATED_STAFF_USER.
    */
@@ -2743,6 +2443,8 @@ export type ChannelCreateInput = {
    * List of warehouses to assign to the channel.
    *
    * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   addWarehouses?: InputMaybe<Array<Scalars["ID"]>>;
   /** Currency of the channel. */
@@ -2751,24 +2453,22 @@ export type ChannelCreateInput = {
    * Default country for the channel. Default country can be used in checkout to determine the stock quantities or calculate taxes when the country was not explicitly provided.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   defaultCountry: CountryCode;
   /** isActive flag. */
   isActive?: InputMaybe<Scalars["Boolean"]>;
   /** Name of the channel. */
   name: Scalars["String"];
-  /**
-   * The channel order settings
-   *
-   * Added in Saleor 3.12.
-   */
-  orderSettings?: InputMaybe<OrderSettingsInput>;
   /** Slug of the channel. */
   slug: Scalars["String"];
   /**
    * The channel stock settings.
    *
    * Added in Saleor 3.7.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   stockSettings?: InputMaybe<StockSettingsInput>;
 };
@@ -2777,6 +2477,8 @@ export type ChannelCreateInput = {
  * Event sent when new channel is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ChannelCreated = Event & {
   __typename?: "ChannelCreated";
@@ -2828,6 +2530,8 @@ export type ChannelDeleteInput = {
  * Event sent when channel is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ChannelDeleted = Event & {
   __typename?: "ChannelDeleted";
@@ -2869,21 +2573,12 @@ export type ChannelErrorCode =
   | "REQUIRED"
   | "UNIQUE";
 
-export type ChannelListingUpdateInput = {
-  /** ID of a channel listing. */
-  channelListing: Scalars["ID"];
-  /** Cost price of the variant in channel. */
-  costPrice?: InputMaybe<Scalars["PositiveDecimal"]>;
-  /** The threshold for preorder variant in channel. */
-  preorderThreshold?: InputMaybe<Scalars["Int"]>;
-  /** Price of the particular variant in channel. */
-  price?: InputMaybe<Scalars["PositiveDecimal"]>;
-};
-
 /**
  * Reorder the warehouses of a channel.
  *
  * Added in Saleor 3.7.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
  * Requires one of the following permissions: MANAGE_CHANNELS.
  */
@@ -2898,6 +2593,8 @@ export type ChannelReorderWarehouses = {
  * Event sent when channel status has changed.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ChannelStatusChanged = Event & {
   __typename?: "ChannelStatusChanged";
@@ -2917,7 +2614,6 @@ export type ChannelStatusChanged = Event & {
  * Update a channel.
  *
  * Requires one of the following permissions: MANAGE_CHANNELS.
- * Requires one of the following permissions when updating only orderSettings field: MANAGE_CHANNELS, MANAGE_ORDERS.
  */
 export type ChannelUpdate = {
   __typename?: "ChannelUpdate";
@@ -2934,6 +2630,8 @@ export type ChannelUpdateInput = {
    * List of warehouses to assign to the channel.
    *
    * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   addWarehouses?: InputMaybe<Array<Scalars["ID"]>>;
   /**
@@ -2946,18 +2644,14 @@ export type ChannelUpdateInput = {
   isActive?: InputMaybe<Scalars["Boolean"]>;
   /** Name of the channel. */
   name?: InputMaybe<Scalars["String"]>;
-  /**
-   * The channel order settings
-   *
-   * Added in Saleor 3.12.
-   */
-  orderSettings?: InputMaybe<OrderSettingsInput>;
   /** List of shipping zones to unassign from the channel. */
   removeShippingZones?: InputMaybe<Array<Scalars["ID"]>>;
   /**
    * List of warehouses to unassign from the channel.
    *
    * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   removeWarehouses?: InputMaybe<Array<Scalars["ID"]>>;
   /** Slug of the channel. */
@@ -2966,6 +2660,8 @@ export type ChannelUpdateInput = {
    * The channel stock settings.
    *
    * Added in Saleor 3.7.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   stockSettings?: InputMaybe<StockSettingsInput>;
 };
@@ -2974,6 +2670,8 @@ export type ChannelUpdateInput = {
  * Event sent when channel is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ChannelUpdated = Event & {
   __typename?: "ChannelUpdated";
@@ -2994,17 +2692,11 @@ export type Checkout = Node &
   ObjectWithMetadata & {
     __typename?: "Checkout";
     /**
-     * The authorize status of the checkout.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    authorizeStatus: CheckoutAuthorizeStatusEnum;
-    /**
      * Collection points that can be used for this order.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     availableCollectionPoints: Array<Warehouse>;
     /** List of available payment gateways. */
@@ -3016,29 +2708,17 @@ export type Checkout = Node &
     availableShippingMethods: Array<ShippingMethod>;
     billingAddress?: Maybe<Address>;
     channel: Channel;
-    /**
-     * The charge status of the checkout.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    chargeStatus: CheckoutChargeStatusEnum;
     created: Scalars["DateTime"];
     /**
      * The delivery method selected for this checkout.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     deliveryMethod?: Maybe<DeliveryMethod>;
     discount?: Maybe<Money>;
     discountName?: Maybe<Scalars["String"]>;
-    /**
-     * Determines whether checkout prices should include taxes when displayed in a storefront.
-     *
-     * Added in Saleor 3.9.
-     */
-    displayGrossPrices: Scalars["Boolean"];
     /** Email of a customer. */
     email?: Maybe<Scalars["String"]>;
     /** List of gift cards associated with this checkout. */
@@ -3048,7 +2728,6 @@ export type Checkout = Node &
     isShippingRequired: Scalars["Boolean"];
     /** Checkout language code. */
     languageCode: LanguageCodeEnum;
-    /** @deprecated This field will be removed in Saleor 4.0. Use `updatedAt` instead. */
     lastChange: Scalars["DateTime"];
     /** A list of checkout lines, each containing information about an item in the checkout. */
     lines: Array<CheckoutLine>;
@@ -3117,18 +2796,12 @@ export type Checkout = Node &
      * Returns True if checkout has to be exempt from taxes.
      *
      * Added in Saleor 3.8.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     taxExemption: Scalars["Boolean"];
     /** The checkout's token. */
     token: Scalars["UUID"];
-    /**
-     * The difference between the paid and the checkout total amount.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    totalBalance: Money;
     /** The sum of the the checkout line prices, with all the taxes,shipping costs, and discounts included. */
     totalPrice: TaxedMoney;
     /**
@@ -3140,12 +2813,6 @@ export type Checkout = Node &
      */
     transactions?: Maybe<Array<TransactionItem>>;
     translatedDiscountName?: Maybe<Scalars["String"]>;
-    /**
-     * Time of last modification of the given checkout.
-     *
-     * Added in Saleor 3.13.
-     */
-    updatedAt: Scalars["DateTime"];
     user?: Maybe<User>;
     voucherCode?: Maybe<Scalars["String"]>;
   };
@@ -3189,23 +2856,6 @@ export type CheckoutAddressValidationRules = {
   enableFieldsNormalization?: InputMaybe<Scalars["Boolean"]>;
 };
 
-/**
- * Determine a current authorize status for checkout.
- *
- *     We treat the checkout as fully authorized when the sum of authorized and charged
- *     funds cover the checkout.total.
- *     We treat the checkout as partially authorized when the sum of authorized and charged
- *     funds covers only part of the checkout.total
- *     We treat the checkout as not authorized when the sum of authorized and charged funds
- *     is 0.
- *
- *     NONE - the funds are not authorized
- *     PARTIAL - the cover funds don't cover fully the checkout's total
- *     FULL - the cover funds covers the checkout's total
- *
- */
-export type CheckoutAuthorizeStatusEnum = "FULL" | "NONE" | "PARTIAL";
-
 /** Update billing address in the existing checkout. */
 export type CheckoutBillingAddressUpdate = {
   __typename?: "CheckoutBillingAddressUpdate";
@@ -3215,25 +2865,6 @@ export type CheckoutBillingAddressUpdate = {
   checkoutErrors: Array<CheckoutError>;
   errors: Array<CheckoutError>;
 };
-
-/**
- * Determine the current charge status for the checkout.
- *
- *     The checkout is considered overcharged when the sum of the transactionItem's charge
- *     amounts exceeds the value of `checkout.total`.
- *     If the sum of the transactionItem's charge amounts equals
- *     `checkout.total`, we consider the checkout to be fully charged.
- *     If the sum of the transactionItem's charge amounts covers a part of the
- *     `checkout.total`, we treat the checkout as partially charged.
- *
- *
- *     NONE - the funds are not charged.
- *     PARTIAL - the funds that are charged don't cover the checkout's total
- *     FULL - the funds that are charged fully cover the checkout's total
- *     OVERCHARGED - the charged funds are bigger than checkout's total
- *
- */
-export type CheckoutChargeStatusEnum = "FULL" | "NONE" | "OVERCHARGED" | "PARTIAL";
 
 /** Completes the checkout. As a result a new order is created and a payment charge is made. This action requires a successful payment before it can be performed. In case additional confirmation step as 3D secure is required confirmationNeeded flag will be set to True and no order created until payment is confirmed with second call of this mutation. */
 export type CheckoutComplete = {
@@ -3297,6 +2928,8 @@ export type CheckoutCreateInput = {
    * The checkout validation rules that can be changed.
    *
    * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   validationRules?: InputMaybe<CheckoutValidationRules>;
 };
@@ -3305,6 +2938,8 @@ export type CheckoutCreateInput = {
  * Event sent when new checkout is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CheckoutCreated = Event & {
   __typename?: "CheckoutCreated";
@@ -3352,6 +2987,8 @@ export type CheckoutCustomerDetach = {
  * Updates the delivery method (shipping method or pick up point) of the checkout.
  *
  * Added in Saleor 3.1.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CheckoutDeliveryMethodUpdate = {
   __typename?: "CheckoutDeliveryMethodUpdate";
@@ -3418,20 +3055,19 @@ export type CheckoutErrorCode =
   | "ZERO_QUANTITY";
 
 export type CheckoutFilterInput = {
-  authorizeStatus?: InputMaybe<Array<CheckoutAuthorizeStatusEnum>>;
   channels?: InputMaybe<Array<Scalars["ID"]>>;
-  chargeStatus?: InputMaybe<Array<CheckoutChargeStatusEnum>>;
   created?: InputMaybe<DateRangeInput>;
   customer?: InputMaybe<Scalars["String"]>;
   metadata?: InputMaybe<Array<MetadataFilter>>;
   search?: InputMaybe<Scalars["String"]>;
-  updatedAt?: InputMaybe<DateRangeInput>;
 };
 
 /**
  * Filter shipping methods for checkout.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CheckoutFilterShippingMethods = Event & {
   __typename?: "CheckoutFilterShippingMethods";
@@ -3447,29 +3083,10 @@ export type CheckoutFilterShippingMethods = Event & {
    * Shipping methods that can be used with this checkout.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingMethods?: Maybe<Array<ShippingMethod>>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
-/**
- * Event sent when checkout is fully paid with transactions.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type CheckoutFullyPaid = Event & {
-  __typename?: "CheckoutFullyPaid";
-  /** The checkout the event relates to. */
-  checkout?: Maybe<Checkout>;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
 };
@@ -3489,20 +3106,14 @@ export type CheckoutLine = Node &
   ObjectWithMetadata & {
     __typename?: "CheckoutLine";
     id: Scalars["ID"];
-    /**
-     * List of public metadata items. Can be accessed without permissions.
-     *
-     * Added in Saleor 3.5.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
+    /** List of public metadata items. Can be accessed without permissions. */
     metadata: Array<MetadataItem>;
     /**
      * A single key from public metadata.
      *
      * Tip: Use GraphQL aliases to fetch multiple keys.
      *
-     * Added in Saleor 3.5.
+     * Added in Saleor 3.3.
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
@@ -3510,25 +3121,19 @@ export type CheckoutLine = Node &
     /**
      * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
      *
-     * Added in Saleor 3.5.
+     * Added in Saleor 3.3.
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     metafields?: Maybe<Scalars["Metadata"]>;
-    /**
-     * List of private metadata items. Requires staff permissions to access.
-     *
-     * Added in Saleor 3.5.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
+    /** List of private metadata items. Requires staff permissions to access. */
     privateMetadata: Array<MetadataItem>;
     /**
      * A single key from private metadata. Requires staff permissions to access.
      *
      * Tip: Use GraphQL aliases to fetch multiple keys.
      *
-     * Added in Saleor 3.5.
+     * Added in Saleor 3.3.
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
@@ -3536,7 +3141,7 @@ export type CheckoutLine = Node &
     /**
      * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
      *
-     * Added in Saleor 3.5.
+     * Added in Saleor 3.3.
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
@@ -3607,6 +3212,8 @@ export type CheckoutLineInput = {
    * Flag that allow force splitting the same variant into multiple lines by skipping the matching logic.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   forceNewLine?: InputMaybe<Scalars["Boolean"]>;
   /**
@@ -3619,6 +3226,8 @@ export type CheckoutLineInput = {
    * Custom price of the item. Can be set only by apps with `HANDLE_CHECKOUTS` permission. When the line with the same variant will be provided multiple times, the last price will be used.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   price?: InputMaybe<Scalars["PositiveDecimal"]>;
   /** The number of items purchased. */
@@ -3638,6 +3247,8 @@ export type CheckoutLineUpdateInput = {
    * Custom price of the item. Can be set only by apps with `HANDLE_CHECKOUTS` permission. When the line with the same variant will be provided multiple times, the last price will be used.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   price?: InputMaybe<Scalars["PositiveDecimal"]>;
   /** The number of items purchased. Optional for apps, required for any other users. */
@@ -3682,6 +3293,8 @@ export type CheckoutLinesUpdate = {
  * Event sent when checkout metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CheckoutMetadataUpdated = Event & {
   __typename?: "CheckoutMetadataUpdated";
@@ -3748,7 +3361,7 @@ export type CheckoutSortField =
   | "PAYMENT";
 
 export type CheckoutSortingInput = {
-  /** Specifies the direction in which to sort checkouts. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort checkouts by the selected field. */
   field: CheckoutSortField;
@@ -3758,6 +3371,8 @@ export type CheckoutSortingInput = {
  * Event sent when checkout is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CheckoutUpdated = Event & {
   __typename?: "CheckoutUpdated";
@@ -4060,6 +3675,8 @@ export type CollectionCreateInput = {
  * Event sent when new collection is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CollectionCreated = Event & {
   __typename?: "CollectionCreated";
@@ -4079,6 +3696,8 @@ export type CollectionCreated = Event & {
  * Event sent when new collection is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CollectionCreatedCollectionArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -4101,6 +3720,8 @@ export type CollectionDelete = {
  * Event sent when collection is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CollectionDeleted = Event & {
   __typename?: "CollectionDeleted";
@@ -4120,6 +3741,8 @@ export type CollectionDeleted = Event & {
  * Event sent when collection is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CollectionDeletedCollectionArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -4204,6 +3827,8 @@ export type CollectionInput = {
  * Event sent when collection metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CollectionMetadataUpdated = Event & {
   __typename?: "CollectionMetadataUpdated";
@@ -4223,6 +3848,8 @@ export type CollectionMetadataUpdated = Event & {
  * Event sent when collection metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CollectionMetadataUpdatedCollectionArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -4289,7 +3916,7 @@ export type CollectionSortingInput = {
    * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
    */
   channel?: InputMaybe<Scalars["String"]>;
-  /** Specifies the direction in which to sort collections. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort collections by the selected field. */
   field: CollectionSortField;
@@ -4380,6 +4007,8 @@ export type CollectionUpdate = {
  * Event sent when collection is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CollectionUpdated = Event & {
   __typename?: "CollectionUpdated";
@@ -4399,6 +4028,8 @@ export type CollectionUpdated = Event & {
  * Event sent when collection is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CollectionUpdatedCollectionArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -4719,30 +4350,13 @@ export type CountryDisplay = {
   code: Scalars["String"];
   /** Country name. */
   country: Scalars["String"];
-  /**
-   * Country tax.
-   * @deprecated This field will be removed in Saleor 4.0. Use `TaxClassCountryRate` type to manage tax rates per country.
-   */
+  /** Country tax. */
   vat?: Maybe<Vat>;
 };
 
 export type CountryFilterInput = {
   /** Boolean for filtering countries by having shipping zone assigned.If 'true', return countries with shipping zone assigned.If 'false', return countries without any shipping zone assigned.If the argument is not provided (null), return all countries. */
   attachedToShippingZones?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type CountryRateInput = {
-  /** Country in which this rate applies. */
-  countryCode: CountryCode;
-  /** Tax rate value provided as percentage. Example: provide `23` to represent `23%` tax rate. */
-  rate: Scalars["Float"];
-};
-
-export type CountryRateUpdateInput = {
-  /** Country in which this rate applies. */
-  countryCode: CountryCode;
-  /** Tax rate value provided as percentage. Example: provide `23` to represent `23%` tax rate. Provide `null` to remove the particular rate. */
-  rate?: InputMaybe<Scalars["Float"]>;
 };
 
 /** Create JWT token. */
@@ -4789,62 +4403,6 @@ export type CustomerBulkDelete = {
   errors: Array<AccountError>;
 };
 
-export type CustomerBulkResult = {
-  __typename?: "CustomerBulkResult";
-  /** Customer data. */
-  customer?: Maybe<User>;
-  /** List of errors that occurred during the update attempt. */
-  errors?: Maybe<Array<CustomerBulkUpdateError>>;
-};
-
-/**
- * Updates customers.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: MANAGE_USERS.
- */
-export type CustomerBulkUpdate = {
-  __typename?: "CustomerBulkUpdate";
-  /** Returns how many objects were created. */
-  count: Scalars["Int"];
-  errors: Array<CustomerBulkUpdateError>;
-  /** List of the updated customers. */
-  results: Array<CustomerBulkResult>;
-};
-
-export type CustomerBulkUpdateError = {
-  __typename?: "CustomerBulkUpdateError";
-  /** The error code. */
-  code: CustomerBulkUpdateErrorCode;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-  /** Path to field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  path?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type CustomerBulkUpdateErrorCode =
-  | "BLANK"
-  | "DUPLICATED_INPUT_ITEM"
-  | "GRAPHQL_ERROR"
-  | "INVALID"
-  | "MAX_LENGTH"
-  | "NOT_FOUND"
-  | "REQUIRED"
-  | "UNIQUE";
-
-export type CustomerBulkUpdateInput = {
-  /** External ID of a customer to update. */
-  externalReference?: InputMaybe<Scalars["String"]>;
-  /** ID of a customer to update. */
-  id?: InputMaybe<Scalars["ID"]>;
-  /** Fields required to update a customer. */
-  input: CustomerInput;
-};
-
 /**
  * Creates a new customer.
  *
@@ -4862,6 +4420,8 @@ export type CustomerCreate = {
  * Event sent when new customer user is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CustomerCreated = Event & {
   __typename?: "CustomerCreated";
@@ -4952,12 +4512,6 @@ export type CustomerInput = {
   defaultShippingAddress?: InputMaybe<AddressInput>;
   /** The unique email address of the user. */
   email?: InputMaybe<Scalars["String"]>;
-  /**
-   * External ID of the customer.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** Given name. */
   firstName?: InputMaybe<Scalars["String"]>;
   /** User account is active. */
@@ -4974,6 +4528,8 @@ export type CustomerInput = {
  * Event sent when customer user metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CustomerMetadataUpdated = Event & {
   __typename?: "CustomerMetadataUpdated";
@@ -5006,6 +4562,8 @@ export type CustomerUpdate = {
  * Event sent when customer user is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type CustomerUpdated = Event & {
   __typename?: "CustomerUpdated";
@@ -5069,6 +4627,8 @@ export type DeletePrivateMetadata = {
  * Represents a delivery method chosen for the checkout. `Warehouse` type is used when checkout is marked as "click and collect" and `ShippingMethod` otherwise.
  *
  * Added in Saleor 3.1.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type DeliveryMethod = ShippingMethod | Warehouse;
 
@@ -5372,12 +4932,6 @@ export type DraftOrderCreateInput = {
   customerNote?: InputMaybe<Scalars["String"]>;
   /** Discount amount for the order. */
   discount?: InputMaybe<Scalars["PositiveDecimal"]>;
-  /**
-   * External ID of this order.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** Variant line input consisting of variant ID and quantity of products. */
   lines?: InputMaybe<Array<OrderLineCreateInput>>;
   /** URL of a view where users should be redirected to see the order details. URL in RFC 1808 format. */
@@ -5398,6 +4952,8 @@ export type DraftOrderCreateInput = {
  * Event sent when new draft order is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type DraftOrderCreated = Event & {
   __typename?: "DraftOrderCreated";
@@ -5430,6 +4986,8 @@ export type DraftOrderDelete = {
  * Event sent when draft order is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type DraftOrderDeleted = Event & {
   __typename?: "DraftOrderDeleted";
@@ -5454,12 +5012,6 @@ export type DraftOrderInput = {
   customerNote?: InputMaybe<Scalars["String"]>;
   /** Discount amount for the order. */
   discount?: InputMaybe<Scalars["PositiveDecimal"]>;
-  /**
-   * External ID of this order.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** URL of a view where users should be redirected to see the order details. URL in RFC 1808 format. */
   redirectUrl?: InputMaybe<Scalars["String"]>;
   /** Shipping address of the customer. */
@@ -5505,6 +5057,8 @@ export type DraftOrderUpdate = {
  * Event sent when draft order is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type DraftOrderUpdated = Event & {
   __typename?: "DraftOrderUpdated";
@@ -5519,14 +5073,6 @@ export type DraftOrderUpdated = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
 };
-
-export type ErrorPolicyEnum =
-  /** Save what is possible within a single row. If there are errors in an input data row, try to save it partially and skip the invalid part. */
-  | "IGNORE_FAILED"
-  /** Reject all rows if there is at least one error in any of them. */
-  | "REJECT_EVERYTHING"
-  /** Reject rows with errors. */
-  | "REJECT_FAILED_ROWS";
 
 export type Event = {
   /** Time of the event. */
@@ -5607,7 +5153,7 @@ export type EventDeliveryAttemptSortField =
   "CREATED_AT";
 
 export type EventDeliveryAttemptSortingInput = {
-  /** Specifies the direction in which to sort attempts. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort attempts by the selected field. */
   field: EventDeliveryAttemptSortField;
@@ -5652,7 +5198,7 @@ export type EventDeliverySortField =
   "CREATED_AT";
 
 export type EventDeliverySortingInput = {
-  /** Specifies the direction in which to sort deliveries. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort deliveries by the selected field. */
   field: EventDeliverySortField;
@@ -5748,7 +5294,7 @@ export type ExportFileFilterInput = {
 export type ExportFileSortField = "CREATED_AT" | "LAST_MODIFIED_AT" | "STATUS" | "UPDATED_AT";
 
 export type ExportFileSortingInput = {
-  /** Specifies the direction in which to sort export file. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort export file by the selected field. */
   field: ExportFileSortField;
@@ -5758,6 +5304,8 @@ export type ExportFileSortingInput = {
  * Export gift cards to csv file.
  *
  * Added in Saleor 3.1.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  */
@@ -5833,7 +5381,7 @@ export type ExternalAuthentication = {
   name?: Maybe<Scalars["String"]>;
 };
 
-/** Prepare external authentication URL for user by custom plugin. */
+/** Prepare external authentication url for user by custom plugin. */
 export type ExternalAuthenticationUrl = {
   __typename?: "ExternalAuthenticationUrl";
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
@@ -6058,6 +5606,8 @@ export type FulfillmentApprove = {
  * Event sent when fulfillment is approved.
  *
  * Added in Saleor 3.7.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type FulfillmentApproved = Event & {
   __typename?: "FulfillmentApproved";
@@ -6100,6 +5650,8 @@ export type FulfillmentCancelInput = {
  * Event sent when fulfillment is canceled.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type FulfillmentCanceled = Event & {
   __typename?: "FulfillmentCanceled";
@@ -6121,6 +5673,8 @@ export type FulfillmentCanceled = Event & {
  * Event sent when new fulfillment is created.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type FulfillmentCreated = Event & {
   __typename?: "FulfillmentCreated";
@@ -6150,6 +5704,8 @@ export type FulfillmentLine = Node & {
  * Event sent when fulfillment metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type FulfillmentMetadataUpdated = Event & {
   __typename?: "FulfillmentMetadataUpdated";
@@ -6254,6 +5810,8 @@ export type GiftCard = Node &
      *
      * Added in Saleor 3.1.
      *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
      * Requires one of the following permissions: MANAGE_APPS, OWNER.
      */
     app?: Maybe<App>;
@@ -6261,6 +5819,8 @@ export type GiftCard = Node &
      * Slug of the channel where the gift card was bought.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     boughtInChannel?: Maybe<Scalars["String"]>;
     /** Gift card code. Can be fetched by a staff member with MANAGE_GIFT_CARD when gift card wasn't yet used and by the gift card owner. */
@@ -6270,12 +5830,16 @@ export type GiftCard = Node &
      * The user who bought or issued a gift card.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     createdBy?: Maybe<User>;
     /**
      * Email address of the user who bought or issued gift card.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      *
      * Requires one of the following permissions: MANAGE_USERS, OWNER.
      */
@@ -6292,6 +5856,8 @@ export type GiftCard = Node &
      * List of events associated with the gift card.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      *
      * Requires one of the following permissions: MANAGE_GIFT_CARD.
      */
@@ -6347,6 +5913,8 @@ export type GiftCard = Node &
      * Related gift card product.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     product?: Maybe<Product>;
     /**
@@ -6359,6 +5927,8 @@ export type GiftCard = Node &
      *
      * Added in Saleor 3.1.
      *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
      * Requires one of the following permissions: MANAGE_GIFT_CARD.
      */
     tags: Array<GiftCardTag>;
@@ -6366,12 +5936,16 @@ export type GiftCard = Node &
      * The customer who used a gift card.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     usedBy?: Maybe<User>;
     /**
      * Email address of the customer who used a gift card.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     usedByEmail?: Maybe<Scalars["String"]>;
     /**
@@ -6425,6 +5999,8 @@ export type GiftCardActivate = {
  *
  * Added in Saleor 3.1.
  *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  */
 export type GiftCardAddNote = {
@@ -6446,6 +6022,8 @@ export type GiftCardAddNoteInput = {
  *
  * Added in Saleor 3.1.
  *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  */
 export type GiftCardBulkActivate = {
@@ -6459,6 +6037,8 @@ export type GiftCardBulkActivate = {
  * Create gift cards.
  *
  * Added in Saleor 3.1.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  */
@@ -6489,6 +6069,8 @@ export type GiftCardBulkCreateInput = {
  *
  * Added in Saleor 3.1.
  *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  */
 export type GiftCardBulkDeactivate = {
@@ -6502,6 +6084,8 @@ export type GiftCardBulkDeactivate = {
  * Delete gift cards.
  *
  * Added in Saleor 3.1.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  */
@@ -6547,6 +6131,8 @@ export type GiftCardCreateInput = {
    * The gift card tags to add.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   addTags?: InputMaybe<Array<Scalars["String"]>>;
   /** Balance of the gift card. */
@@ -6555,6 +6141,8 @@ export type GiftCardCreateInput = {
    * Slug of a channel from which the email should be sent.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   channel?: InputMaybe<Scalars["String"]>;
   /**
@@ -6573,18 +6161,24 @@ export type GiftCardCreateInput = {
    * The gift card expiry date.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   expiryDate?: InputMaybe<Scalars["Date"]>;
   /**
    * Determine if gift card is active.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   isActive: Scalars["Boolean"];
   /**
    * The gift card note from the staff member.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   note?: InputMaybe<Scalars["String"]>;
   /**
@@ -6601,6 +6195,8 @@ export type GiftCardCreateInput = {
  * Event sent when new gift card is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type GiftCardCreated = Event & {
   __typename?: "GiftCardCreated";
@@ -6635,6 +6231,8 @@ export type GiftCardDeactivate = {
  *
  * Added in Saleor 3.1.
  *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  */
 export type GiftCardDelete = {
@@ -6649,6 +6247,8 @@ export type GiftCardDelete = {
  * Event sent when gift card is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type GiftCardDeleted = Event & {
   __typename?: "GiftCardDeleted";
@@ -6691,6 +6291,8 @@ export type GiftCardErrorCode =
  * History log of the gift card.
  *
  * Added in Saleor 3.1.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type GiftCardEvent = Node & {
   __typename?: "GiftCardEvent";
@@ -6772,6 +6374,8 @@ export type GiftCardFilterInput = {
  * Event sent when gift card metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type GiftCardMetadataUpdated = Event & {
   __typename?: "GiftCardMetadataUpdated";
@@ -6792,6 +6396,8 @@ export type GiftCardMetadataUpdated = Event & {
  *
  * Added in Saleor 3.1.
  *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
  * Requires one of the following permissions: MANAGE_GIFT_CARD.
  */
 export type GiftCardResend = {
@@ -6808,31 +6414,6 @@ export type GiftCardResendInput = {
   email?: InputMaybe<Scalars["String"]>;
   /** ID of a gift card to resend. */
   id: Scalars["ID"];
-};
-
-/**
- * Event sent when gift card is e-mailed.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type GiftCardSent = Event & {
-  __typename?: "GiftCardSent";
-  /** Slug of a channel for which this gift card email was sent. */
-  channel?: Maybe<Scalars["String"]>;
-  /** The gift card the event relates to. */
-  giftCard?: Maybe<GiftCard>;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** E-mail address to which gift card was sent. */
-  sentToEmail?: Maybe<Scalars["String"]>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
 };
 
 /** Gift card related settings from site settings. */
@@ -6894,7 +6475,7 @@ export type GiftCardSortField =
   | "USED_BY";
 
 export type GiftCardSortingInput = {
-  /** Specifies the direction in which to sort gift cards. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort gift cards by the selected field. */
   field: GiftCardSortField;
@@ -6904,6 +6485,8 @@ export type GiftCardSortingInput = {
  * Event sent when gift card status has changed.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type GiftCardStatusChanged = Event & {
   __typename?: "GiftCardStatusChanged";
@@ -6923,6 +6506,8 @@ export type GiftCardStatusChanged = Event & {
  * The gift card tag.
  *
  * Added in Saleor 3.1.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type GiftCardTag = Node & {
   __typename?: "GiftCardTag";
@@ -6969,12 +6554,16 @@ export type GiftCardUpdateInput = {
    * The gift card tags to add.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   addTags?: InputMaybe<Array<Scalars["String"]>>;
   /**
    * The gift card balance amount.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   balanceAmount?: InputMaybe<Scalars["PositiveDecimal"]>;
   /**
@@ -6987,12 +6576,16 @@ export type GiftCardUpdateInput = {
    * The gift card expiry date.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   expiryDate?: InputMaybe<Scalars["Date"]>;
   /**
    * The gift card tags to remove.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   removeTags?: InputMaybe<Array<Scalars["String"]>>;
   /**
@@ -7007,6 +6600,8 @@ export type GiftCardUpdateInput = {
  * Event sent when gift card is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type GiftCardUpdated = Event & {
   __typename?: "GiftCardUpdated";
@@ -7103,12 +6698,6 @@ export type Invoice = Job &
      */
     metafields?: Maybe<Scalars["Metadata"]>;
     number?: Maybe<Scalars["String"]>;
-    /**
-     * Order related to the invoice.
-     *
-     * Added in Saleor 3.10.
-     */
-    order?: Maybe<Order>;
     /** List of private metadata items. Requires staff permissions to access. */
     privateMetadata: Array<MetadataItem>;
     /**
@@ -7193,6 +6782,8 @@ export type InvoiceDelete = {
  * Event sent when invoice is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type InvoiceDeleted = Event & {
   __typename?: "InvoiceDeleted";
@@ -7202,12 +6793,6 @@ export type InvoiceDeleted = Event & {
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
   issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /**
-   * Order related to the invoice.
-   *
-   * Added in Saleor 3.10.
-   */
-  order?: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient?: Maybe<App>;
   /** Saleor version that triggered the event. */
@@ -7267,6 +6852,8 @@ export type InvoiceRequestDelete = {
  * Event sent when invoice is requested.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type InvoiceRequested = Event & {
   __typename?: "InvoiceRequested";
@@ -7276,12 +6863,6 @@ export type InvoiceRequested = Event & {
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
   issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /**
-   * Order related to the invoice.
-   *
-   * Added in Saleor 3.10.
-   */
-  order: Order;
   /** The application receiving the webhook. */
   recipient?: Maybe<App>;
   /** Saleor version that triggered the event. */
@@ -7305,6 +6886,8 @@ export type InvoiceSendNotification = {
  * Event sent when invoice is sent.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type InvoiceSent = Event & {
   __typename?: "InvoiceSent";
@@ -7314,12 +6897,6 @@ export type InvoiceSent = Event & {
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
   issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /**
-   * Order related to the invoice.
-   *
-   * Added in Saleor 3.10.
-   */
-  order?: Maybe<Order>;
   /** The application receiving the webhook. */
   recipient?: Maybe<App>;
   /** Saleor version that triggered the event. */
@@ -8171,16 +7748,10 @@ export type Manifest = {
    * The audience that will be included in all JWT tokens for the app.
    *
    * Added in Saleor 3.8.
-   */
-  audience?: Maybe<Scalars["String"]>;
-  /**
-   * The App's author name.
-   *
-   * Added in Saleor 3.13.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
-  author?: Maybe<Scalars["String"]>;
+  audience?: Maybe<Scalars["String"]>;
   /**
    * URL to iframe with the configuration for the app.
    * @deprecated This field will be removed in Saleor 4.0. Use `appUrl` instead.
@@ -8197,14 +7768,6 @@ export type Manifest = {
   identifier: Scalars["String"];
   name: Scalars["String"];
   permissions?: Maybe<Array<Permission>>;
-  /**
-   * Determines the app's required Saleor version as semver range.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  requiredSaleorVersion?: Maybe<AppManifestRequiredSaleorVersion>;
   supportUrl?: Maybe<Scalars["String"]>;
   tokenTargetUrl?: Maybe<Scalars["String"]>;
   version: Scalars["String"];
@@ -8212,6 +7775,8 @@ export type Manifest = {
    * List of the app's webhooks.
    *
    * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   webhooks: Array<AppManifestWebhook>;
 };
@@ -8221,19 +7786,6 @@ export type Margin = {
   start?: Maybe<Scalars["Int"]>;
   stop?: Maybe<Scalars["Int"]>;
 };
-
-/**
- * Determine the mark as paid strategy for the channel.
- *
- *     TRANSACTION_FLOW - new orders marked as paid will receive a
- *     `TransactionItem` object, that will cover the `order.total`.
- *
- *     PAYMENT_FLOW - new orders marked as paid will receive a
- *     `Payment` object, that will cover the `order.total`.
- *
- *
- */
-export type MarkAsPaidStrategyEnum = "PAYMENT_FLOW" | "TRANSACTION_FLOW";
 
 /** An enumeration. */
 export type MeasurementUnitsEnum =
@@ -8267,33 +7819,6 @@ export type MeasurementUnitsEnum =
   | "SQ_YD"
   | "TONNE"
   | "YD";
-
-export type MeasurementUnitsEnumFilterInput = {
-  /** The value equal to. */
-  eq?: InputMaybe<MeasurementUnitsEnum>;
-  /** The value included in. */
-  oneOf?: InputMaybe<Array<MeasurementUnitsEnum>>;
-};
-
-export type MediaChoicesSortField =
-  /** Sort media by ID. */
-  "ID";
-
-export type MediaInput = {
-  /** Alt text for a product media. */
-  alt?: InputMaybe<Scalars["String"]>;
-  /** Represents an image file in a multipart request. */
-  image?: InputMaybe<Scalars["Upload"]>;
-  /** Represents an URL to an external media. */
-  mediaUrl?: InputMaybe<Scalars["String"]>;
-};
-
-export type MediaSortingInput = {
-  /** Specifies the direction in which to sort media. */
-  direction: OrderDirection;
-  /** Sort media by the selected field. */
-  field: MediaChoicesSortField;
-};
 
 /** Represents a single menu - an object that is used to help navigate through the store. */
 export type Menu = Node &
@@ -8422,6 +7947,8 @@ export type MenuCreateInput = {
  * Event sent when new menu is created.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuCreated = Event & {
   __typename?: "MenuCreated";
@@ -8441,6 +7968,8 @@ export type MenuCreated = Event & {
  * Event sent when new menu is created.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuCreatedMenuArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -8463,6 +7992,8 @@ export type MenuDelete = {
  * Event sent when menu is deleted.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuDeleted = Event & {
   __typename?: "MenuDeleted";
@@ -8482,6 +8013,8 @@ export type MenuDeleted = Event & {
  * Event sent when menu is deleted.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuDeletedMenuArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -8674,6 +8207,8 @@ export type MenuItemCreateInput = {
  * Event sent when new menu item is created.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuItemCreated = Event & {
   __typename?: "MenuItemCreated";
@@ -8693,6 +8228,8 @@ export type MenuItemCreated = Event & {
  * Event sent when new menu item is created.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuItemCreatedMenuItemArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -8715,6 +8252,8 @@ export type MenuItemDelete = {
  * Event sent when menu item is deleted.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuItemDeleted = Event & {
   __typename?: "MenuItemDeleted";
@@ -8734,6 +8273,8 @@ export type MenuItemDeleted = Event & {
  * Event sent when menu item is deleted.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuItemDeletedMenuItemArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -8781,7 +8322,7 @@ export type MenuItemMoveInput = {
 };
 
 export type MenuItemSortingInput = {
-  /** Specifies the direction in which to sort menu items. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort menu items by the selected field. */
   field: MenuItemsSortField;
@@ -8842,6 +8383,8 @@ export type MenuItemUpdate = {
  * Event sent when menu item is updated.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuItemUpdated = Event & {
   __typename?: "MenuItemUpdated";
@@ -8861,6 +8404,8 @@ export type MenuItemUpdated = Event & {
  * Event sent when menu item is updated.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuItemUpdatedMenuItemArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -8877,7 +8422,7 @@ export type MenuSortField =
   | "NAME";
 
 export type MenuSortingInput = {
-  /** Specifies the direction in which to sort menus. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort menus by the selected field. */
   field: MenuSortField;
@@ -8900,6 +8445,8 @@ export type MenuUpdate = {
  * Event sent when menu is updated.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuUpdated = Event & {
   __typename?: "MenuUpdated";
@@ -8919,6 +8466,8 @@ export type MenuUpdated = Event & {
  * Event sent when menu is updated.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type MenuUpdatedMenuArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -9251,6 +8800,8 @@ export type Mutation = {
    *
    * Added in Saleor 3.7.
    *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
    * Requires one of the following permissions: MANAGE_CHANNELS.
    */
   channelReorderWarehouses?: Maybe<ChannelReorderWarehouses>;
@@ -9258,7 +8809,6 @@ export type Mutation = {
    * Update a channel.
    *
    * Requires one of the following permissions: MANAGE_CHANNELS.
-   * Requires one of the following permissions when updating only orderSettings field: MANAGE_CHANNELS, MANAGE_ORDERS.
    */
   channelUpdate?: Maybe<ChannelUpdate>;
   /** Adds a gift card or a voucher to a checkout. */
@@ -9285,6 +8835,8 @@ export type Mutation = {
    * Updates the delivery method (shipping method or pick up point) of the checkout.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   checkoutDeliveryMethodUpdate?: Maybe<CheckoutDeliveryMethodUpdate>;
   /** Updates email address in the existing checkout object. */
@@ -9388,16 +8940,6 @@ export type Mutation = {
    */
   customerBulkDelete?: Maybe<CustomerBulkDelete>;
   /**
-   * Updates customers.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_USERS.
-   */
-  customerBulkUpdate?: Maybe<CustomerBulkUpdate>;
-  /**
    * Creates a new customer.
    *
    * Requires one of the following permissions: MANAGE_USERS.
@@ -9497,6 +9039,8 @@ export type Mutation = {
    *
    * Added in Saleor 3.1.
    *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
   exportGiftCards?: Maybe<ExportGiftCards>;
@@ -9506,7 +9050,7 @@ export type Mutation = {
    * Requires one of the following permissions: MANAGE_PRODUCTS.
    */
   exportProducts?: Maybe<ExportProducts>;
-  /** Prepare external authentication URL for user by custom plugin. */
+  /** Prepare external authentication url for user by custom plugin. */
   externalAuthenticationUrl?: Maybe<ExternalAuthenticationUrl>;
   /** Logout user by custom plugin. */
   externalLogout?: Maybe<ExternalLogout>;
@@ -9539,6 +9083,8 @@ export type Mutation = {
    *
    * Added in Saleor 3.1.
    *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
   giftCardAddNote?: Maybe<GiftCardAddNote>;
@@ -9546,6 +9092,8 @@ export type Mutation = {
    * Activate gift cards.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
@@ -9555,6 +9103,8 @@ export type Mutation = {
    *
    * Added in Saleor 3.1.
    *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
   giftCardBulkCreate?: Maybe<GiftCardBulkCreate>;
@@ -9563,6 +9113,8 @@ export type Mutation = {
    *
    * Added in Saleor 3.1.
    *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
   giftCardBulkDeactivate?: Maybe<GiftCardBulkDeactivate>;
@@ -9570,6 +9122,8 @@ export type Mutation = {
    * Delete gift cards.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
@@ -9591,6 +9145,8 @@ export type Mutation = {
    *
    * Added in Saleor 3.1.
    *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
   giftCardDelete?: Maybe<GiftCardDelete>;
@@ -9598,6 +9154,8 @@ export type Mutation = {
    * Resend a gift card.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
@@ -9744,6 +9302,8 @@ export type Mutation = {
    * Create new order from existing checkout. Requires the following permissions: AUTHENTICATED_APP and HANDLE_CHECKOUTS.
    *
    * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   orderCreateFromCheckout?: Maybe<OrderCreateFromCheckout>;
   /**
@@ -9803,26 +9363,6 @@ export type Mutation = {
    */
   orderFulfillmentUpdateTracking?: Maybe<FulfillmentUpdateTracking>;
   /**
-   * Adds granted refund to the order.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_ORDERS.
-   */
-  orderGrantRefundCreate?: Maybe<OrderGrantRefundCreate>;
-  /**
-   * Updates granted refund.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_ORDERS.
-   */
-  orderGrantRefundUpdate?: Maybe<OrderGrantRefundUpdate>;
-  /**
    * Deletes an order line from an order.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
@@ -9865,12 +9405,9 @@ export type Mutation = {
    */
   orderRefund?: Maybe<OrderRefund>;
   /**
-   * Update shop order settings across all channels. Returns `orderSettings` for the first `channel` in alphabetical order.
+   * Update shop order settings.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
-   * @deprecated
-   *
-   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `channelUpdate` mutation instead.
    */
   orderSettingsUpdate?: Maybe<OrderSettingsUpdate>;
   /**
@@ -9989,14 +9526,6 @@ export type Mutation = {
   paymentCapture?: Maybe<PaymentCapture>;
   /** Check payment balance. */
   paymentCheckBalance?: Maybe<PaymentCheckBalance>;
-  /**
-   * Initializes a payment gateway session. It triggers the webhook `PAYMENT_GATEWAY_INITIALIZE_SESSION`, to the requested `paymentGateways`. If `paymentGateways` is not provided, the webhook will be send to all subscribed payment gateways.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  paymentGatewayInitialize?: Maybe<PaymentGatewayInitialize>;
   /** Initializes payment process when it is required by gateway. */
   paymentInitialize?: Maybe<PaymentInitialize>;
   /**
@@ -10055,16 +9584,6 @@ export type Mutation = {
    * Requires one of the following permissions: MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES.
    */
   productAttributeUnassign?: Maybe<ProductAttributeUnassign>;
-  /**
-   * Creates products.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  productBulkCreate?: Maybe<ProductBulkCreate>;
   /**
    * Deletes products.
    *
@@ -10180,16 +9699,6 @@ export type Mutation = {
    */
   productVariantBulkDelete?: Maybe<ProductVariantBulkDelete>;
   /**
-   * Update multiple product variants.
-   *
-   * Added in Saleor 3.11.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  productVariantBulkUpdate?: Maybe<ProductVariantBulkUpdate>;
-  /**
    * Manage product variant prices in channels.
    *
    * Requires one of the following permissions: MANAGE_PRODUCTS.
@@ -10211,6 +9720,8 @@ export type Mutation = {
    * Deactivates product variant preorder. It changes all preorder allocation into regular allocation.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: MANAGE_PRODUCTS.
    */
@@ -10409,9 +9920,6 @@ export type Mutation = {
    * Fetch tax rates.
    *
    * Requires one of the following permissions: MANAGE_SETTINGS.
-   * @deprecated
-   *
-   * DEPRECATED: this mutation will be removed in Saleor 4.0.
    */
   shopFetchTaxRates?: Maybe<ShopFetchTaxRates>;
   /**
@@ -10469,67 +9977,11 @@ export type Mutation = {
    */
   staffUpdate?: Maybe<StaffUpdate>;
   /**
-   * Updates stocks for a given variant and warehouse.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: MANAGE_PRODUCTS.
-   */
-  stockBulkUpdate?: Maybe<StockBulkUpdate>;
-  /**
-   * Create a tax class.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: MANAGE_TAXES.
-   */
-  taxClassCreate?: Maybe<TaxClassCreate>;
-  /**
-   * Delete a tax class. After deleting the tax class any products, product types or shipping methods using it are updated to use the default tax class.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: MANAGE_TAXES.
-   */
-  taxClassDelete?: Maybe<TaxClassDelete>;
-  /**
-   * Update a tax class.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: MANAGE_TAXES.
-   */
-  taxClassUpdate?: Maybe<TaxClassUpdate>;
-  /**
-   * Update tax configuration for a channel.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: MANAGE_TAXES.
-   */
-  taxConfigurationUpdate?: Maybe<TaxConfigurationUpdate>;
-  /**
-   * Remove all tax class rates for a specific country.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: MANAGE_TAXES.
-   */
-  taxCountryConfigurationDelete?: Maybe<TaxCountryConfigurationDelete>;
-  /**
-   * Update tax class rates for a specific country.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: MANAGE_TAXES.
-   */
-  taxCountryConfigurationUpdate?: Maybe<TaxCountryConfigurationUpdate>;
-  /**
    * Exempt checkout or order from charging the taxes. When tax exemption is enabled, taxes won't be charged for the checkout or order. Taxes may still be calculated in cases when product prices are entered with the tax included and the net price needs to be known.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: MANAGE_TAXES.
    */
@@ -10547,41 +9999,13 @@ export type Mutation = {
    */
   tokensDeactivateAll?: Maybe<DeactivateAllUserTokens>;
   /**
-   * Create transaction for checkout or order.
+   * Create transaction for checkout or order. Requires the following permissions: AUTHENTICATED_APP and HANDLE_PAYMENTS.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: HANDLE_PAYMENTS.
    */
   transactionCreate?: Maybe<TransactionCreate>;
-  /**
-   * Report the event for the transaction.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires the following permissions: OWNER and HANDLE_PAYMENTS.
-   */
-  transactionEventReport?: Maybe<TransactionEventReport>;
-  /**
-   * Initializes a transaction session. It triggers the webhook `TRANSACTION_INITIALIZE_SESSION`, to the requested `paymentGateways`.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  transactionInitialize?: Maybe<TransactionInitialize>;
-  /**
-   * Processes a transaction session. It triggers the webhook `TRANSACTION_PROCESS_SESSION`, to the assigned `paymentGateways`.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  transactionProcess?: Maybe<TransactionProcess>;
   /**
    * Request an action for payment transaction.
    *
@@ -10589,17 +10013,15 @@ export type Mutation = {
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
-   * Requires one of the following permissions: HANDLE_PAYMENTS.
+   * Requires one of the following permissions: HANDLE_PAYMENTS, MANAGE_ORDERS.
    */
   transactionRequestAction?: Maybe<TransactionRequestAction>;
   /**
-   * Create transaction for checkout or order.
+   * Create transaction for checkout or order. Requires the following permissions: AUTHENTICATED_APP and HANDLE_PAYMENTS.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires the following permissions: OWNER and HANDLE_PAYMENTS.
    */
   transactionUpdate?: Maybe<TransactionUpdate>;
   /**
@@ -10703,35 +10125,15 @@ export type Mutation = {
    */
   webhookCreate?: Maybe<WebhookCreate>;
   /**
-   * Delete a webhook. Before the deletion, the webhook is deactivated to pause any deliveries that are already scheduled. The deletion might fail if delivery is in progress. In such a case, the webhook is not deleted but remains deactivated.
+   * Deletes a webhook subscription.
    *
    * Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
    */
   webhookDelete?: Maybe<WebhookDelete>;
   /**
-   * Performs a dry run of a webhook event. Supports a single event (the first, if multiple provided in the `query`). Requires permission relevant to processed event.
-   *
-   * Added in Saleor 3.11.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
-   */
-  webhookDryRun?: Maybe<WebhookDryRun>;
-  /**
-   * Trigger a webhook event. Supports a single event (the first, if multiple provided in the `webhook.subscription_query`). Requires permission relevant to processed event. Successfully delivered webhook returns `delivery` with status='PENDING' and empty payload.
-   *
-   * Added in Saleor 3.11.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
-   */
-  webhookTrigger?: Maybe<WebhookTrigger>;
-  /**
    * Updates a webhook subscription.
    *
-   * Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
+   * Requires one of the following permissions: MANAGE_APPS.
    */
   webhookUpdate?: Maybe<WebhookUpdate>;
 };
@@ -10861,8 +10263,7 @@ export type MutationAttributeCreateArgs = {
 };
 
 export type MutationAttributeDeleteArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 };
 
 export type MutationAttributeReorderValuesArgs = {
@@ -10877,8 +10278,7 @@ export type MutationAttributeTranslateArgs = {
 };
 
 export type MutationAttributeUpdateArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
   input: AttributeUpdateInput;
 };
 
@@ -10892,8 +10292,7 @@ export type MutationAttributeValueCreateArgs = {
 };
 
 export type MutationAttributeValueDeleteArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 };
 
 export type MutationAttributeValueTranslateArgs = {
@@ -10903,8 +10302,7 @@ export type MutationAttributeValueTranslateArgs = {
 };
 
 export type MutationAttributeValueUpdateArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
   input: AttributeValueUpdateInput;
 };
 
@@ -11139,23 +10537,16 @@ export type MutationCustomerBulkDeleteArgs = {
   ids: Array<Scalars["ID"]>;
 };
 
-export type MutationCustomerBulkUpdateArgs = {
-  customers: Array<CustomerBulkUpdateInput>;
-  errorPolicy?: InputMaybe<ErrorPolicyEnum>;
-};
-
 export type MutationCustomerCreateArgs = {
   input: UserCreateInput;
 };
 
 export type MutationCustomerDeleteArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 };
 
 export type MutationCustomerUpdateArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
   input: CustomerInput;
 };
 
@@ -11204,8 +10595,7 @@ export type MutationDraftOrderCreateArgs = {
 };
 
 export type MutationDraftOrderDeleteArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 };
 
 export type MutationDraftOrderLinesBulkDeleteArgs = {
@@ -11213,8 +10603,7 @@ export type MutationDraftOrderLinesBulkDeleteArgs = {
 };
 
 export type MutationDraftOrderUpdateArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
   input: DraftOrderInput;
 };
 
@@ -11461,16 +10850,6 @@ export type MutationOrderFulfillmentUpdateTrackingArgs = {
   input: FulfillmentUpdateTrackingInput;
 };
 
-export type MutationOrderGrantRefundCreateArgs = {
-  id: Scalars["ID"];
-  input: OrderGrantRefundCreateInput;
-};
-
-export type MutationOrderGrantRefundUpdateArgs = {
-  id: Scalars["ID"];
-  input: OrderGrantRefundUpdateInput;
-};
-
 export type MutationOrderLineDeleteArgs = {
   id: Scalars["ID"];
 };
@@ -11509,8 +10888,7 @@ export type MutationOrderSettingsUpdateArgs = {
 };
 
 export type MutationOrderUpdateArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
   input: OrderUpdateInput;
 };
 
@@ -11591,7 +10969,7 @@ export type MutationPageUpdateArgs = {
 
 export type MutationPasswordChangeArgs = {
   newPassword: Scalars["String"];
-  oldPassword?: InputMaybe<Scalars["String"]>;
+  oldPassword: Scalars["String"];
 };
 
 export type MutationPaymentCaptureArgs = {
@@ -11601,12 +10979,6 @@ export type MutationPaymentCaptureArgs = {
 
 export type MutationPaymentCheckBalanceArgs = {
   input: PaymentCheckBalanceInput;
-};
-
-export type MutationPaymentGatewayInitializeArgs = {
-  amount?: InputMaybe<Scalars["PositiveDecimal"]>;
-  id: Scalars["ID"];
-  paymentGateways?: InputMaybe<Array<PaymentGatewayToInitialize>>;
 };
 
 export type MutationPaymentInitializeArgs = {
@@ -11658,11 +11030,6 @@ export type MutationProductAttributeUnassignArgs = {
   productTypeId: Scalars["ID"];
 };
 
-export type MutationProductBulkCreateArgs = {
-  errorPolicy?: InputMaybe<ErrorPolicyEnum>;
-  products: Array<ProductBulkCreateInput>;
-};
-
 export type MutationProductBulkDeleteArgs = {
   ids: Array<Scalars["ID"]>;
 };
@@ -11677,8 +11044,7 @@ export type MutationProductCreateArgs = {
 };
 
 export type MutationProductDeleteArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 };
 
 export type MutationProductMediaBulkDeleteArgs = {
@@ -11739,13 +11105,11 @@ export type MutationProductTypeUpdateArgs = {
 };
 
 export type MutationProductUpdateArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
   input: ProductInput;
 };
 
 export type MutationProductVariantBulkCreateArgs = {
-  errorPolicy?: InputMaybe<ErrorPolicyEnum>;
   product: Scalars["ID"];
   variants: Array<ProductVariantBulkCreateInput>;
 };
@@ -11753,12 +11117,6 @@ export type MutationProductVariantBulkCreateArgs = {
 export type MutationProductVariantBulkDeleteArgs = {
   ids?: InputMaybe<Array<Scalars["ID"]>>;
   skus?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-export type MutationProductVariantBulkUpdateArgs = {
-  errorPolicy?: InputMaybe<ErrorPolicyEnum>;
-  product: Scalars["ID"];
-  variants: Array<ProductVariantBulkUpdateInput>;
 };
 
 export type MutationProductVariantChannelListingUpdateArgs = {
@@ -11772,7 +11130,6 @@ export type MutationProductVariantCreateArgs = {
 };
 
 export type MutationProductVariantDeleteArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
   sku?: InputMaybe<Scalars["String"]>;
 };
@@ -11821,7 +11178,6 @@ export type MutationProductVariantTranslateArgs = {
 };
 
 export type MutationProductVariantUpdateArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
   input: ProductVariantInput;
   sku?: InputMaybe<Scalars["String"]>;
@@ -11986,38 +11342,6 @@ export type MutationStaffUpdateArgs = {
   input: StaffUpdateInput;
 };
 
-export type MutationStockBulkUpdateArgs = {
-  errorPolicy?: InputMaybe<ErrorPolicyEnum>;
-  stocks: Array<StockBulkUpdateInput>;
-};
-
-export type MutationTaxClassCreateArgs = {
-  input: TaxClassCreateInput;
-};
-
-export type MutationTaxClassDeleteArgs = {
-  id: Scalars["ID"];
-};
-
-export type MutationTaxClassUpdateArgs = {
-  id: Scalars["ID"];
-  input: TaxClassUpdateInput;
-};
-
-export type MutationTaxConfigurationUpdateArgs = {
-  id: Scalars["ID"];
-  input: TaxConfigurationUpdateInput;
-};
-
-export type MutationTaxCountryConfigurationDeleteArgs = {
-  countryCode: CountryCode;
-};
-
-export type MutationTaxCountryConfigurationUpdateArgs = {
-  countryCode: CountryCode;
-  updateTaxClassRates: Array<TaxClassRateInput>;
-};
-
 export type MutationTaxExemptionManageArgs = {
   id: Scalars["ID"];
   taxExemption: Scalars["Boolean"];
@@ -12042,29 +11366,6 @@ export type MutationTransactionCreateArgs = {
   id: Scalars["ID"];
   transaction: TransactionCreateInput;
   transactionEvent?: InputMaybe<TransactionEventInput>;
-};
-
-export type MutationTransactionEventReportArgs = {
-  amount: Scalars["PositiveDecimal"];
-  availableActions?: InputMaybe<Array<TransactionActionEnum>>;
-  externalUrl?: InputMaybe<Scalars["String"]>;
-  id: Scalars["ID"];
-  message?: InputMaybe<Scalars["String"]>;
-  pspReference: Scalars["String"];
-  time?: InputMaybe<Scalars["DateTime"]>;
-  type: TransactionEventTypeEnum;
-};
-
-export type MutationTransactionInitializeArgs = {
-  action?: InputMaybe<TransactionFlowStrategyEnum>;
-  amount?: InputMaybe<Scalars["PositiveDecimal"]>;
-  id: Scalars["ID"];
-  paymentGateway: PaymentGatewayToInitialize;
-};
-
-export type MutationTransactionProcessArgs = {
-  data?: InputMaybe<Scalars["JSON"]>;
-  id: Scalars["ID"];
 };
 
 export type MutationTransactionRequestActionArgs = {
@@ -12164,16 +11465,6 @@ export type MutationWebhookDeleteArgs = {
   id: Scalars["ID"];
 };
 
-export type MutationWebhookDryRunArgs = {
-  objectId: Scalars["ID"];
-  query: Scalars["String"];
-};
-
-export type MutationWebhookTriggerArgs = {
-  objectId: Scalars["ID"];
-  webhookId: Scalars["ID"];
-};
-
 export type MutationWebhookUpdateArgs = {
   id: Scalars["ID"];
   input: WebhookUpdateInput;
@@ -12202,9 +11493,19 @@ export type ObjectWithMetadata = {
    * A single key from public metadata.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
+   *
+   * Added in Saleor 3.3.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   metafield?: Maybe<Scalars["String"]>;
-  /** Public metadata. Use `keys` to control which fields you want to include. The default is to include everything. */
+  /**
+   * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+   *
+   * Added in Saleor 3.3.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   metafields?: Maybe<Scalars["Metadata"]>;
   /** List of private metadata items. Requires staff permissions to access. */
   privateMetadata: Array<MetadataItem>;
@@ -12212,9 +11513,19 @@ export type ObjectWithMetadata = {
    * A single key from private metadata. Requires staff permissions to access.
    *
    * Tip: Use GraphQL aliases to fetch multiple keys.
+   *
+   * Added in Saleor 3.3.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   privateMetafield?: Maybe<Scalars["String"]>;
-  /** Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything. */
+  /**
+   * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+   *
+   * Added in Saleor 3.3.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   privateMetafields?: Maybe<Scalars["Metadata"]>;
 };
 
@@ -12244,12 +11555,16 @@ export type Order = Node &
      * The authorize status of the order.
      *
      * Added in Saleor 3.4.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     authorizeStatus: OrderAuthorizeStatusEnum;
     /**
      * Collection points that can be used for this order.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     availableCollectionPoints: Array<Warehouse>;
     /**
@@ -12266,14 +11581,10 @@ export type Order = Node &
      * The charge status of the order.
      *
      * Added in Saleor 3.4.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     chargeStatus: OrderChargeStatusEnum;
-    /**
-     * ID of the checkout that the order was created from.
-     *
-     * Added in Saleor 3.11.
-     */
-    checkoutId?: Maybe<Scalars["ID"]>;
     collectionPointName?: Maybe<Scalars["String"]>;
     created: Scalars["DateTime"];
     customerNote: Scalars["String"];
@@ -12281,6 +11592,8 @@ export type Order = Node &
      * The delivery method selected for this order.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     deliveryMethod?: Maybe<DeliveryMethod>;
     /**
@@ -12295,11 +11608,6 @@ export type Order = Node &
     discountName?: Maybe<Scalars["String"]>;
     /** List of all discounts assigned to the order. */
     discounts: Array<OrderDiscount>;
-    /**
-     * Determines whether checkout prices should include taxes when displayed in a storefront.
-     *
-     * Added in Saleor 3.9.
-     */
     displayGrossPrices: Scalars["Boolean"];
     /** List of errors that occurred during order validation. */
     errors: Array<OrderError>;
@@ -12309,26 +11617,10 @@ export type Order = Node &
      * Requires one of the following permissions: MANAGE_ORDERS.
      */
     events: Array<OrderEvent>;
-    /**
-     * External ID of this order.
-     *
-     * Added in Saleor 3.10.
-     */
-    externalReference?: Maybe<Scalars["String"]>;
     /** List of shipments for the order. */
     fulfillments: Array<Fulfillment>;
     /** List of user gift cards. */
     giftCards: Array<GiftCard>;
-    /**
-     * List of granted refunds.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     *
-     * Requires one of the following permissions: MANAGE_ORDERS.
-     */
-    grantedRefunds: Array<OrderGrantedRefund>;
     id: Scalars["ID"];
     /** List of order invoices. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
     invoices: Array<Invoice>;
@@ -12407,33 +11699,6 @@ export type Order = Node &
     shippingMethods: Array<ShippingMethod>;
     /** Total price of shipping. */
     shippingPrice: TaxedMoney;
-    /**
-     * Denormalized tax class assigned to the shipping method.
-     *
-     * Added in Saleor 3.9.
-     *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-     */
-    shippingTaxClass?: Maybe<TaxClass>;
-    /**
-     * Denormalized public metadata of the shipping method's tax class.
-     *
-     * Added in Saleor 3.9.
-     */
-    shippingTaxClassMetadata: Array<MetadataItem>;
-    /**
-     * Denormalized name of the tax class assigned to the shipping method.
-     *
-     * Added in Saleor 3.9.
-     */
-    shippingTaxClassName?: Maybe<Scalars["String"]>;
-    /**
-     * Denormalized private metadata of the shipping method's tax class. Requires staff permissions to access.
-     *
-     * Added in Saleor 3.9.
-     */
-    shippingTaxClassPrivateMetadata: Array<MetadataItem>;
-    /** The shipping tax rate value. */
     shippingTaxRate: Scalars["Float"];
     status: OrderStatus;
     /** User-friendly order status. */
@@ -12444,106 +11709,27 @@ export type Order = Node &
      * Returns True if order has to be exempt from taxes.
      *
      * Added in Saleor 3.8.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     taxExemption: Scalars["Boolean"];
     /** @deprecated This field will be removed in Saleor 4.0. Use `id` instead. */
     token: Scalars["String"];
     /** Total amount of the order. */
     total: TaxedMoney;
-    /**
-     * Total amount of ongoing authorize requests for the order's transactions.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     *
-     * Requires one of the following permissions: MANAGE_ORDERS.
-     */
-    totalAuthorizePending: Money;
     /** Amount authorized for the order. */
     totalAuthorized: Money;
     /** The difference between the paid and the order total amount. */
     totalBalance: Money;
-    /**
-     * Total amount of ongoing cancel requests for the order's transactions.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     *
-     * Requires one of the following permissions: MANAGE_ORDERS.
-     */
-    totalCancelPending: Money;
-    /**
-     * Amount canceled for the order.
-     *
-     * Added in Saleor 3.13.
-     */
-    totalCanceled: Money;
-    /**
-     * Amount captured for the order.
-     * @deprecated This field will be removed in Saleor 4.0. Use `totalCharged` instead.
-     */
+    /** Amount captured by payment. */
     totalCaptured: Money;
-    /**
-     * Total amount of ongoing charge requests for the order's transactions.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     *
-     * Requires one of the following permissions: MANAGE_ORDERS.
-     */
-    totalChargePending: Money;
-    /**
-     * Amount charged for the order.
-     *
-     * Added in Saleor 3.13.
-     */
-    totalCharged: Money;
-    /**
-     * Total amount of granted refund.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     *
-     * Requires one of the following permissions: MANAGE_ORDERS.
-     */
-    totalGrantedRefund: Money;
-    /**
-     * Total amount of ongoing refund requests for the order's transactions.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     *
-     * Requires one of the following permissions: MANAGE_ORDERS.
-     */
-    totalRefundPending: Money;
-    /**
-     * Total refund amount for the order.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    totalRefunded: Money;
-    /**
-     * The difference amount between granted refund and the amounts that are pending and refunded.
-     *
-     * Added in Saleor 3.13.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     *
-     * Requires one of the following permissions: MANAGE_ORDERS.
-     */
-    totalRemainingGrant: Money;
     trackingClientId: Scalars["String"];
     /**
      * List of transactions for the order. Requires one of the following permissions: MANAGE_ORDERS, HANDLE_PAYMENTS.
      *
      * Added in Saleor 3.4.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     transactions: Array<TransactionItem>;
     /**
@@ -12617,17 +11803,16 @@ export type OrderAddNoteInput = {
  * Determine a current authorize status for order.
  *
  *     We treat the order as fully authorized when the sum of authorized and charged funds
- *     cover the `order.total`-`order.totalGrantedRefund`.
+ *     cover the order.total.
  *     We treat the order as partially authorized when the sum of authorized and charged
- *     funds covers only part of the `order.total`-`order.totalGrantedRefund`.
+ *     funds covers only part of the order.total
  *     We treat the order as not authorized when the sum of authorized and charged funds is
  *     0.
  *
  *     NONE - the funds are not authorized
- *     PARTIAL - the funds that are authorized and charged don't cover fully the
- *     `order.total`-`order.totalGrantedRefund`
- *     FULL - the funds that are authorized and charged fully cover the
- *     `order.total`-`order.totalGrantedRefund`
+ *     PARTIAL - the funds that are authorized or charged don't cover fully the order's
+ *     total
+ *     FULL - the funds that are authorized or charged fully cover the order's total
  *
  */
 export type OrderAuthorizeStatusEnum = "FULL" | "NONE" | "PARTIAL";
@@ -12664,6 +11849,8 @@ export type OrderCancel = {
  * Event sent when order is canceled.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderCancelled = Event & {
   __typename?: "OrderCancelled";
@@ -12696,22 +11883,15 @@ export type OrderCapture = {
 /**
  * Determine the current charge status for the order.
  *
- *     An order is considered overcharged when the sum of the
- *     transactionItem's charge amounts exceeds the value of
- *     `order.total` - `order.totalGrantedRefund`.
- *     If the sum of the transactionItem's charge amounts equals
- *     `order.total` - `order.totalGrantedRefund`, we consider the order to be fully
- *     charged.
- *     If the sum of the transactionItem's charge amounts covers a part of the
- *     `order.total` - `order.totalGrantedRefund`, we treat the order as partially charged.
+ *     We treat the order as overcharged when the charged amount is bigger that order.total
+ *     We treat the order as fully charged when the charged amount is equal to order.total.
+ *     We treat the order as partially charged when the charged amount covers only part of
+ *     the order.total
  *
  *     NONE - the funds are not charged.
- *     PARTIAL - the funds that are charged don't cover the
- *     `order.total`-`order.totalGrantedRefund`
- *     FULL - the funds that are charged fully cover the
- *     `order.total`-`order.totalGrantedRefund`
- *     OVERCHARGED - the charged funds are bigger than the
- *     `order.total`-`order.totalGrantedRefund`
+ *     PARTIAL - the funds that are charged don't cover the order's total
+ *     FULL - the funds that are charged fully cover the order's total
+ *     OVERCHARGED - the charged funds are bigger than order's total
  *
  */
 export type OrderChargeStatusEnum = "FULL" | "NONE" | "OVERCHARGED" | "PARTIAL";
@@ -12733,6 +11913,8 @@ export type OrderConfirm = {
  * Event sent when order is confirmed.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderConfirmed = Event & {
   __typename?: "OrderConfirmed";
@@ -12769,6 +11951,8 @@ export type OrderCountableEdge = {
  * Create new order from existing checkout. Requires the following permissions: AUTHENTICATED_APP and HANDLE_CHECKOUTS.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderCreateFromCheckout = {
   __typename?: "OrderCreateFromCheckout";
@@ -12812,6 +11996,8 @@ export type OrderCreateFromCheckoutErrorCode =
  * Event sent when new order is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderCreated = Event & {
   __typename?: "OrderCreated";
@@ -12952,6 +12138,7 @@ export type OrderErrorCode =
   | "INSUFFICIENT_STOCK"
   | "INVALID"
   | "INVALID_QUANTITY"
+  | "MISSING_TRANSACTION_ACTION_REQUEST_WEBHOOK"
   | "NOT_AVAILABLE_IN_CHANNEL"
   | "NOT_EDITABLE"
   | "NOT_FOUND"
@@ -12964,7 +12151,6 @@ export type OrderErrorCode =
   | "SHIPPING_METHOD_NOT_APPLICABLE"
   | "SHIPPING_METHOD_REQUIRED"
   | "TAX_ERROR"
-  | "TRANSACTION_ERROR"
   | "UNIQUE"
   | "VOID_INACTIVE_PAYMENT"
   | "ZERO_QUANTITY";
@@ -13011,10 +12197,7 @@ export type OrderEvent = Node & {
   relatedOrder?: Maybe<Order>;
   /** Define if shipping costs were included to the refund. */
   shippingCostsIncluded?: Maybe<Scalars["Boolean"]>;
-  /**
-   * The status of payment's transaction.
-   * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `TransactionEvent` to track the status of `TransactionItem`.
-   */
+  /** The status of payment's transaction. */
   status?: Maybe<TransactionStatus>;
   /** The transaction reference of captured payment. */
   transactionReference?: Maybe<Scalars["String"]>;
@@ -13085,7 +12268,7 @@ export type OrderEventsEmailsEnum =
   | "SHIPPING_CONFIRMATION"
   | "TRACKING_UPDATED";
 
-/** The different order event types.  */
+/** An enumeration. */
 export type OrderEventsEnum =
   | "ADDED_PRODUCTS"
   | "CANCELED"
@@ -13093,7 +12276,6 @@ export type OrderEventsEnum =
   | "DRAFT_CREATED"
   | "DRAFT_CREATED_FROM_REPLACE"
   | "EMAIL_SENT"
-  | "EXPIRED"
   | "EXTERNAL_SERVICE_NOTIFICATION"
   | "FULFILLMENT_AWAITS_APPROVAL"
   | "FULFILLMENT_CANCELED"
@@ -13129,43 +12311,16 @@ export type OrderEventsEnum =
   | "PLACED_FROM_DRAFT"
   | "REMOVED_PRODUCTS"
   | "TRACKING_UPDATED"
-  | "TRANSACTION_CANCEL_REQUESTED"
-  /** This field will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED` instead. */
   | "TRANSACTION_CAPTURE_REQUESTED"
-  | "TRANSACTION_CHARGE_REQUESTED"
   | "TRANSACTION_EVENT"
-  | "TRANSACTION_MARK_AS_PAID_FAILED"
   | "TRANSACTION_REFUND_REQUESTED"
-  /** This field will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CANCEL_REQUESTED` instead. */
   | "TRANSACTION_VOID_REQUESTED"
   | "UPDATED_ADDRESS";
-
-/**
- * Event sent when order becomes expired.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type OrderExpired = Event & {
-  __typename?: "OrderExpired";
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The order the event relates to. */
-  order?: Maybe<Order>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
 
 export type OrderFilterInput = {
   authorizeStatus?: InputMaybe<Array<OrderAuthorizeStatusEnum>>;
   channels?: InputMaybe<Array<Scalars["ID"]>>;
   chargeStatus?: InputMaybe<Array<OrderChargeStatusEnum>>;
-  checkoutIds?: InputMaybe<Array<Scalars["ID"]>>;
   created?: InputMaybe<DateRangeInput>;
   customer?: InputMaybe<Scalars["String"]>;
   giftCardBought?: InputMaybe<Scalars["Boolean"]>;
@@ -13185,6 +12340,8 @@ export type OrderFilterInput = {
  * Filter shipping methods for order.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderFilterShippingMethods = Event & {
   __typename?: "OrderFilterShippingMethods";
@@ -13200,6 +12357,8 @@ export type OrderFilterShippingMethods = Event & {
    * Shipping methods that can be used with this checkout.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingMethods?: Maybe<Array<ShippingMethod>>;
   /** Saleor version that triggered the event. */
@@ -13255,6 +12414,8 @@ export type OrderFulfillStockInput = {
  * Event sent when order is fulfilled.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderFulfilled = Event & {
   __typename?: "OrderFulfilled";
@@ -13274,6 +12435,8 @@ export type OrderFulfilled = Event & {
  * Event sent when order is fully paid.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderFullyPaid = Event & {
   __typename?: "OrderFullyPaid";
@@ -13289,107 +12452,6 @@ export type OrderFullyPaid = Event & {
   version?: Maybe<Scalars["String"]>;
 };
 
-/**
- * Adds granted refund to the order.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: MANAGE_ORDERS.
- */
-export type OrderGrantRefundCreate = {
-  __typename?: "OrderGrantRefundCreate";
-  errors: Array<OrderGrantRefundCreateError>;
-  /** Created granted refund. */
-  grantedRefund?: Maybe<OrderGrantedRefund>;
-  /** Order which has assigned new grant refund. */
-  order?: Maybe<Order>;
-};
-
-export type OrderGrantRefundCreateError = {
-  __typename?: "OrderGrantRefundCreateError";
-  /** The error code. */
-  code: OrderGrantRefundCreateErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type OrderGrantRefundCreateErrorCode = "GRAPHQL_ERROR" | "NOT_FOUND";
-
-export type OrderGrantRefundCreateInput = {
-  /** Amount of the granted refund. */
-  amount: Scalars["Decimal"];
-  /** Reason of the granted refund. */
-  reason?: InputMaybe<Scalars["String"]>;
-};
-
-/**
- * Updates granted refund.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: MANAGE_ORDERS.
- */
-export type OrderGrantRefundUpdate = {
-  __typename?: "OrderGrantRefundUpdate";
-  errors: Array<OrderGrantRefundUpdateError>;
-  /** Created granted refund. */
-  grantedRefund?: Maybe<OrderGrantedRefund>;
-  /** Order which has assigned updated grant refund. */
-  order?: Maybe<Order>;
-  orderGrantedRefund?: Maybe<OrderGrantedRefund>;
-};
-
-export type OrderGrantRefundUpdateError = {
-  __typename?: "OrderGrantRefundUpdateError";
-  /** The error code. */
-  code: OrderGrantRefundUpdateErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type OrderGrantRefundUpdateErrorCode = "GRAPHQL_ERROR" | "NOT_FOUND" | "REQUIRED";
-
-export type OrderGrantRefundUpdateInput = {
-  /** Amount of the granted refund. */
-  amount?: InputMaybe<Scalars["Decimal"]>;
-  /** Reason of the granted refund. */
-  reason?: InputMaybe<Scalars["String"]>;
-};
-
-/**
- * The details of granted refund.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type OrderGrantedRefund = {
-  __typename?: "OrderGrantedRefund";
-  /** Refund amount. */
-  amount: Money;
-  /** App that performed the action. */
-  app?: Maybe<App>;
-  /** Time of creation. */
-  createdAt: Scalars["DateTime"];
-  id: Scalars["ID"];
-  /** Reason of the refund. */
-  reason?: Maybe<Scalars["String"]>;
-  /** Time of last update. */
-  updatedAt: Scalars["DateTime"];
-  /** User who performed the action. Requires of of the following permissions: MANAGE_USERS, MANAGE_STAFF, OWNER. */
-  user?: Maybe<User>;
-};
-
 /** Represents order line of particular order. */
 export type OrderLine = Node &
   ObjectWithMetadata & {
@@ -13403,20 +12465,14 @@ export type OrderLine = Node &
     digitalContentUrl?: Maybe<DigitalContentUrl>;
     id: Scalars["ID"];
     isShippingRequired: Scalars["Boolean"];
-    /**
-     * List of public metadata items. Can be accessed without permissions.
-     *
-     * Added in Saleor 3.5.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
+    /** List of public metadata items. Can be accessed without permissions. */
     metadata: Array<MetadataItem>;
     /**
      * A single key from public metadata.
      *
      * Tip: Use GraphQL aliases to fetch multiple keys.
      *
-     * Added in Saleor 3.5.
+     * Added in Saleor 3.3.
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
@@ -13424,25 +12480,19 @@ export type OrderLine = Node &
     /**
      * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
      *
-     * Added in Saleor 3.5.
+     * Added in Saleor 3.3.
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     metafields?: Maybe<Scalars["Metadata"]>;
-    /**
-     * List of private metadata items. Requires staff permissions to access.
-     *
-     * Added in Saleor 3.5.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
+    /** List of private metadata items. Requires staff permissions to access. */
     privateMetadata: Array<MetadataItem>;
     /**
      * A single key from private metadata. Requires staff permissions to access.
      *
      * Tip: Use GraphQL aliases to fetch multiple keys.
      *
-     * Added in Saleor 3.5.
+     * Added in Saleor 3.3.
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
@@ -13450,7 +12500,7 @@ export type OrderLine = Node &
     /**
      * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
      *
-     * Added in Saleor 3.5.
+     * Added in Saleor 3.3.
      *
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
@@ -13466,32 +12516,6 @@ export type OrderLine = Node &
      * Added in Saleor 3.1.
      */
     quantityToFulfill: Scalars["Int"];
-    /**
-     * Denormalized tax class of the product in this order line.
-     *
-     * Added in Saleor 3.9.
-     *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-     */
-    taxClass?: Maybe<TaxClass>;
-    /**
-     * Denormalized public metadata of the tax class.
-     *
-     * Added in Saleor 3.9.
-     */
-    taxClassMetadata: Array<MetadataItem>;
-    /**
-     * Denormalized name of the tax class.
-     *
-     * Added in Saleor 3.9.
-     */
-    taxClassName?: Maybe<Scalars["String"]>;
-    /**
-     * Denormalized private metadata of the tax class. Requires staff permissions to access.
-     *
-     * Added in Saleor 3.9.
-     */
-    taxClassPrivateMetadata: Array<MetadataItem>;
     taxRate: Scalars["Float"];
     thumbnail?: Maybe<Image>;
     /** Price of the order line. */
@@ -13547,6 +12571,8 @@ export type OrderLineCreateInput = {
    * Flag that allow force splitting the same variant into multiple lines by skipping the matching logic.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   forceNewLine?: InputMaybe<Scalars["Boolean"]>;
   /** Number of variant items ordered. */
@@ -13657,6 +12683,8 @@ export type OrderMarkAsPaid = {
  * Event sent when order metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderMetadataUpdated = Event & {
   __typename?: "OrderMetadataUpdated";
@@ -13671,8 +12699,6 @@ export type OrderMetadataUpdated = Event & {
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
 };
-
-export type OrderOrCheckout = Checkout | Order;
 
 /** An enumeration. */
 export type OrderOriginEnum = "CHECKOUT" | "DRAFT" | "REISSUE";
@@ -13747,39 +12773,11 @@ export type OrderReturnProductsInput = {
   refund?: InputMaybe<Scalars["Boolean"]>;
 };
 
-/** Represents the channel-specific order settings. */
+/** Order related settings from site settings. */
 export type OrderSettings = {
   __typename?: "OrderSettings";
-  /** When disabled, all new orders from checkout will be marked as unconfirmed. When enabled orders from checkout will become unfulfilled immediately. */
   automaticallyConfirmAllNewOrders: Scalars["Boolean"];
-  /** When enabled, all non-shippable gift card orders will be fulfilled automatically. */
   automaticallyFulfillNonShippableGiftCard: Scalars["Boolean"];
-  /**
-   * Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  defaultTransactionFlowStrategy: TransactionFlowStrategyEnum;
-  /**
-   * Expiration time in minutes. Default null - means do not expire any orders.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  expireOrdersAfter?: Maybe<Scalars["Minute"]>;
-  /**
-   * Determine what strategy will be used to mark the order as paid. Based on the chosen option, the proper object will be created and attached to the order when it's manually marked as paid.
-   * `PAYMENT_FLOW` - [default option] creates the `Payment` object.
-   * `TRANSACTION_FLOW` - creates the `TransactionItem` object.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  markAsPaidStrategy: MarkAsPaidStrategyEnum;
 };
 
 export type OrderSettingsError = {
@@ -13795,41 +12793,8 @@ export type OrderSettingsError = {
 /** An enumeration. */
 export type OrderSettingsErrorCode = "INVALID";
 
-export type OrderSettingsInput = {
-  /** When disabled, all new orders from checkout will be marked as unconfirmed. When enabled orders from checkout will become unfulfilled immediately. By default set to True */
-  automaticallyConfirmAllNewOrders?: InputMaybe<Scalars["Boolean"]>;
-  /** When enabled, all non-shippable gift card orders will be fulfilled automatically. By defualt set to True. */
-  automaticallyFulfillNonShippableGiftCard?: InputMaybe<Scalars["Boolean"]>;
-  /**
-   * Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  defaultTransactionFlowStrategy?: InputMaybe<TransactionFlowStrategyEnum>;
-  /**
-   * Expiration time in minutes. Default null - means do not expire any orders. Enter 0 or null to disable.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  expireOrdersAfter?: InputMaybe<Scalars["Minute"]>;
-  /**
-   * Determine what strategy will be used to mark the order as paid. Based on the chosen option, the proper object will be created and attached to the order when it's manually marked as paid.
-   * `PAYMENT_FLOW` - [default option] creates the `Payment` object.
-   * `TRANSACTION_FLOW` - creates the `TransactionItem` object.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  markAsPaidStrategy?: InputMaybe<MarkAsPaidStrategyEnum>;
-};
-
 /**
- * Update shop order settings across all channels. Returns `orderSettings` for the first `channel` in alphabetical order.
+ * Update shop order settings.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
  */
@@ -13843,9 +12808,9 @@ export type OrderSettingsUpdate = {
 };
 
 export type OrderSettingsUpdateInput = {
-  /** When disabled, all new orders from checkout will be marked as unconfirmed. When enabled orders from checkout will become unfulfilled immediately. By default set to True */
+  /** When disabled, all new orders from checkout will be marked as unconfirmed. When enabled orders from checkout will become unfulfilled immediately. */
   automaticallyConfirmAllNewOrders?: InputMaybe<Scalars["Boolean"]>;
-  /** When enabled, all non-shippable gift card orders will be fulfilled automatically. By defualt set to True. */
+  /** When enabled, all non-shippable gift card orders will be fulfilled automatically. */
   automaticallyFulfillNonShippableGiftCard?: InputMaybe<Scalars["Boolean"]>;
 };
 
@@ -13876,7 +12841,7 @@ export type OrderSortField =
   | "RANK";
 
 export type OrderSortingInput = {
-  /** Specifies the direction in which to sort orders. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort orders by the selected field. */
   field: OrderSortField;
@@ -13886,7 +12851,6 @@ export type OrderSortingInput = {
 export type OrderStatus =
   | "CANCELED"
   | "DRAFT"
-  | "EXPIRED"
   | "FULFILLED"
   | "PARTIALLY_FULFILLED"
   | "PARTIALLY_RETURNED"
@@ -13919,12 +12883,6 @@ export type OrderUpdate = {
 export type OrderUpdateInput = {
   /** Billing address of the customer. */
   billingAddress?: InputMaybe<AddressInput>;
-  /**
-   * External ID of this order.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** Shipping address of the customer. */
   shippingAddress?: InputMaybe<AddressInput>;
   /** Email address of the customer. */
@@ -13954,6 +12912,8 @@ export type OrderUpdateShippingInput = {
  * Event sent when order is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type OrderUpdated = Event & {
   __typename?: "OrderUpdated";
@@ -14210,6 +13170,8 @@ export type PageCreateInput = {
  * Event sent when new page is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PageCreated = Event & {
   __typename?: "PageCreated";
@@ -14242,6 +13204,8 @@ export type PageDelete = {
  * Event sent when page is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PageDeleted = Event & {
   __typename?: "PageDeleted";
@@ -14380,7 +13344,7 @@ export type PageSortField =
   | "VISIBILITY";
 
 export type PageSortingInput = {
-  /** Specifies the direction in which to sort pages. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort pages by the selected field. */
   field: PageSortField;
@@ -14477,13 +13441,13 @@ export type PageType = Node &
     /**
      * Attributes that can be assigned to the page type.
      *
-     * Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES.
+     * Requires one of the following permissions: MANAGE_PAGES.
      */
     availableAttributes?: Maybe<AttributeCountableConnection>;
     /**
      * Whether page type has pages assigned.
      *
-     * Requires one of the following permissions: MANAGE_PAGES, MANAGE_PAGE_TYPES_AND_ATTRIBUTES.
+     * Requires one of the following permissions: MANAGE_PAGES.
      */
     hasPages?: Maybe<Scalars["Boolean"]>;
     id: Scalars["ID"];
@@ -14538,7 +13502,6 @@ export type PageTypeAvailableAttributesArgs = {
   filter?: InputMaybe<AttributeFilterInput>;
   first?: InputMaybe<Scalars["Int"]>;
   last?: InputMaybe<Scalars["Int"]>;
-  where?: InputMaybe<AttributeWhereInput>;
 };
 
 /** Represents a type of page. It defines what attributes are available to pages of this type. */
@@ -14618,6 +13581,8 @@ export type PageTypeCreateInput = {
  * Event sent when new page type is created.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PageTypeCreated = Event & {
   __typename?: "PageTypeCreated";
@@ -14650,6 +13615,8 @@ export type PageTypeDelete = {
  * Event sent when page type is deleted.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PageTypeDeleted = Event & {
   __typename?: "PageTypeDeleted";
@@ -14691,7 +13658,7 @@ export type PageTypeSortField =
   | "SLUG";
 
 export type PageTypeSortingInput = {
-  /** Specifies the direction in which to sort page types. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort page types by the selected field. */
   field: PageTypeSortField;
@@ -14725,6 +13692,8 @@ export type PageTypeUpdateInput = {
  * Event sent when page type is updated.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PageTypeUpdated = Event & {
   __typename?: "PageTypeUpdated";
@@ -14757,6 +13726,8 @@ export type PageUpdate = {
  * Event sent when page is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PageUpdated = Event & {
   __typename?: "PageUpdated";
@@ -14903,6 +13874,8 @@ export type PaymentPrivateMetafieldsArgs = {
  * Authorize payment.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PaymentAuthorize = Event & {
   __typename?: "PaymentAuthorize";
@@ -14936,6 +13909,8 @@ export type PaymentCapture = {
  * Capture payment.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PaymentCaptureEvent = Event & {
   __typename?: "PaymentCaptureEvent";
@@ -14987,6 +13962,8 @@ export type PaymentCheckBalanceInput = {
  * Confirm payment.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PaymentConfirmEvent = Event & {
   __typename?: "PaymentConfirmEvent";
@@ -15074,86 +14051,6 @@ export type PaymentGateway = {
   name: Scalars["String"];
 };
 
-export type PaymentGatewayConfig = {
-  __typename?: "PaymentGatewayConfig";
-  /** The JSON data required to initialize the payment gateway. */
-  data?: Maybe<Scalars["JSON"]>;
-  errors?: Maybe<Array<PaymentGatewayConfigError>>;
-  /** The app identifier. */
-  id: Scalars["String"];
-};
-
-export type PaymentGatewayConfigError = {
-  __typename?: "PaymentGatewayConfigError";
-  /** The error code. */
-  code: PaymentGatewayConfigErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type PaymentGatewayConfigErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_FOUND";
-
-/**
- * Initializes a payment gateway session. It triggers the webhook `PAYMENT_GATEWAY_INITIALIZE_SESSION`, to the requested `paymentGateways`. If `paymentGateways` is not provided, the webhook will be send to all subscribed payment gateways.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type PaymentGatewayInitialize = {
-  __typename?: "PaymentGatewayInitialize";
-  errors: Array<PaymentGatewayInitializeError>;
-  gatewayConfigs?: Maybe<Array<PaymentGatewayConfig>>;
-};
-
-export type PaymentGatewayInitializeError = {
-  __typename?: "PaymentGatewayInitializeError";
-  /** The error code. */
-  code: PaymentGatewayInitializeErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type PaymentGatewayInitializeErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_FOUND";
-
-/**
- * Event sent when user wants to initialize the payment gateway.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type PaymentGatewayInitializeSession = Event & {
-  __typename?: "PaymentGatewayInitializeSession";
-  /** Amount requested for initializing the payment gateway. */
-  amount?: Maybe<Scalars["PositiveDecimal"]>;
-  /** Payment gateway data in JSON format, recieved from storefront. */
-  data?: Maybe<Scalars["JSON"]>;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Checkout or order */
-  sourceObject: OrderOrCheckout;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
-export type PaymentGatewayToInitialize = {
-  /** The data that will be passed to the payment gateway. */
-  data?: InputMaybe<Scalars["JSON"]>;
-  /** The identifier of the payment gateway app to initialize. */
-  id: Scalars["String"];
-};
-
 /** Initializes payment process when it is required by gateway. */
 export type PaymentInitialize = {
   __typename?: "PaymentInitialize";
@@ -15201,6 +14098,8 @@ export type PaymentInput = {
  * List payment gateways.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PaymentListGateways = Event & {
   __typename?: "PaymentListGateways";
@@ -15220,6 +14119,8 @@ export type PaymentListGateways = Event & {
  * Process payment.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PaymentProcessEvent = Event & {
   __typename?: "PaymentProcessEvent";
@@ -15253,6 +14154,8 @@ export type PaymentRefund = {
  * Refund payment.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PaymentRefundEvent = Event & {
   __typename?: "PaymentRefundEvent";
@@ -15305,6 +14208,8 @@ export type PaymentVoid = {
  * Void payment.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PaymentVoidEvent = Event & {
   __typename?: "PaymentVoidEvent";
@@ -15381,6 +14286,8 @@ export type PermissionGroupCreateInput = {
  * Event sent when new permission group is created.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PermissionGroupCreated = Event & {
   __typename?: "PermissionGroupCreated";
@@ -15413,6 +14320,8 @@ export type PermissionGroupDelete = {
  * Event sent when permission group is deleted.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PermissionGroupDeleted = Event & {
   __typename?: "PermissionGroupDeleted";
@@ -15458,13 +14367,12 @@ export type PermissionGroupFilterInput = {
   search?: InputMaybe<Scalars["String"]>;
 };
 
-/** Sorting options for permission groups. */
 export type PermissionGroupSortField =
   /** Sort permission group accounts by name. */
   "NAME";
 
 export type PermissionGroupSortingInput = {
-  /** Specifies the direction in which to sort permission group. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort permission group by the selected field. */
   field: PermissionGroupSortField;
@@ -15500,6 +14408,8 @@ export type PermissionGroupUpdateInput = {
  * Event sent when permission group is updated.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type PermissionGroupUpdated = Event & {
   __typename?: "PermissionGroupUpdated";
@@ -15588,7 +14498,7 @@ export type PluginFilterInput = {
 export type PluginSortField = "IS_ACTIVE" | "NAME";
 
 export type PluginSortingInput = {
-  /** Specifies the direction in which to sort plugins. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort plugins by the selected field. */
   field: PluginSortField;
@@ -15675,12 +14585,6 @@ export type PriceRangeInput = {
 export type Product = Node &
   ObjectWithMetadata & {
     __typename?: "Product";
-    /**
-     * Get a single attribute attached to product by attribute slug.
-     *
-     * Added in Saleor 3.9.
-     */
-    attribute?: Maybe<SelectedAttribute>;
     /** List of attributes assigned to this product. */
     attributes: Array<SelectedAttribute>;
     /**
@@ -15699,7 +14603,6 @@ export type Product = Node &
      * Requires one of the following permissions: MANAGE_PRODUCTS.
      */
     channelListings?: Maybe<Array<ProductChannelListing>>;
-    /** @deprecated This field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` field to determine whether tax collection is enabled. */
     chargeTaxes: Scalars["Boolean"];
     /** List of collections for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
     collections?: Maybe<Array<Collection>>;
@@ -15718,12 +14621,6 @@ export type Product = Node &
      * @deprecated This field will be removed in Saleor 4.0. Use the `description` field instead.
      */
     descriptionJson?: Maybe<Scalars["JSONString"]>;
-    /**
-     * External ID of this product.
-     *
-     * Added in Saleor 3.10.
-     */
-    externalReference?: Maybe<Scalars["String"]>;
     id: Scalars["ID"];
     /**
      * Get a single product image by ID.
@@ -15791,37 +14688,16 @@ export type Product = Node &
     seoDescription?: Maybe<Scalars["String"]>;
     seoTitle?: Maybe<Scalars["String"]>;
     slug: Scalars["String"];
-    /**
-     * Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.
-     *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-     */
-    taxClass?: Maybe<TaxClass>;
-    /**
-     * A type of tax. Assigned by enabled tax gateway
-     * @deprecated This field will be removed in Saleor 4.0. Use `taxClass` field instead.
-     */
+    /** A type of tax. Assigned by enabled tax gateway */
     taxType?: Maybe<TaxType>;
     thumbnail?: Maybe<Image>;
     /** Returns translated product fields for the given language code. */
     translation?: Maybe<ProductTranslation>;
     updatedAt: Scalars["DateTime"];
-    /**
-     * Get a single variant by SKU or ID.
-     *
-     * Added in Saleor 3.9.
-     * @deprecated This field will be removed in Saleor 4.0. Use top-level `variant` query.
-     */
-    variant?: Maybe<ProductVariant>;
     /** List of variants for the product. Requires the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
     variants?: Maybe<Array<ProductVariant>>;
     weight?: Maybe<Weight>;
   };
-
-/** Represents an individual item for sale in the storefront. */
-export type ProductAttributeArgs = {
-  slug: Scalars["String"];
-};
 
 /** Represents an individual item for sale in the storefront. */
 export type ProductImageByIdArgs = {
@@ -15831,11 +14707,6 @@ export type ProductImageByIdArgs = {
 /** Represents an individual item for sale in the storefront. */
 export type ProductIsAvailableArgs = {
   address?: InputMaybe<AddressInput>;
-};
-
-/** Represents an individual item for sale in the storefront. */
-export type ProductMediaArgs = {
-  sortBy?: InputMaybe<MediaSortingInput>;
 };
 
 /** Represents an individual item for sale in the storefront. */
@@ -15877,12 +14748,6 @@ export type ProductThumbnailArgs = {
 /** Represents an individual item for sale in the storefront. */
 export type ProductTranslationArgs = {
   languageCode: LanguageCodeEnum;
-};
-
-/** Represents an individual item for sale in the storefront. */
-export type ProductVariantArgs = {
-  id?: InputMaybe<Scalars["ID"]>;
-  sku?: InputMaybe<Scalars["String"]>;
 };
 
 /**
@@ -15956,113 +14821,6 @@ export type ProductAttributeUnassign = {
 };
 
 /**
- * Creates products.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: MANAGE_PRODUCTS.
- */
-export type ProductBulkCreate = {
-  __typename?: "ProductBulkCreate";
-  /** Returns how many objects were created. */
-  count: Scalars["Int"];
-  errors: Array<ProductBulkCreateError>;
-  /** List of the created products. */
-  results: Array<ProductBulkResult>;
-};
-
-export type ProductBulkCreateError = {
-  __typename?: "ProductBulkCreateError";
-  /** List of attributes IDs which causes the error. */
-  attributes?: Maybe<Array<Scalars["ID"]>>;
-  /** List of channel IDs which causes the error. */
-  channels?: Maybe<Array<Scalars["ID"]>>;
-  /** The error code. */
-  code: ProductBulkCreateErrorCode;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-  /** Path to field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  path?: Maybe<Scalars["String"]>;
-  /** List of attribute values IDs which causes the error. */
-  values?: Maybe<Array<Scalars["ID"]>>;
-  /** List of warehouse IDs which causes the error. */
-  warehouses?: Maybe<Array<Scalars["ID"]>>;
-};
-
-/** An enumeration. */
-export type ProductBulkCreateErrorCode =
-  | "ATTRIBUTE_ALREADY_ASSIGNED"
-  | "ATTRIBUTE_CANNOT_BE_ASSIGNED"
-  | "ATTRIBUTE_VARIANTS_DISABLED"
-  | "BLANK"
-  | "DUPLICATED_INPUT_ITEM"
-  | "GRAPHQL_ERROR"
-  | "INVALID"
-  | "INVALID_PRICE"
-  | "MAX_LENGTH"
-  | "NOT_FOUND"
-  | "PRODUCT_NOT_ASSIGNED_TO_CHANNEL"
-  | "PRODUCT_WITHOUT_CATEGORY"
-  | "REQUIRED"
-  | "UNIQUE"
-  | "UNSUPPORTED_MEDIA_PROVIDER";
-
-export type ProductBulkCreateInput = {
-  /** List of attributes. */
-  attributes?: InputMaybe<Array<AttributeValueInput>>;
-  /** ID of the product's category. */
-  category?: InputMaybe<Scalars["ID"]>;
-  /** List of channels in which the product is available. */
-  channelListings?: InputMaybe<Array<ProductChannelListingCreateInput>>;
-  /**
-   * Determine if taxes are being charged for the product.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
-   */
-  chargeTaxes?: InputMaybe<Scalars["Boolean"]>;
-  /** List of IDs of collections that the product belongs to. */
-  collections?: InputMaybe<Array<Scalars["ID"]>>;
-  /**
-   * Product description.
-   *
-   * Rich text format. For reference see https://editorjs.io/
-   */
-  description?: InputMaybe<Scalars["JSONString"]>;
-  /** External ID of this product. */
-  externalReference?: InputMaybe<Scalars["String"]>;
-  /** List of media inputs associated with the product. */
-  media?: InputMaybe<Array<MediaInput>>;
-  /** Fields required to update the product metadata. */
-  metadata?: InputMaybe<Array<MetadataInput>>;
-  /** Product name. */
-  name?: InputMaybe<Scalars["String"]>;
-  /** Fields required to update the product private metadata. */
-  privateMetadata?: InputMaybe<Array<MetadataInput>>;
-  /** ID of the type that product belongs to. */
-  productType: Scalars["ID"];
-  /** Defines the product rating value. */
-  rating?: InputMaybe<Scalars["Float"]>;
-  /** Search engine optimization fields. */
-  seo?: InputMaybe<SeoInput>;
-  /** Product slug. */
-  slug?: InputMaybe<Scalars["String"]>;
-  /** ID of a tax class to assign to this product. If not provided, product will use the tax class which is assigned to the product type. */
-  taxClass?: InputMaybe<Scalars["ID"]>;
-  /**
-   * Tax rate for enabled tax gateway.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
-   */
-  taxCode?: InputMaybe<Scalars["String"]>;
-  /** Input list of product variants to create. */
-  variants?: InputMaybe<Array<ProductVariantBulkCreateInput>>;
-  /** Weight of the Product. */
-  weight?: InputMaybe<Scalars["WeightScalar"]>;
-};
-
-/**
  * Deletes products.
  *
  * Requires one of the following permissions: MANAGE_PRODUCTS.
@@ -16074,14 +14832,6 @@ export type ProductBulkDelete = {
   errors: Array<ProductError>;
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   productErrors: Array<ProductError>;
-};
-
-export type ProductBulkResult = {
-  __typename?: "ProductBulkResult";
-  /** List of errors occurred on create attempt. */
-  errors?: Maybe<Array<ProductBulkCreateError>>;
-  /** Product data. */
-  product?: Maybe<Product>;
 };
 
 /** Represents product channel listing. */
@@ -16171,21 +14921,6 @@ export type ProductChannelListingAddInput = {
   visibleInListings?: InputMaybe<Scalars["Boolean"]>;
 };
 
-export type ProductChannelListingCreateInput = {
-  /** A start date time from which a product will be available for purchase. When not set and `isAvailable` is set to True, the current day is assumed. */
-  availableForPurchaseAt?: InputMaybe<Scalars["DateTime"]>;
-  /** ID of a channel. */
-  channelId: Scalars["ID"];
-  /** Determine if product should be available for purchase. */
-  isAvailableForPurchase?: InputMaybe<Scalars["Boolean"]>;
-  /** Determines if object is visible to customers. */
-  isPublished?: InputMaybe<Scalars["Boolean"]>;
-  /** Publication date time. ISO 8601 standard. */
-  publishedAt?: InputMaybe<Scalars["DateTime"]>;
-  /** Determines if product is visible in product listings (doesn't apply to product collections). */
-  visibleInListings?: InputMaybe<Scalars["Boolean"]>;
-};
-
 export type ProductChannelListingError = {
   __typename?: "ProductChannelListingError";
   /** List of attributes IDs which causes the error. */
@@ -16260,11 +14995,7 @@ export type ProductCreateInput = {
   attributes?: InputMaybe<Array<AttributeValueInput>>;
   /** ID of the product's category. */
   category?: InputMaybe<Scalars["ID"]>;
-  /**
-   * Determine if taxes are being charged for the product.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
-   */
+  /** Determine if taxes are being charged for the product. */
   chargeTaxes?: InputMaybe<Scalars["Boolean"]>;
   /** List of IDs of collections that the product belongs to. */
   collections?: InputMaybe<Array<Scalars["ID"]>>;
@@ -16274,12 +15005,6 @@ export type ProductCreateInput = {
    * Rich text format. For reference see https://editorjs.io/
    */
   description?: InputMaybe<Scalars["JSONString"]>;
-  /**
-   * External ID of this product.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /**
    * Fields required to update the product metadata.
    *
@@ -16302,13 +15027,7 @@ export type ProductCreateInput = {
   seo?: InputMaybe<SeoInput>;
   /** Product slug. */
   slug?: InputMaybe<Scalars["String"]>;
-  /** ID of a tax class to assign to this product. If not provided, product will use the tax class which is assigned to the product type. */
-  taxClass?: InputMaybe<Scalars["ID"]>;
-  /**
-   * Tax rate for enabled tax gateway.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
-   */
+  /** Tax rate for enabled tax gateway. */
   taxCode?: InputMaybe<Scalars["String"]>;
   /** Weight of the Product. */
   weight?: InputMaybe<Scalars["WeightScalar"]>;
@@ -16318,6 +15037,8 @@ export type ProductCreateInput = {
  * Event sent when new product is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductCreated = Event & {
   __typename?: "ProductCreated";
@@ -16339,6 +15060,8 @@ export type ProductCreated = Event & {
  * Event sent when new product is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductCreatedProductArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -16361,6 +15084,8 @@ export type ProductDelete = {
  * Event sent when product is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductDeleted = Event & {
   __typename?: "ProductDeleted";
@@ -16382,6 +15107,8 @@ export type ProductDeleted = Event & {
  * Event sent when product is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductDeletedProductArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -16411,7 +15138,6 @@ export type ProductErrorCode =
   | "DUPLICATED_INPUT_ITEM"
   | "GRAPHQL_ERROR"
   | "INVALID"
-  | "INVALID_PRICE"
   | "MEDIA_ALREADY_ASSIGNED"
   | "NOT_FOUND"
   | "NOT_PRODUCTS_IMAGE"
@@ -16515,11 +15241,7 @@ export type ProductInput = {
   attributes?: InputMaybe<Array<AttributeValueInput>>;
   /** ID of the product's category. */
   category?: InputMaybe<Scalars["ID"]>;
-  /**
-   * Determine if taxes are being charged for the product.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` to configure whether tax collection is enabled.
-   */
+  /** Determine if taxes are being charged for the product. */
   chargeTaxes?: InputMaybe<Scalars["Boolean"]>;
   /** List of IDs of collections that the product belongs to. */
   collections?: InputMaybe<Array<Scalars["ID"]>>;
@@ -16529,12 +15251,6 @@ export type ProductInput = {
    * Rich text format. For reference see https://editorjs.io/
    */
   description?: InputMaybe<Scalars["JSONString"]>;
-  /**
-   * External ID of this product.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /**
    * Fields required to update the product metadata.
    *
@@ -16555,106 +15271,21 @@ export type ProductInput = {
   seo?: InputMaybe<SeoInput>;
   /** Product slug. */
   slug?: InputMaybe<Scalars["String"]>;
-  /** ID of a tax class to assign to this product. If not provided, product will use the tax class which is assigned to the product type. */
-  taxClass?: InputMaybe<Scalars["ID"]>;
-  /**
-   * Tax rate for enabled tax gateway.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use tax classes to control the tax calculation for a product. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
-   */
+  /** Tax rate for enabled tax gateway. */
   taxCode?: InputMaybe<Scalars["String"]>;
   /** Weight of the Product. */
   weight?: InputMaybe<Scalars["WeightScalar"]>;
 };
 
 /** Represents a product media. */
-export type ProductMedia = Node &
-  ObjectWithMetadata & {
-    __typename?: "ProductMedia";
-    alt: Scalars["String"];
-    id: Scalars["ID"];
-    /**
-     * List of public metadata items. Can be accessed without permissions.
-     *
-     * Added in Saleor 3.12.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metadata: Array<MetadataItem>;
-    /**
-     * A single key from public metadata.
-     *
-     * Tip: Use GraphQL aliases to fetch multiple keys.
-     *
-     * Added in Saleor 3.12.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metafield?: Maybe<Scalars["String"]>;
-    /**
-     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-     *
-     * Added in Saleor 3.12.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metafields?: Maybe<Scalars["Metadata"]>;
-    oembedData: Scalars["JSONString"];
-    /**
-     * List of private metadata items. Requires staff permissions to access.
-     *
-     * Added in Saleor 3.12.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetadata: Array<MetadataItem>;
-    /**
-     * A single key from private metadata. Requires staff permissions to access.
-     *
-     * Tip: Use GraphQL aliases to fetch multiple keys.
-     *
-     * Added in Saleor 3.12.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetafield?: Maybe<Scalars["String"]>;
-    /**
-     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-     *
-     * Added in Saleor 3.12.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetafields?: Maybe<Scalars["Metadata"]>;
-    /**
-     * Product id the media refers to.
-     *
-     * Added in Saleor 3.12.
-     */
-    productId?: Maybe<Scalars["ID"]>;
-    sortOrder?: Maybe<Scalars["Int"]>;
-    type: ProductMediaType;
-    url: Scalars["String"];
-  };
-
-/** Represents a product media. */
-export type ProductMediaMetafieldArgs = {
-  key: Scalars["String"];
-};
-
-/** Represents a product media. */
-export type ProductMediaMetafieldsArgs = {
-  keys?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-/** Represents a product media. */
-export type ProductMediaPrivateMetafieldArgs = {
-  key: Scalars["String"];
-};
-
-/** Represents a product media. */
-export type ProductMediaPrivateMetafieldsArgs = {
-  keys?: InputMaybe<Array<Scalars["String"]>>;
+export type ProductMedia = Node & {
+  __typename?: "ProductMedia";
+  alt: Scalars["String"];
+  id: Scalars["ID"];
+  oembedData: Scalars["JSONString"];
+  sortOrder?: Maybe<Scalars["Int"]>;
+  type: ProductMediaType;
+  url: Scalars["String"];
 };
 
 /** Represents a product media. */
@@ -16703,25 +15334,6 @@ export type ProductMediaCreateInput = {
 };
 
 /**
- * Event sent when new product media is created.
- *
- * Added in Saleor 3.12.
- */
-export type ProductMediaCreated = Event & {
-  __typename?: "ProductMediaCreated";
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The product media the event relates to. */
-  productMedia?: Maybe<ProductMedia>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
-/**
  * Deletes a product media.
  *
  * Requires one of the following permissions: MANAGE_PRODUCTS.
@@ -16733,25 +15345,6 @@ export type ProductMediaDelete = {
   product?: Maybe<Product>;
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   productErrors: Array<ProductError>;
-};
-
-/**
- * Event sent when product media is deleted.
- *
- * Added in Saleor 3.12.
- */
-export type ProductMediaDeleted = Event & {
-  __typename?: "ProductMediaDeleted";
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The product media the event relates to. */
-  productMedia?: Maybe<ProductMedia>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
 };
 
 /**
@@ -16791,28 +15384,11 @@ export type ProductMediaUpdateInput = {
 };
 
 /**
- * Event sent when product media is updated.
- *
- * Added in Saleor 3.12.
- */
-export type ProductMediaUpdated = Event & {
-  __typename?: "ProductMediaUpdated";
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The product media the event relates to. */
-  productMedia?: Maybe<ProductMedia>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
-/**
  * Event sent when product metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductMetadataUpdated = Event & {
   __typename?: "ProductMetadataUpdated";
@@ -16834,6 +15410,8 @@ export type ProductMetadataUpdated = Event & {
  * Event sent when product metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductMetadataUpdatedProductArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -16922,12 +15500,6 @@ export type ProductPricingInfo = {
   discount?: Maybe<TaxedMoney>;
   /** The discount amount in the local currency. */
   discountLocalCurrency?: Maybe<TaxedMoney>;
-  /**
-   * Determines whether this product's price displayed in a storefront should include taxes.
-   *
-   * Added in Saleor 3.9.
-   */
-  displayGrossPrices: Scalars["Boolean"];
   /** Whether it is in sale or not. */
   onSale?: Maybe<Scalars["Boolean"]>;
   /** The discounted price range of the product variants. */
@@ -17098,16 +15670,7 @@ export type ProductType = Node &
      */
     products?: Maybe<ProductCountableConnection>;
     slug: Scalars["String"];
-    /**
-     * Tax class assigned to this product type. All products of this product type use this tax class, unless it's overridden in the `Product` type.
-     *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-     */
-    taxClass?: Maybe<TaxClass>;
-    /**
-     * A type of tax. Assigned by enabled tax gateway
-     * @deprecated This field will be removed in Saleor 4.0. Use `taxClass` field instead.
-     */
+    /** A type of tax. Assigned by enabled tax gateway */
     taxType?: Maybe<TaxType>;
     /**
      * Variant attributes of that product type.
@@ -17129,7 +15692,6 @@ export type ProductTypeAvailableAttributesArgs = {
   filter?: InputMaybe<AttributeFilterInput>;
   first?: InputMaybe<Scalars["Int"]>;
   last?: InputMaybe<Scalars["Int"]>;
-  where?: InputMaybe<AttributeWhereInput>;
 };
 
 /** Represents a type of product. It defines what attributes are available to products of this type. */
@@ -17252,13 +15814,7 @@ export type ProductTypeInput = {
   productAttributes?: InputMaybe<Array<Scalars["ID"]>>;
   /** Product type slug. */
   slug?: InputMaybe<Scalars["String"]>;
-  /** ID of a tax class to assign to this product type. All products of this product type would use this tax class, unless it's overridden in the `Product` type. */
-  taxClass?: InputMaybe<Scalars["ID"]>;
-  /**
-   * Tax rate for enabled tax gateway.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0.. Use tax classes to control the tax calculation for a product type. If taxCode is provided, Saleor will try to find a tax class with given code (codes are stored in metadata) and assign it. If no tax class is found, it would be created and assigned.
-   */
+  /** Tax rate for enabled tax gateway. */
   taxCode?: InputMaybe<Scalars["String"]>;
   /** List of attributes used to distinguish between different variants of a product. */
   variantAttributes?: InputMaybe<Array<Scalars["ID"]>>;
@@ -17292,7 +15848,7 @@ export type ProductTypeSortField =
   | "SHIPPING_REQUIRED";
 
 export type ProductTypeSortingInput = {
-  /** Specifies the direction in which to sort product types. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort product types by the selected field. */
   field: ProductTypeSortField;
@@ -17328,6 +15884,8 @@ export type ProductUpdate = {
  * Event sent when product is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductUpdated = Event & {
   __typename?: "ProductUpdated";
@@ -17349,6 +15907,8 @@ export type ProductUpdated = Event & {
  * Event sent when product is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductUpdatedProductArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -17375,12 +15935,6 @@ export type ProductVariant = Node &
      * Requires one of the following permissions: MANAGE_PRODUCTS.
      */
     digitalContent?: Maybe<DigitalContent>;
-    /**
-     * External ID of this product.
-     *
-     * Added in Saleor 3.10.
-     */
-    externalReference?: Maybe<Scalars["String"]>;
     id: Scalars["ID"];
     /**
      * List of images for the product variant.
@@ -17416,6 +15970,8 @@ export type ProductVariant = Node &
      * Preorder data for product variant.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     preorder?: Maybe<PreorderData>;
     /** Lists the storefront variant's pricing, the current price and discounts, only meant for displaying. */
@@ -17526,6 +16082,8 @@ export type ProductVariantTranslationArgs = {
  * Event sent when product variant is back in stock.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantBackInStock = Event & {
   __typename?: "ProductVariantBackInStock";
@@ -17547,6 +16105,8 @@ export type ProductVariantBackInStock = Event & {
  * Event sent when product variant is back in stock.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantBackInStockProductVariantArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -17564,14 +16124,8 @@ export type ProductVariantBulkCreate = {
   /** Returns how many objects were created. */
   count: Scalars["Int"];
   errors: Array<BulkProductError>;
-  /** List of the created variants.This field will be removed in Saleor 4.0. */
+  /** List of the created variants. */
   productVariants: Array<ProductVariant>;
-  /**
-   * List of the created variants.
-   *
-   * Added in Saleor 3.11.
-   */
-  results: Array<ProductVariantBulkResult>;
 };
 
 export type ProductVariantBulkCreateInput = {
@@ -17579,12 +16133,6 @@ export type ProductVariantBulkCreateInput = {
   attributes: Array<BulkAttributeValueInput>;
   /** List of prices assigned to channels. */
   channelListings?: InputMaybe<Array<ProductVariantChannelListingAddInput>>;
-  /**
-   * External ID of this product variant.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /**
    * Fields required to update the product variant metadata.
    *
@@ -17597,6 +16145,8 @@ export type ProductVariantBulkCreateInput = {
    * Determines if variant is in preorder.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   preorder?: InputMaybe<PreorderSettingsInput>;
   /**
@@ -17609,6 +16159,8 @@ export type ProductVariantBulkCreateInput = {
    * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   quantityLimitPerCustomer?: InputMaybe<Scalars["Int"]>;
   /** Stock keeping unit. */
@@ -17635,143 +16187,6 @@ export type ProductVariantBulkDelete = {
   productErrors: Array<ProductError>;
 };
 
-export type ProductVariantBulkError = {
-  __typename?: "ProductVariantBulkError";
-  /** List of attributes IDs which causes the error. */
-  attributes?: Maybe<Array<Scalars["ID"]>>;
-  /** List of channel listings IDs which causes the error. */
-  channelListings?: Maybe<Array<Scalars["ID"]>>;
-  /**
-   * List of channel IDs which causes the error.
-   *
-   * Added in Saleor 3.12.
-   */
-  channels?: Maybe<Array<Scalars["ID"]>>;
-  /** The error code. */
-  code: ProductVariantBulkErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-  /**
-   * List of stocks IDs which causes the error.
-   *
-   * Added in Saleor 3.12.
-   */
-  stocks?: Maybe<Array<Scalars["ID"]>>;
-  /** List of attribute values IDs which causes the error. */
-  values?: Maybe<Array<Scalars["ID"]>>;
-  /** List of warehouse IDs which causes the error. */
-  warehouses?: Maybe<Array<Scalars["ID"]>>;
-};
-
-/** An enumeration. */
-export type ProductVariantBulkErrorCode =
-  | "ATTRIBUTE_ALREADY_ASSIGNED"
-  | "ATTRIBUTE_CANNOT_BE_ASSIGNED"
-  | "ATTRIBUTE_VARIANTS_DISABLED"
-  | "DUPLICATED_INPUT_ITEM"
-  | "GRAPHQL_ERROR"
-  | "INVALID"
-  | "INVALID_PRICE"
-  | "NOT_FOUND"
-  | "NOT_PRODUCTS_VARIANT"
-  | "PRODUCT_NOT_ASSIGNED_TO_CHANNEL"
-  | "REQUIRED"
-  | "UNIQUE";
-
-export type ProductVariantBulkResult = {
-  __typename?: "ProductVariantBulkResult";
-  /** List of errors occurred on create attempt. */
-  errors?: Maybe<Array<ProductVariantBulkError>>;
-  /** Product variant data. */
-  productVariant?: Maybe<ProductVariant>;
-};
-
-/**
- * Update multiple product variants.
- *
- * Added in Saleor 3.11.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: MANAGE_PRODUCTS.
- */
-export type ProductVariantBulkUpdate = {
-  __typename?: "ProductVariantBulkUpdate";
-  /** Returns how many objects were updated. */
-  count: Scalars["Int"];
-  errors: Array<ProductVariantBulkError>;
-  /** List of the updated variants. */
-  results: Array<ProductVariantBulkResult>;
-};
-
-/**
- * Input fields to update product variants.
- *
- * Added in Saleor 3.11.
- */
-export type ProductVariantBulkUpdateInput = {
-  /** List of attributes specific to this variant. */
-  attributes?: InputMaybe<Array<BulkAttributeValueInput>>;
-  /**
-   * Channel listings input.
-   *
-   * Added in Saleor 3.12.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  channelListings?: InputMaybe<ProductVariantChannelListingUpdateInput>;
-  /**
-   * External ID of this product variant.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
-  /** ID of the product variant to update. */
-  id: Scalars["ID"];
-  /**
-   * Fields required to update the product variant metadata.
-   *
-   * Added in Saleor 3.8.
-   */
-  metadata?: InputMaybe<Array<MetadataInput>>;
-  /** Variant name. */
-  name?: InputMaybe<Scalars["String"]>;
-  /**
-   * Determines if variant is in preorder.
-   *
-   * Added in Saleor 3.1.
-   */
-  preorder?: InputMaybe<PreorderSettingsInput>;
-  /**
-   * Fields required to update the product variant private metadata.
-   *
-   * Added in Saleor 3.8.
-   */
-  privateMetadata?: InputMaybe<Array<MetadataInput>>;
-  /**
-   * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
-   *
-   * Added in Saleor 3.1.
-   */
-  quantityLimitPerCustomer?: InputMaybe<Scalars["Int"]>;
-  /** Stock keeping unit. */
-  sku?: InputMaybe<Scalars["String"]>;
-  /**
-   * Stocks input.
-   *
-   * Added in Saleor 3.12.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  stocks?: InputMaybe<ProductVariantStocksUpdateInput>;
-  /** Determines if the inventory of this variant should be tracked. If false, the quantity won't change when customers buy this item. */
-  trackInventory?: InputMaybe<Scalars["Boolean"]>;
-  /** Weight of the Product Variant. */
-  weight?: InputMaybe<Scalars["WeightScalar"]>;
-};
-
 /** Represents product varaint channel listing. */
 export type ProductVariantChannelListing = Node & {
   __typename?: "ProductVariantChannelListing";
@@ -17789,6 +16204,8 @@ export type ProductVariantChannelListing = Node & {
    * Preorder variant data.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   preorderThreshold?: Maybe<PreorderThreshold>;
   price?: Maybe<Money>;
@@ -17803,6 +16220,8 @@ export type ProductVariantChannelListingAddInput = {
    * The threshold for preorder variant in channel.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   preorderThreshold?: InputMaybe<Scalars["Int"]>;
   /** Price of the particular variant in channel. */
@@ -17821,15 +16240,6 @@ export type ProductVariantChannelListingUpdate = {
   productChannelListingErrors: Array<ProductChannelListingError>;
   /** An updated product variant instance. */
   variant?: Maybe<ProductVariant>;
-};
-
-export type ProductVariantChannelListingUpdateInput = {
-  /** List of channels to create variant channel listings. */
-  create?: InputMaybe<Array<ProductVariantChannelListingAddInput>>;
-  /** List of channel listings to remove. */
-  remove?: InputMaybe<Array<Scalars["ID"]>>;
-  /** List of channel listings to update. */
-  update?: InputMaybe<Array<ChannelListingUpdateInput>>;
 };
 
 export type ProductVariantCountableConnection = {
@@ -17866,12 +16276,6 @@ export type ProductVariantCreateInput = {
   /** List of attributes specific to this variant. */
   attributes: Array<AttributeValueInput>;
   /**
-   * External ID of this product variant.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
-  /**
    * Fields required to update the product variant metadata.
    *
    * Added in Saleor 3.8.
@@ -17883,6 +16287,8 @@ export type ProductVariantCreateInput = {
    * Determines if variant is in preorder.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   preorder?: InputMaybe<PreorderSettingsInput>;
   /**
@@ -17897,6 +16303,8 @@ export type ProductVariantCreateInput = {
    * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   quantityLimitPerCustomer?: InputMaybe<Scalars["Int"]>;
   /** Stock keeping unit. */
@@ -17913,6 +16321,8 @@ export type ProductVariantCreateInput = {
  * Event sent when new product variant is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantCreated = Event & {
   __typename?: "ProductVariantCreated";
@@ -17932,6 +16342,8 @@ export type ProductVariantCreated = Event & {
  * Event sent when new product variant is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantCreatedProductVariantArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -17954,6 +16366,8 @@ export type ProductVariantDelete = {
  * Event sent when product variant is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantDeleted = Event & {
   __typename?: "ProductVariantDeleted";
@@ -17973,6 +16387,8 @@ export type ProductVariantDeleted = Event & {
  * Event sent when product variant is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantDeletedProductVariantArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -17990,12 +16406,6 @@ export type ProductVariantInput = {
   /** List of attributes specific to this variant. */
   attributes?: InputMaybe<Array<AttributeValueInput>>;
   /**
-   * External ID of this product variant.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
-  /**
    * Fields required to update the product variant metadata.
    *
    * Added in Saleor 3.8.
@@ -18007,6 +16417,8 @@ export type ProductVariantInput = {
    * Determines if variant is in preorder.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   preorder?: InputMaybe<PreorderSettingsInput>;
   /**
@@ -18019,6 +16431,8 @@ export type ProductVariantInput = {
    * Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   quantityLimitPerCustomer?: InputMaybe<Scalars["Int"]>;
   /** Stock keeping unit. */
@@ -18033,6 +16447,8 @@ export type ProductVariantInput = {
  * Event sent when product variant metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantMetadataUpdated = Event & {
   __typename?: "ProductVariantMetadataUpdated";
@@ -18052,6 +16468,8 @@ export type ProductVariantMetadataUpdated = Event & {
  * Event sent when product variant metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantMetadataUpdatedProductVariantArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -18061,6 +16479,8 @@ export type ProductVariantMetadataUpdatedProductVariantArgs = {
  * Event sent when product variant is out of stock.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantOutOfStock = Event & {
   __typename?: "ProductVariantOutOfStock";
@@ -18082,6 +16502,8 @@ export type ProductVariantOutOfStock = Event & {
  * Event sent when product variant is out of stock.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantOutOfStockProductVariantArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -18091,6 +16513,8 @@ export type ProductVariantOutOfStockProductVariantArgs = {
  * Deactivates product variant preorder. It changes all preorder allocation into regular allocation.
  *
  * Added in Saleor 3.1.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
  * Requires one of the following permissions: MANAGE_PRODUCTS.
  */
@@ -18146,44 +16570,10 @@ export type ProductVariantSortField =
   "LAST_MODIFIED_AT";
 
 export type ProductVariantSortingInput = {
-  /** Specifies the direction in which to sort productVariants. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort productVariants by the selected field. */
   field: ProductVariantSortField;
-};
-
-/**
- * Event sent when product variant stock is updated.
- *
- * Added in Saleor 3.11.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type ProductVariantStockUpdated = Event & {
-  __typename?: "ProductVariantStockUpdated";
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The product variant the event relates to. */
-  productVariant?: Maybe<ProductVariant>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-  /** Look up a warehouse. */
-  warehouse?: Maybe<Warehouse>;
-};
-
-/**
- * Event sent when product variant stock is updated.
- *
- * Added in Saleor 3.11.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type ProductVariantStockUpdatedProductVariantArgs = {
-  channel?: InputMaybe<Scalars["String"]>;
 };
 
 /**
@@ -18226,15 +16616,6 @@ export type ProductVariantStocksUpdate = {
   errors: Array<BulkStockError>;
   /** Updated product variant. */
   productVariant?: Maybe<ProductVariant>;
-};
-
-export type ProductVariantStocksUpdateInput = {
-  /** List of warehouses to create stocks. */
-  create?: InputMaybe<Array<StockInput>>;
-  /** List of stocks to remove. */
-  remove?: InputMaybe<Array<Scalars["ID"]>>;
-  /** List of stocks to update. */
-  update?: InputMaybe<Array<StockUpdateInput>>;
 };
 
 export type ProductVariantTranslatableContent = Node & {
@@ -18294,6 +16675,8 @@ export type ProductVariantUpdate = {
  * Event sent when product variant is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantUpdated = Event & {
   __typename?: "ProductVariantUpdated";
@@ -18313,6 +16696,8 @@ export type ProductVariantUpdated = Event & {
  * Event sent when product variant is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ProductVariantUpdatedProductVariantArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -18356,6 +16741,8 @@ export type Query = {
    *
    * Added in Saleor 3.1.
    *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
    */
   appExtension?: Maybe<AppExtension>;
@@ -18363,6 +16750,8 @@ export type Query = {
    * List of all extensions.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
    */
@@ -18379,7 +16768,7 @@ export type Query = {
    * Requires one of the following permissions: MANAGE_APPS.
    */
   appsInstallations: Array<AppInstallation>;
-  /** Look up an attribute by ID, slug or external reference. */
+  /** Look up an attribute by ID. */
   attribute?: Maybe<Attribute>;
   /** List of the shop's attributes. */
   attributes?: Maybe<AttributeCountableConnection>;
@@ -18460,6 +16849,8 @@ export type Query = {
    *
    * Added in Saleor 3.1.
    *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
   giftCardCurrencies: Array<Scalars["String"]>;
@@ -18473,6 +16864,8 @@ export type Query = {
    * List of gift card tags.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: MANAGE_GIFT_CARD.
    */
@@ -18499,7 +16892,7 @@ export type Query = {
   menuItems?: Maybe<MenuItemCountableConnection>;
   /** List of the storefront's menus. */
   menus?: Maybe<MenuCountableConnection>;
-  /** Look up an order by ID or external reference. */
+  /** Look up an order by ID. */
   order?: Maybe<Order>;
   /**
    * Look up an order by token.
@@ -18507,10 +16900,9 @@ export type Query = {
    */
   orderByToken?: Maybe<Order>;
   /**
-   * Order related settings from site settings. Returns `orderSettings` for the first `channel` in alphabetical order.
+   * Order related settings from site settings.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
-   * @deprecated This field will be removed in Saleor 4.0. Use the `channel` query to fetch the `orderSettings` field instead.
    */
   orderSettings?: Maybe<OrderSettings>;
   /**
@@ -18631,50 +17023,6 @@ export type Query = {
    * Requires one of the following permissions: MANAGE_PRODUCTS.
    */
   stocks?: Maybe<StockCountableConnection>;
-  /**
-   * Look up a tax class.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-   */
-  taxClass?: Maybe<TaxClass>;
-  /**
-   * List of tax classes.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-   */
-  taxClasses?: Maybe<TaxClassCountableConnection>;
-  /**
-   * Look up a tax configuration.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-   */
-  taxConfiguration?: Maybe<TaxConfiguration>;
-  /**
-   * List of tax configurations.
-   *
-   * Added in Saleor 3.9.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-   */
-  taxConfigurations?: Maybe<TaxConfigurationCountableConnection>;
-  /**
-   * Tax class rates grouped by country.
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-   */
-  taxCountryConfiguration?: Maybe<TaxCountryConfiguration>;
-  /**
-   *
-   *
-   * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-   */
-  taxCountryConfigurations?: Maybe<Array<TaxCountryConfiguration>>;
   /** List of all tax rates available from tax gateway. */
   taxTypes?: Maybe<Array<TaxType>>;
   /**
@@ -18783,7 +17131,6 @@ export type QueryAppsArgs = {
 };
 
 export type QueryAttributeArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
   slug?: InputMaybe<Scalars["String"]>;
 };
@@ -18795,9 +17142,7 @@ export type QueryAttributesArgs = {
   filter?: InputMaybe<AttributeFilterInput>;
   first?: InputMaybe<Scalars["Int"]>;
   last?: InputMaybe<Scalars["Int"]>;
-  search?: InputMaybe<Scalars["String"]>;
   sortBy?: InputMaybe<AttributeSortingInput>;
-  where?: InputMaybe<AttributeWhereInput>;
 };
 
 export type QueryCategoriesArgs = {
@@ -18961,8 +17306,7 @@ export type QueryMenusArgs = {
 };
 
 export type QueryOrderArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 };
 
 export type QueryOrderByTokenArgs = {
@@ -19051,7 +17395,6 @@ export type QueryPluginsArgs = {
 
 export type QueryProductArgs = {
   channel?: InputMaybe<Scalars["String"]>;
-  externalReference?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
   slug?: InputMaybe<Scalars["String"]>;
 };
@@ -19071,7 +17414,6 @@ export type QueryProductTypesArgs = {
 
 export type QueryProductVariantArgs = {
   channel?: InputMaybe<Scalars["String"]>;
-  externalReference?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
   sku?: InputMaybe<Scalars["String"]>;
 };
@@ -19157,35 +17499,6 @@ export type QueryStocksArgs = {
   last?: InputMaybe<Scalars["Int"]>;
 };
 
-export type QueryTaxClassArgs = {
-  id: Scalars["ID"];
-};
-
-export type QueryTaxClassesArgs = {
-  after?: InputMaybe<Scalars["String"]>;
-  before?: InputMaybe<Scalars["String"]>;
-  filter?: InputMaybe<TaxClassFilterInput>;
-  first?: InputMaybe<Scalars["Int"]>;
-  last?: InputMaybe<Scalars["Int"]>;
-  sortBy?: InputMaybe<TaxClassSortingInput>;
-};
-
-export type QueryTaxConfigurationArgs = {
-  id: Scalars["ID"];
-};
-
-export type QueryTaxConfigurationsArgs = {
-  after?: InputMaybe<Scalars["String"]>;
-  before?: InputMaybe<Scalars["String"]>;
-  filter?: InputMaybe<TaxConfigurationFilterInput>;
-  first?: InputMaybe<Scalars["Int"]>;
-  last?: InputMaybe<Scalars["Int"]>;
-};
-
-export type QueryTaxCountryConfigurationArgs = {
-  countryCode: CountryCode;
-};
-
 export type QueryTransactionArgs = {
   id: Scalars["ID"];
 };
@@ -19205,7 +17518,6 @@ export type QueryTranslationsArgs = {
 
 export type QueryUserArgs = {
   email?: InputMaybe<Scalars["String"]>;
-  externalReference?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
 };
 
@@ -19226,8 +17538,7 @@ export type QueryVouchersArgs = {
 };
 
 export type QueryWarehouseArgs = {
-  externalReference?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
+  id: Scalars["ID"];
 };
 
 export type QueryWarehousesArgs = {
@@ -19542,6 +17853,8 @@ export type SaleCreate = {
  * Event sent when new sale is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type SaleCreated = Event & {
   __typename?: "SaleCreated";
@@ -19561,6 +17874,8 @@ export type SaleCreated = Event & {
  * Event sent when new sale is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type SaleCreatedSaleArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -19583,6 +17898,8 @@ export type SaleDelete = {
  * Event sent when sale is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type SaleDeleted = Event & {
   __typename?: "SaleDeleted";
@@ -19602,6 +17919,8 @@ export type SaleDeleted = Event & {
  * Event sent when sale is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type SaleDeletedSaleArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -19677,7 +17996,7 @@ export type SaleSortingInput = {
    * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
    */
   channel?: InputMaybe<Scalars["String"]>;
-  /** Specifies the direction in which to sort sales. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort sales by the selected field. */
   field: SaleSortField;
@@ -19687,6 +18006,8 @@ export type SaleSortingInput = {
  * The event informs about the start or end of the sale.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type SaleToggle = Event & {
   __typename?: "SaleToggle";
@@ -19700,6 +18021,8 @@ export type SaleToggle = Event & {
    * The sale the event relates to.
    *
    * Added in Saleor 3.5.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   sale?: Maybe<Sale>;
   /** Saleor version that triggered the event. */
@@ -19710,6 +18033,8 @@ export type SaleToggle = Event & {
  * The event informs about the start or end of the sale.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type SaleToggleSaleArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -19774,6 +18099,8 @@ export type SaleUpdate = {
  * Event sent when sale is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type SaleUpdated = Event & {
   __typename?: "SaleUpdated";
@@ -19793,6 +18120,8 @@ export type SaleUpdated = Event & {
  * Event sent when sale is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type SaleUpdatedSaleArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -19859,6 +18188,8 @@ export type ShippingErrorCode =
  * List shipping methods for checkout.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingListMethodsForCheckout = Event & {
   __typename?: "ShippingListMethodsForCheckout";
@@ -19874,6 +18205,8 @@ export type ShippingListMethodsForCheckout = Event & {
    * Shipping methods that can be used with this checkout.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   shippingMethods?: Maybe<Array<ShippingMethod>>;
   /** Saleor version that triggered the event. */
@@ -19911,9 +18244,19 @@ export type ShippingMethod = Node &
      * A single key from public metadata.
      *
      * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     metafield?: Maybe<Scalars["String"]>;
-    /** Public metadata. Use `keys` to control which fields you want to include. The default is to include everything. */
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
     metafields?: Maybe<Scalars["Metadata"]>;
     /** Minimum delivery days for this shipping method. */
     minimumDeliveryDays?: Maybe<Scalars["Int"]>;
@@ -19934,9 +18277,19 @@ export type ShippingMethod = Node &
      * A single key from private metadata. Requires staff permissions to access.
      *
      * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     privateMetafield?: Maybe<Scalars["String"]>;
-    /** Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything. */
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
     privateMetafields?: Maybe<Scalars["Metadata"]>;
     /** Returns translated shipping method fields for the given language code. */
     translation?: Maybe<ShippingMethodTranslation>;
@@ -20146,12 +18499,6 @@ export type ShippingMethodType = Node &
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     privateMetafields?: Maybe<Scalars["Metadata"]>;
-    /**
-     * Tax class assigned to this shipping method.
-     *
-     * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
-     */
-    taxClass?: Maybe<TaxClass>;
     /** Returns translated shipping method fields for the given language code. */
     translation?: Maybe<ShippingMethodTranslation>;
     /** Type of the shipping method. */
@@ -20198,6 +18545,8 @@ export type ShippingMethodTypeEnum = "PRICE" | "WEIGHT";
  * List of shipping methods available for the country.
  *
  * Added in Saleor 3.6.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingMethodsPerCountry = {
   __typename?: "ShippingMethodsPerCountry";
@@ -20247,6 +18596,8 @@ export type ShippingPriceCreate = {
  * Event sent when new shipping price is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceCreated = Event & {
   __typename?: "ShippingPriceCreated";
@@ -20268,6 +18619,8 @@ export type ShippingPriceCreated = Event & {
  * Event sent when new shipping price is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceCreatedShippingMethodArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20277,6 +18630,8 @@ export type ShippingPriceCreatedShippingMethodArgs = {
  * Event sent when new shipping price is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceCreatedShippingZoneArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20302,6 +18657,8 @@ export type ShippingPriceDelete = {
  * Event sent when shipping price is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceDeleted = Event & {
   __typename?: "ShippingPriceDeleted";
@@ -20323,6 +18680,8 @@ export type ShippingPriceDeleted = Event & {
  * Event sent when shipping price is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceDeletedShippingMethodArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20332,6 +18691,8 @@ export type ShippingPriceDeletedShippingMethodArgs = {
  * Event sent when shipping price is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceDeletedShippingZoneArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20377,8 +18738,6 @@ export type ShippingPriceInput = {
   name?: InputMaybe<Scalars["String"]>;
   /** Shipping zone this method belongs to. */
   shippingZone?: InputMaybe<Scalars["ID"]>;
-  /** ID of a tax class to assign to this shipping method. If not provided, the default tax class will be used. */
-  taxClass?: InputMaybe<Scalars["ID"]>;
   /** Shipping type: price or weight based. */
   type?: InputMaybe<ShippingMethodTypeEnum>;
 };
@@ -20439,6 +18798,8 @@ export type ShippingPriceUpdate = {
  * Event sent when shipping price is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceUpdated = Event & {
   __typename?: "ShippingPriceUpdated";
@@ -20460,6 +18821,8 @@ export type ShippingPriceUpdated = Event & {
  * Event sent when shipping price is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceUpdatedShippingMethodArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20469,6 +18832,8 @@ export type ShippingPriceUpdatedShippingMethodArgs = {
  * Event sent when shipping price is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingPriceUpdatedShippingZoneArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20618,6 +18983,8 @@ export type ShippingZoneCreateInput = {
  * Event sent when new shipping zone is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingZoneCreated = Event & {
   __typename?: "ShippingZoneCreated";
@@ -20637,6 +19004,8 @@ export type ShippingZoneCreated = Event & {
  * Event sent when new shipping zone is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingZoneCreatedShippingZoneArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20659,6 +19028,8 @@ export type ShippingZoneDelete = {
  * Event sent when shipping zone is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingZoneDeleted = Event & {
   __typename?: "ShippingZoneDeleted";
@@ -20678,6 +19049,8 @@ export type ShippingZoneDeleted = Event & {
  * Event sent when shipping zone is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingZoneDeletedShippingZoneArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20692,6 +19065,8 @@ export type ShippingZoneFilterInput = {
  * Event sent when shipping zone metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingZoneMetadataUpdated = Event & {
   __typename?: "ShippingZoneMetadataUpdated";
@@ -20711,6 +19086,8 @@ export type ShippingZoneMetadataUpdated = Event & {
  * Event sent when shipping zone metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingZoneMetadataUpdatedShippingZoneArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20752,6 +19129,8 @@ export type ShippingZoneUpdateInput = {
  * Event sent when shipping zone is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingZoneUpdated = Event & {
   __typename?: "ShippingZoneUpdated";
@@ -20771,6 +19150,8 @@ export type ShippingZoneUpdated = Event & {
  * Event sent when shipping zone is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type ShippingZoneUpdatedShippingZoneArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -20799,10 +19180,7 @@ export type Shop = {
    * Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
    */
   channelCurrencies: Array<Scalars["String"]>;
-  /**
-   * Charge taxes on shipping.
-   * @deprecated This field will be removed in Saleor 4.0. Use `ShippingMethodType.taxClass` to determine whether taxes are calculated for shipping methods; if a tax class is set, the taxes will be calculated, otherwise no tax rate will be applied.
-   */
+  /** Charge taxes on shipping. */
   chargeTaxesOnShipping: Scalars["Boolean"];
   /** Company address. */
   companyAddress?: Maybe<Address>;
@@ -20840,10 +19218,7 @@ export type Shop = {
   defaultWeightUnit?: Maybe<WeightUnitsEnum>;
   /** Shop's description. */
   description?: Maybe<Scalars["String"]>;
-  /**
-   * Display prices with tax in store.
-   * @deprecated This field will be removed in Saleor 4.0. Use `Channel.taxConfiguration` to determine whether to display gross or net prices.
-   */
+  /** Display prices with tax in store. */
   displayGrossPrices: Scalars["Boolean"];
   /** Shop's domain data. */
   domain: Domain;
@@ -20861,10 +19236,7 @@ export type Shop = {
   fulfillmentAutoApprove: Scalars["Boolean"];
   /** Header text. */
   headerText?: Maybe<Scalars["String"]>;
-  /**
-   * Include taxes in prices.
-   * @deprecated This field will be removed in Saleor 4.0. Use `Channel.taxConfiguration.pricesEnteredWithTax` to determine whether prices are entered with tax.
-   */
+  /** Include taxes in prices. */
   includeTaxesInPrices: Scalars["Boolean"];
   /** List of the shops's supported languages. */
   languages: Array<LanguageDisplay>;
@@ -20872,6 +19244,8 @@ export type Shop = {
    * Default number of maximum line quantity in single checkout (per single checkout line).
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires one of the following permissions: MANAGE_SETTINGS.
    */
@@ -21016,11 +19390,7 @@ export type ShopFetchTaxRates = {
 export type ShopSettingsInput = {
   /** Enable automatic fulfillment for all digital products. */
   automaticFulfillmentDigitalProducts?: InputMaybe<Scalars["Boolean"]>;
-  /**
-   * Charge taxes on shipping.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. To enable taxes for a shipping method, assign a tax class to the shipping method with `shippingPriceCreate` or `shippingPriceUpdate` mutations.
-   */
+  /** Charge taxes on shipping. */
   chargeTaxesOnShipping?: InputMaybe<Scalars["Boolean"]>;
   /** URL of a view where customers can set their password. */
   customerSetPasswordUrl?: InputMaybe<Scalars["String"]>;
@@ -21036,11 +19406,7 @@ export type ShopSettingsInput = {
   defaultWeightUnit?: InputMaybe<WeightUnitsEnum>;
   /** SEO description. */
   description?: InputMaybe<Scalars["String"]>;
-  /**
-   * Display prices with tax in store.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use `taxConfigurationUpdate` mutation to configure this setting per channel or country.
-   */
+  /** Display prices with tax in store. */
   displayGrossPrices?: InputMaybe<Scalars["Boolean"]>;
   /**
    * Enable ability to approve fulfillments which are unpaid.
@@ -21056,16 +19422,14 @@ export type ShopSettingsInput = {
   fulfillmentAutoApprove?: InputMaybe<Scalars["Boolean"]>;
   /** Header text. */
   headerText?: InputMaybe<Scalars["String"]>;
-  /**
-   * Include taxes in prices.
-   *
-   * DEPRECATED: this field will be removed in Saleor 4.0. Use `taxConfigurationUpdate` mutation to configure this setting per channel or country.
-   */
+  /** Include taxes in prices. */
   includeTaxesInPrices?: InputMaybe<Scalars["Boolean"]>;
   /**
    * Default number of maximum line quantity in single checkout. Minimum possible value is 1, default value is 50.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   limitQuantityPerCheckout?: InputMaybe<Scalars["Int"]>;
   /**
@@ -21160,7 +19524,6 @@ export type StaffCreate = {
   user?: Maybe<User>;
 };
 
-/** Fields required to create a staff user. */
 export type StaffCreateInput = {
   /** List of permission group IDs to which user should be assigned. */
   addGroups?: InputMaybe<Array<Scalars["ID"]>>;
@@ -21182,6 +19545,8 @@ export type StaffCreateInput = {
  * Event sent when new staff user is created.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type StaffCreated = Event & {
   __typename?: "StaffCreated";
@@ -21214,6 +19579,8 @@ export type StaffDelete = {
  * Event sent when staff user is deleted.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type StaffDeleted = Event & {
   __typename?: "StaffDeleted";
@@ -21247,7 +19614,6 @@ export type StaffError = {
   users?: Maybe<Array<Scalars["ID"]>>;
 };
 
-/** Represents status of a staff account. */
 export type StaffMemberStatus =
   /** User account has been activated. */
   | "ACTIVE"
@@ -21327,7 +19693,6 @@ export type StaffUpdate = {
   user?: Maybe<User>;
 };
 
-/** Fields required to update a staff user. */
 export type StaffUpdateInput = {
   /** List of permission group IDs to which user should be assigned. */
   addGroups?: InputMaybe<Array<Scalars["ID"]>>;
@@ -21349,6 +19714,8 @@ export type StaffUpdateInput = {
  * Event sent when staff user is updated.
  *
  * Added in Saleor 3.5.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type StaffUpdated = Event & {
   __typename?: "StaffUpdated";
@@ -21397,58 +19764,6 @@ export type Stock = Node & {
 };
 
 export type StockAvailability = "IN_STOCK" | "OUT_OF_STOCK";
-
-export type StockBulkResult = {
-  __typename?: "StockBulkResult";
-  /** List of errors occurred on create or update attempt. */
-  errors?: Maybe<Array<StockBulkUpdateError>>;
-  /** Stock data. */
-  stock?: Maybe<Stock>;
-};
-
-/**
- * Updates stocks for a given variant and warehouse.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: MANAGE_PRODUCTS.
- */
-export type StockBulkUpdate = {
-  __typename?: "StockBulkUpdate";
-  /** Returns how many objects were updated. */
-  count: Scalars["Int"];
-  errors: Array<StockBulkUpdateError>;
-  /** List of the updated stocks. */
-  results: Array<StockBulkResult>;
-};
-
-export type StockBulkUpdateError = {
-  __typename?: "StockBulkUpdateError";
-  /** The error code. */
-  code: StockBulkUpdateErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type StockBulkUpdateErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_FOUND" | "REQUIRED";
-
-export type StockBulkUpdateInput = {
-  /** Quantity of items available for sell. */
-  quantity: Scalars["Int"];
-  /** Variant external reference. */
-  variantExternalReference?: InputMaybe<Scalars["String"]>;
-  /** Variant ID. */
-  variantId?: InputMaybe<Scalars["ID"]>;
-  /** Warehouse external reference. */
-  warehouseExternalReference?: InputMaybe<Scalars["String"]>;
-  /** Warehouse ID. */
-  warehouseId?: InputMaybe<Scalars["ID"]>;
-};
 
 export type StockCountableConnection = {
   __typename?: "StockCountableConnection";
@@ -21502,6 +19817,8 @@ export type StockInput = {
  * Represents the channel stock settings.
  *
  * Added in Saleor 3.7.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type StockSettings = {
   __typename?: "StockSettings";
@@ -21514,13 +19831,6 @@ export type StockSettingsInput = {
   allocationStrategy: AllocationStrategyEnum;
 };
 
-export type StockUpdateInput = {
-  /** Quantity of items available for sell. */
-  quantity: Scalars["Int"];
-  /** Stock. */
-  stock: Scalars["ID"];
-};
-
 /** Enum representing the type of a payment storage in a gateway. */
 export type StorePaymentMethodEnum =
   /** Storage is disabled. The payment is not stored. */
@@ -21530,557 +19840,24 @@ export type StorePaymentMethodEnum =
   /** On session storage type. The payment is stored only to be reused when the customer is present in the checkout flow. */
   | "ON_SESSION";
 
-/**
- * Define the filtering options for string fields.
- *
- * Added in Saleor 3.11.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type StringFilterInput = {
-  /** The value equal to. */
-  eq?: InputMaybe<Scalars["String"]>;
-  /** The value included in. */
-  oneOf?: InputMaybe<Array<Scalars["String"]>>;
-};
-
 export type Subscription = {
   __typename?: "Subscription";
   /**
    * Look up subscription event.
    *
    * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   event?: Maybe<Event>;
 };
-
-export type TaxCalculationStrategy = "FLAT_RATES" | "TAX_APP";
-
-/**
- * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
- *
- * Added in Saleor 3.9.
- */
-export type TaxClass = Node &
-  ObjectWithMetadata & {
-    __typename?: "TaxClass";
-    /** Country-specific tax rates for this tax class. */
-    countries: Array<TaxClassCountryRate>;
-    /** The ID of the object. */
-    id: Scalars["ID"];
-    /** List of public metadata items. Can be accessed without permissions. */
-    metadata: Array<MetadataItem>;
-    /**
-     * A single key from public metadata.
-     *
-     * Tip: Use GraphQL aliases to fetch multiple keys.
-     *
-     * Added in Saleor 3.3.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metafield?: Maybe<Scalars["String"]>;
-    /**
-     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-     *
-     * Added in Saleor 3.3.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metafields?: Maybe<Scalars["Metadata"]>;
-    /** Name of the tax class. */
-    name: Scalars["String"];
-    /** List of private metadata items. Requires staff permissions to access. */
-    privateMetadata: Array<MetadataItem>;
-    /**
-     * A single key from private metadata. Requires staff permissions to access.
-     *
-     * Tip: Use GraphQL aliases to fetch multiple keys.
-     *
-     * Added in Saleor 3.3.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetafield?: Maybe<Scalars["String"]>;
-    /**
-     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-     *
-     * Added in Saleor 3.3.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetafields?: Maybe<Scalars["Metadata"]>;
-  };
-
-/**
- * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
- *
- * Added in Saleor 3.9.
- */
-export type TaxClassMetafieldArgs = {
-  key: Scalars["String"];
-};
-
-/**
- * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
- *
- * Added in Saleor 3.9.
- */
-export type TaxClassMetafieldsArgs = {
-  keys?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-/**
- * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
- *
- * Added in Saleor 3.9.
- */
-export type TaxClassPrivateMetafieldArgs = {
-  key: Scalars["String"];
-};
-
-/**
- * Tax class is a named object used to define tax rates per country. Tax class can be assigned to product types, products and shipping methods to define their tax rates.
- *
- * Added in Saleor 3.9.
- */
-export type TaxClassPrivateMetafieldsArgs = {
-  keys?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-export type TaxClassCountableConnection = {
-  __typename?: "TaxClassCountableConnection";
-  edges: Array<TaxClassCountableEdge>;
-  /** Pagination data for this connection. */
-  pageInfo: PageInfo;
-  /** A total count of items in the collection. */
-  totalCount?: Maybe<Scalars["Int"]>;
-};
-
-export type TaxClassCountableEdge = {
-  __typename?: "TaxClassCountableEdge";
-  /** A cursor for use in pagination. */
-  cursor: Scalars["String"];
-  /** The item at the end of the edge. */
-  node: TaxClass;
-};
-
-/**
- * Tax rate for a country. When tax class is null, it represents the default tax rate for that country; otherwise it's a country tax rate specific to the given tax class.
- *
- * Added in Saleor 3.9.
- */
-export type TaxClassCountryRate = {
-  __typename?: "TaxClassCountryRate";
-  /** Country in which this tax rate applies. */
-  country: CountryDisplay;
-  /** Tax rate value. */
-  rate: Scalars["Float"];
-  /** Related tax class. */
-  taxClass?: Maybe<TaxClass>;
-};
-
-/**
- * Create a tax class.
- *
- * Added in Saleor 3.9.
- *
- * Requires one of the following permissions: MANAGE_TAXES.
- */
-export type TaxClassCreate = {
-  __typename?: "TaxClassCreate";
-  errors: Array<TaxClassCreateError>;
-  taxClass?: Maybe<TaxClass>;
-};
-
-export type TaxClassCreateError = {
-  __typename?: "TaxClassCreateError";
-  /** The error code. */
-  code: TaxClassCreateErrorCode;
-  /** List of country codes for which the configuration is invalid. */
-  countryCodes: Array<Scalars["String"]>;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TaxClassCreateErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_FOUND";
-
-export type TaxClassCreateInput = {
-  /** List of country-specific tax rates to create for this tax class. */
-  createCountryRates?: InputMaybe<Array<CountryRateInput>>;
-  /** Name of the tax class. */
-  name: Scalars["String"];
-};
-
-/**
- * Delete a tax class. After deleting the tax class any products, product types or shipping methods using it are updated to use the default tax class.
- *
- * Added in Saleor 3.9.
- *
- * Requires one of the following permissions: MANAGE_TAXES.
- */
-export type TaxClassDelete = {
-  __typename?: "TaxClassDelete";
-  errors: Array<TaxClassDeleteError>;
-  taxClass?: Maybe<TaxClass>;
-};
-
-export type TaxClassDeleteError = {
-  __typename?: "TaxClassDeleteError";
-  /** The error code. */
-  code: TaxClassDeleteErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TaxClassDeleteErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_FOUND";
-
-export type TaxClassFilterInput = {
-  countries?: InputMaybe<Array<CountryCode>>;
-  ids?: InputMaybe<Array<Scalars["ID"]>>;
-  metadata?: InputMaybe<Array<MetadataFilter>>;
-};
-
-export type TaxClassRateInput = {
-  /** Tax rate value. */
-  rate?: InputMaybe<Scalars["Float"]>;
-  /** ID of a tax class for which to update the tax rate */
-  taxClassId?: InputMaybe<Scalars["ID"]>;
-};
-
-export type TaxClassSortField =
-  /** Sort tax classes by name. */
-  "NAME";
-
-export type TaxClassSortingInput = {
-  /** Specifies the direction in which to sort tax classes. */
-  direction: OrderDirection;
-  /** Sort tax classes by the selected field. */
-  field: TaxClassSortField;
-};
-
-/**
- * Update a tax class.
- *
- * Added in Saleor 3.9.
- *
- * Requires one of the following permissions: MANAGE_TAXES.
- */
-export type TaxClassUpdate = {
-  __typename?: "TaxClassUpdate";
-  errors: Array<TaxClassUpdateError>;
-  taxClass?: Maybe<TaxClass>;
-};
-
-export type TaxClassUpdateError = {
-  __typename?: "TaxClassUpdateError";
-  /** The error code. */
-  code: TaxClassUpdateErrorCode;
-  /** List of country codes for which the configuration is invalid. */
-  countryCodes: Array<Scalars["String"]>;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TaxClassUpdateErrorCode =
-  | "DUPLICATED_INPUT_ITEM"
-  | "GRAPHQL_ERROR"
-  | "INVALID"
-  | "NOT_FOUND";
-
-export type TaxClassUpdateInput = {
-  /** Name of the tax class. */
-  name?: InputMaybe<Scalars["String"]>;
-  /** List of country codes for which to remove the tax class rates. Note: It removes all rates for given country code. */
-  removeCountryRates?: InputMaybe<Array<CountryCode>>;
-  /** List of country-specific tax rates to create or update for this tax class. */
-  updateCountryRates?: InputMaybe<Array<CountryRateUpdateInput>>;
-};
-
-/**
- * Channel-specific tax configuration.
- *
- * Added in Saleor 3.9.
- */
-export type TaxConfiguration = Node &
-  ObjectWithMetadata & {
-    __typename?: "TaxConfiguration";
-    /** A channel to which the tax configuration applies to. */
-    channel: Channel;
-    /** Determines whether taxes are charged in the given channel. */
-    chargeTaxes: Scalars["Boolean"];
-    /** List of country-specific exceptions in tax configuration. */
-    countries: Array<TaxConfigurationPerCountry>;
-    /** Determines whether prices displayed in a storefront should include taxes. */
-    displayGrossPrices: Scalars["Boolean"];
-    /** The ID of the object. */
-    id: Scalars["ID"];
-    /** List of public metadata items. Can be accessed without permissions. */
-    metadata: Array<MetadataItem>;
-    /**
-     * A single key from public metadata.
-     *
-     * Tip: Use GraphQL aliases to fetch multiple keys.
-     *
-     * Added in Saleor 3.3.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metafield?: Maybe<Scalars["String"]>;
-    /**
-     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
-     *
-     * Added in Saleor 3.3.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    metafields?: Maybe<Scalars["Metadata"]>;
-    /** Determines whether prices are entered with the tax included. */
-    pricesEnteredWithTax: Scalars["Boolean"];
-    /** List of private metadata items. Requires staff permissions to access. */
-    privateMetadata: Array<MetadataItem>;
-    /**
-     * A single key from private metadata. Requires staff permissions to access.
-     *
-     * Tip: Use GraphQL aliases to fetch multiple keys.
-     *
-     * Added in Saleor 3.3.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetafield?: Maybe<Scalars["String"]>;
-    /**
-     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
-     *
-     * Added in Saleor 3.3.
-     *
-     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-     */
-    privateMetafields?: Maybe<Scalars["Metadata"]>;
-    /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
-    taxCalculationStrategy?: Maybe<TaxCalculationStrategy>;
-  };
-
-/**
- * Channel-specific tax configuration.
- *
- * Added in Saleor 3.9.
- */
-export type TaxConfigurationMetafieldArgs = {
-  key: Scalars["String"];
-};
-
-/**
- * Channel-specific tax configuration.
- *
- * Added in Saleor 3.9.
- */
-export type TaxConfigurationMetafieldsArgs = {
-  keys?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-/**
- * Channel-specific tax configuration.
- *
- * Added in Saleor 3.9.
- */
-export type TaxConfigurationPrivateMetafieldArgs = {
-  key: Scalars["String"];
-};
-
-/**
- * Channel-specific tax configuration.
- *
- * Added in Saleor 3.9.
- */
-export type TaxConfigurationPrivateMetafieldsArgs = {
-  keys?: InputMaybe<Array<Scalars["String"]>>;
-};
-
-export type TaxConfigurationCountableConnection = {
-  __typename?: "TaxConfigurationCountableConnection";
-  edges: Array<TaxConfigurationCountableEdge>;
-  /** Pagination data for this connection. */
-  pageInfo: PageInfo;
-  /** A total count of items in the collection. */
-  totalCount?: Maybe<Scalars["Int"]>;
-};
-
-export type TaxConfigurationCountableEdge = {
-  __typename?: "TaxConfigurationCountableEdge";
-  /** A cursor for use in pagination. */
-  cursor: Scalars["String"];
-  /** The item at the end of the edge. */
-  node: TaxConfiguration;
-};
-
-export type TaxConfigurationFilterInput = {
-  ids?: InputMaybe<Array<Scalars["ID"]>>;
-  metadata?: InputMaybe<Array<MetadataFilter>>;
-};
-
-/**
- * Country-specific exceptions of a channel's tax configuration.
- *
- * Added in Saleor 3.9.
- */
-export type TaxConfigurationPerCountry = {
-  __typename?: "TaxConfigurationPerCountry";
-  /** Determines whether taxes are charged in this country. */
-  chargeTaxes: Scalars["Boolean"];
-  /** Country in which this configuration applies. */
-  country: CountryDisplay;
-  /** Determines whether prices displayed in a storefront should include taxes for this country. */
-  displayGrossPrices: Scalars["Boolean"];
-  /** A country-specific strategy to use for tax calculation. Taxes can be calculated either using user-defined flat rates or with a tax app. If not provided, use the value from the channel's tax configuration. */
-  taxCalculationStrategy?: Maybe<TaxCalculationStrategy>;
-};
-
-export type TaxConfigurationPerCountryInput = {
-  /** Determines whether taxes are charged in this country. */
-  chargeTaxes: Scalars["Boolean"];
-  /** Country in which this configuration applies. */
-  countryCode: CountryCode;
-  /** Determines whether prices displayed in a storefront should include taxes for this country. */
-  displayGrossPrices: Scalars["Boolean"];
-  /** A country-specific strategy to use for tax calculation. Taxes can be calculated either using user-defined flat rates or with a tax app. If not provided, use the value from the channel's tax configuration. */
-  taxCalculationStrategy?: InputMaybe<TaxCalculationStrategy>;
-};
-
-/**
- * Update tax configuration for a channel.
- *
- * Added in Saleor 3.9.
- *
- * Requires one of the following permissions: MANAGE_TAXES.
- */
-export type TaxConfigurationUpdate = {
-  __typename?: "TaxConfigurationUpdate";
-  errors: Array<TaxConfigurationUpdateError>;
-  taxConfiguration?: Maybe<TaxConfiguration>;
-};
-
-export type TaxConfigurationUpdateError = {
-  __typename?: "TaxConfigurationUpdateError";
-  /** The error code. */
-  code: TaxConfigurationUpdateErrorCode;
-  /** List of country codes for which the configuration is invalid. */
-  countryCodes: Array<Scalars["String"]>;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TaxConfigurationUpdateErrorCode =
-  | "DUPLICATED_INPUT_ITEM"
-  | "GRAPHQL_ERROR"
-  | "INVALID"
-  | "NOT_FOUND";
-
-export type TaxConfigurationUpdateInput = {
-  /** Determines whether taxes are charged in the given channel. */
-  chargeTaxes?: InputMaybe<Scalars["Boolean"]>;
-  /** Determines whether prices displayed in a storefront should include taxes. */
-  displayGrossPrices?: InputMaybe<Scalars["Boolean"]>;
-  /** Determines whether prices are entered with the tax included. */
-  pricesEnteredWithTax?: InputMaybe<Scalars["Boolean"]>;
-  /** List of country codes for which to remove the tax configuration. */
-  removeCountriesConfiguration?: InputMaybe<Array<CountryCode>>;
-  /** The default strategy to use for tax calculation in the given channel. Taxes can be calculated either using user-defined flat rates or with a tax app. Empty value means that no method is selected and taxes are not calculated. */
-  taxCalculationStrategy?: InputMaybe<TaxCalculationStrategy>;
-  /** List of tax country configurations to create or update (identified by a country code). */
-  updateCountriesConfiguration?: InputMaybe<Array<TaxConfigurationPerCountryInput>>;
-};
-
-/**
- * Tax class rates grouped by country.
- *
- * Added in Saleor 3.9.
- */
-export type TaxCountryConfiguration = {
-  __typename?: "TaxCountryConfiguration";
-  /** A country for which tax class rates are grouped. */
-  country: CountryDisplay;
-  /** List of tax class rates. */
-  taxClassCountryRates: Array<TaxClassCountryRate>;
-};
-
-/**
- * Remove all tax class rates for a specific country.
- *
- * Added in Saleor 3.9.
- *
- * Requires one of the following permissions: MANAGE_TAXES.
- */
-export type TaxCountryConfigurationDelete = {
-  __typename?: "TaxCountryConfigurationDelete";
-  errors: Array<TaxCountryConfigurationDeleteError>;
-  /** Updated tax class rates grouped by a country. */
-  taxCountryConfiguration?: Maybe<TaxCountryConfiguration>;
-};
-
-export type TaxCountryConfigurationDeleteError = {
-  __typename?: "TaxCountryConfigurationDeleteError";
-  /** The error code. */
-  code: TaxCountryConfigurationDeleteErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TaxCountryConfigurationDeleteErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_FOUND";
-
-/**
- * Update tax class rates for a specific country.
- *
- * Added in Saleor 3.9.
- *
- * Requires one of the following permissions: MANAGE_TAXES.
- */
-export type TaxCountryConfigurationUpdate = {
-  __typename?: "TaxCountryConfigurationUpdate";
-  errors: Array<TaxCountryConfigurationUpdateError>;
-  /** Updated tax class rates grouped by a country. */
-  taxCountryConfiguration?: Maybe<TaxCountryConfiguration>;
-};
-
-export type TaxCountryConfigurationUpdateError = {
-  __typename?: "TaxCountryConfigurationUpdateError";
-  /** The error code. */
-  code: TaxCountryConfigurationUpdateErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-  /** List of tax class IDs for which the update failed. */
-  taxClassIds: Array<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TaxCountryConfigurationUpdateErrorCode =
-  | "CANNOT_CREATE_NEGATIVE_RATE"
-  | "GRAPHQL_ERROR"
-  | "INVALID"
-  | "NOT_FOUND"
-  | "ONLY_ONE_DEFAULT_COUNTRY_RATE_ALLOWED";
 
 /**
  * Exempt checkout or order from charging the taxes. When tax exemption is enabled, taxes won't be charged for the checkout or order. Taxes may still be calculated in cases when product prices are entered with the tax included and the net price needs to be known.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
  * Requires one of the following permissions: MANAGE_TAXES.
  */
@@ -22191,49 +19968,8 @@ export type TaxedMoneyRange = {
   stop?: Maybe<TaxedMoney>;
 };
 
-/**
- * Event sent when thumbnail is created.
- *
- * Added in Saleor 3.12.
- */
-export type ThumbnailCreated = Event & {
-  __typename?: "ThumbnailCreated";
-  /**
-   * Thumbnail id.
-   *
-   * Added in Saleor 3.12.
-   */
-  id?: Maybe<Scalars["ID"]>;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /**
-   * Original media url.
-   *
-   * Added in Saleor 3.12.
-   */
-  mediaUrl?: Maybe<Scalars["String"]>;
-  /**
-   * Object the thumbnail refers to.
-   *
-   * Added in Saleor 3.12.
-   */
-  objectId?: Maybe<Scalars["ID"]>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /**
-   * Thumbnail url.
-   *
-   * Added in Saleor 3.12.
-   */
-  url?: Maybe<Scalars["String"]>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
 /** An enumeration. */
-export type ThumbnailFormatEnum = "AVIF" | "ORIGINAL" | "WEBP";
+export type ThumbnailFormatEnum = "WEBP";
 
 export type TimePeriod = {
   __typename?: "TimePeriod";
@@ -22282,23 +20018,27 @@ export type TransactionAction = {
  *     The following actions are possible:
  *     CHARGE - Represents the charge action.
  *     REFUND - Represents a refund action.
- *     VOID - Represents a void action. This field will be removed
- *     in Saleor 3.14 (Preview Feature). Use `CANCEL` instead.
- *     CANCEL - Represents a cancel action. Added in Saleor 3.12.
+ *     VOID - Represents a void action.
  *
  */
-export type TransactionActionEnum = "CANCEL" | "CHARGE" | "REFUND" | "VOID";
+export type TransactionActionEnum = "CHARGE" | "REFUND" | "VOID";
 
 /**
  * Event sent when transaction action is requested.
  *
  * Added in Saleor 3.4.
  *
- * DEPRECATED: this subscription will be removed in Saleor 3.14 (Preview Feature). Use `TransactionChargeRequested`, `TransactionRefundRequested`, `TransactionCancelationRequested` instead.
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type TransactionActionRequest = Event & {
   __typename?: "TransactionActionRequest";
-  /** Requested action data. */
+  /**
+   * Requested action data.
+   *
+   * Added in Saleor 3.4.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   action: TransactionAction;
   /** Time of the event. */
   issuedAt?: Maybe<Scalars["DateTime"]>;
@@ -22306,66 +20046,24 @@ export type TransactionActionRequest = Event & {
   issuingPrincipal?: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient?: Maybe<App>;
-  /** Look up a transaction. */
+  /**
+   * Look up a transaction.
+   *
+   * Added in Saleor 3.4.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   transaction?: Maybe<TransactionItem>;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
 };
 
 /**
- * Event sent when transaction cancelation is requested.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type TransactionCancelationRequested = Event & {
-  __typename?: "TransactionCancelationRequested";
-  /** Requested action data. */
-  action: TransactionAction;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Look up a transaction. */
-  transaction?: Maybe<TransactionItem>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
-/**
- * Event sent when transaction charge is requested.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type TransactionChargeRequested = Event & {
-  __typename?: "TransactionChargeRequested";
-  /** Requested action data. */
-  action: TransactionAction;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Look up a transaction. */
-  transaction?: Maybe<TransactionItem>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
-/**
- * Create transaction for checkout or order.
+ * Create transaction for checkout or order. Requires the following permissions: AUTHENTICATED_APP and HANDLE_PAYMENTS.
  *
  * Added in Saleor 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: HANDLE_PAYMENTS.
  */
 export type TransactionCreate = {
   __typename?: "TransactionCreate";
@@ -22389,323 +20087,52 @@ export type TransactionCreateErrorCode =
   | "INCORRECT_CURRENCY"
   | "INVALID"
   | "METADATA_KEY_REQUIRED"
-  | "NOT_FOUND"
-  | "UNIQUE";
+  | "NOT_FOUND";
 
 export type TransactionCreateInput = {
   /** Amount authorized by this transaction. */
   amountAuthorized?: InputMaybe<MoneyInput>;
-  /**
-   * Amount canceled by this transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  amountCanceled?: InputMaybe<MoneyInput>;
   /** Amount charged by this transaction. */
   amountCharged?: InputMaybe<MoneyInput>;
   /** Amount refunded by this transaction. */
   amountRefunded?: InputMaybe<MoneyInput>;
-  /**
-   * Amount voided by this transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `amountCanceled` instead.
-   */
+  /** Amount voided by this transaction. */
   amountVoided?: InputMaybe<MoneyInput>;
   /** List of all possible actions for the transaction */
   availableActions?: InputMaybe<Array<TransactionActionEnum>>;
-  /**
-   * The url that will allow to redirect user to payment provider page with transaction event details.
-   *
-   * Added in Saleor 3.13.
-   */
-  externalUrl?: InputMaybe<Scalars["String"]>;
-  /**
-   * The message of the transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  message?: InputMaybe<Scalars["String"]>;
   /** Payment public metadata. */
   metadata?: InputMaybe<Array<MetadataInput>>;
-  /**
-   * Payment name of the transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  name?: InputMaybe<Scalars["String"]>;
   /** Payment private metadata. */
   privateMetadata?: InputMaybe<Array<MetadataInput>>;
-  /**
-   * PSP Reference of the transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  pspReference?: InputMaybe<Scalars["String"]>;
-  /**
-   * Reference of the transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
-   */
+  /** Reference of the transaction. */
   reference?: InputMaybe<Scalars["String"]>;
-  /**
-   * Status of the transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
-   */
-  status?: InputMaybe<Scalars["String"]>;
-  /**
-   * Payment type used for this transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `name` and `message` instead.
-   */
-  type?: InputMaybe<Scalars["String"]>;
+  /** Status of the transaction. */
+  status: Scalars["String"];
+  /** Payment type used for this transaction. */
+  type: Scalars["String"];
 };
 
 /** Represents transaction's event. */
 export type TransactionEvent = Node & {
   __typename?: "TransactionEvent";
-  /**
-   * The amount related to this event.
-   *
-   * Added in Saleor 3.13.
-   */
-  amount: Money;
   createdAt: Scalars["DateTime"];
-  /**
-   * User or App that created the transaction event.
-   *
-   * Added in Saleor 3.13.
-   */
-  createdBy?: Maybe<UserOrApp>;
-  /**
-   * The url that will allow to redirect user to payment provider page with transaction details.
-   *
-   * Added in Saleor 3.13.
-   */
-  externalUrl: Scalars["String"];
   /** The ID of the object. */
   id: Scalars["ID"];
-  /**
-   * Message related to the transaction's event.
-   *
-   * Added in Saleor 3.13.
-   */
-  message: Scalars["String"];
-  /**
-   * Name of the transaction's event.
-   * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `message` instead.
-   */
+  /** Name of the transaction's event. */
   name?: Maybe<Scalars["String"]>;
-  /**
-   * PSP reference of transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  pspReference: Scalars["String"];
-  /**
-   * Reference of transaction's event.
-   * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `pspReference` instead.
-   */
+  /** Reference of transaction's event. */
   reference: Scalars["String"];
-  /**
-   * Status of transaction's event.
-   * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `type` instead.
-   */
-  status?: Maybe<TransactionStatus>;
-  /**
-   * The type of action related to this event.
-   *
-   * Added in Saleor 3.13.
-   */
-  type?: Maybe<TransactionEventTypeEnum>;
+  /** Status of transaction's event. */
+  status: TransactionStatus;
 };
 
 export type TransactionEventInput = {
-  /**
-   * The message related to the event.
-   *
-   * Added in Saleor 3.13.
-   */
-  message?: InputMaybe<Scalars["String"]>;
-  /**
-   * Name of the transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `message` instead. `name` field will be added to `message`.
-   */
+  /** Name of the transaction. */
   name?: InputMaybe<Scalars["String"]>;
-  /**
-   * PSP Reference related to this action.
-   *
-   * Added in Saleor 3.13.
-   */
-  pspReference?: InputMaybe<Scalars["String"]>;
-  /**
-   * Reference of the transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
-   */
+  /** Reference of the transaction. */
   reference?: InputMaybe<Scalars["String"]>;
-  /**
-   * Current status of the payment transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Status will be calculated by Saleor.
-   */
-  status?: InputMaybe<TransactionStatus>;
-};
-
-/**
- * Report the event for the transaction.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires the following permissions: OWNER and HANDLE_PAYMENTS.
- */
-export type TransactionEventReport = {
-  __typename?: "TransactionEventReport";
-  /** Defines if the reported event hasn't been processed earlier. */
-  alreadyProcessed?: Maybe<Scalars["Boolean"]>;
-  errors: Array<TransactionEventReportError>;
-  /** The transaction related to the reported event. */
-  transaction?: Maybe<TransactionItem>;
-  /** The event assigned to this report. if `alreadyProcessed` is set to `true`, the previously processed event will be returned. */
-  transactionEvent?: Maybe<TransactionEvent>;
-};
-
-export type TransactionEventReportError = {
-  __typename?: "TransactionEventReportError";
-  /** The error code. */
-  code: TransactionEventReportErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TransactionEventReportErrorCode =
-  | "ALREADY_EXISTS"
-  | "GRAPHQL_ERROR"
-  | "INCORRECT_DETAILS"
-  | "INVALID"
-  | "NOT_FOUND";
-
-/**
- * Represents possible event types.
- *
- *     Added in Saleor 3.12.
- *
- *     The following types are possible:
- *     AUTHORIZATION_SUCCESS - represents success authorization.
- *     AUTHORIZATION_FAILURE - represents failure authorization.
- *     AUTHORIZATION_ADJUSTMENT - represents authorization adjustment.
- *     AUTHORIZATION_REQUEST - represents authorization request.
- *     AUTHORIZATION_ACTION_REQUIRED - represents authorization that needs
- *     additional actions from the customer.
- *     CHARGE_ACTION_REQUIRED - represents charge that needs
- *     additional actions from the customer.
- *     CHARGE_SUCCESS - represents success charge.
- *     CHARGE_FAILURE - represents failure charge.
- *     CHARGE_BACK - represents chargeback.
- *     CHARGE_REQUEST - represents charge request.
- *     REFUND_SUCCESS - represents success refund.
- *     REFUND_FAILURE - represents failure refund.
- *     REFUND_REVERSE - represents reverse refund.
- *     REFUND_REQUEST - represents refund request.
- *     CANCEL_SUCCESS - represents success cancel.
- *     CANCEL_FAILURE - represents failure cancel.
- *     CANCEL_REQUEST - represents cancel request.
- *     INFO - represents info event.
- *
- */
-export type TransactionEventTypeEnum =
-  | "AUTHORIZATION_ACTION_REQUIRED"
-  | "AUTHORIZATION_ADJUSTMENT"
-  | "AUTHORIZATION_FAILURE"
-  | "AUTHORIZATION_REQUEST"
-  | "AUTHORIZATION_SUCCESS"
-  | "CANCEL_FAILURE"
-  | "CANCEL_REQUEST"
-  | "CANCEL_SUCCESS"
-  | "CHARGE_ACTION_REQUIRED"
-  | "CHARGE_BACK"
-  | "CHARGE_FAILURE"
-  | "CHARGE_REQUEST"
-  | "CHARGE_SUCCESS"
-  | "INFO"
-  | "REFUND_FAILURE"
-  | "REFUND_REQUEST"
-  | "REFUND_REVERSE"
-  | "REFUND_SUCCESS";
-
-/**
- * Determine the transaction flow strategy.
- *
- *     AUTHORIZATION - the processed transaction should be only authorized
- *     CHARGE - the processed transaction should be charged.
- *
- */
-export type TransactionFlowStrategyEnum = "AUTHORIZATION" | "CHARGE";
-
-/**
- * Initializes a transaction session. It triggers the webhook `TRANSACTION_INITIALIZE_SESSION`, to the requested `paymentGateways`.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type TransactionInitialize = {
-  __typename?: "TransactionInitialize";
-  /** The JSON data required to finalize the payment. */
-  data?: Maybe<Scalars["JSON"]>;
-  errors: Array<TransactionInitializeError>;
-  /** The initialized transaction. */
-  transaction?: Maybe<TransactionItem>;
-  /** The event created for the initialized transaction. */
-  transactionEvent?: Maybe<TransactionEvent>;
-};
-
-export type TransactionInitializeError = {
-  __typename?: "TransactionInitializeError";
-  /** The error code. */
-  code: TransactionInitializeErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TransactionInitializeErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_FOUND";
-
-/**
- * Event sent when user starts processing the payment.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type TransactionInitializeSession = Event & {
-  __typename?: "TransactionInitializeSession";
-  /** Action to proceed for the transaction */
-  action: TransactionProcessAction;
-  /** Payment gateway data in JSON format, recieved from storefront. */
-  data?: Maybe<Scalars["JSON"]>;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** Merchant reference assigned to this payment. */
-  merchantReference: Scalars["String"];
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Checkout or order */
-  sourceObject: OrderOrCheckout;
-  /** Look up a transaction. */
-  transaction: TransactionItem;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
+  /** Current status of the payment transaction. */
+  status: TransactionStatus;
 };
 
 /**
@@ -22720,57 +20147,15 @@ export type TransactionItem = Node &
     __typename?: "TransactionItem";
     /** List of actions that can be performed in the current state of a payment. */
     actions: Array<TransactionActionEnum>;
-    /**
-     * Total amount of ongoing authorization requests for the transaction.
-     *
-     * Added in Saleor 3.13.
-     */
-    authorizePendingAmount: Money;
     /** Total amount authorized for this payment. */
     authorizedAmount: Money;
-    /**
-     * Total amount of ongoing cancel requests for the transaction.
-     *
-     * Added in Saleor 3.13.
-     */
-    cancelPendingAmount: Money;
-    /**
-     * Total amount canceled for this payment.
-     *
-     * Added in Saleor 3.13.
-     */
-    canceledAmount: Money;
-    /**
-     * Total amount of ongoing charge requests for the transaction.
-     *
-     * Added in Saleor 3.13.
-     */
-    chargePendingAmount: Money;
     /** Total amount charged for this payment. */
     chargedAmount: Money;
     createdAt: Scalars["DateTime"];
-    /**
-     * User or App that created the transaction.
-     *
-     * Added in Saleor 3.13.
-     */
-    createdBy?: Maybe<UserOrApp>;
     /** List of all transaction's events. */
     events: Array<TransactionEvent>;
-    /**
-     * The url that will allow to redirect user to payment provider page with transaction details.
-     *
-     * Added in Saleor 3.13.
-     */
-    externalUrl: Scalars["String"];
     /** The ID of the object. */
     id: Scalars["ID"];
-    /**
-     * Message related to the transaction.
-     *
-     * Added in Saleor 3.13.
-     */
-    message: Scalars["String"];
     /** List of public metadata items. Can be accessed without permissions. */
     metadata: Array<MetadataItem>;
     /**
@@ -22792,12 +20177,6 @@ export type TransactionItem = Node &
      */
     metafields?: Maybe<Scalars["Metadata"]>;
     modifiedAt: Scalars["DateTime"];
-    /**
-     * Name of the transaction.
-     *
-     * Added in Saleor 3.13.
-     */
-    name: Scalars["String"];
     /**
      * The related order.
      *
@@ -22824,39 +20203,15 @@ export type TransactionItem = Node &
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     privateMetafields?: Maybe<Scalars["Metadata"]>;
-    /**
-     * PSP reference of transaction.
-     *
-     * Added in Saleor 3.13.
-     */
-    pspReference: Scalars["String"];
-    /**
-     * Reference of transaction.
-     * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `pspReference` instead.
-     */
+    /** Reference of transaction. */
     reference: Scalars["String"];
-    /**
-     * Total amount of ongoing refund requests for the transaction.
-     *
-     * Added in Saleor 3.13.
-     */
-    refundPendingAmount: Money;
     /** Total amount refunded for this payment. */
     refundedAmount: Money;
-    /**
-     * Status of transaction.
-     * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
-     */
+    /** Status of transaction. */
     status: Scalars["String"];
-    /**
-     * Type of transaction.
-     * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `name` or `message` instead.
-     */
+    /** Type of transaction. */
     type: Scalars["String"];
-    /**
-     * Total amount voided for this payment.
-     * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `canceledAmount` instead.
-     */
+    /** Total amount voided for this payment. */
     voidedAmount: Money;
   };
 
@@ -22908,6 +20263,8 @@ export type TransactionItemPrivateMetafieldsArgs = {
  * Event sent when transaction item metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type TransactionItemMetadataUpdated = Event & {
   __typename?: "TransactionItemMetadataUpdated";
@@ -22917,7 +20274,11 @@ export type TransactionItemMetadataUpdated = Event & {
   issuingPrincipal?: Maybe<IssuingPrincipal>;
   /** The application receiving the webhook. */
   recipient?: Maybe<App>;
-  /** Look up a transaction. */
+  /**
+   * Look up a transaction.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
   transaction?: Maybe<TransactionItem>;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
@@ -22937,111 +20298,13 @@ export type TransactionKind =
   | "VOID";
 
 /**
- * Processes a transaction session. It triggers the webhook `TRANSACTION_PROCESS_SESSION`, to the assigned `paymentGateways`.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type TransactionProcess = {
-  __typename?: "TransactionProcess";
-  /** The json data required to finalize the payment. */
-  data?: Maybe<Scalars["JSON"]>;
-  errors: Array<TransactionProcessError>;
-  /** The processed transaction. */
-  transaction?: Maybe<TransactionItem>;
-  /** The event created for the processed transaction. */
-  transactionEvent?: Maybe<TransactionEvent>;
-};
-
-export type TransactionProcessAction = {
-  __typename?: "TransactionProcessAction";
-  actionType: TransactionFlowStrategyEnum;
-  /** Transaction amount to process. */
-  amount: Scalars["PositiveDecimal"];
-  /** Currency of the amount. */
-  currency: Scalars["String"];
-};
-
-export type TransactionProcessError = {
-  __typename?: "TransactionProcessError";
-  /** The error code. */
-  code: TransactionProcessErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type TransactionProcessErrorCode =
-  | "GRAPHQL_ERROR"
-  | "INVALID"
-  | "MISSING_PAYMENT_APP"
-  | "MISSING_PAYMENT_APP_RELATION"
-  | "NOT_FOUND"
-  | "TRANSACTION_ALREADY_PROCESSED";
-
-/**
- * Event sent when user has additional payment action to process.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type TransactionProcessSession = Event & {
-  __typename?: "TransactionProcessSession";
-  /** Action to proceed for the transaction */
-  action: TransactionProcessAction;
-  /** Payment gateway data in JSON format, recieved from storefront. */
-  data?: Maybe<Scalars["JSON"]>;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** Merchant reference assigned to this payment. */
-  merchantReference: Scalars["String"];
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Checkout or order */
-  sourceObject: OrderOrCheckout;
-  /** Look up a transaction. */
-  transaction: TransactionItem;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
-/**
- * Event sent when transaction refund is requested.
- *
- * Added in Saleor 3.13.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- */
-export type TransactionRefundRequested = Event & {
-  __typename?: "TransactionRefundRequested";
-  /** Requested action data. */
-  action: TransactionAction;
-  /** Time of the event. */
-  issuedAt?: Maybe<Scalars["DateTime"]>;
-  /** The user or application that triggered the event. */
-  issuingPrincipal?: Maybe<IssuingPrincipal>;
-  /** The application receiving the webhook. */
-  recipient?: Maybe<App>;
-  /** Look up a transaction. */
-  transaction?: Maybe<TransactionItem>;
-  /** Saleor version that triggered the event. */
-  version?: Maybe<Scalars["String"]>;
-};
-
-/**
  * Request an action for payment transaction.
  *
  * Added in Saleor 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
- * Requires one of the following permissions: HANDLE_PAYMENTS.
+ * Requires one of the following permissions: HANDLE_PAYMENTS, MANAGE_ORDERS.
  */
 export type TransactionRequestAction = {
   __typename?: "TransactionRequestAction";
@@ -23066,25 +20329,15 @@ export type TransactionRequestActionErrorCode =
   | "MISSING_TRANSACTION_ACTION_REQUEST_WEBHOOK"
   | "NOT_FOUND";
 
-/**
- * Represents a status of payment transaction.
- *
- *     The following statuses are possible:
- *     SUCCESS - Represents a sucess action.
- *     FAILURE - Represents a failure action.
- *     PENDING - Represents a pending action.
- *
- */
+/** An enumeration. */
 export type TransactionStatus = "FAILURE" | "PENDING" | "SUCCESS";
 
 /**
- * Create transaction for checkout or order.
+ * Create transaction for checkout or order. Requires the following permissions: AUTHENTICATED_APP and HANDLE_PAYMENTS.
  *
  * Added in Saleor 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires the following permissions: OWNER and HANDLE_PAYMENTS.
  */
 export type TransactionUpdate = {
   __typename?: "TransactionUpdate";
@@ -23108,75 +20361,28 @@ export type TransactionUpdateErrorCode =
   | "INCORRECT_CURRENCY"
   | "INVALID"
   | "METADATA_KEY_REQUIRED"
-  | "NOT_FOUND"
-  | "UNIQUE";
+  | "NOT_FOUND";
 
 export type TransactionUpdateInput = {
   /** Amount authorized by this transaction. */
   amountAuthorized?: InputMaybe<MoneyInput>;
-  /**
-   * Amount canceled by this transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  amountCanceled?: InputMaybe<MoneyInput>;
   /** Amount charged by this transaction. */
   amountCharged?: InputMaybe<MoneyInput>;
   /** Amount refunded by this transaction. */
   amountRefunded?: InputMaybe<MoneyInput>;
-  /**
-   * Amount voided by this transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `amountCanceled` instead.
-   */
+  /** Amount voided by this transaction. */
   amountVoided?: InputMaybe<MoneyInput>;
   /** List of all possible actions for the transaction */
   availableActions?: InputMaybe<Array<TransactionActionEnum>>;
-  /**
-   * The url that will allow to redirect user to payment provider page with transaction event details.
-   *
-   * Added in Saleor 3.13.
-   */
-  externalUrl?: InputMaybe<Scalars["String"]>;
-  /**
-   * The message of the transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  message?: InputMaybe<Scalars["String"]>;
   /** Payment public metadata. */
   metadata?: InputMaybe<Array<MetadataInput>>;
-  /**
-   * Payment name of the transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  name?: InputMaybe<Scalars["String"]>;
   /** Payment private metadata. */
   privateMetadata?: InputMaybe<Array<MetadataInput>>;
-  /**
-   * PSP Reference of the transaction.
-   *
-   * Added in Saleor 3.13.
-   */
-  pspReference?: InputMaybe<Scalars["String"]>;
-  /**
-   * Reference of the transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
-   */
+  /** Reference of the transaction. */
   reference?: InputMaybe<Scalars["String"]>;
-  /**
-   * Status of the transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
-   */
+  /** Status of the transaction. */
   status?: InputMaybe<Scalars["String"]>;
-  /**
-   * Payment type used for this transaction.
-   *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `name` and `message` instead.
-   */
+  /** Payment type used for this transaction. */
   type?: InputMaybe<Scalars["String"]>;
 };
 
@@ -23227,6 +20433,8 @@ export type TranslatableKinds =
  * Event sent when new translation is created.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type TranslationCreated = Event & {
   __typename?: "TranslationCreated";
@@ -23284,6 +20492,8 @@ export type TranslationTypes =
  * Event sent when translation is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type TranslationUpdated = Event & {
   __typename?: "TranslationUpdated";
@@ -23374,12 +20584,6 @@ export type User = Node &
      * Requires one of the following permissions: MANAGE_USERS, MANAGE_STAFF.
      */
     events?: Maybe<Array<CustomerEvent>>;
-    /**
-     * External ID of this user.
-     *
-     * Added in Saleor 3.10.
-     */
-    externalReference?: Maybe<Scalars["String"]>;
     firstName: Scalars["String"];
     /** List of the user gift cards. */
     giftCards?: Maybe<GiftCardCountableConnection>;
@@ -23420,6 +20624,7 @@ export type User = Node &
     orders?: Maybe<OrderCountableConnection>;
     /** List of user's permission groups. */
     permissionGroups?: Maybe<Array<Group>>;
+    phone?: Maybe<Scalars["String"]>;
     /** List of private metadata items. Requires staff permissions to access. */
     privateMetadata: Array<MetadataItem>;
     /**
@@ -23581,12 +20786,6 @@ export type UserCreateInput = {
   defaultShippingAddress?: InputMaybe<AddressInput>;
   /** The unique email address of the user. */
   email?: InputMaybe<Scalars["String"]>;
-  /**
-   * External ID of the customer.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** Given name. */
   firstName?: InputMaybe<Scalars["String"]>;
   /** User account is active. */
@@ -23601,9 +20800,6 @@ export type UserCreateInput = {
   redirectUrl?: InputMaybe<Scalars["String"]>;
 };
 
-export type UserOrApp = App | User;
-
-/** Represents user's permissions. */
 export type UserPermission = {
   __typename?: "UserPermission";
   /** Internal code for permission. */
@@ -23614,7 +20810,6 @@ export type UserPermission = {
   sourcePermissionGroups?: Maybe<Array<Group>>;
 };
 
-/** Represents user's permissions. */
 export type UserPermissionSourcePermissionGroupsArgs = {
   userId: Scalars["ID"];
 };
@@ -23634,7 +20829,7 @@ export type UserSortField =
   | "ORDER_COUNT";
 
 export type UserSortingInput = {
-  /** Specifies the direction in which to sort users. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort users by the selected field. */
   field: UserSortField;
@@ -23986,6 +21181,8 @@ export type VoucherCreate = {
  * Event sent when new voucher is created.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type VoucherCreated = Event & {
   __typename?: "VoucherCreated";
@@ -24005,6 +21202,8 @@ export type VoucherCreated = Event & {
  * Event sent when new voucher is created.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type VoucherCreatedVoucherArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -24027,6 +21226,8 @@ export type VoucherDelete = {
  * Event sent when voucher is deleted.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type VoucherDeleted = Event & {
   __typename?: "VoucherDeleted";
@@ -24046,6 +21247,8 @@ export type VoucherDeleted = Event & {
  * Event sent when voucher is deleted.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type VoucherDeletedVoucherArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -24106,6 +21309,8 @@ export type VoucherInput = {
  * Event sent when voucher metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type VoucherMetadataUpdated = Event & {
   __typename?: "VoucherMetadataUpdated";
@@ -24125,6 +21330,8 @@ export type VoucherMetadataUpdated = Event & {
  * Event sent when voucher metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type VoucherMetadataUpdatedVoucherArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -24175,7 +21382,7 @@ export type VoucherSortingInput = {
    * DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
    */
   channel?: InputMaybe<Scalars["String"]>;
-  /** Specifies the direction in which to sort vouchers. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort vouchers by the selected field. */
   field: VoucherSortField;
@@ -24240,6 +21447,8 @@ export type VoucherUpdate = {
  * Event sent when voucher is updated.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type VoucherUpdated = Event & {
   __typename?: "VoucherUpdated";
@@ -24259,6 +21468,8 @@ export type VoucherUpdated = Event & {
  * Event sent when voucher is updated.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type VoucherUpdatedVoucherArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -24273,6 +21484,8 @@ export type Warehouse = Node &
      * Click and collect options: local, all or disabled.
      *
      * Added in Saleor 3.1.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     clickAndCollectOption: WarehouseClickAndCollectOptionEnum;
     /**
@@ -24281,12 +21494,6 @@ export type Warehouse = Node &
      */
     companyName: Scalars["String"];
     email: Scalars["String"];
-    /**
-     * External ID of this warehouse.
-     *
-     * Added in Saleor 3.10.
-     */
-    externalReference?: Maybe<Scalars["String"]>;
     id: Scalars["ID"];
     isPrivate: Scalars["Boolean"];
     /** List of public metadata items. Can be accessed without permissions. */
@@ -24400,12 +21607,6 @@ export type WarehouseCreateInput = {
   address: AddressInput;
   /** The email address of the warehouse. */
   email?: InputMaybe<Scalars["String"]>;
-  /**
-   * External ID of the warehouse.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
   /** Warehouse name. */
   name: Scalars["String"];
   /**
@@ -24422,6 +21623,8 @@ export type WarehouseCreateInput = {
  * Event sent when new warehouse is created.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type WarehouseCreated = Event & {
   __typename?: "WarehouseCreated";
@@ -24454,6 +21657,8 @@ export type WarehouseDelete = {
  * Event sent when warehouse is deleted.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type WarehouseDeleted = Event & {
   __typename?: "WarehouseDeleted";
@@ -24503,6 +21708,8 @@ export type WarehouseFilterInput = {
  * Event sent when warehouse metadata is updated.
  *
  * Added in Saleor 3.8.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type WarehouseMetadataUpdated = Event & {
   __typename?: "WarehouseMetadataUpdated";
@@ -24549,7 +21756,7 @@ export type WarehouseSortField =
   "NAME";
 
 export type WarehouseSortingInput = {
-  /** Specifies the direction in which to sort warehouses. */
+  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort warehouses by the selected field. */
   field: WarehouseSortField;
@@ -24575,20 +21782,18 @@ export type WarehouseUpdateInput = {
    * Click and collect options: local, all or disabled.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   clickAndCollectOption?: InputMaybe<WarehouseClickAndCollectOptionEnum>;
   /** The email address of the warehouse. */
   email?: InputMaybe<Scalars["String"]>;
   /**
-   * External ID of the warehouse.
-   *
-   * Added in Saleor 3.10.
-   */
-  externalReference?: InputMaybe<Scalars["String"]>;
-  /**
    * Visibility of warehouse stocks.
    *
    * Added in Saleor 3.1.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   isPrivate?: InputMaybe<Scalars["Boolean"]>;
   /** Warehouse name. */
@@ -24601,6 +21806,8 @@ export type WarehouseUpdateInput = {
  * Event sent when warehouse is updated.
  *
  * Added in Saleor 3.4.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  */
 export type WarehouseUpdated = Event & {
   __typename?: "WarehouseUpdated";
@@ -24622,14 +21829,6 @@ export type Webhook = Node & {
   app: App;
   /** List of asynchronous webhook events. */
   asyncEvents: Array<WebhookEventAsync>;
-  /**
-   * Custom headers, which will be added to HTTP request.
-   *
-   * Added in Saleor 3.12.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  customHeaders?: Maybe<Scalars["JSONString"]>;
   /** Event deliveries. */
   eventDeliveries?: Maybe<EventDeliveryCountableConnection>;
   /**
@@ -24683,14 +21882,6 @@ export type WebhookCreateInput = {
   /** The asynchronous events that webhook wants to subscribe. */
   asyncEvents?: InputMaybe<Array<WebhookEventTypeAsyncEnum>>;
   /**
-   * Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only "X-*" and "Authorization*" keys are allowed.
-   *
-   * Added in Saleor 3.12.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  customHeaders?: InputMaybe<Scalars["JSONString"]>;
-  /**
    * The events that webhook wants to subscribe.
    *
    * DEPRECATED: this field will be removed in Saleor 4.0. Use `asyncEvents` or `syncEvents` instead.
@@ -24704,6 +21895,8 @@ export type WebhookCreateInput = {
    * Subscription query used to define a webhook payload.
    *
    * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   query?: InputMaybe<Scalars["String"]>;
   /**
@@ -24719,7 +21912,7 @@ export type WebhookCreateInput = {
 };
 
 /**
- * Delete a webhook. Before the deletion, the webhook is deactivated to pause any deliveries that are already scheduled. The deletion might fail if delivery is in progress. In such a case, the webhook is not deleted but remains deactivated.
+ * Deletes a webhook subscription.
  *
  * Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
  */
@@ -24730,44 +21923,6 @@ export type WebhookDelete = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   webhookErrors: Array<WebhookError>;
 };
-
-/**
- * Performs a dry run of a webhook event. Supports a single event (the first, if multiple provided in the `query`). Requires permission relevant to processed event.
- *
- * Added in Saleor 3.11.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
- */
-export type WebhookDryRun = {
-  __typename?: "WebhookDryRun";
-  errors: Array<WebhookDryRunError>;
-  /** JSON payload, that would be sent out to webhook's target URL. */
-  payload?: Maybe<Scalars["JSONString"]>;
-};
-
-export type WebhookDryRunError = {
-  __typename?: "WebhookDryRunError";
-  /** The error code. */
-  code: WebhookDryRunErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type WebhookDryRunErrorCode =
-  | "GRAPHQL_ERROR"
-  | "INVALID_ID"
-  | "MISSING_EVENT"
-  | "MISSING_PERMISSION"
-  | "MISSING_SUBSCRIPTION"
-  | "NOT_FOUND"
-  | "SYNTAX"
-  | "TYPE_NOT_SUPPORTED"
-  | "UNABLE_TO_PARSE";
 
 export type WebhookError = {
   __typename?: "WebhookError";
@@ -24780,18 +21935,7 @@ export type WebhookError = {
 };
 
 /** An enumeration. */
-export type WebhookErrorCode =
-  | "DELETE_FAILED"
-  | "GRAPHQL_ERROR"
-  | "INVALID"
-  | "INVALID_CUSTOM_HEADERS"
-  | "MISSING_EVENT"
-  | "MISSING_SUBSCRIPTION"
-  | "NOT_FOUND"
-  | "REQUIRED"
-  | "SYNTAX"
-  | "UNABLE_TO_PARSE"
-  | "UNIQUE";
+export type WebhookErrorCode = "GRAPHQL_ERROR" | "INVALID" | "NOT_FOUND" | "REQUIRED" | "UNIQUE";
 
 /** Webhook event. */
 export type WebhookEvent = {
@@ -24866,11 +22010,12 @@ export type WebhookEventTypeAsyncEnum =
   | "CHANNEL_UPDATED"
   /** A new checkout is created. */
   | "CHECKOUT_CREATED"
-  | "CHECKOUT_FULLY_PAID"
   /**
    * A checkout metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "CHECKOUT_METADATA_UPDATED"
   /** A checkout is updated. It also triggers all updates related to the checkout. */
@@ -24883,6 +22028,8 @@ export type WebhookEventTypeAsyncEnum =
    * A collection metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "COLLECTION_METADATA_UPDATED"
   /** A collection is updated. */
@@ -24895,6 +22042,8 @@ export type WebhookEventTypeAsyncEnum =
    * A customer account metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "CUSTOMER_METADATA_UPDATED"
   /** A customer account is updated. */
@@ -24915,6 +22064,8 @@ export type WebhookEventTypeAsyncEnum =
    * A fulfillment metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "FULFILLMENT_METADATA_UPDATED"
   /** A new gift card created. */
@@ -24925,16 +22076,10 @@ export type WebhookEventTypeAsyncEnum =
    * A gift card metadata is updated.
    *
    * Added in Saleor 3.8.
-   */
-  | "GIFT_CARD_METADATA_UPDATED"
-  /**
-   * A gift card has been sent.
-   *
-   * Added in Saleor 3.13.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
-  | "GIFT_CARD_SENT"
+  | "GIFT_CARD_METADATA_UPDATED"
   /** A gift card status is changed. */
   | "GIFT_CARD_STATUS_CHANGED"
   /** A gift card is updated. */
@@ -24967,8 +22112,6 @@ export type WebhookEventTypeAsyncEnum =
   | "ORDER_CONFIRMED"
   /** A new order is placed. */
   | "ORDER_CREATED"
-  /** An order is expired. */
-  | "ORDER_EXPIRED"
   /** An order is fulfilled. */
   | "ORDER_FULFILLED"
   /** Payment is made and an order is fully paid. */
@@ -24977,6 +22120,8 @@ export type WebhookEventTypeAsyncEnum =
    * An order metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "ORDER_METADATA_UPDATED"
   /** An order is updated; triggered for all changes related to an order; covers all other order webhooks, except for ORDER_CREATED. */
@@ -25004,27 +22149,11 @@ export type WebhookEventTypeAsyncEnum =
   /** A product is deleted. */
   | "PRODUCT_DELETED"
   /**
-   * A new product media is created.
-   *
-   * Added in Saleor 3.12.
-   */
-  | "PRODUCT_MEDIA_CREATED"
-  /**
-   * A product media is deleted.
-   *
-   * Added in Saleor 3.12.
-   */
-  | "PRODUCT_MEDIA_DELETED"
-  /**
-   * A product media is updated.
-   *
-   * Added in Saleor 3.12.
-   */
-  | "PRODUCT_MEDIA_UPDATED"
-  /**
    * A product metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "PRODUCT_METADATA_UPDATED"
   /** A product is updated. */
@@ -25039,12 +22168,12 @@ export type WebhookEventTypeAsyncEnum =
    * A product variant metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "PRODUCT_VARIANT_METADATA_UPDATED"
   /** A product variant is out of stock. */
   | "PRODUCT_VARIANT_OUT_OF_STOCK"
-  /** A product variant stock is updated */
-  | "PRODUCT_VARIANT_STOCK_UPDATED"
   /** A product variant is updated. */
   | "PRODUCT_VARIANT_UPDATED"
   /** A sale is created. */
@@ -25069,6 +22198,8 @@ export type WebhookEventTypeAsyncEnum =
    * A shipping zone metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "SHIPPING_ZONE_METADATA_UPDATED"
   /** A shipping zone is updated. */
@@ -25079,22 +22210,14 @@ export type WebhookEventTypeAsyncEnum =
   | "STAFF_DELETED"
   /** A staff user is updated. */
   | "STAFF_UPDATED"
-  /**
-   * A thumbnail is created.
-   *
-   * Added in Saleor 3.12.
-   */
-  | "THUMBNAIL_CREATED"
-  /**
-   * An action requested for transaction.
-   *
-   * DEPRECATED: this subscription will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED`, `TRANSACTION_REFUND_REQUESTED`, `TRANSACTION_CANCELATION_REQUESTED` instead.
-   */
+  /** An action requested for transaction. */
   | "TRANSACTION_ACTION_REQUEST"
   /**
    * Transaction item metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "TRANSACTION_ITEM_METADATA_UPDATED"
   /** A new translation is created. */
@@ -25109,6 +22232,8 @@ export type WebhookEventTypeAsyncEnum =
    * A voucher metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "VOUCHER_METADATA_UPDATED"
   /** A voucher is updated. */
@@ -25121,6 +22246,8 @@ export type WebhookEventTypeAsyncEnum =
    * A warehouse metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "WAREHOUSE_METADATA_UPDATED"
   /** A warehouse is updated. */
@@ -25174,17 +22301,20 @@ export type WebhookEventTypeEnum =
    * Event called for checkout tax calculation.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "CHECKOUT_CALCULATE_TAXES"
   /** A new checkout is created. */
   | "CHECKOUT_CREATED"
   /** Filter shipping methods for checkout. */
   | "CHECKOUT_FILTER_SHIPPING_METHODS"
-  | "CHECKOUT_FULLY_PAID"
   /**
    * A checkout metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "CHECKOUT_METADATA_UPDATED"
   /** A checkout is updated. It also triggers all updates related to the checkout. */
@@ -25197,6 +22327,8 @@ export type WebhookEventTypeEnum =
    * A collection metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "COLLECTION_METADATA_UPDATED"
   /** A collection is updated. */
@@ -25209,6 +22341,8 @@ export type WebhookEventTypeEnum =
    * A customer account metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "CUSTOMER_METADATA_UPDATED"
   /** A customer account is updated. */
@@ -25229,6 +22363,8 @@ export type WebhookEventTypeEnum =
    * A fulfillment metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "FULFILLMENT_METADATA_UPDATED"
   /** A new gift card created. */
@@ -25239,16 +22375,10 @@ export type WebhookEventTypeEnum =
    * A gift card metadata is updated.
    *
    * Added in Saleor 3.8.
-   */
-  | "GIFT_CARD_METADATA_UPDATED"
-  /**
-   * A gift card has been sent.
-   *
-   * Added in Saleor 3.13.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
-  | "GIFT_CARD_SENT"
+  | "GIFT_CARD_METADATA_UPDATED"
   /** A gift card status is changed. */
   | "GIFT_CARD_STATUS_CHANGED"
   /** A gift card is updated. */
@@ -25279,6 +22409,8 @@ export type WebhookEventTypeEnum =
    * Event called for order tax calculation.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "ORDER_CALCULATE_TAXES"
   /** An order is cancelled. */
@@ -25287,8 +22419,6 @@ export type WebhookEventTypeEnum =
   | "ORDER_CONFIRMED"
   /** A new order is placed. */
   | "ORDER_CREATED"
-  /** An order is expired. */
-  | "ORDER_EXPIRED"
   /** Filter shipping methods for order. */
   | "ORDER_FILTER_SHIPPING_METHODS"
   /** An order is fulfilled. */
@@ -25299,6 +22429,8 @@ export type WebhookEventTypeEnum =
    * An order metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "ORDER_METADATA_UPDATED"
   /** An order is updated; triggered for all changes related to an order; covers all other order webhooks, except for ORDER_CREATED. */
@@ -25321,7 +22453,6 @@ export type WebhookEventTypeEnum =
   | "PAYMENT_CAPTURE"
   /** Confirm payment. */
   | "PAYMENT_CONFIRM"
-  | "PAYMENT_GATEWAY_INITIALIZE_SESSION"
   /** Listing available payment gateways. */
   | "PAYMENT_LIST_GATEWAYS"
   /** Process payment. */
@@ -25341,27 +22472,11 @@ export type WebhookEventTypeEnum =
   /** A product is deleted. */
   | "PRODUCT_DELETED"
   /**
-   * A new product media is created.
-   *
-   * Added in Saleor 3.12.
-   */
-  | "PRODUCT_MEDIA_CREATED"
-  /**
-   * A product media is deleted.
-   *
-   * Added in Saleor 3.12.
-   */
-  | "PRODUCT_MEDIA_DELETED"
-  /**
-   * A product media is updated.
-   *
-   * Added in Saleor 3.12.
-   */
-  | "PRODUCT_MEDIA_UPDATED"
-  /**
    * A product metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "PRODUCT_METADATA_UPDATED"
   /** A product is updated. */
@@ -25376,12 +22491,12 @@ export type WebhookEventTypeEnum =
    * A product variant metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "PRODUCT_VARIANT_METADATA_UPDATED"
   /** A product variant is out of stock. */
   | "PRODUCT_VARIANT_OUT_OF_STOCK"
-  /** A product variant stock is updated */
-  | "PRODUCT_VARIANT_STOCK_UPDATED"
   /** A product variant is updated. */
   | "PRODUCT_VARIANT_UPDATED"
   /** A sale is created. */
@@ -25408,6 +22523,8 @@ export type WebhookEventTypeEnum =
    * A shipping zone metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "SHIPPING_ZONE_METADATA_UPDATED"
   /** A shipping zone is updated. */
@@ -25418,50 +22535,16 @@ export type WebhookEventTypeEnum =
   | "STAFF_DELETED"
   /** A staff user is updated. */
   | "STAFF_UPDATED"
-  /**
-   * A thumbnail is created.
-   *
-   * Added in Saleor 3.12.
-   */
-  | "THUMBNAIL_CREATED"
-  /**
-   * An action requested for transaction.
-   *
-   * DEPRECATED: this subscription will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED`, `TRANSACTION_REFUND_REQUESTED`, `TRANSACTION_CANCELATION_REQUESTED` instead.
-   */
+  /** An action requested for transaction. */
   | "TRANSACTION_ACTION_REQUEST"
-  /**
-   * Event called when cancel has been requested for transaction.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  | "TRANSACTION_CANCELATION_REQUESTED"
-  /**
-   * Event called when charge has been requested for transaction.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  | "TRANSACTION_CHARGE_REQUESTED"
-  | "TRANSACTION_INITIALIZE_SESSION"
   /**
    * Transaction item metadata is updated.
    *
    * Added in Saleor 3.8.
-   */
-  | "TRANSACTION_ITEM_METADATA_UPDATED"
-  | "TRANSACTION_PROCESS_SESSION"
-  /**
-   * Event called when refund has been requested for transaction.
-   *
-   * Added in Saleor 3.13.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
-  | "TRANSACTION_REFUND_REQUESTED"
+  | "TRANSACTION_ITEM_METADATA_UPDATED"
   /** A new translation is created. */
   | "TRANSLATION_CREATED"
   /** A translation is updated. */
@@ -25474,6 +22557,8 @@ export type WebhookEventTypeEnum =
    * A voucher metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "VOUCHER_METADATA_UPDATED"
   /** A voucher is updated. */
@@ -25486,6 +22571,8 @@ export type WebhookEventTypeEnum =
    * A warehouse metadata is updated.
    *
    * Added in Saleor 3.8.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "WAREHOUSE_METADATA_UPDATED"
   /** A warehouse is updated. */
@@ -25497,6 +22584,8 @@ export type WebhookEventTypeSyncEnum =
    * Event called for checkout tax calculation.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "CHECKOUT_CALCULATE_TAXES"
   /** Filter shipping methods for checkout. */
@@ -25505,6 +22594,8 @@ export type WebhookEventTypeSyncEnum =
    * Event called for order tax calculation.
    *
    * Added in Saleor 3.6.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   | "ORDER_CALCULATE_TAXES"
   /** Filter shipping methods for order. */
@@ -25515,7 +22606,6 @@ export type WebhookEventTypeSyncEnum =
   | "PAYMENT_CAPTURE"
   /** Confirm payment. */
   | "PAYMENT_CONFIRM"
-  | "PAYMENT_GATEWAY_INITIALIZE_SESSION"
   /** Listing available payment gateways. */
   | "PAYMENT_LIST_GATEWAYS"
   /** Process payment. */
@@ -25525,33 +22615,7 @@ export type WebhookEventTypeSyncEnum =
   /** Void payment. */
   | "PAYMENT_VOID"
   /** Fetch external shipping methods for checkout. */
-  | "SHIPPING_LIST_METHODS_FOR_CHECKOUT"
-  /**
-   * Event called when cancel has been requested for transaction.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  | "TRANSACTION_CANCELATION_REQUESTED"
-  /**
-   * Event called when charge has been requested for transaction.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  | "TRANSACTION_CHARGE_REQUESTED"
-  | "TRANSACTION_INITIALIZE_SESSION"
-  | "TRANSACTION_PROCESS_SESSION"
-  /**
-   * Event called when refund has been requested for transaction.
-   *
-   * Added in Saleor 3.13.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  | "TRANSACTION_REFUND_REQUESTED";
+  | "SHIPPING_LIST_METHODS_FOR_CHECKOUT";
 
 /** An enumeration. */
 export type WebhookSampleEventTypeEnum =
@@ -25576,7 +22640,6 @@ export type WebhookSampleEventTypeEnum =
   | "CHANNEL_STATUS_CHANGED"
   | "CHANNEL_UPDATED"
   | "CHECKOUT_CREATED"
-  | "CHECKOUT_FULLY_PAID"
   | "CHECKOUT_METADATA_UPDATED"
   | "CHECKOUT_UPDATED"
   | "COLLECTION_CREATED"
@@ -25597,7 +22660,6 @@ export type WebhookSampleEventTypeEnum =
   | "GIFT_CARD_CREATED"
   | "GIFT_CARD_DELETED"
   | "GIFT_CARD_METADATA_UPDATED"
-  | "GIFT_CARD_SENT"
   | "GIFT_CARD_STATUS_CHANGED"
   | "GIFT_CARD_UPDATED"
   | "INVOICE_DELETED"
@@ -25614,7 +22676,6 @@ export type WebhookSampleEventTypeEnum =
   | "ORDER_CANCELLED"
   | "ORDER_CONFIRMED"
   | "ORDER_CREATED"
-  | "ORDER_EXPIRED"
   | "ORDER_FULFILLED"
   | "ORDER_FULLY_PAID"
   | "ORDER_METADATA_UPDATED"
@@ -25630,9 +22691,6 @@ export type WebhookSampleEventTypeEnum =
   | "PERMISSION_GROUP_UPDATED"
   | "PRODUCT_CREATED"
   | "PRODUCT_DELETED"
-  | "PRODUCT_MEDIA_CREATED"
-  | "PRODUCT_MEDIA_DELETED"
-  | "PRODUCT_MEDIA_UPDATED"
   | "PRODUCT_METADATA_UPDATED"
   | "PRODUCT_UPDATED"
   | "PRODUCT_VARIANT_BACK_IN_STOCK"
@@ -25640,7 +22698,6 @@ export type WebhookSampleEventTypeEnum =
   | "PRODUCT_VARIANT_DELETED"
   | "PRODUCT_VARIANT_METADATA_UPDATED"
   | "PRODUCT_VARIANT_OUT_OF_STOCK"
-  | "PRODUCT_VARIANT_STOCK_UPDATED"
   | "PRODUCT_VARIANT_UPDATED"
   | "SALE_CREATED"
   | "SALE_DELETED"
@@ -25656,7 +22713,6 @@ export type WebhookSampleEventTypeEnum =
   | "STAFF_CREATED"
   | "STAFF_DELETED"
   | "STAFF_UPDATED"
-  | "THUMBNAIL_CREATED"
   | "TRANSACTION_ACTION_REQUEST"
   | "TRANSACTION_ITEM_METADATA_UPDATED"
   | "TRANSLATION_CREATED"
@@ -25671,47 +22727,9 @@ export type WebhookSampleEventTypeEnum =
   | "WAREHOUSE_UPDATED";
 
 /**
- * Trigger a webhook event. Supports a single event (the first, if multiple provided in the `webhook.subscription_query`). Requires permission relevant to processed event. Successfully delivered webhook returns `delivery` with status='PENDING' and empty payload.
- *
- * Added in Saleor 3.11.
- *
- * Note: this API is currently in Feature Preview and can be subject to changes at later point.
- *
- * Requires one of the following permissions: AUTHENTICATED_STAFF_USER.
- */
-export type WebhookTrigger = {
-  __typename?: "WebhookTrigger";
-  delivery?: Maybe<EventDelivery>;
-  errors: Array<WebhookTriggerError>;
-};
-
-export type WebhookTriggerError = {
-  __typename?: "WebhookTriggerError";
-  /** The error code. */
-  code: WebhookTriggerErrorCode;
-  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
-  field?: Maybe<Scalars["String"]>;
-  /** The error message. */
-  message?: Maybe<Scalars["String"]>;
-};
-
-/** An enumeration. */
-export type WebhookTriggerErrorCode =
-  | "GRAPHQL_ERROR"
-  | "INVALID_ID"
-  | "MISSING_EVENT"
-  | "MISSING_PERMISSION"
-  | "MISSING_QUERY"
-  | "MISSING_SUBSCRIPTION"
-  | "NOT_FOUND"
-  | "SYNTAX"
-  | "TYPE_NOT_SUPPORTED"
-  | "UNABLE_TO_PARSE";
-
-/**
  * Updates a webhook subscription.
  *
- * Requires one of the following permissions: MANAGE_APPS, AUTHENTICATED_APP.
+ * Requires one of the following permissions: MANAGE_APPS.
  */
 export type WebhookUpdate = {
   __typename?: "WebhookUpdate";
@@ -25727,14 +22745,6 @@ export type WebhookUpdateInput = {
   /** The asynchronous events that webhook wants to subscribe. */
   asyncEvents?: InputMaybe<Array<WebhookEventTypeAsyncEnum>>;
   /**
-   * Custom headers, which will be added to HTTP request. There is a limitation of 5 headers per webhook and 998 characters per header.Only "X-*" and "Authorization*" keys are allowed.
-   *
-   * Added in Saleor 3.12.
-   *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
-   */
-  customHeaders?: InputMaybe<Scalars["JSONString"]>;
-  /**
    * The events that webhook wants to subscribe.
    *
    * DEPRECATED: this field will be removed in Saleor 4.0. Use `asyncEvents` or `syncEvents` instead.
@@ -25748,6 +22758,8 @@ export type WebhookUpdateInput = {
    * Subscription query used to define a webhook payload.
    *
    * Added in Saleor 3.2.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   query?: InputMaybe<Scalars["String"]>;
   /**
@@ -25781,7 +22793,6 @@ export type _Entity =
   | Category
   | Collection
   | Group
-  | Order
   | PageType
   | Product
   | ProductMedia
@@ -25935,6 +22946,7 @@ export type CheckoutFragment = {
       product: {
         __typename?: "Product";
         name: string;
+        productType: { __typename?: "ProductType"; id: string; name: string };
         translation?: {
           __typename?: "ProductTranslation";
           id: string;
@@ -25989,6 +23001,7 @@ export type CheckoutLineFragment = {
     product: {
       __typename?: "Product";
       name: string;
+      productType: { __typename?: "ProductType"; id: string; name: string };
       translation?: {
         __typename?: "ProductTranslation";
         id: string;
@@ -26138,6 +23151,7 @@ export type CheckoutQuery = {
         product: {
           __typename?: "Product";
           name: string;
+          productType: { __typename?: "ProductType"; id: string; name: string };
           translation?: {
             __typename?: "ProductTranslation";
             id: string;
@@ -26294,6 +23308,7 @@ export type CheckoutLinesUpdateMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -26439,6 +23454,7 @@ export type CheckoutLineDeleteMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -26584,6 +23600,7 @@ export type CheckoutEmailUpdateMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -26728,6 +23745,7 @@ export type CheckoutCustomerAttachMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -26972,6 +23990,7 @@ export type CheckoutShippingAddressUpdateMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -27118,6 +24137,7 @@ export type CheckoutBillingAddressUpdateMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -27263,6 +24283,7 @@ export type CheckoutDeliveryMethodUpdateMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -27430,6 +24451,7 @@ export type CheckoutAddPromoCodeMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -27576,6 +24598,7 @@ export type CheckoutRemovePromoCodeMutation = {
           product: {
             __typename?: "Product";
             name: string;
+            productType: { __typename?: "ProductType"; id: string; name: string };
             translation?: {
               __typename?: "ProductTranslation";
               id: string;
@@ -28050,6 +25073,10 @@ export const CheckoutLineFragmentDoc = gql`
       }
       product {
         name
+        productType {
+          id
+          name
+        }
         translation(languageCode: $languageCode) {
           language {
             code

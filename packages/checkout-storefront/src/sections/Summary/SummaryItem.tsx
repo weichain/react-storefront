@@ -1,19 +1,19 @@
 import { CheckoutLineFragment, OrderLineFragment } from "@/checkout-storefront/graphql";
 import React, { PropsWithChildren } from "react";
 import { PhotoIcon } from "@/checkout-storefront/icons";
-import { useSummaryLineLineAttributesText, getSummaryLineProps } from "./utils";
+import { getSummaryLineProps } from "./utils";
 import { getSvgSrc } from "@/checkout-storefront/lib/svgSrc";
 
-export type SummaryLine = CheckoutLineFragment | OrderLineFragment;
+export type SummaryLine = CheckoutLineFragment | OrderLineFragment | any;
 
 interface LineItemProps {
   line: SummaryLine;
 }
 
 export const SummaryItem: React.FC<PropsWithChildren<LineItemProps>> = ({ line, children }) => {
-  const { productName, productImage } = getSummaryLineProps(line);
+  const { productName, productImage } = getSummaryLineProps(line as CheckoutLineFragment);
 
-  const attributesText = useSummaryLineLineAttributesText(line);
+  //const attributesText = useSummaryLineLineAttributesText(line);
 
   return (
     <li className="summary-item">
@@ -31,10 +31,12 @@ export const SummaryItem: React.FC<PropsWithChildren<LineItemProps>> = ({ line, 
           )}
         </div>
       </div>
-      <div className="summary-row w-full mt-4 ml-4">
+      <div className="summary-row w-full mt-3 ml-4">
         <div className="flex flex-col">
-          <p className="text-[#E0BC75] text-[14px] font-bold">{attributesText}</p>
-          <p className="mb-3 text-[#1F1F1F] font-bold">{productName}</p>
+          <p className="text-[#E0BC75] text-[14px] font-bold">
+            {line?.variant?.product?.productType.name}
+          </p>
+          <p className="text-[#1F1F1F] font-bold">{productName}</p>
         </div>
         {children}
       </div>

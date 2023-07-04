@@ -57,7 +57,12 @@ export const useGuestUserForm = ({ initialEmail }: GuestUserFormProps) => {
 
   const validationSchema = object({
     email: string().email(errorMessages.invalid).required(errorMessages.required),
-    password: string().min(8, formatMessage(passwordMessages.passwordAtLeastCharacters)),
+    password: string()
+      .min(8, formatMessage(passwordMessages.passwordAtLeastCharacters))
+      .matches(/(?=.*?[a-z])/, "At least one lower case English letter")
+      .matches(/(?=.*?[0-9])/, "At least one digit")
+      .matches(/(?=.*?[A-Z])/, "At least one upper case")
+      .matches(/(?=.*?[#?!@$%^&*-])/, "At least one special character"),
     repeatPassword: string().oneOf(
       [ref("password")],
       formatMessage(passwordMessages.passwordsMustBeTheSame)
