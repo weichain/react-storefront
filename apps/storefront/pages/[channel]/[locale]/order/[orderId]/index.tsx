@@ -12,17 +12,17 @@ function OrderCompletedPage() {
   const paths = usePaths();
   const router = useRouter();
   const { orderId } = router.query;
-  if (!orderId) {
-    return;
-  }
+
   const { data, loading } = useOrderQuery({
     variables: { id: orderId as string },
+    skip: !router.isReady,
   });
   const { data: paymentData, loading: paymentLoading } = useOrderPaymentDetailsQuery({
     variables: { id: data?.order?.id as string },
+    skip: !data?.order?.id,
   });
 
-  if (loading || paymentLoading) {
+  if (loading || paymentLoading || !orderId) {
     return <Spinner />;
   }
 
