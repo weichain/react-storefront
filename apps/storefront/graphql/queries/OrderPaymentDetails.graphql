@@ -1,0 +1,8 @@
+query OrderPaymentDetails($id: ID!) {
+  order(id: $id) {
+    authorizeStatus
+    chargeStatus
+    isPaid
+    status
+  }
+}

@@ -25314,6 +25314,21 @@ export type OrderDetailsByTokenQuery = {
   } | null;
 };
 
+export type OrderPaymentDetailsQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type OrderPaymentDetailsQuery = {
+  __typename?: "Query";
+  order?: {
+    __typename?: "Order";
+    authorizeStatus: OrderAuthorizeStatusEnum;
+    chargeStatus: OrderChargeStatusEnum;
+    isPaid: boolean;
+    status: OrderStatus;
+  } | null;
+};
+
 export type OrdersQueryVariables = Exact<{
   before?: InputMaybe<Scalars["String"]>;
   after?: InputMaybe<Scalars["String"]>;
@@ -28116,6 +28131,62 @@ export type OrderDetailsByTokenLazyQueryHookResult = ReturnType<
 export type OrderDetailsByTokenQueryResult = Apollo.QueryResult<
   OrderDetailsByTokenQuery,
   OrderDetailsByTokenQueryVariables
+>;
+export const OrderPaymentDetailsDocument = gql`
+  query OrderPaymentDetails($id: ID!) {
+    order(id: $id) {
+      authorizeStatus
+      chargeStatus
+      isPaid
+      status
+    }
+  }
+`;
+
+/**
+ * __useOrderPaymentDetailsQuery__
+ *
+ * To run a query within a React component, call `useOrderPaymentDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrderPaymentDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrderPaymentDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useOrderPaymentDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<OrderPaymentDetailsQuery, OrderPaymentDetailsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<OrderPaymentDetailsQuery, OrderPaymentDetailsQueryVariables>(
+    OrderPaymentDetailsDocument,
+    options
+  );
+}
+export function useOrderPaymentDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    OrderPaymentDetailsQuery,
+    OrderPaymentDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<OrderPaymentDetailsQuery, OrderPaymentDetailsQueryVariables>(
+    OrderPaymentDetailsDocument,
+    options
+  );
+}
+export type OrderPaymentDetailsQueryHookResult = ReturnType<typeof useOrderPaymentDetailsQuery>;
+export type OrderPaymentDetailsLazyQueryHookResult = ReturnType<
+  typeof useOrderPaymentDetailsLazyQuery
+>;
+export type OrderPaymentDetailsQueryResult = Apollo.QueryResult<
+  OrderPaymentDetailsQuery,
+  OrderPaymentDetailsQueryVariables
 >;
 export const OrdersDocument = gql`
   query Orders($before: String, $after: String) {
