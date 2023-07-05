@@ -1,6 +1,6 @@
 // import { CheckIcon } from "@heroicons/react/outline";
 import Link from "next/link";
-import Image from "next/Image";
+import Image from "next/image";
 import React, { ReactElement } from "react";
 
 import { Layout, Spinner } from "@/components";
