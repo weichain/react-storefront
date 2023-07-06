@@ -39,5 +39,5 @@
 }
 
 :local(.checkbox-span) {
-  @apply text-[14px] text-[#1F1F1F] font-[400] tracking-normal;
+  @apply text-[14px] md:text-[12px] lg:text-[14px] text-[#1F1F1F] font-[400] tracking-normal;
 }

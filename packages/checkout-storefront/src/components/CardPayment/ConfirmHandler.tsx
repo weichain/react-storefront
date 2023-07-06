@@ -87,11 +87,11 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
     <>
       <div className="flex justify-between items-center relative">
         <div
-          className="w-6 h-5 absolute bottom-10 lg:bottom-5 -left-[1.5px] z-50 cursor-pointer"
+          className="w-6 h-5 absolute bottom-[76%] md:bottom-[45%] lg:bottom-[40px] -left-[1.5px] z-50 cursor-pointer"
           onClick={() => setChecked(() => !checked)}
         ></div>
         <Checkbox
-          classNames={{ container: "!mb-0" }}
+          classNames={{ container: "mt-0" }}
           name="billingSameAsShipping"
           label={formatMessage(contactMessages.acceptTerms)}
           data-testid={"useShippingAsBillingCheckbox"}
