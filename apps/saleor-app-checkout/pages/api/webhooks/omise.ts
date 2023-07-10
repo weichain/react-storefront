@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/nextjs";
 
 import { getSaleorApiUrlFromRequest } from "@/saleor-app-checkout/backend/auth";
-import { omiseWebhookEventToTransactionCreateMutationVariables } from "@/saleor-app-checkout/backend/payments/providers/omise/webhookHandler";
+import { createOmisePayment } from "@/saleor-app-checkout/backend/payments/providers/omise/webhookHandler";
 import { updateOrCreateTransaction } from "@/saleor-app-checkout/backend/payments/updateOrCreateTransaction";
 import { unpackPromise, unpackThrowable } from "@/saleor-app-checkout/utils/unpackErrors";
 import { NextApiHandler } from "next";
@@ -16,9 +16,7 @@ const handler: NextApiHandler = async (req, res) => {
     return;
   }
 
-  const [paymentError, paymentData] = await unpackPromise(
-    omiseWebhookEventToTransactionCreateMutationVariables({ body })
-  );
+  const [paymentError, paymentData] = await unpackPromise(createOmisePayment({ body }));
 
   if (paymentError) {
     console.error(paymentError);

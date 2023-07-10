@@ -2,47 +2,85 @@ import { TransactionCreateMutationVariables } from "@/saleor-app-checkout/graphq
 import { getSaleorAmountFromInteger, getTransactionAmountGetter } from "../../utils";
 
 const OMISE_PAYMENT_PREFIX = "omise";
-const CHARGE_COMPLETED = "charge.completed";
-const CHARGE_CREATE = "charge.create";
 
-export const omiseWebhookEventToTransactionCreateMutationVariables = ({
+enum OmiseStatuses {
+  Failed = "failed",
+  Expired = "expired",
+  Pending = "pending",
+  Reversed = "reversed",
+  Successful = "successful",
+}
+
+export const createOmisePayment = async ({
   body,
 }: {
   body: any;
 }): Promise<TransactionCreateMutationVariables | undefined> => {
-  switch (body.key) {
-    case CHARGE_COMPLETED:
-    case CHARGE_CREATE:
-      return checkoutSessionToTransactionCreateMutationVariables({
-        chargeSession: body.data,
-      });
-    default:
-      return body;
-  }
-};
+  const {
+    key: eventType,
+    data: { status, metadata, id, authorized_amount, captured_amount, currency },
+  } = body;
 
-export const checkoutSessionToTransactionCreateMutationVariables = async ({
-  chargeSession,
-}: {
-  chargeSession: any;
-}): Promise<any> => {
   const getAmount = getTransactionAmountGetter({
-    authorized: chargeSession?.authorized_amount,
+    authorized: authorized_amount,
     voided: undefined,
     refunded: undefined,
-    charged: chargeSession?.captured_amount,
+    charged: captured_amount,
   });
-  return {
-    id: chargeSession.metadata?.id,
-    transaction: {
-      status: chargeSession.status || "unknown",
-      reference: chargeSession.id,
-      type: `${OMISE_PAYMENT_PREFIX}-card`,
-      amountCharged: {
-        amount: getSaleorAmountFromInteger(getAmount("charged")),
-        currency: chargeSession.currency,
+
+  if (status === OmiseStatuses.Pending) {
+    return {
+      id: metadata.id,
+      transaction: {
+        status,
+        reference: id,
+        availableActions: ["VOID"],
+        type: `${OMISE_PAYMENT_PREFIX}-card`,
       },
-      availableActions: [],
-    },
-  };
+      transactionEvent: {
+        status: "PENDING",
+        name: eventType,
+      },
+    };
+  }
+
+  if (status === OmiseStatuses.Failed || status === OmiseStatuses.Expired) {
+    return {
+      id: metadata.id,
+      transaction: {
+        status,
+        reference: id,
+        type: `${OMISE_PAYMENT_PREFIX}-card`,
+        availableActions: [],
+      },
+      transactionEvent: {
+        status: "FAILURE",
+        name: eventType,
+      },
+    };
+  }
+
+  if (status === OmiseStatuses.Successful) {
+    return {
+      id: metadata.id,
+      transaction: {
+        status,
+        reference: id,
+        type: `${OMISE_PAYMENT_PREFIX}-card`,
+        amountAuthorized: {
+          amount: getSaleorAmountFromInteger(getAmount("authorized")),
+          currency,
+        },
+        amountCharged: {
+          amount: getSaleorAmountFromInteger(getAmount("charged")),
+          currency,
+        },
+        availableActions: [],
+      },
+      transactionEvent: {
+        status: "SUCCESS",
+        name: eventType,
+      },
+    };
+  }
 };

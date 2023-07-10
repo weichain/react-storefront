@@ -5,15 +5,14 @@ import { getIntegerAmountFromSaleor } from "../../utils";
 import { omiseClient } from "./omiseClient";
 
 export const createOmisePayment = async (
-  { saleorApiUrl, order, redirectUrl, appUrl, cardDetails }: CreatePaymentData,
+  { saleorApiUrl, order, redirectUrl, appUrl, tokenId }: CreatePaymentData,
   channelAndLocale: string
 ): Promise<CreatePaymentResult> => {
   console.log(redirectUrl, appUrl);
-  const token = await createPaymentToken({ cardDetails });
   const response = await omisePay({
     checkoutApiUrl: process.env.CHECKOUT_APP_URL as string,
     saleorApiUrl,
-    tokenId: token.id,
+    tokenId: tokenId!,
     orderId: order.id,
     amountCharged: {
       amount: getIntegerAmountFromSaleor(order.total.gross.amount),
@@ -29,7 +28,7 @@ export const createOmisePayment = async (
   };
 };
 
-const createPaymentToken = async ({ cardDetails }: any) => {
+export const createPaymentToken = async ({ cardDetails }: any) => {
   const omise = await omiseClient();
   return omise.tokens.create({ card: cardDetails });
 };

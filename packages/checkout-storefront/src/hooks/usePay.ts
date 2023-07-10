@@ -76,11 +76,12 @@ export const usePay = () => {
         window.location.href = paymentUrl;
       }
       if (!result?.ok && result?.orderId) {
+        const { channel, locale } = getQueryParams();
         // Order created, payment creation failed, checkout doesn't exist
         const domain = new URL(saleorApiUrl).hostname;
-        const newUrl = replaceUrl({
+        replaceUrl({
           query: {
-            locale: getQueryParams().locale,
+            locale,
             checkout: undefined,
             order: result?.orderId,
             saleorApiUrl,
@@ -90,7 +91,7 @@ export const usePay = () => {
             domain,
           },
         });
-        window.location.href = newUrl;
+        window.location.href = `/${channel}/${locale}/order/${result?.orderId}`;
       }
       return result;
     },
