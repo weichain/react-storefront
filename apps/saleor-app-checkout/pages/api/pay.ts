@@ -30,10 +30,14 @@ import {
   PaymentMethods,
   PaymentProviders,
   PayRequestBody,
+  CreditCardDetails,
 } from "checkout-common";
 import { unpackPromise, unpackThrowable } from "@/saleor-app-checkout/utils/unpackErrors";
 import { getSaleorApiUrlFromRequest } from "@/saleor-app-checkout/backend/auth";
-import { createOmisePayment } from "@/saleor-app-checkout/backend/payments/providers/omise";
+import {
+  createOmisePayment,
+  createPaymentToken,
+} from "@/saleor-app-checkout/backend/payments/providers/omise";
 import { updatePublicPaymentMetafield } from "@/saleor-app-checkout/backend/payments/providers/updatePaymentPublicMetafields";
 
 const reuseExistingSession = (
@@ -75,11 +79,13 @@ const getPaymentResponse = async ({
   body,
   appUrl,
   channelAndLocale,
+  tokenId,
 }: {
   saleorApiUrl: string;
   body: PayRequestBody;
   appUrl: string;
   channelAndLocale: string;
+  tokenId: string;
 }): Promise<PayRequestResponse> => {
   body.provider = "omise";
   if (!PaymentProviders.includes(body.provider)) {
@@ -102,10 +108,9 @@ const getPaymentResponse = async ({
       return existingSessionResponse;
     }
   }
-  const cardDetails = body.cardDetails;
   body.method = "creditCard";
   const [paymentUrlError, data] = await unpackPromise(
-    getPaymentUrlIdForProvider({ saleorApiUrl, body, order, appUrl, cardDetails, channelAndLocale })
+    getPaymentUrlIdForProvider({ saleorApiUrl, body, order, appUrl, channelAndLocale, tokenId })
   );
 
   if (paymentUrlError) {
@@ -159,11 +164,19 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(400).send({ message: "Invalid JSON" });
     return;
   }
+  const cardDetails = body.cardDetails as CreditCardDetails;
 
   try {
+    const token = await createPaymentToken({ cardDetails });
     const appUrl = getBaseUrl(req);
     const channelAndLocale = getChannelAndLocale(req);
-    const response = await getPaymentResponse({ saleorApiUrl, body, appUrl, channelAndLocale });
+    const response = await getPaymentResponse({
+      saleorApiUrl,
+      body,
+      appUrl,
+      channelAndLocale,
+      tokenId: token.id,
+    });
     return res.status(200).json(response);
   } catch (err) {
     if (err instanceof KnownPaymentError) {
@@ -193,20 +206,20 @@ const handler: NextApiHandler = async (req, res) => {
   }
 };
 
-const getPaymentUrlIdForProvider = ({
+const getPaymentUrlIdForProvider = async ({
   saleorApiUrl,
   body,
   order,
   appUrl,
-  cardDetails,
   channelAndLocale,
+  tokenId,
 }: {
   saleorApiUrl: string;
   body: PayRequestBody;
   order: OrderFragment;
   appUrl: string;
-  cardDetails: any;
   channelAndLocale: string;
+  tokenId: string;
 }): Promise<CreatePaymentResult> => {
   const createPaymentData = {
     saleorApiUrl,
@@ -214,7 +227,7 @@ const getPaymentUrlIdForProvider = ({
     redirectUrl: body.redirectUrl,
     method: body.method,
     appUrl,
-    cardDetails,
+    tokenId,
   };
 
   switch (body.provider) {

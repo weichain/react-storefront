@@ -3,14 +3,8 @@ import type { PaymentMethodID, PaymentProviderID } from "./payments";
 type BaseBody = {
   provider: PaymentProviderID;
   method: PaymentMethodID;
+  cardDetails?: CreditCardDetails;
   redirectUrl: string;
-  cardDetails?: {
-    number: string;
-    name: string;
-    expiration_month: number;
-    expiration_year: number;
-    security_code: string;
-  };
   // captureAmount?: number; // support for partial payments
 };
 
@@ -65,3 +59,11 @@ export type OmisePayRequestResult =
       ok: true;
     }
   | { ok: false; error: string };
+
+export type CreditCardDetails = {
+  number: string;
+  name: string;
+  expiration_month: number;
+  expiration_year: number;
+  security_code: string;
+};
