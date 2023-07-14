@@ -11,11 +11,10 @@ import { useCheckoutFinalize } from "@/checkout-storefront/sections/CheckoutForm
 import { useUser } from "@/checkout-storefront/hooks/useUser";
 import { fieldValues } from "@/checkout-storefront/components/AddressForm";
 
-export const useCheckoutSubmit = () => {
+export const useCheckoutSubmit = (card: any) => {
   const { user } = useUser();
   const { validateAllForms } = useCheckoutValidationActions();
   const { validating, validationState } = useCheckoutValidationState();
-  console.log({ validationState });
   const { updateState, loadingCheckout, submitInProgress } = useCheckoutUpdateState();
   const { setShouldRegisterUser, setSubmitInProgress } = useCheckoutUpdateStateActions();
   const { checkoutFinalize, finalizing } = useCheckoutFinalize();
@@ -47,9 +46,9 @@ export const useCheckoutSubmit = () => {
     if (!user) {
       if (!fieldValues.firstName || typeof fieldValues.phone === "string") return;
     }
-
     if (submitInProgress && finishedApiChangesWithNoError && allFormsValid) {
-      void checkoutFinalize();
+      void checkoutFinalize(card);
+      setSubmitInProgress(false);
       return;
     }
 

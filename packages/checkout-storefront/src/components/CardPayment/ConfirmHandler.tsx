@@ -43,7 +43,7 @@ export const getUserInputs = (name: string, phone: string | undefined) => {
 export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }) => {
   const [checked, setChecked] = useState(false);
   const formatMessage = useFormattedMessages();
-  const { handleSubmit, isProcessing } = useCheckoutSubmit();
+  const { handleSubmit, isProcessing } = useCheckoutSubmit(card);
   const { user } = useUser();
   const { name, phone, email } = userData;
   let enableBtn = false;
@@ -78,6 +78,7 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
     expiration_year: Number(year),
     security_code: String(card.cvc),
   };
+
   const submitHandler = async () => {
     getCardData(cardDetails);
     handleSubmit();
