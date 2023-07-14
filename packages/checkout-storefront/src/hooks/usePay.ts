@@ -43,7 +43,13 @@ export const usePay = () => {
   } = useAppConfig();
 
   const checkoutPay = useCallback(
-    async ({ provider, method, checkoutId, totalAmount }: Omit<CheckoutBody, "redirectUrl">) => {
+    async ({
+      provider,
+      method,
+      checkoutId,
+      totalAmount,
+      tokenId,
+    }: Omit<CheckoutBody, "redirectUrl">) => {
       const redirectUrl = getRedirectUrl(saleorApiUrl);
       const result = await pay({
         saleorApiUrl,
@@ -53,7 +59,7 @@ export const usePay = () => {
         checkoutId,
         totalAmount,
         redirectUrl,
-        cardDetails,
+        tokenId,
       });
       if ((result as PaySuccessResult)?.data?.paymentUrl) {
         const {
@@ -98,27 +104,27 @@ export const usePay = () => {
     [checkoutApiUrl, pay, saleorApiUrl]
   );
 
-  const orderPay = async ({
-    provider,
-    orderId,
-    method,
-  }: Omit<OrderBody, "redirectUrl" | "checkoutApiUrl">) => {
-    const redirectUrl = getRedirectUrl(saleorApiUrl);
-    const result = await pay({
-      saleorApiUrl,
-      checkoutApiUrl,
-      provider,
-      method,
-      orderId,
-      redirectUrl,
-    });
+  // const orderPay = async ({
+  //   provider,
+  //   orderId,
+  //   method,
+  // }: Omit<OrderBody, "redirectUrl" | "checkoutApiUrl">) => {
+  //   const redirectUrl = getRedirectUrl(saleorApiUrl);
+  //   const result = await pay({
+  //     saleorApiUrl,
+  //     checkoutApiUrl,
+  //     provider,
+  //     method,
+  //     orderId,
+  //     redirectUrl,
+  //   });
 
-    if ((result as PaySuccessResult)?.data?.paymentUrl) {
-      window.location.href = (result as PaySuccessResult).data.paymentUrl;
-    }
+  //   if ((result as PaySuccessResult)?.data?.paymentUrl) {
+  //     window.location.href = (result as PaySuccessResult).data.paymentUrl;
+  //   }
 
-    return result;
-  };
+  //   return result;
+  // };
 
-  return { orderPay, checkoutPay, loading, error, data };
+  return { checkoutPay, loading, error, data };
 };

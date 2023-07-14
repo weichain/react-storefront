@@ -3,8 +3,8 @@ import type { PaymentMethodID, PaymentProviderID } from "./payments";
 type BaseBody = {
   provider: PaymentProviderID;
   method: PaymentMethodID;
-  cardDetails?: CreditCardDetails;
   redirectUrl: string;
+  tokenId: string;
   // captureAmount?: number; // support for partial payments
 };
 

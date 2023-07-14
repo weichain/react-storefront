@@ -30,14 +30,10 @@ import {
   PaymentMethods,
   PaymentProviders,
   PayRequestBody,
-  CreditCardDetails,
 } from "checkout-common";
 import { unpackPromise, unpackThrowable } from "@/saleor-app-checkout/utils/unpackErrors";
 import { getSaleorApiUrlFromRequest } from "@/saleor-app-checkout/backend/auth";
-import {
-  createOmisePayment,
-  createPaymentToken,
-} from "@/saleor-app-checkout/backend/payments/providers/omise";
+import { createOmisePayment } from "@/saleor-app-checkout/backend/payments/providers/omise";
 import { updatePublicPaymentMetafield } from "@/saleor-app-checkout/backend/payments/providers/updatePaymentPublicMetafields";
 
 const reuseExistingSession = (
@@ -164,10 +160,8 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(400).send({ message: "Invalid JSON" });
     return;
   }
-  const cardDetails = body.cardDetails as CreditCardDetails;
 
   try {
-    const token = await createPaymentToken({ cardDetails });
     const appUrl = getBaseUrl(req);
     const channelAndLocale = getChannelAndLocale(req);
     const response = await getPaymentResponse({
@@ -175,7 +169,7 @@ const handler: NextApiHandler = async (req, res) => {
       body,
       appUrl,
       channelAndLocale,
-      tokenId: token.id,
+      tokenId: body.tokenId,
     });
     return res.status(200).json(response);
   } catch (err) {
@@ -201,7 +195,6 @@ const handler: NextApiHandler = async (req, res) => {
     if (err instanceof MissingUrlError) {
       return res.status(503).json({ ok: false, provider: err.provider, orderId: err.order?.id });
     }
-
     return res.status(500).json({ ok: false, provider: body.provider });
   }
 };
