@@ -16,6 +16,7 @@ import { paymentMethodsMessages } from "./messages/paymentMethods";
 import {
   adyenPaymentProviderMessages,
   molliePaymentProviderMessages,
+  omisePaymentProviderMessages,
   paymentProvidersMessages,
   stripePaymentProviderMessages,
 } from "./messages/paymentProviders";
@@ -55,6 +56,19 @@ const molliePaymentProvider: Omit<PaymentProviderSettings<"mollie">, "label">[] 
   },
   {
     id: "apiKey",
+    type: "string",
+    encrypt: true,
+  },
+];
+
+const omisePaymentProvider: Omit<PaymentProviderSettings<"omise">, "label">[] = [
+  {
+    id: "publicKey",
+    type: "string",
+    encrypt: false,
+  },
+  {
+    id: "secretKey",
     type: "string",
     encrypt: true,
   },
@@ -164,7 +178,7 @@ const paymentProviderFields: Record<PaymentProviderID, any> = {
   mollie: molliePaymentProvider,
   adyen: adyenPaymentProvider,
   stripe: stripePaymentProvider,
-  omise: {},
+  omise: omisePaymentProvider,
   dummy: {},
 };
 
@@ -192,6 +206,17 @@ export const useMolliePaymentProvider = (): PaymentProvider<"mollie"> => {
   };
 };
 
+export const useOmisePaymentProvider = (): PaymentProvider<"omise"> => {
+  const intl = useIntl();
+
+  return {
+    id: "omise",
+    label: intl.formatMessage(paymentProvidersMessages.omise),
+    logo: MollieIcon,
+    settings: withLabels(intl, omisePaymentProviderMessages, omisePaymentProvider),
+  };
+};
+
 export const useAdyenPaymentProvider = (): PaymentProvider<"adyen"> => {
   const intl = useIntl();
 
@@ -214,16 +239,6 @@ export const useStripePaymentProvider = (): PaymentProvider<"stripe"> => {
   };
 };
 
-export const useOmisePaymentProvider = (): PaymentProvider<"omise"> => {
-  const intl = useIntl();
-
-  return {
-    id: "omise",
-    label: intl.formatMessage(paymentProvidersMessages.omise),
-    settings: [],
-  };
-};
-
 export const useDummyPaymentProvider = (): PaymentProvider<"dummy"> => {
   const intl = useIntl();
 
@@ -238,6 +253,7 @@ export const usePaymentProviders = (): PaymentProvider<PaymentProviderID>[] => [
   useMolliePaymentProvider(),
   useAdyenPaymentProvider(),
   useStripePaymentProvider(),
+  useOmisePaymentProvider(),
 ];
 
 export const useBrandingCustomization = (): Customization<"branding"> => {

@@ -9,8 +9,12 @@ export const createOmisePayment = async (
   channelAndLocale: string
 ): Promise<CreatePaymentResult> => {
   console.log(redirectUrl, appUrl);
+  console.log("token is: ", tokenId);
+  console.log("saleorApiUrl: ", saleorApiUrl);
+  console.log("orderID: ", order.id);
+  console.log("process.env.CHECKOUT_APP_URL: ", process.env.CHECKOUT_APP_URL);
   const response = await omisePay({
-    checkoutApiUrl: process.env.CHECKOUT_APP_URL as string,
+    checkoutApiUrl: process.env.CHECKOUT_APP_URL,
     saleorApiUrl,
     tokenId: tokenId!,
     orderId: order.id,
@@ -19,7 +23,9 @@ export const createOmisePayment = async (
       currency: order.total.gross.currency,
     },
   });
+  console.log("the response is: ", response);
   const result = await response.json();
+  console.log("the result is: ", result);
   return {
     url: `/${channelAndLocale}/order/${order.id}`,
     lastDigits: result.card.last_digits,
@@ -28,7 +34,7 @@ export const createOmisePayment = async (
   };
 };
 
-export const createPaymentToken = async ({ cardDetails }: any) => {
-  const omise = await omiseClient();
-  return omise.tokens.create({ card: cardDetails });
-};
+// export const createPaymentToken = async ({ cardDetails }: any) => {
+//   const omise = await omiseClient();
+//   return omise.tokens.create({ card: cardDetails });
+// };

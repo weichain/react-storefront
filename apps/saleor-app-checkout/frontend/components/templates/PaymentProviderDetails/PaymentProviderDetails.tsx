@@ -49,6 +49,8 @@ const PaymentProviderDetails: React.FC<PaymentProviderDetailsProps> = ({
     selectedPaymentProvider.settings.map((setting) => [setting.id, setting.value])
   );
 
+  console.log("paymentProviders: ", paymentProviders);
+
   const formMethods = useForm({
     shouldUnregister: true, // Legacy fields from different subpage using the same form might be still present, this should unregister them
     defaultValues: flatSettings,

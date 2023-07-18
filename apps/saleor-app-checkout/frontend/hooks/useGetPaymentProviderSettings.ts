@@ -16,7 +16,7 @@ export const useGetPaymentProviderSettings = <TArgs>(
   const domain = app.getState().domain;
 
   // @todo use `saleorApiUrl`
-  const saleorApiUrl = `https://${domain}/graphql/`;
+  const saleorApiUrl = `https://www.gateway.opn.network/primary-market-dev/graphql/`;
 
   const [{ data, loading, error }] = useFetch(requestGetPaymentProviderSettings, {
     skip: !isAuthorized,

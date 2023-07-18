@@ -179,10 +179,22 @@
       "value": "Omise Payment"
     }
   ],
+  "messages/paymentProviders/9hBUgA": [
+    {
+      "type": 0,
+      "value": "Secret Key"
+    }
+  ],
   "messages/paymentProviders/9hBUgM": [
     {
       "type": 0,
       "value": "API key"
+    }
+  ],
+  "messages/paymentProviders/9hBUgN": [
+    {
+      "type": 0,
+      "value": "Public Key"
     }
   ],
   "messages/paymentProviders/CH2iz9": [

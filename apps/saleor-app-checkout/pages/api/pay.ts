@@ -160,7 +160,7 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(400).send({ message: "Invalid JSON" });
     return;
   }
-
+  console.log("token is: ", body.tokenId);
   try {
     const appUrl = getBaseUrl(req);
     const channelAndLocale = getChannelAndLocale(req);

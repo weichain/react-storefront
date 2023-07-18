@@ -16,15 +16,17 @@ const PaymentProvider = () => {
   const intl = useIntl();
 
   const getPaymentProviderSettings = useGetPaymentProviderSettings();
+  console.log("getPaymentProviderSettings: ", getPaymentProviderSettings);
   const [setPaymentProviderSettings, setPaymentProviderSettingsRequest] =
     useSetPaymentProviderSettings();
 
   const paymentProviders = usePaymentProviderSettings(getPaymentProviderSettings.data);
+  console.log("paymentProvides: ", paymentProviders);
 
   const { app } = useAppContext();
   const domain = app.getState().domain;
   // @todo use `saleorApiUrl`
-  const saleorApiUrl = `https://${domain}/graphql/`;
+  const saleorApiUrl = `https://www.gateway.opn.network/primary-market-dev/graphql/`;
   const token = app.getState().token;
 
   const paymentProvider = paymentProviders.find(

@@ -3,6 +3,7 @@ import {
   MollieProviderSettingID,
   PaymentProviderID,
   StripeProviderSettingID,
+  OmiseProviderSettingID,
 } from "checkout-common";
 import { defineMessages } from "react-intl";
 
@@ -43,6 +44,19 @@ export const molliePaymentProviderMessages = defineMessages<MollieProviderSettin
   apiKey: {
     defaultMessage: "API key",
     id: "messages/paymentProviders/9hBUgM",
+    description: "payment provider setting",
+  },
+});
+
+export const omisePaymentProviderMessages = defineMessages<OmiseProviderSettingID>({
+  publicKey: {
+    defaultMessage: "Public Key",
+    id: "messages/paymentProviders/9hBUgN",
+    description: "payment provider setting",
+  },
+  secretKey: {
+    defaultMessage: "Secret Key",
+    id: "messages/paymentProviders/9hBUgA",
     description: "payment provider setting",
   },
 });

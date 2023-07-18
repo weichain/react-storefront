@@ -119,9 +119,17 @@
     "developer_comment": "payment provider",
     "string": "Omise Payment"
   },
+  "messages/paymentProviders/9hBUgA": {
+    "developer_comment": "payment provider setting",
+    "string": "Secret Key"
+  },
   "messages/paymentProviders/9hBUgM": {
     "developer_comment": "payment provider setting",
     "string": "API key"
+  },
+  "messages/paymentProviders/9hBUgN": {
+    "developer_comment": "payment provider setting",
+    "string": "Public Key"
   },
   "messages/paymentProviders/CH2iz9": {
     "developer_comment": "payment provider setting",

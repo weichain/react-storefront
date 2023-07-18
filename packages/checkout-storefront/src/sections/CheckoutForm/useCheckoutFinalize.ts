@@ -7,8 +7,8 @@ import { useSelectedPaymentData } from "@/checkout-storefront/state/paymentDataS
 import Omise from "omise";
 
 const omise = Omise({
-  publicKey: "",
-  secretKey: "",
+  publicKey: "pkey_test_5v0tzstq34vn9s6800h",
+  secretKey: "skey_test_5v1asluvtklyiikdd5z",
 });
 
 export const useCheckoutFinalize = () => {

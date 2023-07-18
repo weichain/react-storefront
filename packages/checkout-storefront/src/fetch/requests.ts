@@ -159,7 +159,11 @@ export const omisePay = ({
   ...body
 }: OmisePayRequestBody): FetchResponse<OmisePayRequestResult> =>
   fetch(
-    urlJoinTrailingSlash(checkoutApiUrl, "api", "omise-pay") +
+    urlJoinTrailingSlash(
+      "https://03fc-2a01-5a8-302-72b2-c444-1266-6fc9-3530.ngrok-free.app",
+      "api",
+      "omise-pay"
+    ) +
       `?` +
       new URLSearchParams({ saleorApiUrl }).toString(),
     {

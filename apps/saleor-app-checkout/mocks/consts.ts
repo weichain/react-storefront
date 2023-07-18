@@ -15,6 +15,9 @@ export const testingVars = {
   stripeSecretKey: process.env.TEST_STRIPE_SECRET_KEY!,
   stripeWebhookSecret: process.env.TEST_STRIPE_WEBHOOK_SECRET!,
   stripePublishableKey: process.env.TEST_STRIPE_PUBLISHABLE_KEY!,
+
+  omisePublicKey: process.env.TEST_OMISE_PUBLIC_KEY!,
+  omiseSecretKey: process.env.TEST_OMISE_SECRET_KEY!,
 };
 
 if (IS_TEST) {
