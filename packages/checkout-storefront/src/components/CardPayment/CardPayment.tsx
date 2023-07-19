@@ -11,6 +11,9 @@ export interface IReactCreditCardProps {
 
 const CardPayment = () => {
   const [country, setCountry] = useState<string>("");
+  const [validExpiryDate, setValidExpiryDate] = useState<boolean | undefined>(undefined);
+  const [creditCardType, setCreditCardType] = useState<string>();
+  const [submitError, setSubmitError] = useState(false);
   const [card, setCard] = useState<IReactCreditCardProps>({
     number: "",
     name: "",
@@ -25,10 +28,24 @@ const CardPayment = () => {
         One last check to make sure your details are correct before placing your order.
       </p>
       <div className="flex flex-col gap-2 mt-4">
-        <CardInput card={card} setCard={setCard} />
+        <CardInput
+          card={card}
+          setCard={setCard}
+          validExpiryDate={validExpiryDate}
+          setValidExpiryDate={setValidExpiryDate}
+          creditCardType={creditCardType}
+          setCreditCardType={setCreditCardType}
+          submitError={submitError}
+        />
         <div className="flex flex-col gap-4">
           <CountryDropdown country={country} setCountry={setCountry} />
-          <ConfirmHandler country={country} card={card} />
+          <ConfirmHandler
+            country={country}
+            card={card}
+            validExpiryDate={validExpiryDate}
+            creditCardType={creditCardType}
+            setSubmitError={setSubmitError}
+          />
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { IReactCreditCardProps } from "./CardPayment";
@@ -10,9 +11,13 @@ import { contactMessages } from "@/checkout-storefront/sections/Contact/messages
 import { useCheckoutSubmit } from "@/checkout-storefront/sections/CheckoutForm/useCheckoutSubmit";
 import { getCardData } from "@/checkout-storefront/hooks/usePay";
 import { useUser } from "@/checkout-storefront/hooks/useUser";
+
 export interface IConfrimHandlerProps {
   card: IReactCreditCardProps;
   country: string;
+  validExpiryDate: boolean | undefined;
+  creditCardType: string | undefined;
+  setSubmitError: (value: boolean) => void;
 }
 
 interface IUserData {
@@ -40,11 +45,18 @@ export const getUserInputs = (name: string, phone: string | undefined) => {
   userData.phone = phone;
 };
 
-export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }) => {
+export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({
+  country,
+  card,
+  creditCardType,
+  validExpiryDate,
+  setSubmitError,
+}) => {
   const [checked, setChecked] = useState(false);
   const formatMessage = useFormattedMessages();
   const { handleSubmit, isProcessing } = useCheckoutSubmit(card);
   const { user } = useUser();
+  // const [hasError, setHasError] = useState();
   const { name, phone, email } = userData;
   let enableBtn = false;
   let validateFields = false;
@@ -61,6 +73,8 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
     String(card.cvc).length === 3 &&
     card.name.trim().length > 2 &&
     checked &&
+    creditCardType &&
+    validExpiryDate &&
     validateFields
   ) {
     enableBtn = true;
@@ -79,7 +93,15 @@ export const ConfirmHandler: React.FC<IConfrimHandlerProps> = ({ country, card }
     security_code: String(card.cvc),
   };
 
-  const submitHandler = async () => {
+  useEffect(() => {
+    window.addEventListener("message", (params) => {
+      if (params.data.message) {
+        setSubmitError(true);
+      }
+    });
+  }, []);
+
+  const submitHandler = () => {
     getCardData(cardDetails);
     handleSubmit();
   };

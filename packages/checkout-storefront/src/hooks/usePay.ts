@@ -1,7 +1,7 @@
 import { pay as payRequest, PaySuccessResult } from "@/checkout-storefront/fetch";
 import { useFetch } from "@/checkout-storefront/hooks/useFetch";
 import { getQueryParams, replaceUrl } from "@/checkout-storefront/lib/utils/url";
-import { OrderBody, CheckoutBody } from "checkout-common";
+import { CheckoutBody } from "checkout-common";
 import { useCallback } from "react";
 import { useAppConfig } from "../providers/AppConfigProvider";
 
