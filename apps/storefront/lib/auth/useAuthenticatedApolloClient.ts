@@ -24,7 +24,7 @@ export const useAuthenticatedApolloClient = (fetchWithAuth: Fetch) => {
         link: httpLink,
         cache: new InMemoryCache({ typePolicies }),
       }),
-    []
+    [httpLink]
   );
 
   return { apolloClient, resetClient: () => apolloClient.resetStore() };
