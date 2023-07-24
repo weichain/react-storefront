@@ -1,0 +1,20 @@
+query App {
+  app {
+    id
+    name
+  }
+}
+
+query PublicMetafields($id: ID!, $keys: [String!]) {
+  app(id: $id) {
+    id
+    metafields(keys: $keys)
+  }
+}
+
+query PublicMetafieldsInfered($keys: [String!]) {
+  app {
+    id
+    metafields(keys: $keys)
+  }
+}

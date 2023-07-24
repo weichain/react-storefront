@@ -1,9 +1,19 @@
+import Omise from "omise";
+
 import { useCheckout } from "@/checkout-storefront/hooks/useCheckout";
 
 import { usePay } from "@/checkout-storefront/hooks/usePay";
 import { useCallback, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useSelectedPaymentData } from "@/checkout-storefront/state/paymentDataStore";
-import Omise from "omise";
+
+import {
+  PublicMetafieldsInferedDocument,
+  PublicMetafieldsInferedQuery,
+  PublicMetafieldsInferedQueryVariables,
+} from "@/checkout-storefront/graphql";
+import { useUrqlClient } from "@/checkout-storefront/lib/auth";
+import jsonFile from "../../../../../apps/saleor-app-checkout/.saleor-app-auth.json";
 
 export interface ICard {
   cvc: string;
@@ -12,15 +22,22 @@ export interface ICard {
   number: string;
 }
 
-const omise = Omise({
-  publicKey: "",
-  secretKey: "",
-});
-
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();
   const { checkoutPay, loading, error: payError, data: _payData } = usePay();
   const { paymentMethod, paymentProvider } = useSelectedPaymentData();
+  const router = useRouter();
+  const saleorApiUrl = router.query.saleorApiUrl as string;
+  const { urqlClient, resetClient } = useUrqlClient({
+    url: saleorApiUrl,
+    requestPolicy: "network-only",
+    suspense: false,
+    fetchOptions: {
+      headers: {
+        Authorization: `Bearer ${jsonFile.token}`,
+      },
+    },
+  });
 
   useEffect(() => {
     // @todo should this show a notification?
@@ -34,6 +51,12 @@ export const useCheckoutFinalize = () => {
       if (!paymentMethod || !paymentProvider) {
         return;
       }
+      const { data, error } = await urqlClient
+        .query<PublicMetafieldsInferedQuery, PublicMetafieldsInferedQueryVariables>(
+          PublicMetafieldsInferedDocument,
+          { keys: ["publicKeys"] }
+        )
+        .toPromise();
 
       const cardDetails = {
         number: card.number,
@@ -47,6 +70,10 @@ export const useCheckoutFinalize = () => {
 
       let token: Omise.Tokens.IToken;
       try {
+        const omisePubKey = JSON.parse(data?.app?.metafields?.publicKeys as string).omise.publicKey;
+        const omise = Omise({
+          publicKey: omisePubKey,
+        });
         token = await omise.tokens.create({ card: cardDetails });
       } catch (e: any) {
         window.postMessage({

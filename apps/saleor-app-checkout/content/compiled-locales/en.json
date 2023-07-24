@@ -89,6 +89,12 @@
       "value": "Branding"
     }
   ],
+  "messages/customization/7xUQq3": [
+    {
+      "type": 0,
+      "value": "Public Key"
+    }
+  ],
   "messages/customization/D8irjQ": [
     {
       "type": 0,
@@ -171,6 +177,12 @@
     {
       "type": 0,
       "value": "Webhook HMAC key"
+    }
+  ],
+  "messages/paymentProviders/2F4KIK": [
+    {
+      "type": 0,
+      "value": "Public Key"
     }
   ],
   "messages/paymentProviders/7ZZXFm": [

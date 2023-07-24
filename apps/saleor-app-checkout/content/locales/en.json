@@ -59,6 +59,10 @@
     "developer_comment": "customization",
     "string": "Branding"
   },
+  "messages/customization/7xUQq3": {
+    "developer_comment": "customization",
+    "string": "Public Key"
+  },
   "messages/customization/D8irjQ": {
     "developer_comment": "customization setting",
     "string": "Button BG Primary"
@@ -114,6 +118,10 @@
   "messages/paymentProviders/+1my3D": {
     "developer_comment": "payment provider setting",
     "string": "Webhook HMAC key"
+  },
+  "messages/paymentProviders/2F4KIK": {
+    "developer_comment": "payment provider setting",
+    "string": "Public Key"
   },
   "messages/paymentProviders/7ZZXFm": {
     "developer_comment": "payment provider",

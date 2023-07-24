@@ -22806,6 +22806,32 @@ export type _Service = {
   sdl?: Maybe<Scalars["String"]>;
 };
 
+export type AppQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AppQuery = {
+  __typename?: "Query";
+  app?: { __typename?: "App"; id: string; name?: string | null } | null;
+};
+
+export type PublicMetafieldsQueryVariables = Exact<{
+  id: Scalars["ID"];
+  keys?: InputMaybe<Array<Scalars["String"]> | Scalars["String"]>;
+}>;
+
+export type PublicMetafieldsQuery = {
+  __typename?: "Query";
+  app?: { __typename?: "App"; id: string; metafields?: Record<string, string> | null } | null;
+};
+
+export type PublicMetafieldsInferedQueryVariables = Exact<{
+  keys?: InputMaybe<Array<Scalars["String"]> | Scalars["String"]>;
+}>;
+
+export type PublicMetafieldsInferedQuery = {
+  __typename?: "Query";
+  app?: { __typename?: "App"; id: string; metafields?: Record<string, string> | null } | null;
+};
+
 export type AccountErrorFragment = {
   __typename?: "AccountError";
   message?: string | null;
@@ -25305,6 +25331,52 @@ export const OrderFragmentDoc = gql`
   ${ShippingFragmentDoc}
   ${OrderLineFragmentDoc}
 `;
+export const AppDocument = gql`
+  query App {
+    app {
+      id
+      name
+    }
+  }
+`;
+
+export function useAppQuery(options?: Omit<Urql.UseQueryArgs<AppQueryVariables>, "query">) {
+  return Urql.useQuery<AppQuery, AppQueryVariables>({ query: AppDocument, ...options });
+}
+export const PublicMetafieldsDocument = gql`
+  query PublicMetafields($id: ID!, $keys: [String!]) {
+    app(id: $id) {
+      id
+      metafields(keys: $keys)
+    }
+  }
+`;
+
+export function usePublicMetafieldsQuery(
+  options: Omit<Urql.UseQueryArgs<PublicMetafieldsQueryVariables>, "query">
+) {
+  return Urql.useQuery<PublicMetafieldsQuery, PublicMetafieldsQueryVariables>({
+    query: PublicMetafieldsDocument,
+    ...options,
+  });
+}
+export const PublicMetafieldsInferedDocument = gql`
+  query PublicMetafieldsInfered($keys: [String!]) {
+    app {
+      id
+      metafields(keys: $keys)
+    }
+  }
+`;
+
+export function usePublicMetafieldsInferedQuery(
+  options?: Omit<Urql.UseQueryArgs<PublicMetafieldsInferedQueryVariables>, "query">
+) {
+  return Urql.useQuery<PublicMetafieldsInferedQuery, PublicMetafieldsInferedQueryVariables>({
+    query: PublicMetafieldsInferedDocument,
+    ...options,
+  });
+}
 export const CheckoutDocument = gql`
   query checkout($id: ID!, $languageCode: LanguageCodeEnum!) {
     checkout(id: $id) {

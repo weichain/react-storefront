@@ -16,6 +16,11 @@ export const customizationMessages = defineMessages<CustomizationID>({
     id: "messages/customization/X5y+L2",
     description: "customization",
   },
+  paymentProvider: {
+    defaultMessage: "Public Key",
+    id: "messages/customization/7xUQq3",
+    description: "customization",
+  },
 });
 
 export const brandingCustomizationMessages = defineMessages<BrandingCustomizationSettingID>({

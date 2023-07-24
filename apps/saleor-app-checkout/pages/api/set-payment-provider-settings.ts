@@ -1,7 +1,9 @@
 import * as Sentry from "@sentry/nextjs";
 import {
   getPrivateSettings,
+  getPublicSettings,
   setPrivateSettings,
+  setPublicSettings,
 } from "@/saleor-app-checkout/backend/configuration/settings";
 import { allowCors, requireAuthorization } from "@/saleor-app-checkout/backend/utils";
 import { merge } from "lodash-es";
@@ -41,6 +43,12 @@ const handler: NextApiHandler = async (req, res) => {
     const updatedSettings = await setPrivateSettings(saleorApiUrl, {
       ...settings,
       paymentProviders: merge(settings.paymentProviders, newSettings),
+    });
+
+    const publicSettings = await getPublicSettings({ saleorApiUrl });
+    await setPublicSettings(saleorApiUrl, {
+      ...publicSettings,
+      publicKeys: { omise: { publicKey: newSettings.omise.publicKey } } as any,
     });
 
     return res.status(200).json({

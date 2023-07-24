@@ -33,7 +33,8 @@ export const defaultPaymentProviderSettings: PaymentProviderSettingsValues<"unen
     webhookSecret: "",
   },
   omise: {
-    omiseKey: "",
+    publicKey: "",
+    secretKey: "",
   },
   dummy: {
     dummyKey: "",
@@ -54,11 +55,13 @@ export const defaultCustomizationSettings: CustomizationSettingsValues = {
   productSettings: {
     lowStockThreshold: "",
   },
+  paymentProvider: {},
 };
 
 export const defaultPublicSettings: PublicSettingsValues = {
   customizations: defaultCustomizationSettings,
   channelActivePaymentProviders: {},
+  publicKeys: {},
 };
 export const defaultPrivateSettings: PrivateSettingsValues<"unencrypted"> = {
   paymentProviders: defaultPaymentProviderSettings,

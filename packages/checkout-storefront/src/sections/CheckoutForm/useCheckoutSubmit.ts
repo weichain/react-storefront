@@ -12,7 +12,7 @@ import { useCheckoutFinalize } from "@/checkout-storefront/sections/CheckoutForm
 import { useUser } from "@/checkout-storefront/hooks/useUser";
 import { fieldValues } from "@/checkout-storefront/components/AddressForm";
 
-export const useCheckoutSubmit = (card: any) => {
+export const useCheckoutSubmit = (card?: any) => {
   const { user } = useUser();
   const { validateAllForms } = useCheckoutValidationActions();
   const { validating, validationState } = useCheckoutValidationState();
