@@ -8,7 +8,6 @@ export function formatCreditCardNumber(value: string) {
   if (!value) {
     return value;
   }
-
   const issuer = Payment.fns.cardType(value);
   const clearValue = clearNumber(value);
   let nextValue;
@@ -48,10 +47,24 @@ export function formatExpirationDate(value: string) {
   const clearValue = clearNumber(value);
 
   if (clearValue.length >= 3) {
+    Payment.fns.validateCardExpiry(`${clearValue.slice(0, 2)}/${clearValue.slice(2, 4)}`);
     return `${clearValue.slice(0, 2)}/${clearValue.slice(2, 4)}`;
   }
 
   return clearValue;
+}
+
+export function checkExpiryDate(value: string) {
+  const clearValue = clearNumber(value);
+
+  if (clearValue.length >= 4) {
+    return Payment.fns.validateCardExpiry(`${clearValue.slice(0, 2)}/${clearValue.slice(2, 4)}`);
+  }
+}
+
+export function checkCreditCardType(value: string) {
+  const issuer = Payment.fns.cardType(value);
+  return issuer;
 }
 
 export const formatCardName = (value: string) => /^[a-zA-Z '.-]*$/.test(value);

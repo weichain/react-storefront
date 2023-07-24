@@ -41,9 +41,11 @@ export const AdyenDropIn = memo<AdyenDropInProps>(() => {
     saleorApiUrl,
   } = useAppConfig();
 
+  const card = {};
+
   const { checkout, loading: isCheckoutLoading } = useCheckout();
   const { validating } = useCheckoutValidationState();
-  const { allFormsValid, validateAllForms } = useCheckoutSubmit();
+  const { allFormsValid, validateAllForms } = useCheckoutSubmit(card);
 
   console.log({ validating });
 
@@ -93,6 +95,7 @@ export const AdyenDropIn = memo<AdyenDropInProps>(() => {
       provider: "adyen",
       redirectUrl: window.location.href,
       adyenStateData: adyenCheckoutSubmitParams.state.data,
+      tokenId: "",
     });
 
     console.log(4);

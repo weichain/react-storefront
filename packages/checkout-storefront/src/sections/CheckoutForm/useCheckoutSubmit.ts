@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   useCheckoutUpdateState,
   useCheckoutUpdateStateActions,
@@ -64,6 +65,7 @@ export const useCheckoutSubmit = (card: any) => {
     setSubmitInProgress,
     validating,
     user,
+    card,
   ]);
 
   useEffect(() => void handleSubmit(), [handleSubmit]);

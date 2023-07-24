@@ -28,6 +28,7 @@ export type PostAdyenDropInPaymentsResponse = {
 export const postDropInAdyenPaymentsBody = yup
   .object({
     checkoutId: yup.string().required(),
+    tokenId: yup.string().required(),
     provider: yup
       .string()
       .oneOf([...PaymentProviders])

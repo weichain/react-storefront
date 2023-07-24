@@ -3,14 +3,14 @@
 // import { Text } from "@saleor/ui-kit";
 // import { paymentSectionLabels, paymentMethodsMessages } from "./messages";
 // import { FormProvider } from "@/checkout-storefront/providers/FormProvider";
-import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
+//import { useFormattedMessages } from "@/checkout-storefront/hooks/useFormattedMessages";
 import { usePaymentMethodsForm } from "@/checkout-storefront/sections/PaymentSection/usePaymentMethodsForm";
 import { AdyenDropIn } from "@/checkout-storefront/sections/PaymentSection/AdyenDropIn/AdyenDropIn";
 import { CardPayment } from "@/checkout-storefront/components/CardPayment";
 
 export const PaymentMethods = () => {
-  const formatMessage = useFormattedMessages();
-  const { form, availablePaymentMethods, availablePaymentProviders } = usePaymentMethodsForm();
+  //const formatMessage = useFormattedMessages();
+  const { availablePaymentProviders } = usePaymentMethodsForm();
 
   const showAdyenDropin = availablePaymentProviders.includes("adyen");
 

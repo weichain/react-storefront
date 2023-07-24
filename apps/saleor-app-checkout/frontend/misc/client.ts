@@ -45,8 +45,8 @@ export const createGraphqlClient = (apiUrl: string, token: string | undefined) =
       authExchange({
         getAuth: async () => (token ? { token } : null),
         willAuthError,
-        addAuthToOperation,
-      }),
+        addAuthToOperation: addAuthToOperation as any,
+      }) as any,
       multipartFetchExchange,
     ],
     url: apiUrl,

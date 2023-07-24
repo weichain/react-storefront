@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as Sentry from "@sentry/nextjs";
 import { getSaleorApiUrlFromRequest } from "@/saleor-app-checkout/backend/auth";
 import { createOrderFromBodyOrId } from "@/saleor-app-checkout/backend/payments/createOrderFromBody";
@@ -8,7 +10,7 @@ import { unpackPromise, unpackThrowable } from "@/saleor-app-checkout/utils/unpa
 import { PostAdyenDropInPaymentsResponse, postDropInAdyenPaymentsBody } from "checkout-common";
 import { NextApiHandler } from "next";
 
-const parseAndValidateBody = createParseAndValidateBody(postDropInAdyenPaymentsBody);
+const parseAndValidateBody = createParseAndValidateBody(postDropInAdyenPaymentsBody as any);
 
 const DropInAdyenPaymentsHandler: NextApiHandler<
   PostAdyenDropInPaymentsResponse | { message: string }
