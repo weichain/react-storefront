@@ -2,7 +2,7 @@ import Omise from "omise";
 
 import { getPrivateSettings } from "@/saleor-app-checkout/backend/configuration/settings";
 
-const saleorApiUrl = process.env.SALEOR_API_URL;
+const saleorApiUrl = process.env.SALEOR_API_URL as string;
 
 export async function omiseClient() {
   const metadata = await getPrivateSettings({ saleorApiUrl, obfuscateEncryptedData: false });

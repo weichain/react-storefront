@@ -8,15 +8,19 @@ import { useRouter } from "next/router";
 import { useSelectedPaymentData } from "@/checkout-storefront/state/paymentDataStore";
 
 import {
-  AppDocument,
-  AppQuery,
-  AppQueryVariables,
   PublicMetafieldsInferedDocument,
   PublicMetafieldsInferedQuery,
   PublicMetafieldsInferedQueryVariables,
 } from "@/checkout-storefront/graphql";
 import { useUrqlClient } from "@/checkout-storefront/lib/auth";
 import jsonFile from "../../../../../apps/saleor-app-checkout/.saleor-app-auth.json";
+
+export interface ICard {
+  cvc: string;
+  expiry: string;
+  name: string;
+  number: string;
+}
 
 export const useCheckoutFinalize = () => {
   const { checkout } = useCheckout();
@@ -43,19 +47,11 @@ export const useCheckoutFinalize = () => {
   }, [payError]);
 
   const checkoutFinalize = useCallback(
-    async (card: any) => {
+    async (card: ICard) => {
       if (!paymentMethod || !paymentProvider) {
         return;
       }
-
       const { data, error } = await urqlClient
-        .query<AppQuery, AppQueryVariables>(AppDocument, {})
-        .toPromise();
-      if (error) {
-        throw new Error("Couldn't fetch app id", { cause: error });
-      }
-      const id = data?.app?.id;
-      const { data: dataKey, error: errKey } = await urqlClient
         .query<PublicMetafieldsInferedQuery, PublicMetafieldsInferedQueryVariables>(
           PublicMetafieldsInferedDocument,
           { keys: ["publicKeys"] }
@@ -65,21 +61,26 @@ export const useCheckoutFinalize = () => {
       const cardDetails = {
         number: card.number,
         name: card.name,
-        expiration_month: +card.expiry.split("/")[0],
-        expiration_year: +card.expiry.split("/")[1],
-        security_code: card.security_code,
+        expiration_month: Number(card.expiry.substring(0, 2)),
+        expiration_year: Number(card.expiry.substring(3, 5)),
+        security_code: card.cvc,
         city: "",
         postal_code: "",
       };
+
       let token: Omise.Tokens.IToken;
       try {
-        const omisePubKey = JSON.parse(dataKey?.app?.metafields?.publicKeys as string).omise
-          .publicKey;
+        const omisePubKey = JSON.parse(data?.app?.metafields?.publicKeys as string).omise.publicKey;
         const omise = Omise({
           publicKey: omisePubKey,
         });
         token = await omise.tokens.create({ card: cardDetails });
       } catch (e: any) {
+        window.postMessage({
+          source: "react-devtools-content-script",
+          payload: { event: "setTraceUpdatesEnabled", payload: false },
+          message: "network_error",
+        });
         console.error("Unable to create token, reason: ", e.message);
         return;
       }
