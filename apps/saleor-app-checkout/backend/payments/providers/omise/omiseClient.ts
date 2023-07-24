@@ -1,10 +1,16 @@
 import Omise from "omise";
 
-const omise = Omise({
-  publicKey: process.env.OMISE_PUBLIC_KEY,
-  secretKey: process.env.OMISE_SECRET_KEY,
-});
+import { getPrivateSettings } from "@/saleor-app-checkout/backend/configuration/settings";
+
+const saleorApiUrl = process.env.SALEOR_API_URL;
 
 export async function omiseClient() {
+  const metadata = await getPrivateSettings({ saleorApiUrl, obfuscateEncryptedData: false });
+
+  const omise = Omise({
+    publicKey: metadata.paymentProviders.omise.publicKey,
+    secretKey: metadata.paymentProviders.omise.secretKey,
+  });
+
   return omise;
 }

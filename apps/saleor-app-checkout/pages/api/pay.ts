@@ -169,7 +169,7 @@ const handler: NextApiHandler = async (req, res) => {
       body,
       appUrl,
       channelAndLocale,
-      tokenId: body.tokenId,
+      tokenId: body.tokenId as string,
     });
     return res.status(200).json(response);
   } catch (err) {

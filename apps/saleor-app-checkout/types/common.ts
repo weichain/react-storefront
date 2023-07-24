@@ -2,7 +2,11 @@ import { IconComponent, PaymentMethodID, PaymentProviderID, SettingType } from "
 
 export type SettingsType = "public" | "private";
 export const allPublicMetafieldID = ["customizationsCheckoutUrl"] as const;
-export const allPublicSettingID = ["customizations", "channelActivePaymentProviders"] as const;
+export const allPublicSettingID = [
+  "customizations",
+  "channelActivePaymentProviders",
+  "publicKeys",
+] as const;
 export const allPrivateSettingID = ["paymentProviders"] as const;
 export const allPublicTransactionMetafieldID = ["processedEvents"] as const;
 export const allSettingID = [...allPublicSettingID, ...allPrivateSettingID] as const;
@@ -18,7 +22,7 @@ export type ThemeVariant = "dark" | "light";
 /**
  * Customization types
  */
-export type CustomizationID = "branding" | "productSettings";
+export type CustomizationID = "branding" | "productSettings" | "paymentProvider";
 export type BrandingCustomizationSettingID =
   | "buttonBgColorPrimary"
   | "buttonBgColorHover"

@@ -14,17 +14,21 @@ import {
   UpdatePrivateMetadataDocument,
   UpdatePrivateMetadataMutation,
   UpdatePrivateMetadataMutationVariables,
+  UpdatePublicMetadataDocument,
+  UpdatePublicMetadataMutation,
+  UpdatePublicMetadataMutationVariables,
 } from "@/saleor-app-checkout/graphql";
 import { getClientForAuthData } from "@/saleor-app-checkout/backend/saleorGraphqlClient";
 import { defaultActiveChannelPaymentProviders } from "@/saleor-app-checkout/config/defaults";
 import { mergeChannelsWithPaymentProvidersSettings } from "./utils";
-import { PrivateSettingsValues } from "@/saleor-app-checkout/types/api";
+import { PrivateSettingsValues, PublicSettingsValues } from "@/saleor-app-checkout/types/api";
 import { mapPrivateSettingsToMetadata } from "./mapPrivateSettingsToMetadata";
 import { mapPrivateMetafieldsToSettings } from "./mapPrivateMetafieldsToSettings";
 import { mapPublicMetafieldsToSettings } from "@/saleor-app-checkout/frontend/misc/mapPublicMetafieldsToSettings";
 import { allPrivateSettingID, allPublicSettingID } from "@/saleor-app-checkout/types/common";
 import { getAppId } from "../environment";
 import * as Apl from "@/saleor-app-checkout/config/apl";
+import { mapPublicSettingsToMetadata } from "@/saleor-app-checkout/frontend/misc/mapPublicSettingsToMetadata";
 
 export const getPrivateSettings = async ({
   saleorApiUrl,
@@ -131,7 +135,30 @@ export const getChannelActivePaymentProvidersSettings = async ({
 
   return channelActivePaymentProvidersSettings;
 };
+export const setPublicSettings = async (saleorApiUrl: string, settings: PublicSettingsValues) => {
+  const authData = await Apl.get(saleorApiUrl);
+  const client = getClientForAuthData(authData);
 
+  const metadata = mapPublicSettingsToMetadata(settings);
+
+  const appId = await getAppId(saleorApiUrl);
+
+  const { data, error } = await client
+    .mutation<UpdatePublicMetadataMutation, UpdatePublicMetadataMutationVariables>(
+      UpdatePublicMetadataDocument,
+      {
+        id: appId,
+        input: metadata,
+        keys: [...allPrivateSettingID],
+      }
+    )
+    .toPromise();
+
+  if (error) {
+    throw error;
+  }
+  return data;
+};
 export const setPrivateSettings = async (
   saleorApiUrl: string,
   settings: PrivateSettingsValues<"unencrypted">
